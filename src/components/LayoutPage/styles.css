@@ -1,0 +1,38 @@
+.layout {
+  width: 100%;
+  height: 100%;
+}
+
+.crumb {
+  border-radius: 9px;
+  padding: 15px 10px;
+  margin-bottom: 40px;
+  overflow: auto;
+}
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.header-icons {
+  padding-right: 20px;
+  float: right;
+}
+
+.menu-item {
+  min-width: 160px;
+}
+
+.avatar {
+  cursor: pointer;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.link {
+  color: rgba(0, 0, 0, 0.65);
+}

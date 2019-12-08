@@ -1,0 +1,8 @@
+.layout {
+  overflow: auto;
+}
+
+.column_content {
+  display: flex;
+  flex-direction: column;
+}
