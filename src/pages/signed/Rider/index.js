@@ -8,7 +8,7 @@ import Sidebar from '../../../components/navbar/sidebar'
 import T1 from './teste'
 import T2 from './teste2'
 
-export default function Dashboard(props) {
+export default function Rider(props) {
 
     const [collapsed, setCollapsed] = useState(true)
 

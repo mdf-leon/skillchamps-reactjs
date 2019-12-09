@@ -1,5 +1,5 @@
 import React from 'react'
 
 export default function teste(){
-    return <h1>Foxa</h1>
+    return <h1>F---</h1>
 }

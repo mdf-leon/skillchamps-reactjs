@@ -42,8 +42,8 @@ ReactDOM.render(
                 <Route exact path="/" component={App} />
                 <VisitorRoute exact path="/login" component={Login} />
                 <ProtectedRoute exact path="/Dashboard" component={Dashboard} />
-                <Route exact path="/portfolio/:id" component={App} />
-                <Route path="/contact" component={App} />
+                {/* <Route exact path="/portfolio/:id" component={App} />
+                <Route path="/contact" component={App} /> */}
             </Switch>
         </Router>
     </CookiesProvider>
