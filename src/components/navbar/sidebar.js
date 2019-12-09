@@ -54,13 +54,13 @@ export default function Sidebar(props) {
                     title={
                         <span>
                             <Icon type="mail" />
-                            <span>Navigation One</span>
+                            <span>Conta</span>
                         </span>
                     }
                 >
-                    <Menu.Item key="5">Option 5</Menu.Item>
-                    <Menu.Item key="6">Option 6</Menu.Item>
-                    <Menu.Item key="7">Option 7</Menu.Item>
+                    <Menu.Item key="5">Login</Menu.Item>
+                    <Menu.Item key="6">Leave</Menu.Item>
+                    <Menu.Item key="7">Pagina inicial</Menu.Item>
                     <Menu.Item key="8">Option 8</Menu.Item>
                 </Menu.SubMenu>
                 <Menu.SubMenu
