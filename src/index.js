@@ -23,12 +23,24 @@ function ProtectedRoute(props){
     }
 }
 
+function VisitorRoute(props){
+    const [cookies, setCookie] = useCookies("jwt");
+    //console.log(cookies.jwt)
+    if(cookies.jwt == null){
+        //console.log("oy2")
+        return (<Route {...props} />)
+    } else {
+        //console.log("oy")
+        return (<Redirect to="/dashboard" />)
+    }
+}
+
 ReactDOM.render(
     <CookiesProvider>
         <Router>
             <Switch>
                 <Route exact path="/" component={App} />
-                <Route exact path="/login" component={Login} />
+                <VisitorRoute exact path="/login" component={Login} />
                 <ProtectedRoute exact path="/Dashboard" component={Dashboard} />
                 <Route exact path="/portfolio/:id" component={App} />
                 <Route path="/contact" component={App} />

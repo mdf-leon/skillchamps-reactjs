@@ -29,7 +29,7 @@ export default function Login(props) {
                     dvdv
                 </Button>
 
-                { collapsed ? <T1/> : <T2/>}
+                { collapsed ? <T1/> : <T2/> }
 
             </div>
         </div>

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Icon, Menu } from 'antd'
+import { useCookies } from 'react-cookie';
 
 export default function Sidebar(props) {
+
+    const [cookies, setCookie, removeCookie] = useCookies("jwt");
 
     const { layout, ...rest } = props
 
@@ -19,6 +22,11 @@ export default function Sidebar(props) {
     useEffect(() =>{
         props.collapsed ? setCollapsed(true) : setCollapsed(false)
     }, [props.collapsed])
+
+    const logOut = () => {
+        removeCookie("jwt")
+        window.location.reload()
+    }
 
     return (
         <div style={{ width: 256, height: '100%', position: 'absolute' }}>
@@ -64,7 +72,7 @@ export default function Sidebar(props) {
                     }
                 >
                     <Menu.Item key="5">Login</Menu.Item>
-                    <Menu.Item key="6">Leave</Menu.Item>
+                    <Menu.Item key="6" onClick={logOut}>Leave</Menu.Item>
                     <Menu.Item key="7">Pagina inicial</Menu.Item>
                     <Menu.Item key="8">Option 8</Menu.Item>
                 </Menu.SubMenu>

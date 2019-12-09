@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Row, Col, Card, Input, Form, Checkbox, Icon } from 'antd'
+import { Redirect } from 'react-router-dom'
 
 import { base } from '../../../config/api';
 import { useCookies } from 'react-cookie';
@@ -23,13 +24,14 @@ export default function Login(props) {
         base.post("", fData)
             .then(r => {
                 setCookie("jwt", r.data.token)
+                window.location.reload()
             }).catch(e => {
                 setLoading(false)
                 alert(e)
             })
     }
 
-    return (
+    return ( // <Redirect to="/dashboard" />
         <div className="container justify-content-center align-items-center d-flex h-100">
             <Card>
                 <Form onSubmit={handleSubmit} className="login-form">
