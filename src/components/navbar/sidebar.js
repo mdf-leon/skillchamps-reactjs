@@ -8,15 +8,20 @@ export default function Sidebar(props) {
     const [collapsed, setCollapsed] = useState(false)
 
     const toggleCollapsed = () => {
-        setCollapsed(!collapsed)
+        props.isCollapsed(!collapsed)// envia pra parent
+        setCollapsed(!collapsed)         
     }
+
+    // useEffect(()=>{
+    //     props.isCollapsed(collapsed)
+    // }, [collapsed])
 
     useEffect(() =>{
         props.collapsed ? setCollapsed(true) : setCollapsed(false)
     }, [props.collapsed])
 
     return (
-        <div style={{ width: 256, height: '100%' }}>
+        <div style={{ width: 256, height: '100%', position: 'absolute' }}>
             {/* <Button type="primary" onClick={() => toggleCollapsed()} style={{ margin: 16 }}
           >
             <Icon type={collapsed ? 'menu-unfold' : 'menu-fold'} 
