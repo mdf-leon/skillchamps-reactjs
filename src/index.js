@@ -10,6 +10,7 @@ import { CookiesProvider, useCookies } from 'react-cookie';
 import App from './App';
 import Login from './pages/visitor/Login'
 import Dashboard from './pages/signed/Dashboard'
+import Rider from './pages/signed/Rider'
 
 function ProtectedRoute(props){
     const [cookies, setCookie] = useCookies("jwt");
@@ -42,6 +43,7 @@ ReactDOM.render(
                 <Route exact path="/" component={App} />
                 <VisitorRoute exact path="/login" component={Login} />
                 <ProtectedRoute exact path="/Dashboard" component={Dashboard} />
+                <ProtectedRoute exact path="/Rider" component={Rider} />
                 {/* <Route exact path="/portfolio/:id" component={App} />
                 <Route path="/contact" component={App} /> */}
             </Switch>

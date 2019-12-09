@@ -11,7 +11,9 @@ export default function Sidebar(props) {
     const [collapsed, setCollapsed] = useState(false)
 
     const toggleCollapsed = () => {
-        props.isCollapsed(!collapsed)// envia pra parent
+        if(props.isCollapsed){
+            props.isCollapsed(!collapsed)// envia pra parent
+        }
         setCollapsed(!collapsed)         
     }
 
@@ -20,8 +22,21 @@ export default function Sidebar(props) {
     // }, [collapsed])
 
     useEffect(() =>{
-        props.collapsed ? setCollapsed(true) : setCollapsed(false)
+        console.log(props.collapsed)
+        //props.collapsed ? setCollapsed(true) : setCollapsed(false)
+        //if(props.collapsed){
+            //let clpsd = props.collapsed
+            setCollapsed(props.collapsed)
+        //}
+        
     }, [props.collapsed])
+
+    useEffect(()=>{
+        if(props.collapsed != false){
+            toggleCollapsed()
+        }
+        
+    }, [])
 
     const logOut = () => {
         removeCookie("jwt")
