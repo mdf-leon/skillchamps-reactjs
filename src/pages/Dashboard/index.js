@@ -11,15 +11,15 @@ export default function Login(props) {
 
     const [collapsed, setCollapsed] = useState(true)
 
-    const toggleCollapsed = () => {
-        setCollapsed(!collapsed)
+    const toggleCollapsed = (e) => { 
+        setCollapsed(!collapsed) // ! = not (contrariar)
     }
 
-
     const sidebar = (
-        <div style={{position: 'absolute', height: '100%', 
+        <div style={{
+            position: 'absolute', height: '100%',
         }}>
-            <div onClick={() => toggleCollapsed()}
+            <div onClick={ toggleCollapsed } 
                 style={{
                     height: 45, paddingLeft: 33,
                     //textAlign: 'center', 
@@ -33,14 +33,14 @@ export default function Login(props) {
                     style={{ alignSelf: 'center', verticalAlign: 'center' }}
                 />
             </div>
-            <Sidebar manualCollapse collapsed={collapsed}/>
+            <Sidebar manualCollapse collapsed={collapsed} />
         </div>
     )
 
     return (
         <div>
             {sidebar}
-            <div className="container justify-content-center align-items-center d-flex h-100">
+            <div className={"container justify-content-center align-items-center d-flex h-100"}>
 
                 <h1>owo</h1>
 
