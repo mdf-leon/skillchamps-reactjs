@@ -88,3 +88,27 @@ export default function Sidebar(props) {
         </div>
     );
 }
+
+//teste
+
+    // const sidebar = (
+    //     <div style={{
+    //         position: 'absolute', height: '100%',
+    //     }}>
+    //         <div onClick={ toggleCollapsed } 
+    //             style={{
+    //                 height: 45, paddingLeft: 33,
+    //                 //textAlign: 'center', 
+    //                 //justifyContent: 'center',
+    //                 alignItems: 'center', display: 'flex',
+    //                 width: collapsed ? 80 : 256,
+    //                 borderTop: 0, borderBottom: 0, borderLeft: 0,
+    //                 borderRight: 1, borderColor: '#e8e8e8', borderStyle: 'solid'
+    //             }}>
+    //             <Icon type={collapsed ? 'menu-unfold' : 'menu-fold'}
+    //                 style={{ alignSelf: 'center', verticalAlign: 'center' }}
+    //             />
+    //         </div>
+    //         <Sidebar manualCollapse collapsed={collapsed} />
+    //     </div>
+    // )

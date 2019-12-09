@@ -8,8 +8,8 @@ import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-ro
 import { CookiesProvider, useCookies } from 'react-cookie';
 
 import App from './App';
-import Login from './pages/Login'
-import Dashboard from './pages/Dashboard'
+import Login from './pages/visitor/Login'
+import Dashboard from './pages/signed/Dashboard'
 
 function ProtectedRoute(props){
     const [cookies, setCookie] = useCookies("jwt");

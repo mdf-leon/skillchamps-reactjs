@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Row, Col, Card, Input, Form, Checkbox, Icon } from 'antd'
 
-import { base } from '../../config/api';
+import { base } from '../../../config/api';
 import { useCookies } from 'react-cookie';
 
 
@@ -66,7 +66,6 @@ export default function Login(props) {
                     </Form.Item>
                 </Form>
             </Card>
-
         </div>
     )
 }
