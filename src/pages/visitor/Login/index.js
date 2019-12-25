@@ -21,7 +21,7 @@ export default function Login(props) {
     const handleSubmit = (e) => {
         e.preventDefault()
         setLoading(true)
-        base.post("", fData)
+        base.post("/authenticate", fData)
             .then(r => {
                 setCookie("jwt", r.data.token)
                 window.location.reload()
