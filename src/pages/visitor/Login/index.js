@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Row, Col, Card, Input, Form, Checkbox, Icon } from 'antd'
 import { Redirect } from 'react-router-dom'
 
@@ -7,7 +7,7 @@ import { useCookies } from 'react-cookie';
 
 
 
-export default function Login(props) {
+export default function Login(props) { // hook = function
 
     const [cookies, setCookie] = useCookies();
 
@@ -16,7 +16,6 @@ export default function Login(props) {
         password: ''
     })
     const [loading, setLoading] = useState(false)
-
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -31,6 +30,7 @@ export default function Login(props) {
             })
     }
 
+    // return = view (parte visual)
     return ( // <Redirect to="/dashboard" />
         <div className="container justify-content-center align-items-center d-flex h-100">
             <Card>

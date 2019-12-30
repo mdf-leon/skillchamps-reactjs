@@ -16,9 +16,9 @@ export default function Rider(props) {
     }
     
     return (
-        <div>
+        <div className="h-100">
             <Sidebar defaultCollapsed />
-            <div className={"container justify-content-center align-items-center d-flex h-100"}>
+            <div className="container justify-content-center align-items-center d-flex h-100">
 
                 <NewRider />
 

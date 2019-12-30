@@ -7,6 +7,7 @@ import Sidebar from '../../../components/navbar/sidebar'
 
 import T1 from './teste'
 import T2 from './teste2'
+import App from '../../../App'
 
 export default function Dashboard(props) {
 
@@ -29,7 +30,7 @@ export default function Dashboard(props) {
                     dvdv
                 </Button>
 
-                { collapsed ? <T1/> : <T2/> }
+                { collapsed ? <T1/> : <App/> }
 
             </div>
         </div>

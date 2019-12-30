@@ -4,7 +4,7 @@ import './index.css';
 import './bootstrap.css'
 import './Skillchamps.css'
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";  
 import { CookiesProvider, useCookies } from 'react-cookie';
 
 import App from './App';

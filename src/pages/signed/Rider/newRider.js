@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Form, Input, Card } from 'antd'
 
 export default function Teste(props) {
 
@@ -9,13 +10,23 @@ export default function Teste(props) {
         license_ido: '',
         name: '',
         fed_tax_ido: '',
-        subd_tax_ido: '',	
+        subd_tax_ido: '',
         city_tax_ido: ''
     })
 
-    return (
-        <div>
-            <h1>new rider</h1>
+    return ( // justify-content
+        <div className="container justify-content-center align-items-center d-flex h-100">
+            <Card>
+                <Form //onSubmit={handleSubmit}
+                >
+                    <Form.Item >
+                        <Input
+                            placeholder="date_of_birth"
+                        />
+                    </Form.Item>
+                </Form>
+            </Card>
+
         </div>
     )
 }
