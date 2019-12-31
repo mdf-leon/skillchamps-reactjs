@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Icon, Menu } from 'antd'
 import { useCookies } from 'react-cookie';
+import { Link } from 'react-router-dom'
 
 export default function Sidebar(props) {
 
@@ -11,31 +12,31 @@ export default function Sidebar(props) {
     const [collapsed, setCollapsed] = useState(false)
 
     const toggleCollapsed = () => {
-        if(props.isCollapsed){
+        if (props.isCollapsed) {
             props.isCollapsed(!collapsed)// envia pra parent
         }
-        setCollapsed(!collapsed)         
+        setCollapsed(!collapsed)
     }
 
     // useEffect(()=>{
     //     props.isCollapsed(collapsed)
     // }, [collapsed])
 
-    useEffect(() =>{
+    useEffect(() => {
         console.log(props.collapsed)
         //props.collapsed ? setCollapsed(true) : setCollapsed(false)
         //if(props.collapsed){
-            //let clpsd = props.collapsed
-            setCollapsed(props.collapsed)
+        //let clpsd = props.collapsed
+        setCollapsed(props.collapsed)
         //}
-        
+
     }, [props.collapsed])
 
-    useEffect(()=>{
-        if(props.collapsed != false){
+    useEffect(() => {
+        if (props.collapsed != false) {
             toggleCollapsed()
         }
-        
+
     }, [])
 
     const logOut = () => {
@@ -44,34 +45,38 @@ export default function Sidebar(props) {
     }
 
     return (
-        <div style={{ width: 256, height: '100%', position: 'absolute' }}>
+        <div style={{ width: 256, height: '100%', position: 'absolute', zIndex: collapsed ? 0 : 10}}>
             {/* <Button type="primary" onClick={() => toggleCollapsed()} style={{ margin: 16 }}
           >
             <Icon type={collapsed ? 'menu-unfold' : 'menu-fold'} 
             />
           </Button> */}
             <Menu
-                style={{height: '100%'}}
+                style={{ height: '100%' }}
                 defaultSelectedKeys={['1']}
                 defaultOpenKeys={['sub1']}
                 mode="inline"
                 theme="light"
                 inlineCollapsed={collapsed}
             >
-                { props.manualCollapse ? null : <div onClick={() => toggleCollapsed()} 
-                style={{height: 45, textAlign: 'center', justifyContent: 'center', 
-                alignItems: 'center', display: 'flex'}}>
+                {props.manualCollapse ? null : <div onClick={() => toggleCollapsed()}
+                    style={{
+                        height: 45, textAlign: 'center', justifyContent: 'center',
+                        alignItems: 'center', display: 'flex'
+                    }}>
                     <Icon type={collapsed ? 'menu-unfold' : 'menu-fold'}
-                    style={{alignSelf: 'center', verticalAlign: 'center'}}
+                        style={{ alignSelf: 'center', verticalAlign: 'center' }}
                     />
                 </div>}
                 <Menu.Item key="1">
-                    <Icon type="apple" />
-                    <span>Option 1</span>
+                    <Icon type="desktop" />
+                    <span>Dashboard</span>
+                    <Link to="/dashboard" />
                 </Menu.Item>
                 <Menu.Item key="2">
-                    <Icon type="desktop" />
-                    <span>Option 2</span>
+                    <Icon type="apple" />
+                    <span>Rider</span>
+                    <Link to="/rider" />
                 </Menu.Item>
                 <Menu.Item key="3">
                     <Icon type="inbox" />

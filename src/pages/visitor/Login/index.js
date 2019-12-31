@@ -22,8 +22,9 @@ export default function Login(props) { // hook = function
         setLoading(true)
         base.post("/authenticate", fData)
             .then(r => {
+                console.log(r)
                 setCookie("jwt", r.data.token)
-                window.location.reload()
+                //window.location.reload()
             }).catch(e => {
                 setLoading(false)
                 alert(e)
