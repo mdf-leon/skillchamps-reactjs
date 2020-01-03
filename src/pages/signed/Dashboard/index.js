@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Row, Col, Card, Input, Form, Checkbox, Icon } from 'antd'
 
 import { base } from '../../../config/api';
@@ -11,12 +11,24 @@ import App from '../../../App'
 
 export default function Dashboard(props) {
 
+    const [cookies] = useCookies("jwt");
+
     const [collapsed, setCollapsed] = useState(true)
 
     const toggleCollapsed = (e) => { 
         setCollapsed(!collapsed) // ! = not (contrariar)
     }
     
+    useEffect(()=>{
+        console.log(cookies.jwt)
+        base.get("/check", {headers: {Authorization : `Bearer ${cookies.jwt}`}})
+            .then(r => {
+                console.log(r)
+            }).catch(e => {
+                console.log(e.response)
+            })
+    }, [])
+
     return (
         <div>
             <Sidebar 

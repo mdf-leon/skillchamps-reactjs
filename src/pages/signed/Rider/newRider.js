@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { Form, Input, Card, Steps, Row, Col, DatePicker, Button, Icon } from 'antd'
 import { base } from '../../../config/api'
+import { withCookies, Cookies, useCookies } from 'react-cookie';
+
 
 export default function Teste(props) {
+
+    const [cookies] = useCookies("jwt");
 
     const [step, setStep] = useState(0)
 
@@ -33,10 +37,11 @@ export default function Teste(props) {
     }
 
     const handleSubmit = async () => {
+        // console.log(jwt)
         //let res = await base.post("/makerider", fData).catch(e => console.log(e.Error))
-        base.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
-        base.setHeader('Access-Control-Allow-Credentials',true);
-        base.post("/makerider", fData)
+        // base.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
+        // base.setHeader('Access-Control-Allow-Credentials',true);
+        base.post("/makerider", fData, {headers: {Authorization : `Bearer ${cookies.jwt}`}})
             .then(r => {
                 console.log(r)
             }).catch(e => {
