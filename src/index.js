@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import './bootstrap.css'
+import './index.css';
 import './Skillchamps.css'
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";  
@@ -11,6 +11,7 @@ import App from './App';
 import Login from './pages/visitor/Login'
 import Dashboard from './pages/signed/Dashboard'
 import Rider from './pages/signed/Rider'
+import AccountOptions from './pages/signed/AccountOptions'
 
 function ProtectedRoute(props){
     const [cookies, setCookie] = useCookies("jwt");
@@ -44,6 +45,7 @@ ReactDOM.render(
                 <VisitorRoute exact path="/login" component={Login} />
                 <ProtectedRoute exact path="/Dashboard" component={Dashboard} />
                 <ProtectedRoute exact path="/Rider" component={Rider} />
+                <ProtectedRoute exact path="/AccountOptions" component={AccountOptions} />
                 {/* <Route exact path="/portfolio/:id" component={App} />
                 <Route path="/contact" component={App} /> */}
             </Switch>

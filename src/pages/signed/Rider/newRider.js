@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Form, Input, Card, Steps, Row, Col, DatePicker, Button, Icon } from 'antd'
+import { Form, Input, Card, Steps, Row, DatePicker, Button, Icon } from 'antd'
 import { base } from '../../../config/api'
-import { withCookies, Cookies, useCookies } from 'react-cookie';
+import { //withCookies, Cookies, 
+    useCookies } from 'react-cookie';
 
 
 export default function Teste(props) {

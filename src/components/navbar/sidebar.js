@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Icon, Menu } from 'antd'
+import { Icon, Menu } from 'antd'
 import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom'
 
@@ -10,6 +10,8 @@ export default function Sidebar(props) {
     const { layout, ...rest } = props
 
     const [collapsed, setCollapsed] = useState(false)
+
+    const [seleKey, setSeleKey] = useState(['1'])
 
     const toggleCollapsed = () => {
         if (props.isCollapsed) {
@@ -23,7 +25,7 @@ export default function Sidebar(props) {
     // }, [collapsed])
 
     useEffect(() => {
-        console.log(props.collapsed)
+        //console.log(props.collapsed)
         //props.collapsed ? setCollapsed(true) : setCollapsed(false)
         //if(props.collapsed){
         //let clpsd = props.collapsed
@@ -32,11 +34,17 @@ export default function Sidebar(props) {
 
     }, [props.collapsed])
 
+    // useEffect(() => {
+        
+    //     let sk = props.SeleKey
+    //     setSeleKey(['4'])
+    //     console.log(seleKey)
+    // }, [props.SeleKey])
+
     useEffect(() => {
         if (props.collapsed != false) {
             toggleCollapsed()
         }
-
     }, [])
 
     const logOut = () => {
@@ -53,8 +61,8 @@ export default function Sidebar(props) {
           </Button> */}
             <Menu
                 style={{ height: '100%' }}
-                defaultSelectedKeys={['1']}
-                defaultOpenKeys={['sub1']}
+                defaultSelectedKeys={seleKey}
+                // defaultOpenKeys={['sub1']}
                 mode="inline"
                 theme="light"
                 inlineCollapsed={collapsed}
@@ -80,7 +88,8 @@ export default function Sidebar(props) {
                 </Menu.Item>
                 <Menu.Item key="3">
                     <Icon type="inbox" />
-                    <span>Option 3</span>
+                    <span>Account Options</span>
+                    <Link to="/AccountOptions" />
                 </Menu.Item>
                 <Menu.SubMenu
                     key="sub1"

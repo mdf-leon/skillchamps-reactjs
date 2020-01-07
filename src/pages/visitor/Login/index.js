@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Row, Col, Card, Input, Form, Checkbox, Icon } from 'antd'
-import { Redirect } from 'react-router-dom'
+import React, { useState, } from 'react';
+import { Button, Row, Card, Input, Form, Checkbox, Icon } from 'antd'
+// import { Redirect } from 'react-router-dom'
 
 import { base } from '../../../config/api';
 import { useCookies } from 'react-cookie';
