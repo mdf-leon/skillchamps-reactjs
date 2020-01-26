@@ -7,7 +7,7 @@ import axios from 'axios'
 // axios.defaults.withCredentials = true
 
 let base = axios.create({
-    baseURL: `http://192.168.0.104:3333`, // 192+168+0+23 3333
+    baseURL: `http://localhost:3333`, // 192+168+0+23 3333
     headers: {
         // Authorization : `Bearer ${GetJWT}`
     }
