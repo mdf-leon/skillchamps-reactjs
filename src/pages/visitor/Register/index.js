@@ -27,7 +27,6 @@ export default function Register(props) {
       .post("/register", fData)
       .then(r => {
         setSuccess(true);
-        setCookie("jwt", r.data.token);
         console.log(r);
       })
       .catch(e => {
@@ -38,7 +37,6 @@ export default function Register(props) {
 
   useEffect(() => {
     if (success === true) {
-      setTimeout(() => window.location.reload(), 3000);
     }
   }, [success]);
 
@@ -143,7 +141,7 @@ export default function Register(props) {
           <div style={{ textAlign: "center" }}>
             <Icon
               type="warning"
-              style={{ fontSize: "50px", color: "#096dd9", display: "block" }}
+              style={{ fontSize: "50px", color: "#d90909", display: "block" }}
             />
             <span
               style={{

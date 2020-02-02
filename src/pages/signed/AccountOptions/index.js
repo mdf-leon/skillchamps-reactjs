@@ -1,118 +1,223 @@
-import React, { useState } from 'react';
-import Sidebar from '../../../components/navbar/sidebar'
-import { Link } from 'react-router-dom';
-import { //withCookies, Cookies, 
-    useCookies
-} from 'react-cookie';
+import React, { useState, useEffect } from "react";
+import Sidebar from "../../../components/navbar/sidebar";
+import { Link } from "react-router-dom";
+import "./index.css";
+import { base } from "../../../config/api";
+import { useCookies } from "react-cookie";
 
-import { base } from '../../../config/api'
-import { Card, Icon, Button, Row, Col, Form, FormItem, Input } from 'antd';
+import {
+  Card,
+  Avatar,
+  Icon,
+  Spin,
+  Row,
+  Col,
+  Button,
+  FormItem,
+  Input
+} from "antd";
+
+import UserEvents from "./userEvents";
+import BecomeInstitute from "./becomeInstitute";
 
 export default function AccountOptions(props) {
+  const [cookies, setCookie] = useCookies("jwt");
 
-    const [cookies] = useCookies("jwt");
+  useEffect(() => {
+    base
+      .get(`/showuser`, {
+        headers: { Authorization: `Bearer ${cookies.jwt}` }
+      })
+      .then(r => {
+        setUser(r.data);
+        base
+          .get(`/showrider`, {
+            headers: { Authorization: `Bearer ${cookies.jwt}` }
+          })
+          .then(r => {
+            base
+              .get(`/eventsSigned`, {
+                headers: { Authorization: `Bearer ${cookies.jwt}` }
+              })
+              .then(r => {
+                setUserListEvents(r.data);
+                setLoading(false);
+              })
+              .catch(e => {
+                setLoading(false);
+              });
+            setUserRider(r.data);
+          })
+          .catch(e => {
+            setLoading(false);
+          });
+      })
+      .catch(e => {
+        console.log(e.response);
+      });
+  }, []);
 
-    const [institute, setInstitute] = useState({
-        fed_tax_ido: '',
-        subd_tax_ido: '',
-        city_tax_ido: '',
-        name: ''
-    })
-    const [isBecomingS, setIsBecomingS] = useState(false)
+  const [userListEvents, setUserListEvents] = useState({ data: [] });
 
-    const becomeInstituteSubmit = async (e) => {
-        e.preventDefault()
-        let res = await base.post("/makeinstitute", institute,
-            { headers: { Authorization: `Bearer ${cookies.jwt}` } }).catch(e => {
-                return e.data
-            })
-        console.log(res)
-    }
+  const [loading, setLoading] = useState(true);
 
-    const userDetails = (
-        <Card>
-            <Row style={{ display: "flex" }}>
-                <Col span={5} style={{ textAlign: "center" }}>
-                    <Button type="circle" icon="apple" />
-                </Col>
-                <Col span={12} style={{ alignSelf: "center" }}>
-                    <div >
-                        <h5 style={{ marginBottom: 0, textAlign: "center" }}
-                        >User name</h5>
-                    </div>
+  const [user, setUser] = useState({
+    name: ""
+  });
 
-                </Col>
+  const [userRider, setUserRider] = useState();
+  const [switcher, setSwitcher] = useState(false);
+
+  // const userInstitute = "";
+  const userDetails = (
+    <>
+      <Card
+        size="small"
+        title="User Information"
+        style={{
+          margin: "0 20px 20px 0"
+        }}
+        extra={<a href="#">Edit</a>}
+      >
+        <Row
+          style={{
+            display: "flex",
+            alignItems: "flex-start"
+          }}
+        >
+          <Col span={10}>
+            <Avatar
+              size={110}
+              icon="user"
+              src="https://featuredcreature.com/wp-content/uploads/2012/10/Screen%2Bshot%2B2011-01-23%2Bat%2B10.54.57%2BAM2.png"
+            />
+          </Col>
+          <Col span={14}>
+            <Row
+              style={{
+                lineHeight: "30px",
+                fontSize: "20px",
+                fontWeight: 500,
+                marginTop: 14
+              }}
+            >
+              <div>{user.name}</div>
             </Row>
-        </Card>
-    )
-
-    const instituteDetails = (
-        <Card >
-            <Row style={{ display: "flex" }}>
-                <h5 style={{ marginBottom: 0, textAlign: "center" }}
-                >You are not currently sponsored by any institute</h5>
+            <Row
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "left",
+                lineHeight: "25px"
+              }}
+            >
+              <div>{user.email}</div>
             </Row>
-            <Row style={{ marginTop: 15 }}>
-                <Col span={12} style={{ textAlign: "end" }}>
-                    <Button type="primary"
-                        onClick={() => setIsBecomingS(false)}>Request sponsor</Button>
-                </Col>
-                <Col span={12}>
-                    <Button type="link"
-                        onClick={() => setIsBecomingS(true)}>or become a sponsor</Button>
-                </Col>
+            <Row
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "left",
+                lineHeight: "25px"
+              }}
+            >
+              <div>5519981913338</div>
             </Row>
-        </Card>
-    )
+          </Col>
+        </Row>
+      </Card>
+      <Card
+        title="User Rider"
+        size="small"
+        style={{
+          margin: "0 20px 20px 0"
+        }}
+      >
+        <Row
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "15px"
+          }}
+        >
+          {userRider ? (
+            <>
+              <Card
+                style={{ width: "100%" }}
+                actions={[
+                  <Icon type="setting" key="setting" />,
+                  <Icon type="edit" key="edit" />,
+                  <Icon type="ellipsis" key="ellipsis" />
+                ]}
+              >
+                <Card.Meta
+                  avatar={
+                    <Avatar src="https://i.pinimg.com/originals/01/dc/20/01dc20ca382fb226e9df8591b3da95e9.jpg" />
+                  }
+                  title={userRider.name}
+                  description={
+                    userRider.motorcycle + " - " + userRider.motorcycle_plate
+                  }
+                />
+              </Card>
+            </>
+          ) : (
+            <span>
+              No rider found... <a href="/rider">register a rider</a>
+            </span>
+          )}
+        </Row>
+      </Card>
+    </>
+  );
 
-    const becomeAsponsor = (
-        <Card >
-            <Form onSubmit={becomeInstituteSubmit}>
-                <Form.Item label="name">
-                    <Input placeholder="name"
-                        onChange={e => setInstitute({ ...institute, name: e.currentTarget.value })} />
-                </Form.Item>
-                <Form.Item label="fed_tax_ido">
-                    <Input placeholder="fed_tax_ido"
-                        onChange={e => setInstitute({ ...institute, fed_tax_ido: e.currentTarget.value })} />
-                </Form.Item>
-                <Form.Item label="subd_tax_ido">
-                    <Input placeholder="subd_tax_ido"
-                        onChange={e => setInstitute({ ...institute, subd_tax_ido: e.currentTarget.value })} />
-                </Form.Item>
-                <Form.Item label="city_tax_ido">
-                    <Input placeholder="city_tax_ido"
-                        onChange={e => setInstitute({ ...institute, city_tax_ido: e.currentTarget.value })} />
-                </Form.Item>
-                <Form.Item >
-                    <Button type="link" style={{ float: "left" }}>Cancel</Button>
-                    <Button type="primary" style={{ float: "right" }}
-                        htmlType="submit" >Send</Button>
-                </Form.Item>
-            </Form>
-        </Card>
-    )
-
-    return (
-        <div style={{ height: "100%" }}>
-            <Sidebar SeleKey={['2']} />
-
-
-            <div style={{ marginLeft: 50, marginRight: 50 }} className="container justify-content-center align-items-center d-flex h-100">
-                <Row className="container h-100 d-flex mx-5">
-                    <Col style={{ margin: 0 }} className="my-auto w-100">
-                        {userDetails}
-                    </Col>
-                    <Col style={{ margin: 0 }} className="my-auto w-100">
-                        {isBecomingS ? becomeAsponsor : instituteDetails}
-                    </Col>
-                </Row>
-
-
+  return (
+    <div style={{ height: "100%" }}>
+      <Sidebar SeleKey={["2"]} />
+      <div
+        className="container justify-content-center align-items-center d-flex h-100"
+        style={{ flexDirection: "column" }}
+      >
+        {!loading ? (
+          <>
+            <div
+              style={{ display: "flex", width: "100%", padding: "26px 26px 0" }}
+            >
+              <span
+                style={{ width: "195px", fontSize: "20px", fontWeight: 500 }}
+              >
+                Account Options
+              </span>
+              <div
+                style={{
+                  borderBottom: "1px solid #e8e8e8",
+                  width: "100%",
+                  marginBottom: "10px"
+                }}
+              ></div>
             </div>
+            <Card bordered={false} style={{ width: "100%" }}>
+              <Row>
+                <Col span={9}>{userDetails}</Col>
+                <Col span={15}>
+                  {!switcher ? (
+                    <UserEvents userListEvents={userListEvents} />
+                  ) : (
+                    <BecomeInstitute setSwitcher={setSwitcher} />
+                  )}
+                </Col>
+              </Row>
 
-
-        </div>
-
-    )
+              <Button type="link" onClick={() => setSwitcher(true)}>
+                Register your Institute
+              </Button>
+            </Card>
+          </>
+        ) : (
+          <Spin size="large" />
+        )}
+      </div>
+    </div>
+  );
 }
