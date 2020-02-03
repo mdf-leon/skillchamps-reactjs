@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../../components/navbar/sidebar";
 import { Link } from "react-router-dom";
-import "./index.css";
+// import "./index.css";
 import { base } from "../../../config/api";
 import { useCookies } from "react-cookie";
 
