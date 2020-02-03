@@ -7,7 +7,7 @@ export default function Rider(props) {
     
     return (
         <div className="h-100">
-            <Sidebar SeleKey={['2']}/>
+            <Sidebar SeleKey={2}/>
             <div className="container justify-content-center align-items-center d-flex h-100">
 
                 <NewRider />

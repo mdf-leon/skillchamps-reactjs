@@ -11,7 +11,7 @@ export default function Sidebar(props) {
 
     const [collapsed, setCollapsed] = useState(false)
 
-    const [seleKey, setSeleKey] = useState(['1'])
+    const [seleKey, setSeleKey] = useState(props.SeleKey)
 
     const toggleCollapsed = () => {
         if (props.isCollapsed) {
@@ -37,8 +37,8 @@ export default function Sidebar(props) {
     // useEffect(() => {
         
     //     let sk = props.SeleKey
-    //     setSeleKey(['4'])
-    //     console.log(seleKey)
+    //     setSeleKey(props.SeleKey)
+    //     console.log(sk)
     // }, [props.SeleKey])
 
     useEffect(() => {
@@ -61,7 +61,7 @@ export default function Sidebar(props) {
           </Button> */}
             <Menu
                 style={{ height: '100%' }}
-                defaultSelectedKeys={seleKey}
+                defaultSelectedKeys={seleKey.toString()}
                 // defaultOpenKeys={['sub1']}
                 mode="inline"
                 theme="light"
