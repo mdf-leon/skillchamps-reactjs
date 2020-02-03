@@ -20,6 +20,15 @@ export default function UserEvents(props) {
             size="small"
             bordered
             dataSource={props.userListEvents.data}
+            pagination={{
+              onChange: page => {
+                props.getUserEvents(page);
+              },
+              pageSize: props.userListEvents.perPage,
+              total: props.userListEvents.total,
+              current: props.userListEvents.page
+            }}
+            style={{ marginTop: "20px" }}
             renderItem={item => (
               <List.Item>
                 <Row
