@@ -118,7 +118,7 @@ export default function Events(props) {
 
   return (
     <div className="h-100">
-      <Sidebar SeleKey={["2"]} />
+      <Sidebar SeleKey={""} />
       <div className="container justify-content-center align-items-center d-flex h-100">
         {!loading ? (
           <Card style={{ width: "70%" }}>
@@ -224,8 +224,13 @@ export default function Events(props) {
               </>
             ) : (
               <span>
-                To signup on an event, first you need to{" "}
-                <a href="/rider">create a rider</a>
+                To signup on an event, first you need to
+                <Button
+                  type="link"
+                  onClick={() => props.history.push("/rider")}
+                >
+                  create a rider
+                </Button>
               </span>
             )}
             <Modal

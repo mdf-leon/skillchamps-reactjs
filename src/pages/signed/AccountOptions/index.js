@@ -183,7 +183,10 @@ export default function AccountOptions(props) {
             </>
           ) : (
             <span>
-              No rider found... <a href="/rider">register a rider</a>
+              No rider found...
+              <Button type="link" onClick={() => props.history.push("/rider")}>
+                register a rider
+              </Button>
             </span>
           )}
         </Row>
@@ -193,7 +196,7 @@ export default function AccountOptions(props) {
 
   return (
     <div style={{ height: "100%" }}>
-      <Sidebar SeleKey={[4]} />
+      <Sidebar SeleKey={3} />
       <div
         className="container justify-content-center align-items-center d-flex h-100"
         style={{ flexDirection: "column" }}
@@ -223,9 +226,7 @@ export default function AccountOptions(props) {
                   {userInstitute ? (
                     <Button
                       type="link"
-                      onClick={() =>
-                        window.location.replace("/manageinstitute")
-                      }
+                      onClick={() => props.history.push("/manageInstitute")}
                     >
                       Manage your Institute
                     </Button>
@@ -240,6 +241,7 @@ export default function AccountOptions(props) {
                     <UserEvents
                       userListEvents={userListEvents}
                       getUserEvents={getUserEvents}
+                      {...props} // passa o props do pai para o filho
                     />
                   ) : (
                     <BecomeInstitute setSwitcher={setSwitcher} />

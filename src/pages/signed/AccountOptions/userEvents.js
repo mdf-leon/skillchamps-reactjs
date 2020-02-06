@@ -69,8 +69,10 @@ export default function UserEvents(props) {
       ) : (
         <Card size="small" title={"Subscribed Events"}>
           <Card>
-            You are not subscribed to any event...{" "}
-            <a href="/events">find events</a>
+            You are not subscribed to any event...
+            <Button type="link" onClick={() => props.history.push("/events")}>
+              find events
+            </Button>
           </Card>
         </Card>
       )}

@@ -4,9 +4,9 @@ import { base } from "../../../config/api";
 import { useCookies } from "react-cookie";
 import { Card, Descriptions, Spin, List, Col, Row, Button } from "antd";
 
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
-export default function Events() {
+export default function Events(props) {
   const [cookies] = useCookies("jwt");
   const [collapsed, setCollapsed] = useState(true);
 
@@ -50,6 +50,7 @@ export default function Events() {
         isCollapsed={setCollapsed} // isCollapsed retorna o estado atual da barra, true significa agrupado/fechado
         collapsed={collapsed} // collapsed recebe o valor que deseja, outro botao pode alterar a barra se quiser
         //manualCollapse // manualCollapse vai sumir com o botão se você quiser
+        SeleKey={""}
       />
       <div
         className={
@@ -92,16 +93,19 @@ export default function Events() {
                   <List
                     size="large"
                     bordered
-                    dataSource={instituteEventsList.data}
+                    dataSource={instituteEventsList}
                     renderItem={item => (
-                      <List.Item>{item.event_name}</List.Item>
+                      <List.Item>
+                        {item.event_name + " - " + item.date_begin}
+                      </List.Item>
                     )}
                   />
                 ) : null}
 
                 <Button
                   type="link"
-                  onClick={() => window.location.replace("/createevent")}
+                  //   onClick={() => window.location.replace("/createevent")}
+                  onClick={() => props.history.push("/createEvent")}
                 >
                   Create Event
                 </Button>
