@@ -18,13 +18,14 @@ import {
   Form,
   DatePicker
 } from "antd";
+import moment from "moment";
 
 export default function CreateEvent() {
   const [cookies, setCookie] = useCookies("jwt");
 
   const [userInputs, setUserInputs] = useState({
     event_name: "",
-    date_begin: "kkkk"
+    date_begin: ""
   });
 
   const [loading, setLoading] = useState(false);
@@ -37,6 +38,10 @@ export default function CreateEvent() {
         headers: { Authorization: `Bearer ${cookies.jwt}` }
       })
       .then(r => {
+        setUserInputs({
+          event_name: "",
+          date_begin: ""
+        });
         console.log(r.data);
         setLoading(false);
         setSwitcher(1);
@@ -66,16 +71,23 @@ export default function CreateEvent() {
                       event_name: e.target.value
                     })
                   }
+                  value={userInputs.event_name}
                 />
               </Form.Item>
               <Form.Item>
                 <DatePicker
-                // onChange={e => {
-                //   setUserInputs({
-                //     ...userInputs,
-                //     date_begin: e.format("YYYY-MM-DD")
-                //   });
-                // }}
+                  onChange={e => {
+                    setUserInputs({
+                      ...userInputs,
+                      date_begin: e ? e.format("YYYY-MM-DD") : null
+                    });
+                    console.log(e); // true ? "verdi" : null
+                  }}
+                  value={
+                    userInputs.date_begin
+                      ? moment(userInputs.date_begin, "YYYY-MM-DD")
+                      : undefined
+                  }
                 />
               </Form.Item>
               <Button type="primary" htmlType="submit" loading={loading}>

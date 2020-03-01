@@ -22,6 +22,7 @@ import AccountOptions from "./pages/signed/AccountOptions";
 import Events from "./pages/signed/Events";
 import Institute from "./pages/signed/Institute";
 import CreateEvent from "./pages/signed/CreateEvent";
+import ManageEvent from "./pages/signed/ManageEvent";
 
 function ProtectedRoute(props) {
   const [cookies, setCookie] = useCookies("jwt");
@@ -59,6 +60,7 @@ ReactDOM.render(
         <ProtectedRoute exact path="/events" component={Events} />
         <ProtectedRoute exact path="/manageInstitute" component={Institute} />
         <ProtectedRoute exact path="/createEvent" component={CreateEvent} />
+        <ProtectedRoute exact path="/manageEvent" component={ManageEvent} />
 
         <ProtectedRoute
           exact
