@@ -1,28 +1,12 @@
 import axios from "axios";
-// import { withCookies, Cookies, useCookies } from 'react-cookie';
-
-// let cookies = instanceOf(Cookies).isRequired
-
-// axios.defaults.withCredentials = true
 
 let base = axios.create({
-  baseURL: `http://3.217.15.215`, // 3.217.15.215
+  baseURL: `https://skillchamps.herokuapp.com`, // https://skillchamps.herokuapp.com
   headers: {
-    // Authorization : `Bearer ${GetJWT}`
+    Authorization : `Bearer ${localStorage.getItem('token')}`
   }
 });
 
-function GetJWT(cookies) {
-  // const [cookie] = useCookies("jwt")
-  // let jwt = cookies.get('jwt')
-  // console.log(cookie)
-  return cookies;
-}
-
-// const NewComponent = withCookies(GetJWT);
-// NewComponent.WrappedComponent === GetJWT;
-
 export {
   base
-  // GetJWT
 };

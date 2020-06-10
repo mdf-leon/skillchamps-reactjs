@@ -23,7 +23,8 @@ export default function Login(props) {
       .post("/authenticate", fData)
       .then(r => {
         console.log(r);
-        setCookie("jwt", r.data.token);
+        localStorage.setItem('token', r.data.token)
+        // setCookie("jwt", r.data.token);
         //window.location.reload()
       })
       .catch(e => {

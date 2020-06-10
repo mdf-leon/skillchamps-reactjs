@@ -25,25 +25,20 @@ import CreateEvent from "./pages/signed/CreateEvent";
 import ManageEvent from "./pages/signed/ManageEvent";
 
 function ProtectedRoute(props) {
-  const [cookies, setCookie] = useCookies("jwt");
-  //console.log(cookies.jwt)
-  if (cookies.jwt == null) {
-    //console.log("oy2")
+  let token = localStorage.getItem('token')
+  if (token == null || token == undefined) {
     return <Redirect to="/login" />;
   } else {
-    //console.log("oy")
     return <Route {...props} />;
   }
 }
 
 function VisitorRoute(props) {
-  const [cookies, setCookie] = useCookies("jwt");
-  //console.log(cookies.jwt)
-  if (cookies.jwt == null) {
-    //console.log("oy2")
+  let token = localStorage.getItem('token')
+  console.log(token);  
+  if (token == null || token == undefined) {
     return <Route {...props} />;
   } else {
-    //console.log("oy")
     return <Redirect to="/dashboard" />;
   }
 }
