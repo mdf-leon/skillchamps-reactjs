@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { Button, Row, Card, Input, Form, Checkbox, Icon } from "antd";
+import { Button, Input } from 'components/shared';
+import { Checkbox, Icon } from "antd";
 // import { Redirect } from 'react-router-dom'
+
+import { Center, Card, Row, } from './styles'
 
 import { base } from "../../../config/api";
 import { useCookies } from "react-cookie";
@@ -36,7 +39,7 @@ export default function Login(props) {
   // return = view (parte visual)
   return (
     // <Redirect to="/dashboard" />
-    <div className="container justify-content-center align-items-center d-flex h-100">
+    <Center>
       <Card>
         <div
           style={{
@@ -50,42 +53,42 @@ export default function Login(props) {
         <div style={{ textAlign: "center", margin: "5px 0 20px 0" }}>
           Dont have an account? <a href="/register">Register</a>
         </div>
-        <Form onSubmit={handleSubmit} className="login-form">
-          <Form.Item style={{ marginBottom: "10px" }}>
+        <form onSubmit={handleSubmit}  className="login-form">
+          <div style={{ marginBottom: "10px" }}>
             <Input
+              label="E-mail"
               onChange={e => setFData({ ...fData, email: e.target.value })}
-              prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="Email"
             />
-          </Form.Item>
-          <Form.Item style={{ marginBottom: "10px" }}>
+          </div>
+          <div style={{ marginBottom: "15px" }}>
             <Input
+              label="Password"
               onChange={e => setFData({ ...fData, password: e.target.value })}
-              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
               type="password"
               placeholder="Password"
             />
-          </Form.Item>
-          <Form.Item style={{ marginBottom: "10px" }}>
+          </div>
+          <div style={{ marginBottom: "15px" }}>
             <Checkbox>Remember me</Checkbox>
             <span className="mx-2" />
             <a className="login-form-forgot" href="">
               Forgot password
             </a>
-            <Row>
+            <div style={{ marginTop: "15px" }}>
               <Button
+                width="100%"
                 loading={loading}
                 block
                 type="primary"
                 htmlType="submit"
-                className="login-form-button"
               >
                 Log in
               </Button>
-            </Row>
-          </Form.Item>
-        </Form>
+            </div>
+          </div>
+        </form>
       </Card>
-    </div>
+    </Center>
   );
 }

@@ -13,6 +13,8 @@ import {
 } from "react-router-dom";
 import { CookiesProvider, useCookies } from "react-cookie";
 
+import { ThemeProvider } from 'styled-components';
+
 import App from "./App";
 import Login from "./pages/visitor/Login";
 import Register from "./pages/visitor/Register";
@@ -23,6 +25,8 @@ import Events from "./pages/signed/Events";
 import Institute from "./pages/signed/Institute";
 import CreateEvent from "./pages/signed/CreateEvent";
 import ManageEvent from "./pages/signed/ManageEvent";
+
+import theme from './styles/theme';
 
 function ProtectedRoute(props) {
   let token = localStorage.getItem('token')
@@ -43,8 +47,10 @@ function VisitorRoute(props) {
   }
 }
 
+
 ReactDOM.render(
   <CookiesProvider>
+    <ThemeProvider theme={theme}>
     <Router>
       <Switch>
         <Route exact path="/" component={App} />
@@ -71,6 +77,7 @@ ReactDOM.render(
                 <Route path="/contact" component={App} /> */}
       </Switch>
     </Router>
+    </ThemeProvider>
   </CookiesProvider>,
   document.getElementById("root")
 );
