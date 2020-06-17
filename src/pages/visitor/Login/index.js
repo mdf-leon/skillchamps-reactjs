@@ -9,9 +9,6 @@ import { base } from "../../../config/api";
 import { useCookies } from "react-cookie";
 
 export default function Login(props) {
-  // hook = function
-
-  const [cookies, setCookie] = useCookies();
 
   const [fData, setFData] = useState({
     email: "",

@@ -25,6 +25,7 @@ h1{
   text-align: center;
   color: ${(props) => props.theme.colors.darkAccent};
 }
+
 h2, label, th{
   font-family: 'Roboto', sans-serif;
   font-style: normal;
@@ -34,6 +35,7 @@ h2, label, th{
   line-height: 14px;
   color: ${(props) => props.theme.colors.darkAccent}
 }
+
 span, p{
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
