@@ -1,11 +1,12 @@
 import styled, { keyframes } from 'styled-components';
 
 export const Input = styled.div`
-  margin-top: ${(props) => (props.isTopSpaced ? '20px' : '0px')};
   display: block;
   position: relative;
   width: 100%;
   margin-top: ${(props) => (props.isTopSpaced ? '20px' : '0px')};
+  font-size: 12px;
+  line-height: 14px;
 
   &[disabled] > input {
     cursor: not-allowed;
@@ -14,9 +15,9 @@ export const Input = styled.div`
   input {
     display: block;
     box-sizing: border-box;
-    max-height: 38px;
+    max-height: 32px;
     border-radius: 4px;
-    padding: 6.6px 10px;
+    padding: 9px 10px;
     width: 100%;
     color: ${(props) => props.theme.colors.darkAccent};
     border: 1px solid
@@ -25,11 +26,15 @@ export const Input = styled.div`
           ? props.theme.colors.danger
           : props.theme.colors.lines};
     margin-top: ${(props) => (props.label === '' ? '0px' : '2px')};
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  input:focus {
+    border: none;
   }
 
   input::placeholder {
-    font-size: 12px;
-    line-height: 14px;
     color: ${(props) => props.theme.colors.lightAccent};
   }
 `;

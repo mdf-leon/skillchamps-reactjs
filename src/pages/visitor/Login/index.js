@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { Button, Input } from 'components/shared';
-import { Checkbox, Icon } from "antd";
+import { Button, Input, CheckBox } from 'components/shared';
 // import { Redirect } from 'react-router-dom'
 
-import { Center, Card, Row, } from './styles'
+import { Center, Card, Row } from './styles'
 
 import { base } from "../../../config/api";
-import { useCookies } from "react-cookie";
 
 export default function Login(props) {
 
@@ -50,7 +48,7 @@ export default function Login(props) {
         <div style={{ textAlign: "center", margin: "5px 0 20px 0" }}>
           Dont have an account? <a href="/register">Register</a>
         </div>
-        <form onSubmit={handleSubmit}  className="login-form">
+        <form onSubmit={handleSubmit} className="login-form">
           <div style={{ marginBottom: "10px" }}>
             <Input
               label="E-mail"
@@ -62,28 +60,26 @@ export default function Login(props) {
             <Input
               label="Password"
               onChange={e => setFData({ ...fData, password: e.target.value })}
-              type="password"
+              inputType="password"
               placeholder="Password"
             />
           </div>
-          <div style={{ marginBottom: "15px" }}>
-            <Checkbox>Remember me</Checkbox>
+          <Row style={{ marginBottom: "15px" }}>
+            <CheckBox content="Remember me" onCheckChange={(e)=>{console.log(e.target.checked)}}/>
             <span className="mx-2" />
             <a className="login-form-forgot" href="">
               Forgot password
             </a>
-            <div style={{ marginTop: "15px" }}>
-              <Button
-                width="100%"
-                loading={loading}
-                block
-                type="primary"
-                htmlType="submit"
-              >
-                Log in
+          </Row>
+          <Button
+            width="100%"
+            loading={loading}
+            block
+            type="primary"
+            htmlType="submit"
+          >
+            Log in
               </Button>
-            </div>
-          </div>
         </form>
       </Card>
     </Center>

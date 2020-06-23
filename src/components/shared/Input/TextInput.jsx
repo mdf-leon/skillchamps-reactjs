@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Cleave from 'cleave.js/react';
 import 'cleave.js/dist/addons/cleave-phone.br';
 import PropTypes from 'prop-types';
-import { Input, TogglePassword, ErrorText } from './styles';
+import { Input, TogglePassword, ErrorText,} from './styles';
 
 export default function TextInput({
   label,
@@ -151,7 +151,7 @@ export default function TextInput({
       isTopSpaced={isTopSpaced}
       className={className}
     >
-      <label htmlFor={name}>{label}</label>
+      {label ? <label htmlFor={name}>{label}</label> : null}
       <Cleave
         name={name}
         disabled={disabled}

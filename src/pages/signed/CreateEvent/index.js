@@ -3,21 +3,11 @@ import Sidebar from "../../../components/navbar/sidebar";
 import { base } from "../../../config/api";
 import { useCookies } from "react-cookie";
 import {
-  Input,
-  Button,
-  Card,
-  Row,
-  Col,
-  List,
-  Select,
-  Avatar,
-  Collapse,
   Icon,
-  Modal,
-  Spin,
-  Form,
   DatePicker
 } from "antd";
+import { Button, Input, } from 'components/shared';
+import { Center, Card, Row, TextInput } from './styles'
 import moment from "moment";
 
 export default function CreateEvent() {
@@ -57,13 +47,12 @@ export default function CreateEvent() {
   return (
     <div className="h-100">
       <Sidebar SeleKey={1} />
-      <div className="container justify-content-center align-items-center d-flex h-100">
+      <Center>
         <Card style={{ width: "300px" }}>
           {switcher === 0 ? (
-            <Form onSubmit={e => Create(e)}>
-              <p>Title</p>
-              <Form.Item>
-                <Input
+            <form onSubmit={e => Create(e)}>
+              <Row>
+                <Input label="Title"
                   placeholder="event name"
                   onChange={e =>
                     setUserInputs({
@@ -73,9 +62,10 @@ export default function CreateEvent() {
                   }
                   value={userInputs.event_name}
                 />
-              </Form.Item>
-              <Form.Item>
-                <DatePicker
+              </Row>
+              <Row isTopSpaced>
+                <Input label="Date"
+                  placeholder="YYYY-MM-DD"
                   onChange={e => {
                     setUserInputs({
                       ...userInputs,
@@ -89,11 +79,20 @@ export default function CreateEvent() {
                       : undefined
                   }
                 />
-              </Form.Item>
-              <Button type="primary" htmlType="submit" loading={loading}>
-                Submit
-              </Button>
-            </Form>
+              </Row>
+              <Row isTopSpaced>
+                <label style={{ width: "100%" }}>
+                  <p>Event describe</p>
+                  <TextInput form="usrform" />
+                </label>
+              </Row>
+              <Row isTopSpaced>
+                <Button type="primary" htmlType="submit" loading={loading}>
+                  Submit
+                </Button>
+              </Row>
+
+            </form>
           ) : switcher === 1 ? (
             <div style={{ textAlign: "center" }}>
               <Icon
@@ -115,28 +114,28 @@ export default function CreateEvent() {
               </Button>
             </div>
           ) : (
-            <div style={{ textAlign: "center" }}>
-              <Icon
-                type="close"
-                style={{ fontSize: "50px", color: "tomato", display: "block" }}
-              />
-              <span
-                style={{
-                  display: "block",
-                  fontSize: "20px",
-                  fontWeight: "500",
-                  marginTop: "5px"
-                }}
-              >
-                Error!
+                <div style={{ textAlign: "center" }}>
+                  <Icon
+                    type="close"
+                    style={{ fontSize: "50px", color: "tomato", display: "block" }}
+                  />
+                  <span
+                    style={{
+                      display: "block",
+                      fontSize: "20px",
+                      fontWeight: "500",
+                      marginTop: "5px"
+                    }}
+                  >
+                    Error!
               </span>
-              <Button type="primary" onClick={() => setSwitcher(0)}>
-                Try again
+                  <Button type="primary" onClick={() => setSwitcher(0)}>
+                    Try again
               </Button>
-            </div>
-          )}
+                </div>
+              )}
         </Card>
-      </div>
+      </Center>
     </div>
   );
 }

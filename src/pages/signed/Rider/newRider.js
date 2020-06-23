@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
   Form,
-  Input,
-  Card,
   Steps,
-  Row,
   DatePicker,
-  Button,
   Icon,
   Col,
   Avatar,
@@ -16,7 +12,11 @@ import {
   Descriptions,
   Spin
 } from "antd";
+import { Button, Input } from 'components/shared';
+import { Card, Row, RowButton } from './styles'
 import { base } from "../../../config/api";
+
+
 import {
   //withCookies, Cookies,
   useCookies
@@ -166,17 +166,17 @@ export default function Teste(props) {
   const firstStep = (
     <Row style={{ width: "100%" }} className="my-auto">
       <Card>
-        <Form //onSubmit={handleSubmit}
+        <form //onSubmit={handleSubmit}
         >
-          <Form.Item label="Name">
-            <Input
+          <Row >
+            <Input label="Name"
               value={fData.name}
               placeholder="John Wheelies"
               onChange={e => setFData({ ...fData, name: e.target.value })}
             />
-          </Form.Item>
-          <Form.Item label="Birthdate">
-            <DatePicker
+          </Row>
+          <Row isTopSpaced>
+            <Input label="Birthdate"
               style={{ width: "100%" }}
               placeholder="Birthdate in Month/Day/Year"
               format="MM/DD/YYYY"
@@ -184,8 +184,8 @@ export default function Teste(props) {
                 setFData({ ...fData, date_of_birth: e.format("YYYY-MM-DD") })
               }
             />
-          </Form.Item>
-          <Form.Item>
+          </Row>
+          <RowButton style={{ justifyContent: "flex-end" }} isTopSpaced>
             {/* <Button type="primary" style={{ float: "left" }}>
                                     <Icon type="left" />
                                     Go back
@@ -198,8 +198,8 @@ export default function Teste(props) {
               Go forward
               <Icon type="right" />
             </Button>
-          </Form.Item>
-        </Form>
+          </RowButton>
+        </form>
         {/* <span style={{ color: "gray", float: "right" }}>You can click on the step at the top to go back.</span> */}
       </Card>
     </Row>
@@ -210,32 +210,32 @@ export default function Teste(props) {
       <Card>
         <Form //onSubmit={handleSubmit}
         >
-          <Form.Item label="Motorcycle plate">
-            <Input
+          <Row >
+            <Input label="Motorcycle plate"
               value={fData.motorcycle_plate}
               placeholder="MOZ7482"
               onChange={e =>
                 setFData({ ...fData, motorcycle_plate: e.target.value })
               }
             />
-          </Form.Item>
-          <Form.Item label="Motorcycle description">
-            <Input
+          </Row>
+          <Row isTopSpaced>
+            <Input label="Motorcycle description"
               value={fData.motorcycle}
               placeholder="Harley Davidson Fat Bob 2007"
               onChange={e => setFData({ ...fData, motorcycle: e.target.value })}
             />
-          </Form.Item>
-          <Form.Item label="License identification">
-            <Input
+          </Row>
+          <Row isTopSpaced>
+            <Input label="License identification"
               value={fData.license_ido}
               placeholder="189725589456 (license_ido)"
               onChange={e =>
                 setFData({ ...fData, license_ido: e.target.value })
               }
             />
-          </Form.Item>
-          <Form.Item>
+          </Row>
+          <RowButton isTopSpaced>
             <Button
               type=""
               style={{ float: "left" }}
@@ -252,7 +252,7 @@ export default function Teste(props) {
               Go forward
               <Icon type="right" />
             </Button>
-          </Form.Item>
+          </RowButton>
         </Form>
         {/* <span style={{ color: "gray", float: "right" }}>You can click on the step at the top to go back.</span> */}
       </Card>
@@ -264,34 +264,34 @@ export default function Teste(props) {
       <Card>
         <Form //onSubmit={handleSubmit}
         >
-          <Form.Item label="fed_tax_ido">
-            <Input
+          <Row >
+            <Input label="fed_tax_ido"
               value={fData.fed_tax_ido}
               placeholder="USA"
               onChange={e =>
                 setFData({ ...fData, fed_tax_ido: e.target.value })
               }
             />
-          </Form.Item>
-          <Form.Item label="subd_tax_ido">
-            <Input
+          </Row>
+          <Row isTopSpaced>
+            <Input label="subd_tax_ido"
               value={fData.subd_tax_ido}
               placeholder="Maryland"
               onChange={e =>
                 setFData({ ...fData, subd_tax_ido: e.target.value })
               }
             />
-          </Form.Item>
-          <Form.Item label="city_tax_ido">
-            <Input
+          </Row>
+          <Row isTopSpaced>
+            <Input label="city_tax_ido"
               value={fData.city_tax_ido}
               placeholder="City"
               onChange={e =>
                 setFData({ ...fData, city_tax_ido: e.target.value })
               }
             />
-          </Form.Item>
-          <Form.Item>
+          </Row>
+          <RowButton isTopSpaced>
             <Button
               type=""
               style={{ float: "left" }}
@@ -310,7 +310,7 @@ export default function Teste(props) {
               Go forward
               <Icon type="right" />
             </Button>
-          </Form.Item>
+          </RowButton>
         </Form>
         {/* <span style={{ color: "gray", float: "right" }}>You can click on the step at the top to go back.</span> */}
       </Card>
