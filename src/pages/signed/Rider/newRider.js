@@ -1,57 +1,23 @@
-import React, { useState, useEffect } from "react";
-import {
-  Form,
-  Steps,
-  DatePicker,
-  Icon,
-  Col,
-  Avatar,
-  Select,
-  List,
-  Checkbox,
-  Descriptions,
-  Spin
-} from "antd";
-import { Button, Input } from 'components/shared';
-import { Card, Row, RowButton } from './styles'
+import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
+import { Button, TextInput, Modal } from 'components';
+import { Row, Col } from 'styles/grid'
+import { Card } from './styles'
 import { base } from "../../../config/api";
 
 
-import {
-  //withCookies, Cookies,
-  useCookies
-} from "react-cookie";
-
 export default function Teste(props) {
-  const [cookies] = useCookies("jwt");
+  const history = useHistory();
 
-  useEffect(() => {
-    base
-      .get(`/showrider`, {
-        headers: { Authorization: `Bearer ${cookies.jwt}` }
-      })
-      .then(r => {
-        base
-          .get(`/showinstitute`, {
-            headers: { Authorization: `Bearer ${cookies.jwt}` }
-          })
-          .then(r => {
-            setUserInstitute(r.data);
-            setLoading(false);
-          })
-          .catch(e => {
-            setStep(3);
-            getList(1);
-          });
-        setUserRider(r.data);
-      })
-      .catch(e => {
-        setLoading(false);
-      });
-  }, []);
+  const successMessage = (
+    <div>
+      <h4 style={{color: "rgba(0, 0, 0, 0.65)", fontSize: "26px"}}>Successfully created Rider</h4>
+      <p style={{color: "rgba(0, 0, 0, 0.65)",}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+      <Button style={{marginTop: "20px"}} onClick={() => history.push('/AccountOptions')} width="100%">Ok</Button>
+    </div>
+  )
 
-  const [step, setStep] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [renderModal, setrenderModal] = useState(true)
 
   const [fData, setFData] = useState({
     name: "",
@@ -66,68 +32,17 @@ export default function Teste(props) {
     city_tax_ido: ""
   });
 
-  const [inputColumn, setInputColumn] = useState("name");
-  const [inputValue, setInputValue] = useState("");
-
-  const [instituteList, setInstituteList] = useState({
-    total: 0,
-    perPage: 20,
-    page: 1,
-    lastPage: 0,
-    data: []
-  });
-
-  const [instituteRequest, setInstituteRequest] = useState([]);
-  const [requestPage, setRequestPage] = useState(1);
-
-  const [userInstitute, setUserInstitute] = useState();
-  const [userRider, setUserRider] = useState();
-
-  const showStep = () => {
-    switch (step) {
-      case 0:
-        return firstStep;
-      case 1:
-        return secondStep;
-      case 2:
-        return thirdStep;
-      case 3:
-        return fourthStep;
-      default:
-        return "we";
-    }
-  };
-
-  const getList = page => {
-    base
-      .get(
-        `/instituteslist?column=${inputColumn}&value=${inputValue}&page=${page}&limit=10`,
-        {
-          headers: { Authorization: `Bearer ${cookies.jwt}` }
-        }
-      )
-      .then(r => {
-        setInstituteList(r.data);
-
-        setLoading(false);
-      })
-      .catch(e => {
-        setLoading(false);
-      });
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = e => {
+    e.preventDefault()
     // console.log(jwt)
     //let res = await base.post("/makerider", fData).catch(e => console.log(e.Error))
     // base.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
     // base.setHeader('Access-Control-Allow-Credentials',true);
     base
-      .post("/makerider", fData, {
-        headers: { Authorization: `Bearer ${cookies.jwt}` }
-      })
+      .post("/makerider", fData,)
       .then(r => {
-        setStep(3);
-        getList(1);
+        console.log(r)
+        setrenderModal(true)
       })
       .catch(e => {
         console.log(e.response);
@@ -135,398 +50,90 @@ export default function Teste(props) {
     console.log(fData);
   };
 
-  const handleSubmitRequest = () => {
-    base
-      .post("/bind", fData, {
-        headers: { Authorization: `Bearer ${cookies.jwt}` }
-      })
-      .then(r => {})
-      .catch(e => {
-        console.log(e.response);
-      });
-    console.log(fData);
-  };
-
-  const handleColumn = e => {
-    setInputColumn(e);
-  };
-
-  const handleValue = e => {
-    setInputValue(e.target.value);
-  };
-
-  const handleChecks = e => {
-    if (!e.target.checked) {
-      let il = instituteRequest;
-      setInstituteRequest(il.filter(i => i != e.target.id));
-    } else {
-      setInstituteRequest([...instituteRequest, e.target.id]);
-    }
-  };
-  const firstStep = (
-    <Row style={{ width: "100%" }} className="my-auto">
-      <Card>
-        <form //onSubmit={handleSubmit}
-        >
-          <Row >
-            <Input label="Name"
-              value={fData.name}
-              placeholder="John Wheelies"
-              onChange={e => setFData({ ...fData, name: e.target.value })}
-            />
-          </Row>
-          <Row isTopSpaced>
-            <Input label="Birthdate"
-              style={{ width: "100%" }}
-              placeholder="Birthdate in Month/Day/Year"
-              format="MM/DD/YYYY"
-              onChange={(e, dd) =>
-                setFData({ ...fData, date_of_birth: e.format("YYYY-MM-DD") })
-              }
-            />
-          </Row>
-          <RowButton style={{ justifyContent: "flex-end" }} isTopSpaced>
-            {/* <Button type="primary" style={{ float: "left" }}>
-                                    <Icon type="left" />
-                                    Go back
-                                </Button> */}
-            <Button
-              type="primary"
-              style={{ float: "right" }}
-              onClick={() => setStep(1)}
-            >
-              Go forward
-              <Icon type="right" />
-            </Button>
-          </RowButton>
-        </form>
-        {/* <span style={{ color: "gray", float: "right" }}>You can click on the step at the top to go back.</span> */}
-      </Card>
-    </Row>
-  );
-
-  const secondStep = (
-    <Row style={{ width: "100%" }} className="my-auto">
-      <Card>
-        <Form //onSubmit={handleSubmit}
-        >
-          <Row >
-            <Input label="Motorcycle plate"
-              value={fData.motorcycle_plate}
-              placeholder="MOZ7482"
-              onChange={e =>
-                setFData({ ...fData, motorcycle_plate: e.target.value })
-              }
-            />
-          </Row>
-          <Row isTopSpaced>
-            <Input label="Motorcycle description"
-              value={fData.motorcycle}
-              placeholder="Harley Davidson Fat Bob 2007"
-              onChange={e => setFData({ ...fData, motorcycle: e.target.value })}
-            />
-          </Row>
-          <Row isTopSpaced>
-            <Input label="License identification"
-              value={fData.license_ido}
-              placeholder="189725589456 (license_ido)"
-              onChange={e =>
-                setFData({ ...fData, license_ido: e.target.value })
-              }
-            />
-          </Row>
-          <RowButton isTopSpaced>
-            <Button
-              type=""
-              style={{ float: "left" }}
-              onClick={() => setStep(0)}
-            >
-              <Icon type="left" />
-              Go back
-            </Button>
-            <Button
-              type="primary"
-              style={{ float: "right" }}
-              onClick={() => setStep(2)}
-            >
-              Go forward
-              <Icon type="right" />
-            </Button>
-          </RowButton>
-        </Form>
-        {/* <span style={{ color: "gray", float: "right" }}>You can click on the step at the top to go back.</span> */}
-      </Card>
-    </Row>
-  );
-
-  const thirdStep = (
-    <Row style={{ width: "100%" }} className="my-auto">
-      <Card>
-        <Form //onSubmit={handleSubmit}
-        >
-          <Row >
-            <Input label="fed_tax_ido"
-              value={fData.fed_tax_ido}
-              placeholder="USA"
-              onChange={e =>
-                setFData({ ...fData, fed_tax_ido: e.target.value })
-              }
-            />
-          </Row>
-          <Row isTopSpaced>
-            <Input label="subd_tax_ido"
-              value={fData.subd_tax_ido}
-              placeholder="Maryland"
-              onChange={e =>
-                setFData({ ...fData, subd_tax_ido: e.target.value })
-              }
-            />
-          </Row>
-          <Row isTopSpaced>
-            <Input label="city_tax_ido"
-              value={fData.city_tax_ido}
-              placeholder="City"
-              onChange={e =>
-                setFData({ ...fData, city_tax_ido: e.target.value })
-              }
-            />
-          </Row>
-          <RowButton isTopSpaced>
-            <Button
-              type=""
-              style={{ float: "left" }}
-              onClick={() => setStep(1)}
-            >
-              <Icon type="left" />
-              Go back
-            </Button>
-            <Button
-              type="primary"
-              style={{ float: "right" }}
-              onClick={() => {
-                handleSubmit(3);
-              }}
-            >
-              Go forward
-              <Icon type="right" />
-            </Button>
-          </RowButton>
-        </Form>
-        {/* <span style={{ color: "gray", float: "right" }}>You can click on the step at the top to go back.</span> */}
-      </Card>
-    </Row>
-  );
-  const fourthStep = (
-    <Row style={{ width: "100%", marginBottom: "20px" }} className="my-auto">
-      <Card>
-        <span>Here you can find institutes open for signup</span>
-        <List
-          size="large"
-          header={
-            <>
-              <div style={{ display: "flex" }}>
-                <div style={{ width: "130px", lineHeight: "30px" }}>
-                  Find Institutes:
-                </div>
-                <Input.Group compact style={{ display: "flex" }}>
-                  <Select
-                    style={{ width: "25%" }}
-                    defaultValue="name"
-                    onChange={handleColumn}
-                  >
-                    <Select.Option value="name">Name</Select.Option>
-                    <Select.Option value="id">Id</Select.Option>
-                    <Select.Option value="address">Address</Select.Option>
-                  </Select>
-                  <Input.Search
-                    placeholder="search text"
-                    enterButton
-                    onChange={handleValue}
-                    onSearch={() => {
-                      setRequestPage(1);
-                      getList(1);
-                    }}
-                  />
-                </Input.Group>
-              </div>
-            </>
-          }
-          bordered
-          dataSource={instituteList.data}
-          renderItem={item => (
-            <List.Item style={{ height: "50px" }}>
-              <Row
-                style={{
-                  width: "100%",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  display: "flex"
-                }}
-              >
-                <Col span={3}>
-                  <Avatar
-                    shape="square"
-                    icon="user"
-                    src="http://www.somervillenj.org/images/imageedit_1_2654230527.jpg"
-                    style={{
-                      alignItems: "center",
-                      display: "flex",
-                      justifyContent: "center",
-                      float: "left"
-                    }}
-                  />
-                </Col>
-                <Col span={8}>
-                  <span style={{ lineHeight: "40px" }}>{item.name}</span>
-                </Col>
-                <Col span={8}>
-                  <span style={{ lineHeight: "40px" }}>City - Sp</span>
-                </Col>
-                <Col span={5}>
-                  <Checkbox
-                    checked={
-                      instituteRequest.some(request => request == item.id)
-                        ? true
-                        : false
-                    }
-                    id={item.id.toString()}
-                    onChange={handleChecks}
-                  ></Checkbox>
-                </Col>
-              </Row>
-            </List.Item>
-          )}
-          pagination={{
-            onChange: page => {
-              setRequestPage(page);
-              getList(page);
-            },
-            current: requestPage,
-            pageSize: instituteList.perPage,
-            total: instituteList.total
-          }}
-          style={{ margin: "20px 0" }}
-        />
-
-        <Button
-          type="primary"
-          style={{ float: "right" }} //htmlType={"submit"}
-          onClick={handleSubmitRequest}
-        >
-          Finish
-          <Icon type="check-circle" />
-        </Button>
-      </Card>
-    </Row>
-  );
   return (
-    // justify-content
 
     <Row
       className="container h-100 d-flex justify-content-center"
       style={{ alignItems: "center" }}
     >
-      {!loading ? (
-        <div style={{ margin: 0, width: "70%" }} className="my-auto">
-          {!userRider && !userInstitute ? (
-            <>
-              <div
-                style={{ display: "flex", width: "100%", padding: "26px 0" }}
-              >
-                <span
-                  style={{ width: "195px", fontSize: "20px", fontWeight: 500 }}
-                >
-                  Create a Rider
-                </span>
-                <div
-                  style={{
-                    borderBottom: "1px solid #e8e8e8",
-                    width: "100%",
-                    marginBottom: "10px"
-                  }}
-                ></div>
-              </div>
-              <Row
-                style={{ width: "100%", paddingBottom: 35 }}
-                className="my-auto"
-              >
-                <Steps current={step}>
-                  <Steps.Step
-                    title="The Rider"
-                    description="Tell us about you"
-                  />
-                  <Steps.Step
-                    title="The Motorcycle"
-                    description="What you ride on?"
-                  />
-                  <Steps.Step
-                    title="Your Address"
-                    description="Where are you"
-                  />
-                  <Steps.Step
-                    title="Your Sponsor"
-                    description="Find institutes"
-                  />
-                </Steps>
-              </Row>
-              {showStep()}
-            </>
-          ) : !userInstitute ? (
-            <>
-              <div
-                style={{ display: "flex", width: "100%", padding: "26px 0" }}
-              >
-                <span
-                  style={{ width: "195px", fontSize: "20px", fontWeight: 500 }}
-                >
-                  Find a sponsor
-                </span>
-                <div
-                  style={{
-                    borderBottom: "1px solid #e8e8e8",
-                    width: "100%",
-                    marginBottom: "10px"
-                  }}
-                ></div>
-              </div>
-              <Row
-                style={{ width: "100%", paddingBottom: 35 }}
-                className="my-auto"
-              >
-                <Steps current={3}>
-                  <Steps.Step
-                    title="The Rider"
-                    description="Tell us about you"
-                  />
-                  <Steps.Step
-                    title="The Motorcycle"
-                    description="What you ride on?"
-                  />
-                  <Steps.Step
-                    title="Your Address"
-                    description="Where are you"
-                  />
-                  <Steps.Step
-                    title="Your Sponsor"
-                    description="Find institutes"
-                  />
-                </Steps>
-              </Row>
-              {showStep()}
-            </>
-          ) : (
-            <Card>
-              <Descriptions title={userInstitute.name}>
-                <Descriptions.Item>
-                  {userInstitute.city_tax_ido} - {userInstitute.fed_tax_ido}
-                </Descriptions.Item>
-              </Descriptions>
-            </Card>
-          )}
-        </div>
-      ) : (
-        <Spin size="large" />
-      )}
+      <Modal show={renderModal} content={successMessage}/>
+      <Card>
+        <form onSubmit={handleSubmit}>
+          <h3>Register Rider</h3>
+          <Row>
+            <Col lg={12}>
+              <TextInput
+                label="Name"
+                placeholder="Joh Wheelies"
+                value={fData.name}
+                onChange={e => setFData({ ...fData, name: e.target.value })}
+              />
+            </Col>
+            <Col xs={12} md={6}>
+              <TextInput label="Birthdate" placeholder="YYYY-MM-DD"
+                onChange={(e) =>
+                  setFData({ ...fData, date_of_birth: e.target.value })}
+              />
+            </Col>
+            <Col xs={12} md={6}>
+              <TextInput label="Motorcycle Plate" placeholder="M0Z7482"
+                value={fData.motorcycle_plate}
+                onChange={e =>
+                  setFData({ ...fData, motorcycle_plate: e.target.value })
+                }
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={12} md={9}>
+              <TextInput label="Motorcycle Description" placeholder="Harley Davidson Fat Bob 2007"
+                value={fData.motorcycle}
+                onChange={e => setFData({ ...fData, motorcycle: e.target.value })}
+              />
+            </Col>
+            <Col sm={12} md={3}>
+              <TextInput label="License Identification" placeholder="18972558956 (license_ido)"
+                value={fData.license_ido}
+                onChange={e =>
+                  setFData({ ...fData, license_ido: e.target.value })
+                }
+              />
+            </Col>
+          </Row>
+
+          <Row>
+            <Col sm={12}>
+              <TextInput label="Fed_tax_ido" placeholder="USA"
+                value={fData.fed_tax_ido}
+                onChange={e =>
+                  setFData({ ...fData, fed_tax_ido: e.target.value })
+                }
+              />
+            </Col>
+
+            <Col sm={12}>
+              <TextInput label="Subd_tax_ido" placeholder="Maryland"
+                value={fData.subd_tax_ido}
+                onChange={e =>
+                  setFData({ ...fData, subd_tax_ido: e.target.value })
+                }
+              />
+            </Col>
+
+            <Col sm={12}>
+              <TextInput label="City_tax_ido" placeholder="City"
+                value={fData.city_tax_ido}
+                onChange={e =>
+                  setFData({ ...fData, city_tax_ido: e.target.value })
+                }
+              />
+            </Col>
+          </Row>
+          <div style={{ marginTop: "20px" }}>
+            <Button type={'submit'}>Submit</Button>
+          </div>
+        </form>
+      </Card>
     </Row>
   );
 }

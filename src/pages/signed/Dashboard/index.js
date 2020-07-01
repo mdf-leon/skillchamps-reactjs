@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Column } from "styles/grid";
+import React from "react";
+import { Container, Row, Column } from "styles/grid2";
 
 
 export default function Dashboard(props) {

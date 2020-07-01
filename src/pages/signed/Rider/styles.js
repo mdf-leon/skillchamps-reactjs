@@ -13,8 +13,7 @@ export const Card = styled.div`
   padding: 20px;
   background-color: white;
   border-radius: 4px;
-    width: 100%;
-    height: 100%;
+  min-width: 90%;
 `;
 
 export const Row = styled.div`
