@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Button, TextInput, Modal } from 'components';
+import { Row, Col } from 'styles/grid'
 import Sidebar from "../../../components/navbar/sidebar";
 import { Link } from "react-router-dom";
 import { base } from "../../../config/api";
@@ -9,37 +11,26 @@ import {
   Avatar,
   Icon,
   Spin,
-  Row,
-  Col,
-  Button,
-  FormItem,
-  Input
 } from "antd";
 
 import UserEvents from "./userEvents";
 import BecomeInstitute from "./becomeInstitute";
 
 export default function AccountOptions(props) {
-  const [cookies, setCookie] = useCookies("jwt");
 
   useEffect(() => {
     base
-      .get(`/showuser`, {
-        headers: { Authorization: `Bearer ${cookies.jwt}` }
-      })
+      .get(`/showuser` )
       .then(r => {
         setUser(r.data);
         getUserIntitute();
         base
-          .get(`/showrider`, {
-            headers: { Authorization: `Bearer ${cookies.jwt}` }
-          })
+          .get(`/showrider` )
           .then(r => {
             getUserEvents(1);
             setUserRider(r.data);
           })
           .catch(e => {
-            setLoading(false);
           });
       })
       .catch(e => {
@@ -51,8 +42,6 @@ export default function AccountOptions(props) {
 
   const [userInstitute, setUserInstitute] = useState();
 
-  const [loading, setLoading] = useState(true);
-
   const [user, setUser] = useState({
     name: ""
   });
@@ -62,28 +51,21 @@ export default function AccountOptions(props) {
 
   const getUserEvents = page => {
     base
-      .get(`/eventsSigned?page=${page}&limit=10`, {
-        headers: { Authorization: `Bearer ${cookies.jwt}` }
-      })
+      .get(`/eventsSigned?page=${page}&limit=10`)
       .then(r => {
         setUserListEvents(r.data);
-        setLoading(false);
       })
       .catch(e => {
-        setLoading(false);
       });
   };
 
   const getUserIntitute = () => {
     base
-      .get(`/showinstitute`, {
-        headers: { Authorization: `Bearer ${cookies.jwt}` }
-      })
+      .get(`/showinstitute`)
       .then(r => {
         setUserInstitute(r.data);
       })
       .catch(e => {
-        setLoading(false);
       });
   };
 
@@ -201,7 +183,6 @@ export default function AccountOptions(props) {
         className="container justify-content-center align-items-center d-flex h-100"
         style={{ flexDirection: "column" }}
       >
-        {!loading ? (
           <>
             <div
               style={{ display: "flex", width: "100%", padding: "26px 26px 0" }}
@@ -221,7 +202,7 @@ export default function AccountOptions(props) {
             </div>
             <Card bordered={false} style={{ width: "100%" }}>
               <Row>
-                <Col span={9}>
+                <Col sm={4}>
                   {userDetails}
                   {userInstitute ? (
                     <Button
@@ -231,12 +212,12 @@ export default function AccountOptions(props) {
                       Manage your Institute
                     </Button>
                   ) : (
-                    <Button type="link" onClick={() => setSwitcher(true)}>
+                    <a style={{color: "#1890ff"}} onClick={() => setSwitcher(true)}>
                       Register your Institute
-                    </Button>
+                    </a>
                   )}
                 </Col>
-                <Col span={15}>
+                <Col sm={8}>
                   {!switcher ? (
                     <UserEvents
                       userListEvents={userListEvents}
@@ -250,9 +231,6 @@ export default function AccountOptions(props) {
               </Row>
             </Card>
           </>
-        ) : (
-          <Spin size="large" />
-        )}
       </div>
     </div>
   );

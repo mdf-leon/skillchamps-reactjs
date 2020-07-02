@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Button, TextInput, Modal, Box } from 'components';
+import { Card } from './styles'
+import { Row, Col } from 'styles/grid'
 import {
-  Card,
   Descriptions,
   List,
-  Row,
-  Col,
   Avatar,
-  Button,
   Select,
   Input
 } from "antd";
@@ -39,7 +38,7 @@ export default function UserEvents(props) {
                     display: "flex"
                   }}
                 >
-                  <Col span={3}>
+                  <Col sm={3}>
                     <Avatar
                       shape="square"
                       icon="user"
@@ -52,29 +51,27 @@ export default function UserEvents(props) {
                       }}
                     />
                   </Col>
-                  <Col span={8}>
+                  <Col sm={8}>
                     <span style={{ lineHeight: "40px" }}>
                       {item.event_name}
                     </span>
                   </Col>
-                  <Col span={8}>
+                  <Col sm={8}>
                     <span style={{ lineHeight: "40px" }}>City - Sp</span>
                   </Col>
-                  <Col span={5}></Col>
+                  <Col sm={5}></Col>
                 </Row>
               </List.Item>
             )}
           />
         </Card>
       ) : (
-        <Card size="small" title={"Subscribed Events"}>
-          <Card>
-            You are not subscribed to any event...
-            <Button type="link" onClick={() => props.history.push("/events")}>
+        <Box style={{width: "100%"}} label="Subscribed Events">
+            You are not subscribed to any event...&nbsp;
+            <a style={{color: "#1890ff"}} onClick={() => props.history.push("/events")}>
               find events
-            </Button>
-          </Card>
-        </Card>
+            </a>
+        </Box>
       )}
     </>
   );

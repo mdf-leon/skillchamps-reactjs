@@ -17,7 +17,7 @@ export default function Teste(props) {
     </div>
   )
 
-  const [renderModal, setrenderModal] = useState(true)
+  const [renderModal, setrenderModal] = useState(false)
 
   const [fData, setFData] = useState({
     name: "",

@@ -23,6 +23,7 @@ import Calendar from './Calendar';
 import DropDown from './DropDown';
 import Modal from './Modal';
 import ShadowedBox from './ShadowedBox';
+import Box from './Box';
 
 export {
   Button,
@@ -50,4 +51,5 @@ export {
   Calendar,
   DropDown,
   ShadowedBox,
+  Box,
 };
