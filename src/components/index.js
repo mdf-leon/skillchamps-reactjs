@@ -9,7 +9,7 @@ import Select from './Select';
 import SearchBox from './SearchBox';
 import CheckBox from './Checkbox';
 import TableControl from './TableControl';
-import Table from './Table';
+import Table from './Table1';
 import Receipt from './Receipt';
 import CreditCard from './CreditCard';
 import ProgressBar from './ProgressBar';
@@ -24,6 +24,7 @@ import DropDown from './DropDown';
 import Modal from './Modal';
 import ShadowedBox from './ShadowedBox';
 import Box from './Box';
+import BTable from './BTable';
 
 export {
   Button,
@@ -52,4 +53,5 @@ export {
   DropDown,
   ShadowedBox,
   Box,
+  BTable,
 };

@@ -11,12 +11,18 @@ export default function Box({
   checkboxLabel = '',
   value,
   onChange,
+  sufix,
+  isTopSpaced,
+  noPadding,
   ...rest
 }) {
   const header = (
     // TODO: Componentizar o checkbox
     <Header>
+      <div style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
       <h3>{label}</h3>
+      {sufix}
+      </div>
       {checkboxLabel !== '' && (
         <>
           <input type="checkbox" value={value} onChange={onChange} />
@@ -26,9 +32,9 @@ export default function Box({
     </Header>
   );
   return (
-    <Boox label={label} {...rest}>
+    <Boox isTopSpaced={isTopSpaced} label={label} {...rest}>
       {label !== '' && header}
-      <div style={{ padding: "24px" }} id={id}>
+      <div style={{ padding: noPadding === "true" ? '0px' : '20px' }} id={id}>
         {children}
       </div>
     </Boox>

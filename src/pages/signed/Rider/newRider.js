@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { Button, TextInput, Modal } from 'components';
-import { Row, Col } from 'styles/grid'
-import { Card } from './styles'
+import { Row } from 'styles/grid'
+import { Card, Col } from './styles'
 import { base } from "../../../config/api";
 
 
@@ -51,7 +51,6 @@ export default function Teste(props) {
   };
 
   return (
-
     <Row
       className="container h-100 d-flex justify-content-center"
       style={{ alignItems: "center" }}

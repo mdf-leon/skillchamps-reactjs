@@ -6,18 +6,18 @@ import { ReactComponent as None } from '../../assets/images/None.svg';
 import { ReactComponent as Decreasing } from '../../assets/images/Decreasing.svg';
 import { ReactComponent as Increasing } from '../../assets/images/Increasing.svg';
 
-import { Table, LoadingContainer, Button, StatusCol } from './styles';
+import { Table, LoadingContainer, Button, StatusCol, Col, Row, } from './styles';
 
 export default function CustomTable(props) {
   // eslint-disable-next-line react/prop-types
-  const { columns, data, isLoading, onOrderChange, ...rest } = props
+  const { columns, sm, data, isLoading, onOrderChange, ...rest } = props
   const [direction, setdirection] = useState('asc')
   const [columnSort, setcolumnSort] = useState('')
   function renderRow(item) {
     return (
-      <tr key={item.id}>
+      <Row key={item.id}>
         {columns.map(({ title, dataIndex, width, align, render }, index) => (
-          <td
+          <Col xs
             key={`${item.id} - ${title} - ${dataIndex}`}
             style={{
               width,
@@ -27,13 +27,13 @@ export default function CustomTable(props) {
             {render ? (
               <div>{render('text', item, index)}</div>
             ) : (
-              <div>
-                <span>{item[dataIndex]}</span>
-              </div>
-            )}
-          </td>
+                <div>
+                  <span>{item[dataIndex]}</span>
+                </div>
+              )}
+          </Col>
         ))}
-      </tr>
+      </Row>
     );
   }
 
@@ -65,29 +65,17 @@ export default function CustomTable(props) {
       ) : (
           <>
             <thead>
-              <tr>
+              <Row>
                 {columns.map(({ title, width, align, dataIndex, }) => {
                   return (
-                    <th
-                      key={title}
-                      style={{
-                        width,
-                        textAlign: align,
-                      }}
-                    >
-                      {dataIndex.status === 'status' ?  // teste para Status
-                      
-                        <StatusCol><span>Status</span> {renderSort(dataIndex)}</StatusCol>
-                      :
-                        <Button type="button"
-                          onClick={(e) => handleOnOrderChange(e, dataIndex)}>{renderTitle(title)} {renderSort(dataIndex)}</Button>
-                      }
-                    </th>
+                    <Col xs>
+                      {title}
+                    </Col>
                   );
                 })}
-              </tr>
+              </Row>
             </thead>
-            <tbody>{data?.map(renderRow)}</tbody>
+            <tbody>{data.map(renderRow)}</tbody>
           </>
         )}
     </Table>

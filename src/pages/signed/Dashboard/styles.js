@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const Img = styled.img`
-  width: ${(props) => (props.size )}px;
-  height: ${(props) => (props.size )}px;
+  width: ${(props) => (props.size)}px;
+  height: ${(props) => (props.size)}px;
   border-radius: 50%;
 `;
 

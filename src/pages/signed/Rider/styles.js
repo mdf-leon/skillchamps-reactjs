@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Col as Coluna } from 'styles/grid'
 
 export const Center = styled.div`
   display: flex;
@@ -16,15 +17,13 @@ export const Card = styled.div`
   min-width: 90%;
 `;
 
-export const Row = styled.div`
-  margin-top: ${(props) => (props.isTopSpaced ? '30px' : '0px')};
-  display: flex;
-  flex-direction: Row;
-`;
-
 export const RowButton = styled.div`
   margin-top: ${(props) => (props.isTopSpaced ? '30px' : '0px')};
   display: flex;
   flex-direction: Row;
   justify-content: space-between;
+`;
+
+export const Col = styled(Coluna)`
+margin-top: 20px;
 `;

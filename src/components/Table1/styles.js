@@ -1,4 +1,5 @@
 import styled, { keyframes, css } from 'styled-components';
+import { Row as RowRow, Col as ColCol, Grid } from 'styles/grid'
 
 const spin = keyframes`
 from{
@@ -20,11 +21,24 @@ const spinAnimation = ({ isLoading }) => {
   return null;
 };
 
+export const Row = styled(RowRow)`
+
+`;
+
+export const Col = styled(ColCol)`
+  border-top: 1px solid ${(props) => props.theme.colors.lines};
+    padding: 10px 0px 10px;
+    > div {
+      display: inline-block;
+    }
+
+  ${spinAnimation}
+`;
+
 export const Table = styled.table`
   margin-top: ${(props) => (props.isTopSpaced ? '20px' : '0px')};
   width: 100%;
   background-color: transparent;
-  margin-top: ${(props) => (props.isTopSpaced ? '20px' : '0px')};
 
   th {
   }

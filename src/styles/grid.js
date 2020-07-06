@@ -5,8 +5,8 @@ export const Row = styled(RowGrid)`
 `;
 
 export const Col = styled(ColGrid)`
-  margin-top: 20px;
 `;
 
 export const Grid = styled(GridGrid)`
+  
 `;

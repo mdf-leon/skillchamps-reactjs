@@ -1,6 +1,21 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+
+export const Center = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+`;
 
 export default createGlobalStyle`
+
+h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.85);
+}
 
 *{
     font-family: 'Roboto', sans-serif;

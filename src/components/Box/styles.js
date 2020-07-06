@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Boox = styled.article`
+  margin-top: ${(props) => (props.isTopSpaced ? '20px' : '0px')};
   border: 1px solid #e8e8e8;
   border-radius: 2px;
   background-color: white;
@@ -11,6 +12,9 @@ export const Boox = styled.article`
   h3 {
     margin-bottom: 0;
   }
+  a {
+    line-height: 1.2;
+  }
 `;
 
 export const Header = styled.div`
@@ -18,7 +22,7 @@ export const Header = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 8px 0 8px 10px;
+  padding: 8px 10px 8px 10px;
   padding-left: 10px;
   border-bottom: 1px solid #e8e8e8;
 

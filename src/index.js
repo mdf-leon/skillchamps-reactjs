@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./bootstrap.css";
 import "./index.css";
 import "./Skillchamps.css";
 import * as serviceWorker from "./serviceWorker";
