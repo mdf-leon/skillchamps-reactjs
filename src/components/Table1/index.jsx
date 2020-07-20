@@ -6,6 +6,7 @@ import { ReactComponent as None } from '../../assets/images/None.svg';
 import { ReactComponent as Decreasing } from '../../assets/images/Decreasing.svg';
 import { ReactComponent as Increasing } from '../../assets/images/Increasing.svg';
 
+import { Grid } from 'styles/grid'
 import { Table, LoadingContainer, Button, StatusCol, Col, Row, } from './styles';
 
 export default function CustomTable(props) {
@@ -15,25 +16,27 @@ export default function CustomTable(props) {
   const [columnSort, setcolumnSort] = useState('')
   function renderRow(item) {
     return (
-      <Row key={item.id}>
-        {columns.map(({ title, dataIndex, width, align, render }, index) => (
-          <Col xs
-            key={`${item.id} - ${title} - ${dataIndex}`}
-            style={{
-              width,
-              textAlign: align,
-            }}
-          >
-            {render ? (
-              <div>{render('text', item, index)}</div>
-            ) : (
-                <div>
-                  <span>{item[dataIndex]}</span>
-                </div>
-              )}
-          </Col>
-        ))}
-      </Row>
+      <Grid fluid>
+        <Row key={item.id}>
+          {columns.map(({ title, dataIndex, width, align, render }, index) => (
+            <Col xs
+              key={`${item.id} - ${title} - ${dataIndex}`}
+              style={{
+                width,
+                textAlign: align,
+              }}
+            >
+              {render ? (
+                <tr>{render('text', item, index)}</tr>
+              ) : (
+                  <tr>
+                    <span>{item[dataIndex]}</span>
+                  </tr>
+                )}
+            </Col>
+          ))}
+        </Row>
+      </Grid>
     );
   }
 
@@ -65,7 +68,8 @@ export default function CustomTable(props) {
       ) : (
           <>
             <thead>
-              <Row>
+            <Grid fluid>
+            <Row>
                 {columns.map(({ title, width, align, dataIndex, }) => {
                   return (
                     <Col xs>
@@ -74,6 +78,7 @@ export default function CustomTable(props) {
                   );
                 })}
               </Row>
+            </Grid>
             </thead>
             <tbody>{data.map(renderRow)}</tbody>
           </>

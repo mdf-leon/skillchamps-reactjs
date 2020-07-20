@@ -15,13 +15,12 @@ export const SelectBlock = styled.div`
     box-sizing: border-box;
     border-radius: 4px;
     text-align: center;
-    padding: 9px 0px;
+    padding: 7px 0px;
     padding-left: 9px;
     font-size: 12px;
     line-height: 14px;
     color: ${(props) => props.theme.colors.darkAccent};
     width: 100%;
-    max-height: 32px;
     border: 1px solid
       ${(props) =>
         props.touched && props.error

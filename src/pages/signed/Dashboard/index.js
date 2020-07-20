@@ -47,7 +47,7 @@ export default function Dashboard(props) {
             <h1>RESULTS & STATISTICS</h1>
             <Row>
               <Col xs>
-                <Select>
+                <Select placeholder="Category">
                   <option>ea</option>
                   <option>AMISTERDAN</option>
                   <option>Octo Britsh</option>
@@ -55,14 +55,14 @@ export default function Dashboard(props) {
               </Col>
 
               <Col xs>
-                <Select>
+                <Select placeholder="Trial">
                   <option>GT</option>
                   <option>A4781</option>
                   <option>Britsh</option>
                 </Select>
               </Col>
             </Row>
-            <Table columns={columns} data={data} />
+            <Table isTopSpaced columns={columns} data={data} />
           </Box>
         </Grid>
       </Center>
