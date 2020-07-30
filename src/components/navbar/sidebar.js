@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Icon, Menu } from 'antd'
-import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom'
 
 export default function Sidebar(props) {
 
-    const [cookies, setCookie, removeCookie] = useCookies("jwt");
 
     const { layout, ...rest } = props
 
@@ -20,26 +18,9 @@ export default function Sidebar(props) {
         setCollapsed(!collapsed)
     }
 
-    // useEffect(()=>{
-    //     props.isCollapsed(collapsed)
-    // }, [collapsed])
-
     useEffect(() => {
-        //console.log(props.collapsed)
-        //props.collapsed ? setCollapsed(true) : setCollapsed(false)
-        //if(props.collapsed){
-        //let clpsd = props.collapsed
         setCollapsed(props.collapsed)
-        //}
-
     }, [props.collapsed])
-
-    // useEffect(() => {
-        
-    //     let sk = props.SeleKey
-    //     setSeleKey(props.SeleKey)
-    //     console.log(sk)
-    // }, [props.SeleKey])
 
     useEffect(() => {
         if (props.collapsed != false) {
@@ -48,7 +29,7 @@ export default function Sidebar(props) {
     }, [])
 
     const logOut = () => {
-        removeCookie("jwt")
+        localStorage.removeItem('token')
         window.location.reload()
     }
 

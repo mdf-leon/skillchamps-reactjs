@@ -14,3 +14,21 @@ export const ChangeButton = styled.button`
   border: none;
   cursor: pointer;
 `;
+
+export const DivRT = styled.div`
+
+button{
+  padding: 10px;
+  text-align: left;
+  width: 50%;
+  border: 1px solid rgb(232, 232, 232);
+  background-color: transparent;
+  :nth-child(odd) {
+    background: rgb(239,239,239);
+  }
+  :not(:first-child){
+    margin-top: 20px;
+  }
+  text-transform: capitalize;
+}
+`;
