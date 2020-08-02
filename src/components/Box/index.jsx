@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { Boox, Header } from './styles';
+import { Boox, Header, DivHeader } from './styles';
 
 export default function Box({
   label = '',
@@ -14,15 +14,16 @@ export default function Box({
   sufix,
   isTopSpaced,
   noPadding,
+  centerLabel,
   ...rest
 }) {
   const header = (
     // TODO: Componentizar o checkbox
     <Header>
-      <div style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
-      <h3>{label}</h3>
-      {sufix}
-      </div>
+      <DivHeader centerLabel={centerLabel}>
+        <h3>{label}</h3>
+        {sufix}
+      </DivHeader>
       {checkboxLabel !== '' && (
         <>
           <input type="checkbox" value={value} onChange={onChange} />
@@ -34,7 +35,7 @@ export default function Box({
   return (
     <Boox isTopSpaced={isTopSpaced} label={label} {...rest}>
       {label !== '' && header}
-      <div style={{ padding: noPadding === "true" ? '0px' : '20px' }} id={id}>
+      <div style={{ padding: noPadding ? '0px' : '20px' }} id={id}>
         {children}
       </div>
     </Boox>

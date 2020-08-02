@@ -42,3 +42,10 @@ export const Header = styled.div`
     margin-right: 12px;
   }
 `;
+
+export const DivHeader = styled.div`
+  display: flex;
+  justify-content: ${(props) => (props.centerLabel ? 'center' : 'flex-start')};
+  width: 100%;
+  align-items: center;
+`;

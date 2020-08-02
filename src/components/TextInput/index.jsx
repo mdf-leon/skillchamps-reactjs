@@ -74,6 +74,15 @@ export default function TextInput({
         uppercase: true,
       };
       break;
+    case 'time':
+      options = {
+        numericOnly: true,
+        delimiters: [':', '.'],
+        blocks: [2, 2, 3],
+        noImmediatePrefix: true,
+        uppercase: true,
+      };
+      break;
     case 'postalCode':
       options = {
         delimiters: ['-'],

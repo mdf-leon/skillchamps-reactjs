@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Box } from 'components';
-import { Row, Col, Grid } from 'styles/grid'
-import { IconButton, Img } from './styles'
-import { Center } from 'styles/global'
+import { IconButton, Img, } from './styles'
+import { Center, Row, Col, Grid } from 'styles/global'
 import Sidebar from "../../../components/navbar/sidebar";
 import { base } from "../../../config/api";
 
@@ -24,7 +23,6 @@ export default function AccountOptions(props) {
 				base
 					.get(`/showrider`)
 					.then(r => {
-						getUserEvents(1);
 						setUserRider(r.data);
 					})
 					.catch(e => {
@@ -33,9 +31,12 @@ export default function AccountOptions(props) {
 			.catch(e => {
 				console.log(e.response);
 			});
+
+		base.get(`/eventsSigned`)
+			.then(({ data }) => setUserListEvents(data)).catch(console.log);
 	}, []);
 
-	const [userListEvents, setUserListEvents] = useState({ data: [] });
+	const [userListEvents, setUserListEvents] = useState([]);
 
 	const [userInstitute, setUserInstitute] = useState();
 
@@ -45,16 +46,6 @@ export default function AccountOptions(props) {
 
 	const [userRider, setUserRider] = useState();
 	const [switcher, setSwitcher] = useState(false);
-
-	const getUserEvents = page => {
-		base
-			.get(`/eventsSigned?page=${page}&limit=10`)
-			.then(r => {
-				setUserListEvents(r.data);
-			})
-			.catch(e => {
-			});
-	};
 
 	const getUserIntitute = () => {
 		base
@@ -142,7 +133,7 @@ export default function AccountOptions(props) {
 							<Col sm={4}>
 								{userDetails}
 								{userInstitute ? (
-									<Button type="link" onClick={() => props.history.push("/manageInstitute")} >
+									<Button isTopSpaced type="link" onClick={() => props.history.push("/manageInstitute")} >
 										Manage your Institute
 									</Button>
 								) : (
@@ -152,15 +143,21 @@ export default function AccountOptions(props) {
 									)}
 							</Col>
 							<Col sm={8}>
-								{!switcher ? (
-									<UserEvents
-										userListEvents={userListEvents}
-										getUserEvents={getUserEvents}
-										{...props} // passa o props do pai para o filho
-									/>
-								) : (
-										<BecomeInstitute setSwitcher={setSwitcher} />
-									)}
+								{
+									userListEvents ?
+										<Box label="Subscribed Events TODO clicar em um evento vai te levar ao ranking dele">
+											{userListEvents.map((event) =>
+												<div>
+													<p>{event.event_name}</p>
+													<p>{event.date_begin}</p>
+												</div>
+											)}
+										</Box>
+										:
+										<Box label="Subscribed Events">
+											<h3>You are not subscribed to any events... <a>find events</a></h3>
+										</Box>
+								}
 							</Col>
 						</Row>
 					</Box>

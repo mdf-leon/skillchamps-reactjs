@@ -1,4 +1,16 @@
 import styled, { createGlobalStyle } from 'styled-components';
+import { Row as Row1, Col as Col1, Grid as Grid1 } from 'styles/grid'
+
+export const Col = styled(Col1)`
+ margin-top: ${(props) => (props.isTopSpaced ? '20px' : '0px')};
+`;
+
+export const Grid = styled(Grid1)`
+`;
+
+export const Row = styled(Row1)`
+ margin-top: ${(props) => (props.isTopSpaced ? '20px' : '0px')};
+`;
 
 export const Card = styled.div`
   padding: 20px;

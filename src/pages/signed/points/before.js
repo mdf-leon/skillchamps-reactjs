@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Button, TextInput, CheckBox, Box } from 'components';
 // import { Redirect } from 'react-router-dom'
-import { Row, Col, Grid } from 'styles/grid'
-
-import { Center, Card } from 'styles/global'
+import { Center, Card, Col, Row, Grid } from 'styles/global'
 
 import { SideBarDiv, ChangeButton, DivRT } from './styles'
 
@@ -11,7 +10,7 @@ import { base } from "../../../config/api";
 import Sidebar from "../../../components/navbar/sidebar";
 
 export default function BeforePoints(props) {
-
+  const history = useHistory();
   const [isSelected, setIsSelected] = useState(true)
   const [isSelected2, setIsSelected2] = useState(false)
   const [currentTitle, setCurrentTitle] = useState('')
@@ -108,32 +107,47 @@ export default function BeforePoints(props) {
               </Col>
 
               <Col xs={12} style={{ marginTop: "20px" }}>
-                <Box>
+                <Box noPadding="true" style={{ padding: "20px 20px 0 20px" }}>
                   <DivRT>
-                    {
-                      isSelected === true
-                        ?
-                        dataTrial.map((content) => (
-                          <button onClick={() => { setCurrentTitle(content.name) }}>
-                            Trial: {content.name}
-                          </button>
-                        ))
-                        :
-                        dataRider.map((content) => (
-                          <button style={{ display: "flex", flexDirection: "column" }} onClick={(e) => { setCurrentRiderInfo({ ...content }) }}>
-                            <p>Name: {content.name}</p>
-                            <p>Category: advanced</p>
-                            <p>Bike: {content.motorcycle}</p>
-                          </button>
-                        ))
-                    }
+                    <Row>
+                      {
+                        isSelected === true
+                          ?
+                          dataTrial.map((content) => (
+                            <Col style={{ marginBottom: "20px" }} xs={6}>
+                              <button onClick={() => {
+                                setCurrentTitle(content.name);
+                                localStorage.setItem('ongoing_trial', content.id)
+                              }}>
+                                Trial: {content.name}
+                              </button>
+                            </Col>
+                          ))
+                          :
+                          dataRider.map((content) => (
+                            <Col style={{ marginBottom: "20px" }} xs={6}>
+                              <button style={{ display: "flex", flexDirection: "column" }} onClick={(e) => {
+                                setCurrentRiderInfo({ ...content })
+                                localStorage.setItem('ongoing_rider', content.id)
+                              }}>
+                                <p>Name: {content.name}</p>
+                                <p>Category: advanced</p>
+                                <p>Bike: {content.motorcycle}</p>
+                              </button>
+                            </Col>
+                          ))
+                      }
+                    </Row>
                   </DivRT>
                 </Box>
               </Col>
-
+              <Col xs={12} isTopSpaced style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button onClick={() => history.push("/points")}>
+                  Next
+                </Button>
+              </Col>
             </Row>
           </Grid>
-
         </Card>
       </Center>
     </>

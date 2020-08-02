@@ -25,6 +25,7 @@ import Institute from "./pages/signed/Institute";
 import CreateEvent from "./pages/signed/CreateEvent";
 import ManageEvent from "./pages/signed/ManageEvent";
 import BeforePoints from "./pages/signed/points/before";
+import Points from "./pages/signed/points";
 
 import theme from './styles/theme';
 
@@ -50,33 +51,34 @@ function VisitorRoute(props) {
 ReactDOM.render(
   <CookiesProvider>
     <ThemeProvider theme={theme}>
-    <Router>
-      <Switch>
-        <Route exact path="/" component={App} />
-        <VisitorRoute exact path="/login" component={Login} />
-        <VisitorRoute exact path="/register" component={Register} />
-        <ProtectedRoute exact path="/Dashboard" component={Dashboard} />
-        <ProtectedRoute exact path="/Rider" component={Rider} />
-        <ProtectedRoute exact path="/events" component={Events} />
-        <ProtectedRoute exact path="/manageInstitute" component={Institute} />
-        <ProtectedRoute exact path="/createEvent" component={CreateEvent} />
-        <ProtectedRoute exact path="/manageEvent" component={ManageEvent} />
-        <ProtectedRoute exact path="/beforePoints" component={BeforePoints} />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={App} />
+          <VisitorRoute exact path="/login" component={Login} />
+          <VisitorRoute exact path="/register" component={Register} />
+          <ProtectedRoute exact path="/Dashboard" component={Dashboard} />
+          <ProtectedRoute exact path="/Rider" component={Rider} />
+          <ProtectedRoute exact path="/events" component={Events} />
+          <ProtectedRoute exact path="/manageInstitute" component={Institute} />
+          <ProtectedRoute exact path="/createEvent" component={CreateEvent} />
+          <ProtectedRoute exact path="/manageEvent" component={ManageEvent} />
+          <ProtectedRoute exact path="/beforePoints" component={BeforePoints} />
+          <ProtectedRoute exact path="/points" component={Points} />
 
-        <ProtectedRoute
-          exact
-          path="/AccountOptions"
-          component={AccountOptions}
-        />
-        <ProtectedRoute
-          exact
-          path="/AccountOptions"
-          component={AccountOptions}
-        />
-        {/* <Route exact path="/portfolio/:id" component={App} />
+          <ProtectedRoute
+            exact
+            path="/AccountOptions"
+            component={AccountOptions}
+          />
+          <ProtectedRoute
+            exact
+            path="/AccountOptions"
+            component={AccountOptions}
+          />
+          {/* <Route exact path="/portfolio/:id" component={App} />
                 <Route path="/contact" component={App} /> */}
-      </Switch>
-    </Router>
+        </Switch>
+      </Router>
     </ThemeProvider>
   </CookiesProvider>,
   document.getElementById("root")

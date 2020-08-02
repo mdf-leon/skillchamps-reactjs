@@ -13,7 +13,7 @@ import {
 export default function UserEvents(props) {
   return (
     <>
-      {props.userListEvents.data.length ? (
+      {props.userListEvents.length ? (
         <Card size="small" title={"Subscribed Events"}>
           <List
             size="small"
