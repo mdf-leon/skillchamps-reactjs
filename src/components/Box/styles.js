@@ -45,7 +45,7 @@ export const Header = styled.div`
 
 export const DivHeader = styled.div`
   display: flex;
-  justify-content: ${(props) => (props.centerLabel ? 'center' : 'flex-start')};
+  justify-content: ${(props) => (props.alignLabel === 'center' ? 'center' : props.alignLabel === 'space-between' ? 'space-between' : 'flex-start')};
   width: 100%;
   align-items: center;
 `;

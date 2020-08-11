@@ -1,9 +1,20 @@
 import styled from 'styled-components'
 
 export const Img = styled.img`
-  width: ${(props) => (props.size )}px;
-  height: ${(props) => (props.size )}px;
+  width: ${(props) => (props.size)}px;
+  height: ${(props) => (props.size)}px;
   border-radius: 50%;
+`;
+
+export const EventsDiv = styled.div`
+  cursor: pointer;
+  border-top: 1px solid #d2d2d2;
+  border-bottom: 1px solid #d2d2d2;
+  background-color: #efefef;
+  padding: 10px 20px;
+  :not(:first-child) {
+    margin-top: 20px;
+  }
 `;
 
 export const IconButton = styled.button`

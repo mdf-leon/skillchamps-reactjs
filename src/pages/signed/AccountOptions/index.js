@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Button, Box } from 'components';
-import { IconButton, Img, } from './styles'
-import { Center, Row, Col, Grid } from 'styles/global'
 import Sidebar from "../../../components/navbar/sidebar";
-import { base } from "../../../config/api";
-
+// styles & components //
+import { Button, Box } from 'components';
+import { IconButton, Img, EventsDiv } from './styles'
+import { Center, Row, Col, Grid } from 'styles/global'
+//  //
 import UserEvents from "./userEvents";
 import BecomeInstitute from "./becomeInstitute";
-
+// icons //
 import { ReactComponent as Settings } from '../../../assets/images/Settings.svg'
 import { ReactComponent as Dots } from '../../../assets/images/Dots.svg'
 import { ReactComponent as Edit } from '../../../assets/images/Edit.svg'
+// api //
+import { base } from "../../../config/api";
 
 export default function AccountOptions(props) {
+
+	const [id, setId] = useState()
 
 	useEffect(() => {
 		base
@@ -60,7 +64,11 @@ export default function AccountOptions(props) {
 	// const userInstitute = "";
 	const userDetails = (
 		<>
-			<Box label="User Information" sufix={<a href="#">Edit</a>} >
+			<Box
+				alignLabel="space-between"
+				label="User Information"
+				sufix={<a href="#">Edit</a>}
+			>
 
 				<Row style={{ display: "flex", alignItems: "flex-start", }}>
 					<Col sm={5}>
@@ -145,13 +153,20 @@ export default function AccountOptions(props) {
 							<Col sm={8}>
 								{
 									userListEvents ?
-										<Box label="Subscribed Events TODO clicar em um evento vai te levar ao ranking dele">
-											{userListEvents.map((event) =>
-												<div>
-													<p>{event.event_name}</p>
-													<p>{event.date_begin}</p>
-												</div>
-											)}
+										<Box
+											noPadding
+											alignLabel="space-between"
+											label="Subscribed Events"
+											sufix={<a href="#">Show only manageable events</a>}
+										>
+											<div style={{ padding: '20px 0' }}>
+												{userListEvents.map((event) =>
+													<EventsDiv onClick={() => { localStorage.setItem('event_selected', event.id); props.history.push(`/dashboard`) }}>
+														<p>{event.event_name}</p>
+														<p>{event.date_begin}</p>
+													</EventsDiv>
+												)}
+											</div>
 										</Box>
 										:
 										<Box label="Subscribed Events">

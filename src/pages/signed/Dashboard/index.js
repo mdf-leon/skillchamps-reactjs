@@ -44,7 +44,10 @@ export default function Dashboard(props) {
       <Center>
         <Grid>
           <Box>
-            <h1>RESULTS & STATISTICS</h1>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '10px', paddingBottom: '2px', borderBottom: '1px solid #D8E2E7' }}>
+              <h1 style={{ margin: 0 }}>RESULTS & STATISTICS</h1>
+              <a href="@">Select Events</a>
+            </div>
             <Row>
               <Col xs>
                 <Select placeholder="Category">

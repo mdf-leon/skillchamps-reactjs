@@ -14,13 +14,13 @@ export default function Box({
   sufix,
   isTopSpaced,
   noPadding,
-  centerLabel,
+  alignLabel,
   ...rest
 }) {
   const header = (
     // TODO: Componentizar o checkbox
     <Header>
-      <DivHeader centerLabel={centerLabel}>
+      <DivHeader alignLabel={alignLabel}>
         <h3>{label}</h3>
         {sufix}
       </DivHeader>

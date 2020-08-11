@@ -20,7 +20,7 @@ export default function BeforePoints(props) {
   const [currentTrialInfo, setCurrentTrialInfo] = useState([])
 
   useEffect(() => {
-    let params = { "event_id": localStorage.getItem('event_being_managed') }
+    let params = { "event_id": localStorage.getItem('event_selected') }
     base.get('/managedTrialsList', { params })
       .then((r) => {
         setDataTrial(r.data)
