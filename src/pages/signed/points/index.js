@@ -27,7 +27,8 @@ const penaltiesConf = [
 
 export default function BeforePoints(props) {
   const [activeModal, setactiveModal] = useState(false)
-
+  const [dataTrial, setDataTrial] = useState([])
+  const [dataRider, setDataRider] = useState([])
 
   const [point, setpoint] = useState({
     "rider_id": localStorage.getItem('ongoing_rider'),
@@ -42,7 +43,23 @@ export default function BeforePoints(props) {
   // }, [pens])
 
   useEffect(() => {
-    base.get(`/showRider`)
+    let params = { "event_id": localStorage.getItem('event_selected'), "rider_id": point.rider_id, "trial_id": point.trial_id }
+    base.get('/managedTrialsList', { params })
+      .then((r) => {
+        setDataTrial(r.data)
+        console.log(r.data)
+      })
+      .catch((er) => {
+        console.log(er)
+      })
+    base.get('/managedRidersList', { params })
+      .then((r) => {
+        setDataRider(r.data)
+        console.log(r.data)
+      })
+      .catch((er) => {
+        console.log(er)
+      })
   }, [])
 
   useEffect(() => {
@@ -213,14 +230,18 @@ export default function BeforePoints(props) {
 
               <Col xs={12}>
                 <Box>
-                  Trial Info
-              </Box>
+                  <p><strong>Trial: </strong>{dataTrial.name}</p>
+                </Box>
               </Col>
 
               <Col xs={12}>
                 <Box isTopSpaced>
-                  Rider Info
-              </Box>
+                  <h2 style={{ margin: "0" }}>Rider</h2>
+                  <p><strong>Name: </strong>{dataRider.name}</p>
+                  <p><strong>Category: </strong>Advanced*</p>
+                  <p><strong>Motor cycle: </strong>{dataRider.motorcycle}</p>
+                  <p><strong>MotorCycle Plate: </strong>{dataRider.motorcycle_plate}</p>
+                </Box>
               </Col>
 
               <TimeDiv>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../../../components/navbar/sidebar";
 // styles & components //
 import { Button, Box } from 'components';
-import { IconButton, Img, EventsDiv } from './styles'
+import { IconButton, Img, EventsDiv, A } from './styles'
 import { Center, Row, Col, Grid } from 'styles/global'
 //  //
 import UserEvents from "./userEvents";
@@ -15,8 +15,8 @@ import { ReactComponent as Edit } from '../../../assets/images/Edit.svg'
 import { base } from "../../../config/api";
 
 export default function AccountOptions(props) {
-
 	const [id, setId] = useState()
+	const [isManageableEventSelected, setIsManageableEventSelected] = useState(false)
 
 	useEffect(() => {
 		base
@@ -38,10 +38,12 @@ export default function AccountOptions(props) {
 
 		base.get(`/eventsSigned`)
 			.then(({ data }) => setUserListEvents(data)).catch(console.log);
+		base.get(`/managedEventsList`)
+			.then(({ data }) => setmanageableEvents(data)).catch(console.log);
 	}, []);
 
 	const [userListEvents, setUserListEvents] = useState([]);
-
+	const [manageableEvents, setmanageableEvents] = useState([]);
 	const [userInstitute, setUserInstitute] = useState();
 
 	const [user, setUser] = useState({
@@ -52,14 +54,24 @@ export default function AccountOptions(props) {
 	const [switcher, setSwitcher] = useState(false);
 
 	const getUserIntitute = () => {
-		base
-			.get(`/showinstitute`)
+		base.get(`/showinstitute`)
 			.then(r => {
 				setUserInstitute(r.data);
 			})
 			.catch(e => {
 			});
 	};
+
+	const eventsList = (render) => {
+		return (
+			render.map((event) =>
+				<EventsDiv onClick={() => { localStorage.setItem('event_selected', event.id); props.history.push(`/dashboard`) }}>
+					<p>{event.id}. {event.event_name}</p>
+					<p>{event.date_begin}</p>
+				</EventsDiv>
+			)
+		)
+	}
 
 	// const userInstitute = "";
 	const userDetails = (
@@ -156,16 +168,32 @@ export default function AccountOptions(props) {
 										<Box
 											noPadding
 											alignLabel="space-between"
-											label="Subscribed Events"
-											sufix={<a href="#">Show only manageable events</a>}
+											label={isManageableEventSelected
+												?
+												'Manageable Events'
+												:
+												'Subscribed Events'
+											}
+											sufix={
+												<A
+													onClick={() => setIsManageableEventSelected(!isManageableEventSelected)}
+												>
+													{isManageableEventSelected
+														?
+														'Show only subscribed events'
+														:
+														'Show only manageable events'
+													}
+												</A>
+											}
 										>
-											<div style={{ padding: '20px 0' }}>
-												{userListEvents.map((event) =>
-													<EventsDiv onClick={() => { localStorage.setItem('event_selected', event.id); props.history.push(`/dashboard`) }}>
-														<p>{event.event_name}</p>
-														<p>{event.date_begin}</p>
-													</EventsDiv>
-												)}
+											<div style={{ padding: '10px' }}>
+												{isManageableEventSelected
+													?
+													eventsList(manageableEvents)
+													:
+													eventsList(userListEvents)
+												}
 											</div>
 										</Box>
 										:

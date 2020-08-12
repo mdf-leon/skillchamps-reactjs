@@ -6,12 +6,23 @@ export const Img = styled.img`
   border-radius: 50%;
 `;
 
+export const A = styled.p`
+  cursor: pointer;
+  color: #1890ff;
+  font-size: 14px;
+  :hover {
+    color: #40a9ff;
+  }
+`;
+
 export const EventsDiv = styled.div`
   cursor: pointer;
-  border-top: 1px solid #d2d2d2;
-  border-bottom: 1px solid #d2d2d2;
+  border: 1px solid #d2d2d2;
   background-color: #efefef;
   padding: 10px 20px;
+  &:hover {
+    background-color: #d2d2d2;
+  }
   :not(:first-child) {
     margin-top: 20px;
   }

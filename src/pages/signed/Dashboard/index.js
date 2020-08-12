@@ -1,13 +1,27 @@
-import React, { useState } from "react";
-
-import { Button, Box, Select, Table } from 'components';
-import { Center } from 'styles/global'
-import { Row, Col, Grid } from 'styles/grid'
-
+import React, { useState, useEffect } from "react";
+// styles //
+import { Box, Select, Table } from 'components';
+import { Row, Center } from 'styles/global'
+import { Col, Grid } from 'styles/grid'
+// sidebar //
 import Sidebar from "../../../components/navbar/sidebar";
+// api //
+import { base } from "../../../config/api";
 
 
 export default function Dashboard(props) {
+  const [trials, setTrials] = useState([])
+  const [eventList, seteventList] = useState([]);
+
+  useEffect(() => {
+    let params = { "event_id": localStorage.getItem('event_selected') }
+    base.get(`/managedTrialsList`, { params })
+      .then((r) => {
+        setTrials(r.data)
+      }).catch((er) => { })
+    base.get(`/eventsSigned`, { params })
+      .then(({ data }) => seteventList(data)).catch((er) => { console.log(er) });
+  }, [])
 
   const columns = [
     {
@@ -46,9 +60,19 @@ export default function Dashboard(props) {
           <Box>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '10px', paddingBottom: '2px', borderBottom: '1px solid #D8E2E7' }}>
               <h1 style={{ margin: 0 }}>RESULTS & STATISTICS</h1>
-              <a href="@">Select Events</a>
+              <a href="/AccountOptions">Select Events</a>
             </div>
-            <Row>
+            {eventList
+              ?
+              <Box>
+                <p>{eventList.id}. {eventList.event_name}</p>
+                <p>{eventList.date_begin}</p>
+              </Box>
+              :
+              null
+            }
+
+            <Row style={{ marginTop: '10px' }}>
               <Col xs>
                 <Select placeholder="Category">
                   <option>ea</option>
@@ -59,9 +83,9 @@ export default function Dashboard(props) {
 
               <Col xs>
                 <Select placeholder="Trial">
-                  <option>GT</option>
-                  <option>A4781</option>
-                  <option>Britsh</option>
+                  {trials.map((content) => (
+                    <option>{content.name}</option>
+                  ))}
                 </Select>
               </Col>
             </Row>
