@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../../components/navbar/sidebar";
 import { base } from "../../../config/api";
-import { useCookies } from "react-cookie";
 import queryString from "query-string";
 import { Card, Row, Col, Descriptions, Spin, Button, Icon, List } from "antd";
 
 export default function ManageEvent(props) {
-  const [cookies, setCookie] = useCookies("jwt");
 
   useEffect(() => {
     base
-      .get(`/showevent`, {
-        headers: { Authorization: `Bearer ${cookies.jwt}` }
-      })
+      .get(`/showevent`)
       .then(r => {
         let id = queryString.parse(props.location.search).id;
         setEvent(r.data.filter(e => e.id == id)[0]);
@@ -25,11 +21,9 @@ export default function ManageEvent(props) {
 
   const getTrialsList = () => {
     base
-      .get(`/managedtrialsList`, {
-        headers: { Authorization: `Bearer ${cookies.jwt}` }
-      })
-      .then(r => {})
-      .catch(e => {});
+      .get(`/managedtrialsList`)
+      .then(r => { })
+      .catch(e => { });
   };
 
   const handleSwitch = id => {
@@ -120,72 +114,72 @@ export default function ManageEvent(props) {
                         )}
                       ></List>
                     ) : (
-                      <>
-                        <Col span={9}>
-                          <Card
-                            name="riderSelect"
-                            onClick={() => handleSwitch("1")}
-                            style={{
-                              height: "200px",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              cursor: "pointer"
-                            }}
-                          >
-                            {trial.rider ? (
-                              <Card>{trial.rider}</Card>
-                            ) : (
-                              <>
-                                <Icon
-                                  type="user-add"
-                                  style={{ fontSize: "60px", color: "#d2d2d2" }}
-                                />
-                                <p>Select Rider</p>
-                              </>
-                            )}
-                          </Card>
-                        </Col>
-                        <Col span={6}>
-                          <div
-                            style={{
-                              height: "200px",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              fontSize: "40px"
-                            }}
-                          >
-                            <Icon type="double-right" />
-                          </div>
-                        </Col>
-                        <Col span={9}>
-                          <Card
-                            name="trialSelect"
-                            onClick={() => handleSwitch("2")}
-                            style={{
-                              height: "200px",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              cursor: "pointer"
-                            }}
-                          >
-                            {trial.trial ? (
-                              <Card>{trial.trial}</Card>
-                            ) : (
-                              <>
-                                <Icon
-                                  type="hourglass"
-                                  style={{ fontSize: "60px", color: "#d2d2d2" }}
-                                />
-                                <p>Select Trial</p>
-                              </>
-                            )}
-                          </Card>
-                        </Col>
-                      </>
-                    )}
+                          <>
+                            <Col span={9}>
+                              <Card
+                                name="riderSelect"
+                                onClick={() => handleSwitch("1")}
+                                style={{
+                                  height: "200px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  cursor: "pointer"
+                                }}
+                              >
+                                {trial.rider ? (
+                                  <Card>{trial.rider}</Card>
+                                ) : (
+                                    <>
+                                      <Icon
+                                        type="user-add"
+                                        style={{ fontSize: "60px", color: "#d2d2d2" }}
+                                      />
+                                      <p>Select Rider</p>
+                                    </>
+                                  )}
+                              </Card>
+                            </Col>
+                            <Col span={6}>
+                              <div
+                                style={{
+                                  height: "200px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  fontSize: "40px"
+                                }}
+                              >
+                                <Icon type="double-right" />
+                              </div>
+                            </Col>
+                            <Col span={9}>
+                              <Card
+                                name="trialSelect"
+                                onClick={() => handleSwitch("2")}
+                                style={{
+                                  height: "200px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  cursor: "pointer"
+                                }}
+                              >
+                                {trial.trial ? (
+                                  <Card>{trial.trial}</Card>
+                                ) : (
+                                    <>
+                                      <Icon
+                                        type="hourglass"
+                                        style={{ fontSize: "60px", color: "#d2d2d2" }}
+                                      />
+                                      <p>Select Trial</p>
+                                    </>
+                                  )}
+                              </Card>
+                            </Col>
+                          </>
+                        )}
                   </Row>
                   <Row style={{ padding: "10px 50px" }}>
                     <Button
@@ -200,8 +194,8 @@ export default function ManageEvent(props) {
             </Row>
           </>
         ) : (
-          <Spin size="large" />
-        )}
+            <Spin size="large" />
+          )}
       </div>
     </div>
   );

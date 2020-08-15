@@ -4,21 +4,23 @@ import { Box, Select, Table } from 'components';
 import { Row, Center } from 'styles/global'
 import { Col, Grid } from 'styles/grid'
 // sidebar //
-import Sidebar from "../../../components/navbar/sidebar";
+import Sidebar from "../../../components/Sidebar";
 // api //
 import { base } from "../../../config/api";
 
 
-export default function Dashboard(props) {
-  const [trials, setTrials] = useState([])
-  const [eventList, seteventList] = useState([]);
+export default function Dashboard(props: any) {
+  const [trials, setTrials] = useState<any[]>([])
+  const [eventList, seteventList] = useState<any[]>([]);
 
   useEffect(() => {
+    // console.log(trials[0])
     let params = { "event_id": localStorage.getItem('event_selected') }
     base.get(`/managedTrialsList`, { params })
       .then((r) => {
+        console.log(r.data)
         setTrials(r.data)
-      }).catch((er) => { })
+      }).catch((er) => { console.log(er) })
     base.get(`/eventsSigned`, { params })
       .then(({ data }) => seteventList(data)).catch((er) => { console.log(er) });
   }, [])
@@ -27,22 +29,22 @@ export default function Dashboard(props) {
     {
       title: "Pos",
       dataIndex: 'position',
-      render: (_, record) => <span>{record.position}</span>,
+      render: (_: any, record) => <span>{record.position}</span>,
     },
     {
       title: "Rider",
       dataIndex: 'name',
-      render: (_, record) => <span>{record.name}</span>,
+      render: (_: any, record) => <span>{record.name}</span>,
     },
     {
       title: "Bike",
       dataIndex: 'bike',
-      render: (_, record) => <span>{record.bike}</span>,
+      render: (_: any, record) => <span>{record.bike}</span>,
     },
     {
       title: "Pontos",
       dataIndex: 'pontos',
-      render: (_, record) => <span>{record.pontos}</span>,
+      render: (_: any, record) => <span>{record.pontos}</span>,
     },
   ]
 
@@ -62,34 +64,25 @@ export default function Dashboard(props) {
               <h1 style={{ margin: 0 }}>RESULTS & STATISTICS</h1>
               <a href="/AccountOptions">Select Events</a>
             </div>
-            {eventList
-              ?
-              <Box>
-                <p>{eventList.id}. {eventList.event_name}</p>
-                <p>{eventList.date_begin}</p>
-              </Box>
-              :
-              null
-            }
 
             <Row style={{ marginTop: '10px' }}>
               <Col xs>
                 <Select placeholder="Category">
                   <option>ea</option>
-                  <option>AMISTERDAN</option>
-                  <option>Octo Britsh</option>
+                  <option>AMSTERDAM</option>
+                  <option>objectOf British</option>
                 </Select>
               </Col>
 
               <Col xs>
                 <Select placeholder="Trial">
-                  {trials.map((content) => (
+                  {trials[0] ? trials.map((content) => (
                     <option>{content.name}</option>
-                  ))}
+                  )) : null}
                 </Select>
               </Col>
             </Row>
-            <Table isTopSpaced columns={columns} data={data} />
+            <Table  columns={columns} data={data} />
           </Box>
         </Grid>
       </Center>
