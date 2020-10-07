@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
-import { Container, Title, TitleText } from './styles';
+import { Container, Title, TitleText, Body } from './styles';
 import { MdFormatIndentIncrease, MdFormatIndentDecrease } from 'react-icons/md';
 
 const Sidebar = (props) => {
-
   const [isOpen, setisOpen] = useState<boolean>(false);
   const Icon = isOpen ? MdFormatIndentDecrease : MdFormatIndentIncrease;
   return (
-    <Container isOpen={isOpen}>
-      <Title isOpen={isOpen}>
+    <Container isOpen={isOpen} id="container">
+      <Title onClick={() => setisOpen(!isOpen)} isOpen={isOpen} id="title">
         <TitleText isOpen={isOpen}>{props.title}</TitleText>
         <Icon
           size={24}
-          style={{ marginLeft: 'auto' }}
-          onClick={() => setisOpen(!isOpen)}
+          style={isOpen ? { marginLeft: 'auto' } : { margin: 'auto' }}
         />
       </Title>
+      <Body isOpen={isOpen}>
+
+      </Body>
     </Container>
   );
 };
