@@ -13,9 +13,9 @@ export const Container = styled.div<{ dark?: boolean; isOpen?: boolean }>`
 export const Title = styled.div<{ dark?: boolean; isOpen?: boolean }>`
   /* display: ${(props) => (props.isOpen ? 'flex' : 'none')}; */
   text-align: end;
-  transition: all .15s;
+  transition: all 0.15s;
   display: flex;
-  padding: 0 10px; 
+  padding: 0 10px;
   width: 100%;
   height: 50px;
   justify-content: space-between;
@@ -34,7 +34,23 @@ export const TitleText = styled.a<{ isOpen?: boolean }>`
 export const Body = styled.div<{ dark?: boolean; isOpen?: boolean }>`
   /* display: ${(props) => (props.isOpen ? 'flex' : 'none')}; */
   width: ${(props) => (props.isOpen ? '200px' : '0')};
-  transition: all .15s;
+  transition: all 0.15s;
   height: calc(100% - 50px);
   background: ${(props) => (props.dark ? '#293742' : '#f4f8fb')};
+`;
+
+export const Page = styled.button<any>`
+	:hover {
+		cursor: pointer;
+    background: #1890ff;
+	}
+  align-items: center;
+  display: ${(props) => (props.isOpen ? 'flex' : 'none')};
+  margin: 0;
+  border: none;
+  padding: 10px;
+  width: ${(props) => (props.isOpen ? '100%' : '0')};
+  height: 40px;
+  background: ${(props) => (props.dark ? '#293742' : '#f4f8fb')};
+  transition: all 0.1s;
 `;
