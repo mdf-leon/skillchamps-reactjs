@@ -5,8 +5,8 @@ import { Button, Box } from 'components';
 import { IconButton, Img, EventsDiv, A } from './styles'
 import { Center, Row, Col, Grid } from 'styles/global'
 //  //
-import UserEvents from "./userEvents";
-import BecomeInstitute from "./becomeInstitute";
+// import UserEvents from "./userEvents";
+// import BecomeInstitute from "./becomeInstitute";
 // icons //
 import { ReactComponent as Settings } from '../../../assets/images/Settings.svg'
 import { ReactComponent as Dots } from '../../../assets/images/Dots.svg'
