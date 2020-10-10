@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import History from 'react-history';
 import { IconButton, SelectedTab } from './styles';
 
-export default function TabPage(props) {
+export default function TabPage(props: any) {
   const [tab, settab] = useState(0);
 
   const tabText = () => {

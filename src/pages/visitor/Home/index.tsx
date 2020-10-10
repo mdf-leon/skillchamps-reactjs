@@ -3,7 +3,8 @@ import React from 'react';
 import { TopBar, HomeButton, AccountButton, Body } from './styles';
 import VintageBike from 'assets/images/other/VintageBike.png';
 import TabPage from './TabPage';
-const Home = (props) => {
+
+const Home = (props: any) => {
   return (
     <div style={{ height: '100%' }}>
       <TopBar>
@@ -22,7 +23,7 @@ const Home = (props) => {
           style={{ padding: '10px', textAlign: 'center', paddingTop: '0px' }}
         >
           <h2 style={{ color: '#3842a3' }}>
-            <strong style={{ color: '#ad0b26' }}>Control</strong> your event
+            <strong style={{ color: '#ad0b26' }}>Control</strong> your event 
             just like your riders control their{' '}
             <strong style={{ color: '#ad0b26' }}>Motorcycles</strong>
           </h2>
