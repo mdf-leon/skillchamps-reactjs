@@ -1,11 +1,30 @@
 import React, { useState } from 'react';
-import { Container, Title, TitleText, Body, Page } from './styles';
+import {
+  Container,
+  Title,
+  TitleText,
+  Body,
+  Page,
+  TitleContainer,
+} from './styles';
 import { MdFormatIndentIncrease, MdFormatIndentDecrease } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
+import SettingsIcon from '@material-ui/icons/Settings';
+
 const Sidebar = (props) => {
-  const history = useHistory(); 
+  const history = useHistory();
   const [isOpen, setisOpen] = useState<boolean>(false);
   const Icon = isOpen ? MdFormatIndentDecrease : MdFormatIndentIncrease;
+
+  const dynIcon = (iconName) => {
+    // <DynIcon size={24} style={{ margin: '0' }} />
+    switch (iconName) {
+      case 'gear':
+        return <SettingsIcon style={{ margin: '0'}} />;
+      default:
+        return <div />;
+    }
+  };
 
   function page(text: string, url: string) {
     return (
@@ -18,11 +37,11 @@ const Sidebar = (props) => {
   return (
     <Container isOpen={isOpen} id="container">
       <Title onClick={() => setisOpen(!isOpen)} isOpen={isOpen} id="title">
-        <TitleText isOpen={isOpen}>{props.title}</TitleText>
-        <Icon
-          size={24}
-          style={isOpen ? { marginLeft: 'auto' } : { margin: 'auto' }}
-        />
+        <TitleContainer>
+          <Icon size={24} style={{ margin: '0' }} />
+          <span>{props.title}</span>
+          {dynIcon(props.rightIcon || '')}
+        </TitleContainer>
       </Title>
       <Body isOpen={isOpen}>
         <Page
