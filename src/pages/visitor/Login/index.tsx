@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 // import { Button } from 'components';
 // import { Redirect } from 'react-router-dom'
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TextField, Checkbox, Button } from '@material-ui/core';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Center, Card, Row } from './styles';
 
 import { base } from '../../../config/api';
 
-export default function Login(props) {
+export default function Login() {
   const [fData, setFData] = useState({
     email: '',
     password: '',
@@ -50,6 +53,7 @@ export default function Login(props) {
         <form onSubmit={handleSubmit} className="login-form">
           <div style={{ marginBottom: '10px' }}>
             <TextField
+              style={{ width: '100%' }}
               label="E-mail"
               onChange={(e) => setFData({ ...fData, email: e.target.value })}
               // placeholder="Email"
@@ -58,23 +62,27 @@ export default function Login(props) {
           </div>
           <div style={{ marginBottom: '15px' }}>
             <TextField
+              style={{ width: '100%' }}
               label="Password"
               onChange={(e) => setFData({ ...fData, password: e.target.value })}
-              // inputType="password"
+              type="password"
               variant="outlined"
               // placeholder="Password"
             />
           </div>
-          <Row style={{ marginBottom: '15px' }}>
-            <p><Checkbox />I agree to the user's agreement of service</p>
+          {/* <Row style={{ marginBottom: '15px' }}>
+            <p>
+              <Checkbox />I agree to the <a href="/">terms of service</a>
+            </p>
             <span className="mx-2" />
-            <a className="login-form-forgot" href="/">
-              Forgot password
-            </a>
-          </Row>
-          <Button variant="contained" color="primary" type="submit">
-            Log in
-          </Button>
+          </Row> */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <a href="/"> Forgot password </a>
+            <div style={{ width: '60px'}}/>
+            <Button variant="contained" color="primary" type="submit">
+              Log in
+            </Button>
+          </div>
         </form>
       </Card>
     </Center>
