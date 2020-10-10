@@ -3,8 +3,8 @@ import { Container, Title, TitleText, Body, Page } from './styles';
 import { MdFormatIndentIncrease, MdFormatIndentDecrease } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
 const Sidebar = (props) => {
-  const history = useHistory();
-  const [isOpen, setisOpen] = useState<boolean>(true);
+  const history = useHistory(); 
+  const [isOpen, setisOpen] = useState<boolean>(false);
   const Icon = isOpen ? MdFormatIndentDecrease : MdFormatIndentIncrease;
 
   function page(text: string, url: string) {

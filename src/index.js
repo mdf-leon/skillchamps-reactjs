@@ -70,11 +70,6 @@ ReactDOM.render(
           path="/AccountOptions"
           component={AccountOptions}
         />
-        <ProtectedRoute
-          exact
-          path="/AccountOptions"
-          component={AccountOptions}
-        />
         {/* <Route exact path="/portfolio/:id" component={App} />
                 <Route path="/contact" component={App} /> */}
       </Switch>
