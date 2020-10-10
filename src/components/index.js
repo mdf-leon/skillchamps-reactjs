@@ -13,13 +13,10 @@ import Table from './Table1';
 import Receipt from './Receipt';
 import CreditCard from './CreditCard';
 import ProgressBar from './ProgressBar';
-import ProgressModal from './ProgressModal';
 import FileUpload from './FileUpload';
-import DetailCard from './DetailCard';
 import Filter from './Filter';
 import EditableSpan from './EditableSpan';
 import Notification from './Notification';
-import Calendar from './Calendar';
 import DropDown from './DropDown';
 import Modal from './Modal';
 import ShadowedBox from './ShadowedBox';
@@ -42,14 +39,11 @@ export {
   Receipt,
   CreditCard,
   ProgressBar,
-  ProgressModal,
   FileUpload,
-  DetailCard,
   Modal,
   Filter,
   EditableSpan,
   Notification,
-  Calendar,
   DropDown,
   ShadowedBox,
   Box,

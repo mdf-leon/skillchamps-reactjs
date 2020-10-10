@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../../../components/navbar/sidebar";
 // styles & components //
 import { Button, Box } from 'components';
 import { IconButton, Img, EventsDiv, A } from './styles'
@@ -140,7 +139,6 @@ export default function AccountOptions(props) {
 
 	return (
 		<>
-			<Sidebar SeleKey={3} />
 			<Center>
 				<Grid>
 					<div style={{ display: "flex", width: "100%", padding: "26px 26px 0" }} >

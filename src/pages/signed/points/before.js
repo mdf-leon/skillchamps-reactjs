@@ -7,7 +7,6 @@ import { Center, Card, Col, Row, Grid } from 'styles/global'
 import { SideBarDiv, ChangeButton, DivRT } from './styles'
 
 import { base } from "../../../config/api";
-import Sidebar from "../../../components/navbar/sidebar";
 
 export default function BeforePoints(props) {
   const history = useHistory();
@@ -52,9 +51,6 @@ export default function BeforePoints(props) {
 
   return (
     <>
-      <SideBarDiv>
-        <Sidebar SeleKey={3} />
-      </SideBarDiv>
 
       <Center>
         <Card>

@@ -8,15 +8,12 @@ import {
   List,
   Select,
   Avatar,
-  Collapse,
-  Icon,
   Modal,
   Spin
 } from "antd";
 import { base } from "../../../config/api";
 import { useCookies } from "react-cookie";
 
-import Sidebar from "../../../components/navbar/sidebar";
 
 export default function Events(props) {
   const [cookies, setCookie] = useCookies("jwt");
@@ -118,7 +115,6 @@ export default function Events(props) {
 
   return (
     <div className="h-100">
-      <Sidebar SeleKey={""} />
       <div className="container justify-content-center align-items-center d-flex h-100">
         {!loading ? (
           <Card style={{ width: "70%" }}>

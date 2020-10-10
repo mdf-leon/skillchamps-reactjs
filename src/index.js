@@ -15,14 +15,14 @@ import { ThemeProvider } from 'styled-components';
 // import App from "./App";
 import Home from "./pages/visitor/Home/index.tsx";
 import Login from "./pages/visitor/Login";
-import Register from "./pages/visitor/Register";
+// import Register from "./pages/visitor/Register";
 import Dashboard from "./pages/signed/Dashboard/index.tsx";
 import Rider from "./pages/signed/Rider";
 import AccountOptions from "./pages/signed/AccountOptions";
-import Events from "./pages/signed/Events";
-import Institute from "./pages/signed/Institute";
-import CreateEvent from "./pages/signed/CreateEvent";
-import ManageEvent from "./pages/signed/ManageEvent";
+// import Events from "./pages/signed/Events";
+// import Institute from "./pages/signed/Institute";
+// import CreateEvent from "./pages/signed/CreateEvent";
+// import ManageEvent from "./pages/signed/ManageEvent";
 import BeforePoints from "./pages/signed/points/before";
 import Points from "./pages/signed/points";
 
@@ -53,13 +53,13 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={Home} />
         <VisitorRoute exact path="/login" component={Login} />
-        <VisitorRoute exact path="/register" component={Register} />
+        {/* <VisitorRoute exact path="/register" component={Register} /> */}
         <ProtectedRoute exact path="/Dashboard" component={Dashboard} />
         <ProtectedRoute exact path="/Rider" component={Rider} />
-        <ProtectedRoute exact path="/events" component={Events} />
-        <ProtectedRoute exact path="/manageInstitute" component={Institute} />
-        <ProtectedRoute exact path="/createEvent" component={CreateEvent} />
-        <ProtectedRoute exact path="/manageEvent" component={ManageEvent} />
+        {/* <ProtectedRoute exact path="/events" component={Events} /> */}
+        {/* <ProtectedRoute exact path="/manageInstitute" component={Institute} /> */}
+        {/* <ProtectedRoute exact path="/createEvent" component={CreateEvent} /> */}
+        {/* <ProtectedRoute exact path="/manageEvent" component={ManageEvent} /> */}
         <ProtectedRoute exact path="/beforePoints" component={BeforePoints} />
         <ProtectedRoute exact path="/points" component={Points} />
 

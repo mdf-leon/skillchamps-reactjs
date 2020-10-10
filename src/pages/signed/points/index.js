@@ -4,7 +4,6 @@ import { Center, Card, Col, Row, Grid } from 'styles/global'
 import { DateTime } from "luxon";
 import { SideBarDiv, TimeDiv, RoundButton, NumberBox, TimeInput } from './styles'
 import { base } from "../../../config/api";
-import Sidebar from "../../../components/navbar/sidebar";
 
 import { AiOutlineMinusCircle, AiFillPlusCircle } from 'react-icons/ai';
 
@@ -219,9 +218,6 @@ export default function BeforePoints(props) {
         />
         :
         null}
-      <SideBarDiv>
-        <Sidebar SeleKey={3} />
-      </SideBarDiv>
 
       <Center>
         <Card>

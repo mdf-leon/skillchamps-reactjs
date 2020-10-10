@@ -21,6 +21,6 @@ export const Card = styled.div`
 
 export const Row = styled.div`
   margin-top: ${(props) => (props.isTopSpaced ? '10px' : '0px')};
-  display: flex;
+  /* display: flex; */
   flex-direction: Row;
 `;

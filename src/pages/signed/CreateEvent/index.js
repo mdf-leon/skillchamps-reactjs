@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-import Sidebar from "../../../components/navbar/sidebar";
 import { base } from "../../../config/api";
 import { useCookies } from "react-cookie";
-import {
-  Icon,
-  DatePicker
-} from "antd";
 import { Button, Input, } from 'components/shared';
 import { Center, Card, Row, TextInput } from './styles'
 import moment from "moment";
@@ -46,7 +41,6 @@ export default function CreateEvent() {
 
   return (
     <div className="h-100">
-      <Sidebar SeleKey={1} />
       <Center>
         <Card style={{ width: "300px" }}>
           {switcher === 0 ? (
@@ -95,10 +89,6 @@ export default function CreateEvent() {
             </form>
           ) : switcher === 1 ? (
             <div style={{ textAlign: "center" }}>
-              <Icon
-                type="check-circle"
-                style={{ fontSize: "50px", color: "#096dd9", display: "block" }}
-              />
               <span
                 style={{
                   display: "block",
@@ -115,10 +105,6 @@ export default function CreateEvent() {
             </div>
           ) : (
                 <div style={{ textAlign: "center" }}>
-                  <Icon
-                    type="close"
-                    style={{ fontSize: "50px", color: "tomato", display: "block" }}
-                  />
                   <span
                     style={{
                       display: "block",

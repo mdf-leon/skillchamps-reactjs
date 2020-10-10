@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../../../components/navbar/sidebar";
 import { base } from "../../../config/api";
 import { useCookies } from "react-cookie";
 import { Card, Descriptions, Spin, List, Col, Row, Button, Icon } from "antd";
@@ -47,12 +46,6 @@ export default function Events(props) {
 
   return (
     <div style={{ height: "100%" }}>
-      <Sidebar
-        isCollapsed={setCollapsed} // isCollapsed retorna o estado atual da barra, true significa agrupado/fechado
-        collapsed={collapsed} // collapsed recebe o valor que deseja, outro botao pode alterar a barra se quiser
-        //manualCollapse // manualCollapse vai sumir com o botão se você quiser
-        SeleKey={""}
-      />
       <div
         className={
           "container justify-content-center align-items-center d-flex h-100"

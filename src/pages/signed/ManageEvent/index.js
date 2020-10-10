@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../../../components/navbar/sidebar";
 import { base } from "../../../config/api";
 import queryString from "query-string";
 import { Card, Row, Col, Descriptions, Spin, Button, Icon, List } from "antd";
@@ -56,7 +55,6 @@ export default function ManageEvent(props) {
 
   return (
     <div className="h-100">
-      <Sidebar SeleKey={2} />
       <div
         className="container justify-content-center align-items-center d-flex h-100"
         style={{ flexDirection: "column" }}
