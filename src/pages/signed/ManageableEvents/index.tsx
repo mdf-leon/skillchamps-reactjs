@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Sidebar from "../../../components/Sidebar";
 import {
   Theme,
   createStyles,
@@ -15,23 +16,35 @@ import { base } from "../../../config/api";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    mainDiv: {
+      paddingTop: "50px",
+    },
     root: {
       display: "flex",
-      background: "none",
+      flexDirection: "column",
+      background: "transparent",
       boxShadow: "0px 0px 0px 0px #888888",
+      margin: "5px 0 5px 0",
+      width: "100%",
+    },
+    ternaryDiv: {
+      width: "100%",
     },
     details: {
       display: "flex",
-      marginLeft: "16px",
+      marginLeft: "5px",
+      paddingRight: "5px",
       flexDirection: "row",
       borderBottom: "1px solid #D5D5D5",
       alignItems: "center",
+      width: "100%",
     },
     content: {
       flex: "1 0 auto",
       padding: "16px 16px 16px 0",
     },
     cover: {
+      height: 92,
       width: 151,
     },
     controls: {
@@ -50,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function MediaControlCard() {
   const classes = useStyles();
   const theme = useTheme();
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState<any[]>([]);
 
   const renderIcons = (iconName) => {
     switch (iconName) {
@@ -77,30 +90,89 @@ export default function MediaControlCard() {
       });
   }, []);
 
+  function getCurrentDate(separator = "") {
+    let newDate = new Date();
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
+    return `${year}${separator}${
+      month < 10 ? `0${month}` : `${month}`
+    }${separator}${date}`;
+  }
+
+  const todayEvent: any[] = events[0]
+    ? events.filter(
+        (event) =>
+          new Date(event.date_begin.replace(".000Z", "")).toDateString() ===
+          new Date().toDateString()
+      )
+    : [];
+
   return (
-    <Card className={classes.root}>
-      <CardMedia
-        className={classes.cover}
-        image="https://veja.abril.com.br/wp-content/uploads/2019/12/amazonia-floresta-coraccca7ao.jpg.jpg"
-        title="Live from space album cover"
-      />
-      <div style={{display: 'flex', flexDirection: 'column'}}>
-        {events[0]
-          ? events.map((event) => (
-              <div className={classes.details}>
-                <CardContent className={classes.content}>
-                  <Typography component="h6" variant="h6">
-                    Evento Atual Um
-                  </Typography>
-                  <Typography variant="subtitle1" color="textSecondary">
-                    25/12/2020
-                  </Typography>
-                </CardContent>
-                {renderIcons("Cancel")}
-              </div>
+    <>
+      <Sidebar topnav title="SkillChamps" rightIcon="gear" />
+      <div className={classes.mainDiv}>
+        <div className={classes.ternaryDiv}>
+          <h2 style={{ textAlign: "center" }}>Today</h2>
+          {todayEvent[0] ? (
+            todayEvent.map((event) => (
+              <Card className={classes.root}>
+                <div style={{ display: "flex", marginLeft: "5px" }}>
+                  <CardMedia
+                    className={classes.cover}
+                    image="https://tracks.content.hardstyle.com/products/0/431/150/thumbs/256x256/teknoclash-elbowz.jpg"
+                    title="Live from space album cover"
+                  />
+                  <div className={classes.details}>
+                    <CardContent className={classes.content}>
+                      <Typography component="h6" variant="h6">
+                        {event.event_name}
+                      </Typography>
+                      <Typography variant="subtitle1" color="textSecondary">
+                        {new Date(event.date_begin).toLocaleDateString("en-US")}
+                      </Typography>
+                    </CardContent>
+                    {renderIcons("Cancel")}
+                  </div>
+                </div>
+              </Card>
             ))
-          : null}
+          ) : (
+            <p>Nenhum evento</p>
+          )}
+        </div>
+
+        <div className={classes.ternaryDiv}>
+          <h2 style={{ textAlign: "center" }}>Other Events</h2>
+          {events[0] ? (
+            events.map((event) => (
+              <Card className={classes.root}>
+                <div style={{ display: "flex", marginLeft: "5px" }}>
+                  <CardMedia
+                    className={classes.cover}
+                    image="https://tracks.content.hardstyle.com/products/0/431/150/thumbs/256x256/teknoclash-elbowz.jpg"
+                    title="Live from space album cover"
+                  />
+                  <div className={classes.details}>
+                    <CardContent className={classes.content}>
+                      <Typography component="h6" variant="h6">
+                        {event.event_name}
+                      </Typography>
+                      <Typography variant="subtitle1" color="textSecondary">
+                        {new Date(event.date_begin).toLocaleDateString("en-US")}
+                      </Typography>
+                    </CardContent>
+                    {renderIcons("Cancel")}
+                  </div>
+                </div>
+              </Card>
+            ))
+          ) : (
+            <p>Nenhum evento</p>
+          )}
+        </div>
       </div>
-    </Card>
+    </>
   );
 }
