@@ -63,7 +63,7 @@ export default function Dashboard(props) {
 
   return (
     <>
-      <Sidebar SeleKey={3} title="SkillChamps" />
+      <Sidebar topnav title="SkillChamps" rightIcon="gear" />
       <Center>
         <Grid>
           <Box>
