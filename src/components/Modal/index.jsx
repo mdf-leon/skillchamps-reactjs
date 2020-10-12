@@ -10,6 +10,8 @@ export default function Modal(props) {
     children,
     containerClassName,
     bodyClassName,
+    bodyStyle,
+    noPadding,
   } = props;
 
   if (show) {
@@ -23,7 +25,14 @@ export default function Modal(props) {
           }
         }}
       >
-        <Card className={bodyClassName}>{content || children}</Card>
+        <Card
+          className={bodyClassName}
+          style={bodyStyle}
+          onClick={(e) => e.stopPropagation()}
+          noPadding={noPadding}
+        >
+          {content || children}
+        </Card>
       </Blackground>
     );
   }
@@ -36,7 +45,9 @@ Modal.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   containerClassName: PropTypes.string,
   bodyClassName: PropTypes.string,
+  bodyStyle: PropTypes.objectOf(PropTypes.string),
   show: PropTypes.bool,
+  noPadding: PropTypes.bool,
 };
 
 Modal.defaultProps = {
@@ -45,5 +56,7 @@ Modal.defaultProps = {
   children: undefined,
   containerClassName: '',
   bodyClassName: '',
+  bodyStyle: undefined,
   show: true,
+  noPadding: false,
 };

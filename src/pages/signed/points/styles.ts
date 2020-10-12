@@ -9,7 +9,7 @@ export const SideBarDiv = styled.div`
 
 // ------BeforePoinst------ //
 
-export const ChangeButton = styled.button`
+export const ChangeButton = styled.button<any>`
   padding: 20px;
   background-color: ${(props) => (props.isSelected === true ? "rgb(239, 239, 239)" : "white")};
   height: 100%;
