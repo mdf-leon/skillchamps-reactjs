@@ -74,3 +74,15 @@ export const TimeInput = styled(TextInput)`
   text-align: center;
  }
 `;
+
+export const Options = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 16px 16px 16px;
+  align-items: center;
+  background: transparent;
+  border-bottom: 1px solid #D5D5D5;
+  &:not(:first-child) {
+    padding-top: 16px;
+  }
+`;
