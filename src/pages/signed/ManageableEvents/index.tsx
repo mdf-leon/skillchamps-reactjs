@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function MediaControlCard() {
+export default function MediaControlCard(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [events, setEvents] = useState<any[]>([]);
@@ -126,9 +126,10 @@ export default function MediaControlCard() {
             todayEvent.map((event) => (
               <Card
                 className={classes.root}
-                onClick={() => 
-                  localStorage.setItem("event_id", event.id)
-                }
+                onClick={() => {
+                  localStorage.setItem("event_id", event.id);
+                  props.history.push(`/eventOptions`);
+                }}
               >
                 <div style={{ display: "flex", marginLeft: "5px" }}>
                   <CardMedia
@@ -165,10 +166,12 @@ export default function MediaControlCard() {
           </Typography>
           {events[0] ? (
             events.map((event) => (
-              <Card className={classes.root}
-              onClick={() => 
-                localStorage.setItem("event_id", event.id)
-              }
+              <Card
+                className={classes.root}
+                onClick={() => {
+                  localStorage.setItem("event_id", event.id);
+                  props.history.push(`/eventOptions`);
+                }}
               >
                 <div style={{ display: "flex", marginLeft: "5px" }}>
                   <CardMedia

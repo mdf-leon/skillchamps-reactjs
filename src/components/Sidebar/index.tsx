@@ -55,11 +55,13 @@ const Sidebar = (props) => {
         </Page>
         {page('- landing page', '/')}
         {page('dashboard', '/dashboard')}
+        {page('eventOptions', '/eventOptions')}
         {page('accountOptions', '/accountOptions')}
         {page('createEvent', '/createEvent')}
         {page('x Events', '/Events')}
         {page('x Institute', '/Institute')}
-        {page('x ManageEvent', '/ManageEvent')}
+        {page('x ManageEvents', '/ManageEvent')}
+        {page('ManageableEvent', '/manageableEvents')}
         {page('x BeforePoints', '/BeforePoints')}
         {page('Rider', '/Rider')}
       </Body>
