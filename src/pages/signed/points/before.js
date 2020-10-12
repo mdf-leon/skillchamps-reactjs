@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from "react";
+import Sidebar from "../../../components/Sidebar";
 import { useHistory } from "react-router-dom";
-import { Button, TextInput, CheckBox, Box } from 'components';
+import { TextInput, CheckBox, Box } from 'components';
 // import { Redirect } from 'react-router-dom'
-import { Center, Card, Col, Row, Grid } from 'styles/global'
+import { Center, Col, Row, Grid } from 'styles/global'
 
 import { SideBarDiv, ChangeButton, DivRT } from './styles'
 
 import { base } from "../../../config/api";
+
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardActions,
+  CardMedia,
+  Button,
+  Typography,
+} from "@material-ui/core";
 
 export default function BeforePoints(props) {
   const history = useHistory();
@@ -51,8 +62,8 @@ export default function BeforePoints(props) {
 
   return (
     <>
-
-      <Center>
+      <Sidebar topnav title="Start Trial" rightIcon="gear" />
+      <Center style={{paddingTop: '50px'}}>
         <Card>
           <Grid>
             <Row>

@@ -26,6 +26,7 @@ import AccountOptions from "./pages/signed/AccountOptions";
 import ManageableEvents from "./pages/signed/ManageableEvents";
 import BeforePoints from "./pages/signed/points/before";
 import Points from "./pages/signed/points";
+import EventOptions from "./pages/signed/EventOptions";
 
 import theme from './styles/theme';
 
@@ -43,7 +44,7 @@ function VisitorRoute(props) {
   if (token === null || token === undefined) {
     return <Route {...props} />;
   } else {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/ManageableEvents" />;
   }
 }
 
@@ -61,6 +62,7 @@ ReactDOM.render(
         {/* <ProtectedRoute exact path="/manageInstitute" component={Institute} /> */}
         {/* <ProtectedRoute exact path="/createEvent" component={CreateEvent} /> */}
         {/* <ProtectedRoute exact path="/manageEvent" component={ManageEvent} /> */}
+        <ProtectedRoute exact path="/eventOptions" component={EventOptions} />
         <ProtectedRoute exact path="/manageableEvents" component={ManageableEvents} />
         <ProtectedRoute exact path="/beforePoints" component={BeforePoints} />
         <ProtectedRoute exact path="/points" component={Points} />

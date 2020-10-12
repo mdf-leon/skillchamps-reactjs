@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       boxShadow: "0px 0px 0px 0px #888888",
       margin: "5px 0 5px 0",
       width: "100%",
+      cursor: "pointer",
     },
     ternaryDiv: {
       width: "100%",
@@ -111,13 +112,24 @@ export default function MediaControlCard() {
 
   return (
     <>
-      <Sidebar topnav title="SkillChamps" rightIcon="gear" />
+      <Sidebar topnav title="Manageable Events" rightIcon="gear" />
       <div className={classes.mainDiv}>
         <div className={classes.ternaryDiv}>
-          <h2 style={{ textAlign: "center" }}>Today</h2>
+          <Typography
+            component="h6"
+            variant="h6"
+            style={{ textAlign: "center", marginTop: "22px" }}
+          >
+            Today
+          </Typography>
           {todayEvent[0] ? (
             todayEvent.map((event) => (
-              <Card className={classes.root}>
+              <Card
+                className={classes.root}
+                onClick={() => 
+                  localStorage.setItem("event_id", event.id)
+                }
+              >
                 <div style={{ display: "flex", marginLeft: "5px" }}>
                   <CardMedia
                     className={classes.cover}
@@ -144,10 +156,20 @@ export default function MediaControlCard() {
         </div>
 
         <div className={classes.ternaryDiv}>
-          <h2 style={{ textAlign: "center" }}>Other Events</h2>
+          <Typography
+            component="h6"
+            variant="h6"
+            style={{ textAlign: "center", marginTop: "22px" }}
+          >
+            Other Events
+          </Typography>
           {events[0] ? (
             events.map((event) => (
-              <Card className={classes.root}>
+              <Card className={classes.root}
+              onClick={() => 
+                localStorage.setItem("event_id", event.id)
+              }
+              >
                 <div style={{ display: "flex", marginLeft: "5px" }}>
                   <CardMedia
                     className={classes.cover}
