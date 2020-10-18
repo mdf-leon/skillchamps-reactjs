@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { base } from "../../../config/api";
 
-export default function ImgMediaCard() {
+export default function ImgMediaCard(props: any) {
   const classes = styles();
 
   return (
@@ -52,10 +52,12 @@ export default function ImgMediaCard() {
             <Button
               className={classes.action}
               disableRipple
+              variant="contained"
               size="small"
               color="primary"
+              onClick={() => props.history.push('/beforePoints')}
             >
-              ADVANCED
+              START TRIAL
             </Button>
           </CardActions>
         </Card>
