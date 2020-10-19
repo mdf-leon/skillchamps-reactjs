@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function MediaControlCard(props) {
+export default function ManageableEvents(props: any) {
   const classes = useStyles();
   const theme = useTheme();
   const [events, setEvents] = useState<any[]>([]);
@@ -110,6 +110,8 @@ export default function MediaControlCard(props) {
       )
     : [];
 
+  let AB = "ab";
+
   return (
     <>
       <Sidebar topnav title="Manageable Events" rightIcon="gear" />
@@ -128,7 +130,10 @@ export default function MediaControlCard(props) {
                 className={classes.root}
                 onClick={() => {
                   localStorage.setItem("event_id", event.id);
-                  props.history.push(`/eventOptions`);
+                  props.history.push(`/eventOptions`, {
+                    event_name: event.event_name,
+                    event_date: event.date_begin,
+                  });
                 }}
               >
                 <div style={{ display: "flex", marginLeft: "5px" }}>
@@ -170,7 +175,10 @@ export default function MediaControlCard(props) {
                 className={classes.root}
                 onClick={() => {
                   localStorage.setItem("event_id", event.id);
-                  props.history.push(`/eventOptions`);
+                  props.history.push(`/eventOptions`, {
+                    event_name: event.event_name,
+                    event_date: event.date_begin,
+                  });
                 }}
               >
                 <div style={{ display: "flex", marginLeft: "5px" }}>

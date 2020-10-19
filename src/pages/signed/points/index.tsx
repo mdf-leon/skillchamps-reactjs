@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Sidebar from "../../../components/Sidebar";
 import { Modal } from "components";
-import { Center, Col, Row, Grid } from "styles/global";
 import { DateTime } from "luxon";
 import {
   SideBarDiv,
@@ -8,6 +8,8 @@ import {
   RoundButton,
   NumberBox,
   TimeInput,
+  PenaltyDiv,
+  MainDiv,
 } from "./styles";
 import {
   Card,
@@ -19,8 +21,14 @@ import {
   Typography,
 } from "@material-ui/core";
 import { base } from "../../../config/api";
-
+import {
+  Theme,
+  createStyles,
+  makeStyles,
+  useTheme,
+} from "@material-ui/core/styles";
 import { AiOutlineMinusCircle, AiFillPlusCircle } from "react-icons/ai";
+import classes from "*.module.sass";
 
 const penaltiesConf: any[] = [
   {
@@ -39,7 +47,16 @@ const penaltiesConf: any[] = [
   },
 ];
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    mainCardText: {
+      color: "white",
+    },
+  })
+);
+
 export default function BeforePoints(props) {
+  const classes = useStyles();
   const [activeModal, setactiveModal] = useState<any>();
   const [dataTrial, setDataTrial] = useState<any>({});
   const [dataRider, setDataRider] = useState<any>({});
@@ -109,10 +126,12 @@ export default function BeforePoints(props) {
   };
 
   const penalty = (pen) => (
-    <div style={{ margin: "20px" }}>
-      <h2>
-        {pen.id}.{pen.name}
-      </h2>
+    <div>
+      <Typography variant="body2" component="p">
+        <strong>
+          {pen.id}.{pen.name}
+        </strong>
+      </Typography>
 
       <div
         style={{
@@ -122,17 +141,17 @@ export default function BeforePoints(props) {
           justifyContent: "center",
         }}
       >
-        <RoundButton
-          onClick={(e) => {
-            const temp: any[] = [...pens];
-            temp[pen.id] = (temp[pen.id] || 0) - 1;
-            setpens(temp);
-          }}
-        >
-          <AiOutlineMinusCircle size="50" color="red" />
-        </RoundButton>
-
         <NumberBox>
+          <RoundButton
+            onClick={(e) => {
+              const temp: any[] = [...pens];
+              temp[pen.id] = (temp[pen.id] || 0) - 1;
+              setpens(temp);
+            }}
+          >
+            <AiOutlineMinusCircle size="50" color="red" />
+          </RoundButton>
+
           <div
             style={{
               height: "100%",
@@ -141,19 +160,21 @@ export default function BeforePoints(props) {
               justifyContent: "center",
             }}
           >
-            <h2 style={{ margin: "0" }}>{pens[pen.id] || "none"}</h2>
+            <Typography variant="h3" component="h3">
+              {pens[pen.id] || "none"}
+            </Typography>
           </div>
-        </NumberBox>
 
-        <RoundButton
-          onClick={(e) => {
-            const temp = [...pens];
-            temp[pen.id] = (temp[pen.id] || 0) + 1;
-            setpens(temp);
-          }}
-        >
-          <AiFillPlusCircle size="50" color="red" />
-        </RoundButton>
+          <RoundButton
+            onClick={(e) => {
+              const temp = [...pens];
+              temp[pen.id] = (temp[pen.id] || 0) + 1;
+              setpens(temp);
+            }}
+          >
+            <AiFillPlusCircle size="50" color="red" />
+          </RoundButton>
+        </NumberBox>
       </div>
     </div>
   );
@@ -172,14 +193,19 @@ export default function BeforePoints(props) {
           marginTop: "20px",
         }}
       >
-        <Button variant="contained" color="primary"
+        <Button
+          variant="contained"
+          color="primary"
           style={{ color: "red", border: "1px solid red", marginRight: "10px" }}
           onClick={() => setactiveModal(false)}
         >
           Delete points
         </Button>
-        <Button variant="contained" color="primary"
-        onClick={() => setactiveModal(false)}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setactiveModal(false)}
+        >
           Continue scoring
         </Button>
       </div>
@@ -235,9 +261,7 @@ export default function BeforePoints(props) {
         >
           Cancel
         </Button>
-        <Button  onClick={() => setactiveModal(false)}>
-          Continue scoring
-        </Button>
+        <Button onClick={() => setactiveModal(false)}>Continue scoring</Button>
       </div>
     </div>
   );
@@ -257,9 +281,7 @@ export default function BeforePoints(props) {
       />
 
       <div style={{ marginTop: "20px" }}>
-        <Button onClick={() => setactiveModal(false)}>
-          Save Time
-        </Button>
+        <Button onClick={() => setactiveModal(false)}>Save Time</Button>
         <Button
           style={{
             color: "red",
@@ -281,9 +303,7 @@ export default function BeforePoints(props) {
       <TimeInput placeholder="00:00:00" inputType="time" />
 
       <div style={{ marginTop: "20px" }}>
-        <Button onClick={() => setactiveModal(false)}>
-          Save Time
-        </Button>
+        <Button onClick={() => setactiveModal(false)}>Save Time</Button>
         <Button
           style={{
             color: "red",
@@ -301,122 +321,128 @@ export default function BeforePoints(props) {
 
   const modalContent = (modalName, id = null) => {
     const modals = {
-      customTempDefine: ( customTempDefine ),
-      totalTempDefine: ( totalTempDefine ),
-      confirm: ( confirm ),
+      customTempDefine: customTempDefine,
+      totalTempDefine: totalTempDefine,
+      confirm: confirm,
     };
     return modals[modalName] || null;
   };
 
   return (
     <>
-      <Center>
-        <Card>
-          <Grid>
-            <Row>
-              <Col xs={12}>
-                <Card>
-                  <p>
-                    <strong>Trial: </strong>
-                    {dataTrial.name}
-                  </p>
-                </Card>
-              </Col>
-
-              <Col xs={12}>
-                <Card>
-                  <h2 style={{ margin: "0" }}>Rider</h2>
-                  <p>
-                    <strong>Name: </strong>
-                    {dataRider.name}
-                  </p>
-                  <p>
-                    <strong>Category: </strong>Advanced*
-                  </p>
-                  <p>
-                    <strong>Motor cycle: </strong>
-                    {dataRider.motorcycle}
-                  </p>
-                  <p>
-                    <strong>MotorCycle Plate: </strong>
-                    {dataRider.motorcycle_plate}
-                  </p>
-                </Card>
-              </Col>
-
-              <TimeDiv>
-                <Col xs={6}>
-                  <Card
-                    onClick={() => setactiveModal(totalTempDefine)}
-                    style={{
-                      cursor: "pointer",
-                      textAlign: "center",
-                      padding: "5px",
-                    }}
-                  >
-                    <h2>Total Time</h2>
-                    <h1>00:00:00</h1>
-                  </Card>
-                </Col>
-
-                <Col xs={6}>
-                  <Card
-                    onClick={() => setactiveModal(customTempDefine)}
-                    style={{
-                      textAlign: "center",
-                      padding: "5px",
-                      border: "none",
-                    }}
-                  >
-                    <h2>Penalty Time</h2>
-                    <h1>00:00:00</h1>
-                  </Card>
-                </Col>
-              </TimeDiv>
-
-              <Col xs={12}>
-                <Card>
-                  {penaltiesConf.map((p, i) => {
-                    return penalty(p);
-                  })}
-                </Card>
-              </Col>
-
-              <Col
-                xs={12}
+      <Sidebar topnav title="Manageable Events" rightIcon="gear" />
+      <Card>
+        <MainDiv style={{ marginTop: "50px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                backgroundColor: "#6202EE",
+                padding: "14px 16px",
+              }}
+            >
+              <div>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h2"
+                  className={classes.mainCardText}
+                >
+                  {dataTrial.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="p"
+                  className={classes.mainCardText}
+                >
+                  {dataRider.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="p"
+                  className={classes.mainCardText}
+                >
+                  Advanced
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="p"
+                  className={classes.mainCardText}
+                >
+                  {dataRider.motorcycle_plate}
+                </Typography>
+              </div>
+              <div
                 style={{
-                  justifyContent: "space-between",
-                  margin: "20px 0 20px 0",
-                  textAlign: "center",
+                  display: "flex",
+                  alignItems: "flex-end",
                 }}
               >
-                <p>
-                  Changes should only be saved at the end of the route. All
-                  penalties must be confirmed by more than one judge.
-                </p>
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <Button
-                    onClick={() => setactiveModal(cancel)}
-                    style={{ color: "red", border: "1px solid red" }}
-                  >
-                    Cancelar
-                  </Button>
-                  <Button onClick={handleSubmit}>Salvar</Button>
-                </div>
-              </Col>
-            </Row>
-          </Grid>
-        </Card>
-      </Center>
-      <Modal
+                <Button variant="contained" color="primary">
+                  START
+                </Button>
+              </div>
+            </div>
+
+            <TimeDiv>
+              <div>
+                <Typography gutterBottom variant="h5" component="h2">
+                  <strong>Base Time</strong>
+                </Typography>
+
+                <Typography variant="h5" component="h2">
+                  <strong>00:00:000</strong>
+                </Typography>
+              </div>
+
+              <div>
+                <Typography gutterBottom variant="h5" component="h2">
+                  <strong>Total Time</strong>
+                </Typography>
+                <Typography variant="h5" component="h2">
+                  <strong>00:00:000</strong>
+                </Typography>
+              </div>
+            </TimeDiv>
+
+            <PenaltyDiv>
+              {penaltiesConf.map((p, i) => {
+                return penalty(p);
+              })}
+            </PenaltyDiv>
+        </MainDiv>
+        <div style={{ display: "flex" }}>
+          <div
+            style={{
+              justifyContent: "space-between",
+              margin: "20px 0 20px 0",
+              padding: "0 8px",
+              textAlign: "center",
+            }}
+          >
+            <Typography gutterBottom variant="body2" component="h2">
+              Changes should only be saved at the end of the route. All
+              penalties must be confirmed by more than one judge.
+            </Typography>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Button
+                onClick={() => setactiveModal(cancel)}
+                style={{ color: "red", border: "1px solid red" }}
+              >
+                Cancelar
+              </Button>
+              <Button onClick={handleSubmit}>Salvar</Button>
+            </div>
+          </div>
+        </div>
+      </Card>
+      {/* <Modal
         noPadding
         show={activeModal !== ""}
         onBackgroundClick={() => setactiveModal("")}
       >
         {modalContent(activeModal)}
-      </Modal>
+      </Modal> */}
     </>
   );
 }

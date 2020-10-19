@@ -9,6 +9,7 @@ export const SideBarDiv = styled.div`
 
 // ------BeforePoinst------ //
 
+
 export const ChangeButton = styled.button<any>`
   padding: 20px;
   background-color: ${(props) => (props.isSelected === true ? "rgb(239, 239, 239)" : "white")};
@@ -39,16 +40,38 @@ button{
 
 // ------BeforePoinst------ //
 
-export const TimeDiv = styled.div`
-  margin-top: 20px;
+export const MainDiv = styled.div`
+  height: calc(100vh + -50px);
   display: flex;
-  width: 100%;
+  flex-direction: column;
+`;
+
+export const TimeDiv = styled.div`
+  background: #EDEDED;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 12px 16px;
   div {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
+`;
+
+export const PenaltyDiv = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+height: 100%;
+padding:  12px 8px;
+div{
+    margin-top: 20px;
+    div{
+      margin-top: 0px;
+    }
+}
 `;
 
 export const RoundButton = styled.button`
@@ -58,10 +81,13 @@ export const RoundButton = styled.button`
 `;
 
 export const NumberBox = styled.div`
- width: 100%; 
+ display: flex;
+ justify-content: space-between;
  text-align: center; 
  border: 1px solid #e8e8e8; 
- border-radius: 2px ;
+ border-radius: 4px;
+ background: #EDEDED;
+ width: 100%; 
 `;
 
 export const TimeInput = styled(TextInput)`

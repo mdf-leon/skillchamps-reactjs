@@ -107,6 +107,8 @@ export default function BeforePoints(props) {
   };
 
   useEffect(() => {
+    // console.log(props.location.state.a);
+    
     let params = { event_id: localStorage.getItem("event_selected") };
     base
       .get("/managedTrialsList", { params })

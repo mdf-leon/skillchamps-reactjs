@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../../../components/Sidebar";
 import styles from "./styles";
 import {
@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { base } from "../../../config/api";
 
-export default function ImgMediaCard(props: any) {
+export default function EventOptions(props: any) {
   const classes = styles();
 
   return (
@@ -28,10 +28,10 @@ export default function ImgMediaCard(props: any) {
           <CardContent className={classes.content}>
             <div>
               <Typography gutterBottom variant="h5" component="h2">
-                Evento Tal
+                {props.location.state.event_name}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                DATE
+                {new Date(props.location.state.event_date).toLocaleDateString("en-US")}
               </Typography>
             </div>
             <CardMedia
@@ -46,6 +46,7 @@ export default function ImgMediaCard(props: any) {
               disableRipple
               size="small"
               color="primary"
+              onClick={() => console.log()}
             >
               SETTINGS
             </Button>
@@ -55,76 +56,101 @@ export default function ImgMediaCard(props: any) {
               variant="contained"
               size="small"
               color="primary"
-              onClick={() => props.history.push('/beforePoints')}
+              onClick={() => props.history.push("/beforePoints")}
             >
               START TRIAL
             </Button>
           </CardActions>
         </Card>
         <div className={classes.options}>
-          <Typography style={{margin: 0}} gutterBottom variant="h6" component="h6">
+          <Typography
+            style={{ margin: 0 }}
+            gutterBottom
+            variant="h6"
+            component="h6"
+          >
             Score
           </Typography>
           <Button
-              className={classes.action}
-              disableRipple
-              size="small"
-              color="primary"
-            >
-              Settings
-            </Button>
+            className={classes.action}
+            disableRipple
+            size="small"
+            color="primary"
+          >
+            Settings
+          </Button>
         </div>
         <div className={classes.options}>
-          <Typography style={{margin: 0}} gutterBottom variant="h6" component="h6">
+          <Typography
+            style={{ margin: 0 }}
+            gutterBottom
+            variant="h6"
+            component="h6"
+          >
             Trials
           </Typography>
           <Button
-              className={classes.action}
-              disableRipple
-              size="small"
-              color="primary"
-            >
-              Settings
-            </Button>
+            className={classes.action}
+            disableRipple
+            size="small"
+            color="primary"
+          >
+            Settings
+          </Button>
         </div>
         <div className={classes.options}>
-          <Typography style={{margin: 0}} gutterBottom variant="h6" component="h6">
+          <Typography
+            style={{ margin: 0 }}
+            gutterBottom
+            variant="h6"
+            component="h6"
+          >
             Riders
           </Typography>
           <Button
-              className={classes.action}
-              disableRipple
-              size="small"
-              color="primary"
-            >
-              Settings
-            </Button>
+            className={classes.action}
+            disableRipple
+            size="small"
+            color="primary"
+          >
+            Settings
+          </Button>
         </div>
         <div className={classes.options}>
-          <Typography style={{margin: 0}} gutterBottom variant="h6" component="h6">
+          <Typography
+            style={{ margin: 0 }}
+            gutterBottom
+            variant="h6"
+            component="h6"
+          >
             Penalties
           </Typography>
           <Button
-              className={classes.action}
-              disableRipple
-              size="small"
-              color="primary"
-            >
-              Settings
-            </Button>
+            className={classes.action}
+            disableRipple
+            size="small"
+            color="primary"
+          >
+            Settings
+          </Button>
         </div>
         <div className={classes.options}>
-          <Typography style={{margin: 0}} gutterBottom variant="h6" component="h6">
+          <Typography
+            style={{ margin: 0 }}
+            gutterBottom
+            variant="h6"
+            component="h6"
+          >
             Bonuses
           </Typography>
           <Button
-              className={classes.action}
-              disableRipple
-              size="small"
-              color="primary"
-            >
-              Settings
-            </Button>
+            className={classes.action}
+            disableRipple
+            size="small"
+            color="primary"
+          >
+            Settings
+          </Button>
         </div>
       </div>
     </>
