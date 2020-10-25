@@ -10,6 +10,8 @@ import {
   TimeInput,
   PenaltyDiv,
   MainDiv,
+  ShowTimeInput,
+  Blackground,
 } from "./styles";
 import {
   Card,
@@ -30,36 +32,25 @@ import {
 import { AiOutlineMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 import classes from "*.module.sass";
 
-const penaltiesConf: any[] = [
-  {
-    id: 12,
-    event_id: 1,
-    name: "slow ride",
-    created_at: "2020-07-04 20:19:13",
-    updated_at: "2020-07-04 20:19:13",
-  },
-  {
-    id: 27,
-    event_id: 1,
-    name: "slow 2",
-    created_at: "2020-07-04 20:19:13",
-    updated_at: "2020-07-04 20:19:13",
-  },
-];
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainCardText: {
       color: "white",
+    },
+    numberText: {
+      fontWeight: 300,
     },
   })
 );
 
 export default function BeforePoints(props) {
   const classes = useStyles();
-  const [activeModal, setactiveModal] = useState<any>();
+  const [penaltiesConf, setPenaltiesConf] = useState<any[]>([]);
+  const [activeModal, setactiveModal] = useState<any>("");
   const [dataTrial, setDataTrial] = useState<any>({});
   const [dataRider, setDataRider] = useState<any>({});
+  const [time, setTime] = useState<any>("00:00.000");
+  const [tempTime, setTempTime] = useState<any>();
 
   const [point, setpoint] = useState<any>({
     rider_id: localStorage.getItem("ongoing_rider"),
@@ -75,7 +66,7 @@ export default function BeforePoints(props) {
 
   useEffect(() => {
     let params = {
-      event_id: localStorage.getItem("event_selected"),
+      event_id: localStorage.getItem("event_id"),
       rider_id: point.rider_id,
       trial_id: point.trial_id,
     };
@@ -83,15 +74,24 @@ export default function BeforePoints(props) {
       .get("/managedTrialsList", { params })
       .then((r) => {
         setDataTrial(r.data);
-        console.log(r.data);
+        // console.log(r.data);
       })
       .catch((er) => {
-        console.log(er);
+        // console.log(er);
       });
     base
       .get("/managedRidersList", { params })
       .then((r) => {
         setDataRider(r.data);
+        // console.log(r.data);
+      })
+      .catch((er) => {
+        // console.log(er);
+      });
+    base
+      .get(`/managedPenaltyConfsFromTrial`, { params })
+      .then((r) => {
+        setPenaltiesConf(r.data);
         console.log(r.data);
       })
       .catch((er) => {
@@ -139,18 +139,29 @@ export default function BeforePoints(props) {
           marginTop: "10px",
           width: "100%",
           justifyContent: "center",
+          minHeight: "58px",
         }}
       >
         <NumberBox>
-          <RoundButton
-            onClick={(e) => {
-              const temp: any[] = [...pens];
-              temp[pen.id] = (temp[pen.id] || 0) - 1;
-              setpens(temp);
+          <div
+            style={{
+              background: "#1976d3",
+              display: "flex",
+              alignItems: "center",
+              width: "50px",
+              justifyContent: "center",
             }}
           >
-            <AiOutlineMinusCircle size="50" color="red" />
-          </RoundButton>
+            <RoundButton
+              onClick={(e) => {
+                const temp: any[] = [...pens];
+                temp[pen.id] = (temp[pen.id] || 0) - 1;
+                setpens(temp);
+              }}
+            >
+              -
+            </RoundButton>
+          </div>
 
           <div
             style={{
@@ -160,20 +171,34 @@ export default function BeforePoints(props) {
               justifyContent: "center",
             }}
           >
-            <Typography variant="h3" component="h3">
+            <Typography
+              variant="h4"
+              component="p"
+              className={classes.numberText}
+            >
               {pens[pen.id] || "none"}
             </Typography>
           </div>
 
-          <RoundButton
-            onClick={(e) => {
-              const temp = [...pens];
-              temp[pen.id] = (temp[pen.id] || 0) + 1;
-              setpens(temp);
+          <div
+            style={{
+              background: "#1976d3",
+              display: "flex",
+              alignItems: "center",
+              width: "50px",
+              justifyContent: "center",
             }}
           >
-            <AiFillPlusCircle size="50" color="red" />
-          </RoundButton>
+            <RoundButton
+              onClick={(e) => {
+                const temp = [...pens];
+                temp[pen.id] = (temp[pen.id] || 0) + 1;
+                setpens(temp);
+              }}
+            >
+              +
+            </RoundButton>
+          </div>
         </NumberBox>
       </div>
     </div>
@@ -197,14 +222,14 @@ export default function BeforePoints(props) {
           variant="contained"
           color="primary"
           style={{ color: "red", border: "1px solid red", marginRight: "10px" }}
-          onClick={() => setactiveModal(false)}
+          onClick={() => setactiveModal("")}
         >
           Delete points
         </Button>
         <Button
           variant="contained"
           color="primary"
-          onClick={() => setactiveModal(false)}
+          onClick={() => setactiveModal("")}
         >
           Continue scoring
         </Button>
@@ -257,63 +282,89 @@ export default function BeforePoints(props) {
       >
         <Button
           style={{ color: "red", border: "1px solid red", marginRight: "10px" }}
-          onClick={() => setactiveModal(false)}
+          onClick={() => setactiveModal("")}
         >
           Cancel
         </Button>
-        <Button onClick={() => setactiveModal(false)}>Continue scoring</Button>
+        <Button onClick={() => setactiveModal("")}>Continue scoring</Button>
       </div>
     </div>
   );
 
-  const totalTempDefine = (
-    <div>
-      <h3>Please set the runner time</h3>
-      <TimeInput
-        onChange={(e) => {
-          setpoint({
-            ...point,
-            time: DateTime.fromISO("00:" + e.target.value).toMillis(),
-          });
-        }}
-        placeholder="00:00.000"
-        inputType="time"
-      />
+  // const totalTempDefine = (
+  //   <div>
+  //     <Typography
+  //       gutterBottom
+  //       variant="h5"
+  //       component="h2"
+  //       className={classes.mainCardText}
+  //     >
+  //       Please set the runner time
+  //     </Typography>
+  //     <TimeInput
+  //       onChange={(e) => {
+  //         setpoint({
+  //           ...point,
+  //           time: DateTime.fromISO("00:" + e.target.value).toMillis(),
+  //         });
+  //       }}
+  //       placeholder="00:00.000"
+  //       inputType="time"
+  //     />
 
-      <div style={{ marginTop: "20px" }}>
-        <Button onClick={() => setactiveModal(false)}>Save Time</Button>
-        <Button
-          style={{
-            color: "red",
-            border: "1px solid red",
-            marginRight: "10px",
-            marginTop: "15px",
-          }}
-          onClick={() => setactiveModal(false)}
-        >
-          Cancel
-        </Button>
-      </div>
-    </div>
-  );
+  //     <div style={{ marginTop: "20px" }}>
+  //       <Button onClick={() => setactiveModal("")}>Save Time</Button>
+  //       <Button
+  //         style={{
+  //           color: "red",
+  //           border: "1px solid red",
+  //           marginRight: "10px",
+  //           marginTop: "15px",
+  //         }}
+  //         onClick={() => setactiveModal("")}
+  //       >
+  //         Cancel
+  //       </Button>
+  //     </div>
+  //   </div>
+  // );
+
+  const setTimer = (time) => {
+    setTime(tempTime);
+    setactiveModal("");
+  };
 
   const customTempDefine = (
     <div>
-      <h3>Please set the runner's penalty time</h3>
-      <TimeInput placeholder="00:00:00" inputType="time" />
+      <Typography gutterBottom variant="h5" component="h2">
+        Please set the runner time
+      </Typography>
+      <TimeInput
+        placeholder="00:00.000"
+        inputType="time"
+        onChange={(e) => setTempTime(e.target.value)}
+      />
 
-      <div style={{ marginTop: "20px" }}>
-        <Button onClick={() => setactiveModal(false)}>Save Time</Button>
+      <div
+        style={{
+          display: "flex",
+          marginTop: "20px",
+          justifyContent: "space-between",
+        }}
+      >
         <Button
-          style={{
-            color: "red",
-            border: "1px solid red",
-            marginRight: "10px",
-            marginTop: "15px",
-          }}
-          onClick={() => setactiveModal(false)}
+          variant="outlined"
+          color="secondary"
+          onClick={() => setactiveModal("")}
         >
           Cancel
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setTimer("")}
+        >
+          Save Time
         </Button>
       </div>
     </div>
@@ -321,9 +372,9 @@ export default function BeforePoints(props) {
 
   const modalContent = (modalName, id = null) => {
     const modals = {
-      customTempDefine: customTempDefine,
-      totalTempDefine: totalTempDefine,
-      confirm: confirm,
+      customTempDefine,
+      // totalTempDefine,
+      confirm,
     };
     return modals[modalName] || null;
   };
@@ -331,118 +382,105 @@ export default function BeforePoints(props) {
   return (
     <>
       <Sidebar topnav title="Manageable Events" rightIcon="gear" />
-      <Card>
-        <MainDiv style={{ marginTop: "50px" }}>
+      <Card style={{ minHeight: "100%" }}>
+        <MainDiv style={{ marginTop: "50px", minHeight: "100%" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              backgroundColor: "#6202EE",
+              padding: "14px 16px",
+            }}
+          >
+            <div>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="h2"
+                className={classes.mainCardText}
+              >
+                {dataTrial.name}
+              </Typography>
+              <Typography
+                variant="body2"
+                component="p"
+                className={classes.mainCardText}
+              >
+                {dataRider.name}
+              </Typography>
+              <Typography
+                variant="body2"
+                component="p"
+                className={classes.mainCardText}
+              >
+                Advanced
+              </Typography>
+              <Typography
+                variant="body2"
+                component="p"
+                className={classes.mainCardText}
+              >
+                {dataRider.motorcycle_plate}
+              </Typography>
+            </div>
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-between",
-                backgroundColor: "#6202EE",
-                padding: "14px 16px",
+                alignItems: "flex-end",
               }}
             >
-              <div>
-                <Typography
-                  gutterBottom
-                  variant="h5"
-                  component="h2"
-                  className={classes.mainCardText}
-                >
-                  {dataTrial.name}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  component="p"
-                  className={classes.mainCardText}
-                >
-                  {dataRider.name}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  component="p"
-                  className={classes.mainCardText}
-                >
-                  Advanced
-                </Typography>
-                <Typography
-                  variant="body2"
-                  component="p"
-                  className={classes.mainCardText}
-                >
-                  {dataRider.motorcycle_plate}
-                </Typography>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "flex-end",
-                }}
-              >
-                <Button variant="contained" color="primary">
-                  START
-                </Button>
-              </div>
-            </div>
-
-            <TimeDiv>
-              <div>
-                <Typography gutterBottom variant="h5" component="h2">
-                  <strong>Base Time</strong>
-                </Typography>
-
-                <Typography variant="h5" component="h2">
-                  <strong>00:00:000</strong>
-                </Typography>
-              </div>
-
-              <div>
-                <Typography gutterBottom variant="h5" component="h2">
-                  <strong>Total Time</strong>
-                </Typography>
-                <Typography variant="h5" component="h2">
-                  <strong>00:00:000</strong>
-                </Typography>
-              </div>
-            </TimeDiv>
-
-            <PenaltyDiv>
-              {penaltiesConf.map((p, i) => {
-                return penalty(p);
-              })}
-            </PenaltyDiv>
-        </MainDiv>
-        <div style={{ display: "flex" }}>
-          <div
-            style={{
-              justifyContent: "space-between",
-              margin: "20px 0 20px 0",
-              padding: "0 8px",
-              textAlign: "center",
-            }}
-          >
-            <Typography gutterBottom variant="body2" component="h2">
-              Changes should only be saved at the end of the route. All
-              penalties must be confirmed by more than one judge.
-            </Typography>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button
-                onClick={() => setactiveModal(cancel)}
-                style={{ color: "red", border: "1px solid red" }}
-              >
-                Cancelar
+              <Button variant="contained" color="primary">
+                FINISH
               </Button>
-              <Button onClick={handleSubmit}>Salvar</Button>
             </div>
           </div>
-        </div>
+
+          <TimeDiv>
+            <div
+              style={{
+                width: "100%",
+                cursor: "pointer",
+                border: "1px solid",
+                borderRadius: "4px",
+              }}
+              onClick={() => setactiveModal("customTempDefine")}
+            >
+              <Typography gutterBottom variant="h5" component="h2">
+                Base Time
+              </Typography>
+              <ShowTimeInput
+                readOnly
+                style={{ cursor: "pointer" }}
+                placeholder="00:00.000"
+                inputType="time"
+                value={{ time }}
+              />
+            </div>
+
+            <div style={{ width: "100%", cursor: "context-menu" }}>
+              <Typography gutterBottom variant="h5" component="h2">
+                Total Time
+              </Typography>
+              <Typography variant="h5" component="h2">
+                00:00.000
+              </Typography>
+            </div>
+          </TimeDiv>
+
+          <PenaltyDiv>
+            {penaltiesConf.map((p, i) => {
+              return penalty(p);
+            })}
+          </PenaltyDiv>
+        </MainDiv>
       </Card>
-      {/* <Modal
-        noPadding
+      <Modal
+        bodyStyle={{ padding: "25px 14px" }}
         show={activeModal !== ""}
         onBackgroundClick={() => setactiveModal("")}
       >
         {modalContent(activeModal)}
-      </Modal> */}
+      </Modal>
     </>
   );
 }

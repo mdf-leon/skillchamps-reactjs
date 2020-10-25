@@ -1,26 +1,27 @@
-import React, { useState } from 'react';
-import Cleave from 'cleave.js/react';
-import 'cleave.js/dist/addons/cleave-phone.br';
-import PropTypes from 'prop-types';
-import { Input, TogglePassword, ErrorText } from './styles';
+import React, { useState } from "react";
+import Cleave from "cleave.js/react";
+import "cleave.js/dist/addons/cleave-phone.br";
+import PropTypes from "prop-types";
+import { Input, TogglePassword, ErrorText } from "./styles";
 
-export default function TextInput({
-  label,
-  placeholder,
-  value,
-  onChange,
-  onBlur,
-  disabled,
-  id,
-  name,
-  touched,
-  error,
-  isTopSpaced,
-  inputType,
-  className,
-  style,
-}) {
-  let type = 'text';
+export default function TextInput(props) {
+  const {
+    label,
+    placeholder,
+    value,
+    onChange,
+    onBlur,
+    disabled,
+    id,
+    name,
+    touched,
+    error,
+    isTopSpaced,
+    inputType,
+    className,
+    style,
+  } = props;
+  let type = "text";
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -28,116 +29,116 @@ export default function TextInput({
   let options = {};
   const expirationDate = new Date();
   switch (inputType) {
-    case 'password':
-      type = showPassword ? 'text' : 'password';
+    case "password":
+      type = showPassword ? "text" : "password";
       break;
-    case 'phone':
+    case "phone":
       options = {
         phone: true,
-        phoneRegionCode: 'BR',
+        phoneRegionCode: "BR",
       };
       break;
-    case 'number':
+    case "number":
       options = {
         numeral: true,
-        numeralThousandsGroupStyle: 'none',
+        numeralThousandsGroupStyle: "none",
       };
       break;
-    case 'positiveNumber':
+    case "positiveNumber":
       options = {
         numeral: true,
         numeralPositiveOnly: true,
       };
       break;
-    case 'date':
+    case "date":
       options = {
         date: true,
-        delimiter: '/',
-        datePattern: ['d', 'm', 'Y'],
+        delimiter: "/",
+        datePattern: ["d", "m", "Y"],
       };
       break;
-    case 'cnpj':
+    case "cnpj":
       options = {
-        delimiters: ['.', '.', '/', '-'],
+        delimiters: [".", ".", "/", "-"],
         numericOnly: true,
         blocks: [2, 3, 3, 4, 2],
         noImmediatePrefix: true,
         uppercase: true,
       };
       break;
-    case 'cpf':
+    case "cpf":
       options = {
         numericOnly: true,
-        delimiters: ['.', '.', '-'],
+        delimiters: [".", ".", "-"],
         blocks: [3, 3, 3, 2],
         noImmediatePrefix: true,
         uppercase: true,
       };
       break;
-    case 'time':
+    case "time":
       options = {
         numericOnly: true,
-        delimiters: [':', '.'],
+        delimiters: [":", "."],
         blocks: [2, 2, 3],
         noImmediatePrefix: true,
         uppercase: true,
       };
       break;
-    case 'postalCode':
+    case "postalCode":
       options = {
-        delimiters: ['-'],
+        delimiters: ["-"],
         blocks: [5, 3],
         numericOnly: true,
         noImmediatePrefix: true,
         uppercase: true,
       };
       break;
-    case 'creditCardNumber':
+    case "creditCardNumber":
       options = {
         creditCard: true,
         uppercase: true,
       };
       break;
-    case 'creditCardcvv':
+    case "creditCardcvv":
       options = {
         blocks: [3],
         uppercase: true,
         numericOnly: true,
       };
       break;
-    case 'expirationDate':
+    case "expirationDate":
       options = {
         date: true,
-        delimiter: '/',
-        datePattern: ['m', 'Y'],
+        delimiter: "/",
+        datePattern: ["m", "Y"],
         dateMin: expirationDate.toISOString(),
       };
       break;
-    case 'previousDate':
+    case "previousDate":
       options = {
         date: true,
-        delimiter: '/',
-        datePattern: ['d', 'm', 'Y'],
+        delimiter: "/",
+        datePattern: ["d", "m", "Y"],
         dateMax: expirationDate.toISOString(),
       };
       break;
-    case 'futureDate':
+    case "futureDate":
       options = {
         date: true,
-        delimiter: '/',
-        datePattern: ['d', 'm', 'Y'],
+        delimiter: "/",
+        datePattern: ["d", "m", "Y"],
         dateMin: expirationDate.toISOString(),
       };
       break;
-    case 'currency':
+    case "currency":
       options = {
         numeral: true,
         numeralPositiveOnly: true,
         numeralIntegerScale: 10,
-        numeralDecimalMark: ',',
+        numeralDecimalMark: ",",
         rawValueTrimPrefix: true,
-        prefix: 'R$ ',
-        delimiter: '.',
+        prefix: "R$ ",
+        delimiter: ".",
         uppercase: true,
         noImmediatePrefix: true,
         swapHiddenInput: true,
@@ -146,13 +147,14 @@ export default function TextInput({
     default:
       options = {
         blocks: [999999],
-        delimiter: '',
+        delimiter: "",
       };
       break;
   }
 
   return (
     <Input
+      {...props}
       id={id}
       label={label}
       disabled={disabled}
@@ -164,6 +166,7 @@ export default function TextInput({
     >
       <label htmlFor={name}>{label}</label>
       <Cleave
+        {...props}
         name={name}
         disabled={disabled}
         value={value}
@@ -173,13 +176,13 @@ export default function TextInput({
         onChange={onChange}
         options={options}
       />
-      {inputType === 'password' ? (
+      {inputType === "password" ? (
         <TogglePassword
           type="button"
           onClick={toggleShowPassword}
           error={touched && error}
         >
-          {showPassword ? 'Esconder' : 'Mostrar'}
+          {showPassword ? "Esconder" : "Mostrar"}
         </TogglePassword>
       ) : null}
       <ErrorText>{touched && error ? error : null}</ErrorText>
@@ -204,37 +207,37 @@ TextInput.propTypes = {
   error: PropTypes.string,
   isTopSpaced: PropTypes.bool,
   inputType: PropTypes.oneOf([
-    'password',
-    'phone',
-    'number',
-    'positiveNumber',
-    'cnpj',
-    'cpf',
-    'postalCode',
-    'creditCardNumber',
-    'creditCardcvv',
-    'expirationDate',
-    'previousDate',
-    'futureDate',
-    'currency',
+    "password",
+    "phone",
+    "number",
+    "positiveNumber",
+    "cnpj",
+    "cpf",
+    "postalCode",
+    "creditCardNumber",
+    "creditCardcvv",
+    "expirationDate",
+    "previousDate",
+    "futureDate",
+    "currency",
   ]),
   className: PropTypes.string,
   style: PropTypes.objectOf(PropTypes.string),
 };
 
 TextInput.defaultProps = {
-  label: '',
-  placeholder: '',
-  value: '',
+  label: "",
+  placeholder: "",
+  value: "",
   onChange: undefined,
   onBlur: undefined,
   disabled: false,
-  id: '',
-  name: '',
+  id: "",
+  name: "",
   touched: false,
-  error: '',
+  error: "",
   isTopSpaced: false,
-  inputType: '',
-  className: '',
+  inputType: "",
+  className: "",
   style: undefined,
 };

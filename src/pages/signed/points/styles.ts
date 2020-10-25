@@ -41,7 +41,7 @@ button{
 // ------BeforePoinst------ //
 
 export const MainDiv = styled.div`
-  height: calc(100vh + -50px);
+  height: 100%;
   display: flex;
   flex-direction: column;
 `;
@@ -63,7 +63,6 @@ export const TimeDiv = styled.div`
 export const PenaltyDiv = styled.div`
 display: flex;
 flex-direction: column;
-justify-content: space-between;
 height: 100%;
 padding:  12px 8px;
 div{
@@ -78,6 +77,8 @@ export const RoundButton = styled.button`
   cursor: pointer;
   background-color: transparent;
   border: none;
+  color: white;
+  font-size: 1.5rem;
 `;
 
 export const NumberBox = styled.div`
@@ -86,8 +87,9 @@ export const NumberBox = styled.div`
  text-align: center; 
  border: 1px solid #e8e8e8; 
  border-radius: 4px;
- background: #EDEDED;
+ background: white;
  width: 100%; 
+ border: 1px solid #1976d3;
 `;
 
 export const TimeInput = styled(TextInput)`
@@ -99,6 +101,38 @@ export const TimeInput = styled(TextInput)`
   font-size: 1.5em;
   text-align: center;
  }
+`;
+
+export const ShowTimeInput = styled(TextInput)`
+ input{
+  border: none;
+  border-radius: 0;
+  text-align: center;
+  background: none;
+  font-size: 1.5rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.334;
+  letter-spacing: 0em;
+  width: 100%;
+  cursor: context-menu;
+ }
+ input::placeholder {
+  color: black;
+  opacity: 1;
+ }
+`;
+
+export const Blackground = styled.div`
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(79, 108, 124, 0.1); /*dim the background*/
+  backdrop-filter: blur(6px);
+  display: flex;
 `;
 
 export const Options = styled.div`

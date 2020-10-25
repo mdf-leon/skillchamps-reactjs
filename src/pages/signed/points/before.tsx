@@ -72,12 +72,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: "18px 8px 18px 8px",
   },
   options: {
-    display: "flex",
-    padding: "16px",
-    justifyContent: "space-between",
-    alignItems: "center",
-    background: "transparent",
-    borderBottom: "1px solid #D5D5D5",
+    cursor: "pointer",
   },
   avatar: {
     display: "flex",
@@ -108,16 +103,16 @@ export default function BeforePoints(props) {
 
   useEffect(() => {
     // console.log(props.location.state.a);
-    
-    let params = { event_id: localStorage.getItem("event_selected") };
+
+    let params = { event_id: localStorage.getItem("event_id") };
     base
       .get("/managedTrialsList", { params })
       .then((r) => {
         setDataTrial(r.data);
-        console.log(r.data);
+        console.log(params);
       })
       .catch((er) => {
-        console.log(er);
+        console.log(params);
       });
     base
       .get("/managedRidersList", { params })
@@ -171,7 +166,7 @@ export default function BeforePoints(props) {
                             color="textSecondary"
                             component="p"
                           >
-                            Category: Advanced
+                            {currentRiderInfo.category}
                           </Typography>
                           <Typography
                             gutterBottom
@@ -239,6 +234,7 @@ export default function BeforePoints(props) {
               <TabPanel value={value} index={0} dir={theme.direction}>
                 {dataTrial.map((content) => (
                   <Options
+                    className={classes.options}
                     onClick={() => {
                       setCurrentTitle(content.name);
                       localStorage.setItem("ongoing_trial", content.id);
@@ -258,6 +254,7 @@ export default function BeforePoints(props) {
               <TabPanel value={value} index={1} dir={theme.direction}>
                 {dataRider.map((content) => (
                   <Options
+                    className={classes.options}
                     style={{ justifyContent: "flex-start", alignItems: "end" }}
                     onClick={(e) => {
                       setCurrentRiderInfo({ ...content });
@@ -303,7 +300,7 @@ export default function BeforePoints(props) {
                         color="textSecondary"
                         component="p"
                       >
-                        Category: advanced
+                        {content.category}
                       </Typography>
                       <Typography
                         style={{ margin: 0 }}
