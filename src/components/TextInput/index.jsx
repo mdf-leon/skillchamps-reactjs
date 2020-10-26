@@ -16,8 +16,8 @@ export default function TextInput(props) {
     name,
     touched,
     error,
-    isTopSpaced,
-    inputType,
+    istopspaced,
+    inputtype,
     className,
     style,
   } = props;
@@ -28,7 +28,7 @@ export default function TextInput(props) {
   };
   let options = {};
   const expirationDate = new Date();
-  switch (inputType) {
+  switch (inputtype) {
     case "password":
       type = showPassword ? "text" : "password";
       break;
@@ -160,7 +160,7 @@ export default function TextInput(props) {
       disabled={disabled}
       error={error}
       touched={touched}
-      isTopSpaced={isTopSpaced}
+      istopspaced={istopspaced}
       className={className}
       style={style}
     >
@@ -176,7 +176,7 @@ export default function TextInput(props) {
         onChange={onChange}
         options={options}
       />
-      {inputType === "password" ? (
+      {inputtype === "password" ? (
         <TogglePassword
           type="button"
           onClick={toggleShowPassword}
@@ -205,8 +205,8 @@ TextInput.propTypes = {
   name: PropTypes.string,
   touched: PropTypes.bool,
   error: PropTypes.string,
-  isTopSpaced: PropTypes.bool,
-  inputType: PropTypes.oneOf([
+  istopspaced: PropTypes.bool,
+  inputtype: PropTypes.oneOf([
     "password",
     "phone",
     "number",
@@ -236,8 +236,8 @@ TextInput.defaultProps = {
   name: "",
   touched: false,
   error: "",
-  isTopSpaced: false,
-  inputType: "",
+  istopspaced: false,
+  inputtype: "",
   className: "",
   style: undefined,
 };

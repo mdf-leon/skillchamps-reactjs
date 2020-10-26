@@ -62,9 +62,13 @@ export default function BeforePoints(props) {
 
   const [pens, setpens] = useState<any[]>([]);
 
-  // useEffect(() => {
-  //   console.log(pens);
-  // }, [pens])
+  useEffect(() => {
+    updateFinalTime();
+  }, [pens]);
+
+  useEffect(() => {
+    updateFinalTime();
+  }, [baseTime]);
 
   function stringToMS(tm) {
     // return tm[1].replace('.', '')
@@ -89,14 +93,16 @@ export default function BeforePoints(props) {
     let unformatedFinalTime: string = Duration.fromObject({
       milliseconds: tempTime,
     }).toFormat("mm':'S"); // .splice(4, 0, ":")
-    console.log(unformatedFinalTime);
-    // unformatedFinalTime = '0'.repeat(8 - unformatedFinalTime.length) + unformatedFinalTime
     let milis = unformatedFinalTime.split(':')[1];
-    // console.log(milis);
-    const formatedFinalTime =
+    unformatedFinalTime =
       unformatedFinalTime.substring(0, 3) +
-      '.' + '0'.repeat(5 - milis.length) + milis;
+      '0'.repeat(5 - milis.length) +
+      milis;
 
+    const formatedFinalTime =
+      unformatedFinalTime.substring(0, 5) +
+      '.' + // '0'.repeat(5 - milis.length) +
+      unformatedFinalTime.substring(5, unformatedFinalTime.length);
     setfinalTime(formatedFinalTime);
   };
 
@@ -344,7 +350,7 @@ export default function BeforePoints(props) {
   //         });
   //       }}
   //       placeholder="00:00.000"
-  //       inputType="time"
+  //       inputtype="time"
   //     />
 
   //     <div style={{ marginTop: "20px" }}>
@@ -368,6 +374,7 @@ export default function BeforePoints(props) {
     setbaseTime(tempTime);
     // setpoint({ ...point, time: tempTime.replace(':', '').replace('.', '') });
     setactiveModal('');
+    // updateFinalTime()
   };
 
   const customTempDefine = (
@@ -378,7 +385,7 @@ export default function BeforePoints(props) {
       <TimeInput
         placeholder="00:00.000"
         value={baseTime || undefined}
-        inputType="time"
+        inputtype="time"
         onChange={(e) => setTempTime(e.target.value)}
       />
 
@@ -413,6 +420,23 @@ export default function BeforePoints(props) {
       confirm,
     };
     return modals[modalName] || null;
+  };
+
+  const onFinish = () => {
+    // TODO: fazer um modal confirmando o fim da corrida
+
+    let penalties: any[] = [];
+    for (let i = 0; i < penaltiesConf.length; i++) {
+      penalties.push({
+        penalty_conf_id: penaltiesConf[i].id,
+        quantity: pens[i] || 0,
+      });
+    }
+
+    const body = {...point, penalties}
+
+
+    console.log(body);
   };
 
   return (
@@ -468,7 +492,7 @@ export default function BeforePoints(props) {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => updateFinalTime()}
+                onClick={() => onFinish()}
               >
                 FINISH
               </Button>
@@ -492,7 +516,7 @@ export default function BeforePoints(props) {
                 readOnly
                 style={{ cursor: 'pointer' }}
                 placeholder="00:00.000"
-                inputType="time"
+                inputtype="number"
                 value={baseTime}
               />
             </div>
