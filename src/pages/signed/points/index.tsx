@@ -81,14 +81,14 @@ export default function BeforePoints(props) {
 
   const updateFinalTime = () => {
     const msBase = baseTime ? Number(stringToMS(baseTime.split(':'))) : 0;
-    console.log(pens);
+    // console.log(pens);
     setpoint({ ...point, time: msBase });
 
     let tempTime = msBase;
-    console.log(tempTime);
+    // console.log(tempTime);
     for (let i = 0; i < penaltiesConf.length; i++) {
       tempTime += penaltiesConf[i].time_penalty * (pens[i] || 0);
-      console.log(tempTime);
+      // console.log(tempTime);
     }
     let unformatedFinalTime: string = Duration.fromObject({
       milliseconds: tempTime,
@@ -116,19 +116,19 @@ export default function BeforePoints(props) {
       .get('/managedTrialsList', { params })
       .then((r) => {
         setDataTrial(r.data);
-        // console.log(r.data);
+        // // console.log(r.data);
       })
       .catch((er) => {
-        // console.log(er);
+        // // console.log(er);
       });
     base
       .get('/managedRidersList', { params })
       .then((r) => {
         setDataRider(r.data);
-        // console.log(r.data);
+        // // console.log(r.data);
       })
       .catch((er) => {
-        // console.log(er);
+        // // console.log(er);
       });
     base
       .get(`/managedPenaltyConfsFromTrial`, { params })
@@ -136,7 +136,7 @@ export default function BeforePoints(props) {
         setPenaltiesConf(r.data);
       })
       .catch((er) => {
-        console.log(er);
+        // console.log(er);
       });
   }, []);
 
@@ -167,7 +167,7 @@ export default function BeforePoints(props) {
   };
 
   const penalty = (pen, index) => (
-    <div>
+    <div key={`${pen.name}-${pen.id}-${index}`}>
       <Typography variant="body2" component="p">
         <strong>
           {pen.id}. {pen.name} {index}
@@ -436,7 +436,7 @@ export default function BeforePoints(props) {
     const body = {...point, penalties}
 
 
-    console.log(body);
+    // console.log(body);
   };
 
   return (

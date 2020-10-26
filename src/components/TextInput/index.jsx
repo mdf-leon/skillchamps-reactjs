@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Cleave from "cleave.js/react";
 import "cleave.js/dist/addons/cleave-phone.br";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { Input, TogglePassword, ErrorText } from "./styles";
 
 export default function TextInput(props) {
@@ -190,54 +190,54 @@ export default function TextInput(props) {
   );
 }
 
-TextInput.propTypes = {
-  label: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-    PropTypes.elementType,
-  ]),
-  placeholder: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  onBlur: PropTypes.func,
-  disabled: PropTypes.bool,
-  id: PropTypes.string,
-  name: PropTypes.string,
-  touched: PropTypes.bool,
-  error: PropTypes.string,
-  istopspaced: PropTypes.bool,
-  inputtype: PropTypes.oneOf([
-    "password",
-    "phone",
-    "number",
-    "positiveNumber",
-    "cnpj",
-    "cpf",
-    "postalCode",
-    "creditCardNumber",
-    "creditCardcvv",
-    "expirationDate",
-    "previousDate",
-    "futureDate",
-    "currency",
-  ]),
-  className: PropTypes.string,
-  style: PropTypes.objectOf(PropTypes.string),
-};
+// TextInput.propTypes = {
+//   label: PropTypes.oneOfType([
+//     PropTypes.object,
+//     PropTypes.string,
+//     PropTypes.elementType,
+//   ]),
+//   placeholder: PropTypes.string,
+//   value: PropTypes.string,
+//   onChange: PropTypes.func,
+//   onBlur: PropTypes.func,
+//   disabled: PropTypes.bool,
+//   id: PropTypes.string,
+//   name: PropTypes.string,
+//   touched: PropTypes.bool,
+//   error: PropTypes.string,
+//   istopspaced: PropTypes.bool,
+//   inputtype: PropTypes.oneOf([
+//     "password",
+//     "phone",
+//     "number",
+//     "positiveNumber",
+//     "cnpj",
+//     "cpf",
+//     "postalCode",
+//     "creditCardNumber",
+//     "creditCardcvv",
+//     "expirationDate",
+//     "previousDate",
+//     "futureDate",
+//     "currency",
+//   ]),
+//   className: PropTypes.string,
+//   style: PropTypes.objectOf(PropTypes.string),
+// };
 
-TextInput.defaultProps = {
-  label: "",
-  placeholder: "",
-  value: "",
-  onChange: undefined,
-  onBlur: undefined,
-  disabled: false,
-  id: "",
-  name: "",
-  touched: false,
-  error: "",
-  istopspaced: false,
-  inputtype: "",
-  className: "",
-  style: undefined,
-};
+// TextInput.defaultProps = {
+//   label: "",
+//   placeholder: "",
+//   value: "",
+//   onChange: undefined,
+//   onBlur: undefined,
+//   disabled: false,
+//   id: "",
+//   name: "",
+//   touched: false,
+//   error: "",
+//   istopspaced: false,
+//   inputtype: "",
+//   className: "",
+//   style: undefined,
+// };

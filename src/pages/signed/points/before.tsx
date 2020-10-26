@@ -33,7 +33,7 @@ interface TabPanelProps {
   value: any;
 }
 
-function TabPanel(props: TabPanelProps) {
+function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -46,7 +46,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <Typography component={'span'}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -137,7 +137,7 @@ export default function BeforePoints(props) {
                 // className={classes.content}
                 >
                   <div>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography component={'span'} gutterBottom variant="h5" >
                       {currentTitle
                         ? `Trial chosen: ${currentTitle}`
                         : "Trial chosen: None"}
@@ -152,54 +152,48 @@ export default function BeforePoints(props) {
                     >
                       {currentRiderInfo ? (
                         <div>
-                          <Typography
+                          <Typography component={'span'}
                             gutterBottom
                             variant="body2"
                             color="primary"
-                            component="p"
                           >
                             {currentRiderInfo.name}
                           </Typography>
-                          <Typography
+                          <Typography component={'span'}
                             gutterBottom
                             variant="body2"
                             color="textSecondary"
-                            component="p"
                           >
                             {currentRiderInfo.category}
                           </Typography>
-                          <Typography
+                          <Typography component={'span'}
                             gutterBottom
                             variant="body2"
                             color="textSecondary"
-                            component="p"
                           >
                             {currentRiderInfo.motorcycle}
                           </Typography>
                         </div>
                       ) : (
                         <div>
-                          <Typography
+                          <Typography component={'span'}
                             gutterBottom
                             variant="body2"
                             color="textSecondary"
-                            component="p"
                           >
                             Name: Guilhermo del Touro
                           </Typography>
-                          <Typography
+                          <Typography component={'span'}
                             gutterBottom
                             variant="body2"
                             color="textSecondary"
-                            component="p"
                           >
                             Category: Advanced
                           </Typography>
-                          <Typography
+                          <Typography component={'span'}
                             gutterBottom
                             variant="body2"
-                            color="textSecondary"
-                            component="p"
+                            color="textSecondary" 
                           >
                             Bike: GT5755
                           </Typography>
@@ -232,19 +226,18 @@ export default function BeforePoints(props) {
                 </Tabs>
               </AppBar>
               <TabPanel value={value} index={0} dir={theme.direction}>
-                {dataTrial.map((content) => (
-                  <Options
+                {dataTrial.map((content, i) => (
+                  <Options key={`trials-${i}-${content.id}`}
                     className={classes.options}
                     onClick={() => {
                       setCurrentTitle(content.name);
                       localStorage.setItem("ongoing_trial", content.id);
                     }}
                   >
-                    <Typography
+                    <Typography component={'span'}
                       style={{ margin: 0 }}
                       gutterBottom
                       variant="h6"
-                      component="h6"
                     >
                       Trial: {content.name}
                     </Typography>
@@ -252,8 +245,8 @@ export default function BeforePoints(props) {
                 ))}
               </TabPanel>
               <TabPanel value={value} index={1} dir={theme.direction}>
-                {dataRider.map((content) => (
-                  <Options
+                {dataRider.map((content, i) => (
+                  <Options key={`riders-${i}-${content.id}`} 
                     className={classes.options}
                     style={{ justifyContent: "flex-start", alignItems: "end" }}
                     onClick={(e) => {
@@ -274,40 +267,36 @@ export default function BeforePoints(props) {
                       }}
                     >
                       <div style={{ display: "flex" }}>
-                        <Typography
+                        <Typography component={'span'}
                           style={{ margin: 0 }}
                           gutterBottom
                           variant="h6"
                           color="textSecondary"
-                          component="h6"
                         >
                           {content.id}.&nbsp;
                         </Typography>
-                        <Typography
+                        <Typography component={'span'}
                           style={{ margin: 0 }}
                           gutterBottom
                           variant="h6"
-                          component="h6"
                         >
                           {content.name}
                         </Typography>
                       </div>
 
-                      <Typography
+                      <Typography component={'span'}
                         style={{ margin: 0 }}
                         gutterBottom
                         variant="body2"
                         color="textSecondary"
-                        component="p"
                       >
                         {content.category}
                       </Typography>
-                      <Typography
+                      <Typography component={'span'}
                         style={{ margin: 0 }}
                         gutterBottom
                         variant="body2"
                         color="textSecondary"
-                        component="p"
                       >
                         Bike: {content.motorcycle}
                       </Typography>
