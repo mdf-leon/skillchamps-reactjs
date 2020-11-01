@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import Sidebar from "../../../components/Sidebar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -77,51 +76,82 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 export default function NewRider() {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date().toDateString()
-  );
+  const [selectedDate, setSelectedDate] = useState<any>();
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    console.log(date);
+  const [registerInfo, setRegisterInfo] = useState<any>({
+    name: "",
+    category: "",
+    date_of_birth: "",
+    motorcycle: "",
+    motorcycle_plate: "",
+    license_ido: "",
+  });
+
+  const [open, setOpen] = useState<any>("");
+
+  const handleClose = () => {
+    setOpen("");
   };
 
-  const [currency, setCurrency] = React.useState("Beginner");
-
-  const handleCategoryChange = (event) => {
-    setCurrency(event.target.value);
-  };
-
-  useEffect(() => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let parameters = { event_id: localStorage.getItem("event_id") };
+    const rdata = {
+      ...registerInfo,
+      date_of_birth: selectedDate?.toISOString().split("T")[0],
+    };
     base
-      .post(`/uncontrolledRegister`)
+      .post(`/uncontrolledRegister`, { parameters, rdata })
       .then((result) => {
         console.log(result);
+        setOpen("success");
       })
-      .catch((err) => console.log(err));
-  }, []);
+      .catch((err) => setOpen("error")); // alert rider coundt be created
+  };
 
   return (
     <>
+      <Snackbar
+        open={open === "success" ? true : open === "error" ? true : false}
+        autoHideDuration={5000}
+        onClose={handleClose}
+      >
+        {open === "success" ? (
+          <Alert onClose={handleClose} severity="success">
+            Rider created successfully
+          </Alert>
+        ) : (
+          <Alert onClose={handleClose} severity="error">
+            The Rider could not be created
+          </Alert>
+        )}
+      </Snackbar>
       <Sidebar
         style={{ zIndex: 1000 }}
         topnav
         title="New Rider"
         rightIcon="gear"
       />
-      <div style={{ paddingTop: "25px", minHeight: "100%" }}>
+      <div style={{ paddingTop: "10px", minHeight: "100%" }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
               Create new Rider
             </Typography>
-            <form className={classes.form} noValidate>
+            <form onSubmit={handleSubmit} className={classes.form} noValidate>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
+                    onChange={(e) =>
+                      setRegisterInfo({ ...registerInfo, name: e.target.value })
+                    }
                     autoComplete="name"
                     name="Name"
                     variant="outlined"
@@ -136,15 +166,13 @@ export default function NewRider() {
                   <Grid container justify="space-around">
                     <KeyboardDatePicker
                       className={classes.date}
-                      disableToolbar
                       inputVariant="outlined"
-                      variant="inline"
-                      format="MM/dd/yyyy"
                       margin="normal"
-                      id="date-picker-inline"
-                      label="Birth Date"
+                      id="date-picker-dialog"
+                      label="Date picker dialog"
+                      format="MM/dd/yyyy"
                       value={selectedDate}
-                      onChange={handleDateChange}
+                      onChange={setSelectedDate}
                       KeyboardButtonProps={{
                         "aria-label": "change date",
                       }}
@@ -157,8 +185,13 @@ export default function NewRider() {
                     id="outlined-select-currency"
                     select
                     label="Select"
-                    value={currency}
-                    onChange={handleCategoryChange}
+                    value={registerInfo.category}
+                    onChange={(event) =>
+                      setRegisterInfo({
+                        ...registerInfo,
+                        category: event.target.value,
+                      })
+                    }
                     variant="outlined"
                   >
                     {currencies.map((option) => (
@@ -170,6 +203,12 @@ export default function NewRider() {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    onChange={(e) =>
+                      setRegisterInfo({
+                        ...registerInfo,
+                        motorcycle: e.target.value,
+                      })
+                    }
                     variant="outlined"
                     required
                     fullWidth
@@ -181,6 +220,12 @@ export default function NewRider() {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    onChange={(e) =>
+                      setRegisterInfo({
+                        ...registerInfo,
+                        motorcycle_plate: e.target.value,
+                      })
+                    }
                     variant="outlined"
                     required
                     fullWidth
@@ -192,6 +237,12 @@ export default function NewRider() {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    onChange={(e) =>
+                      setRegisterInfo({
+                        ...registerInfo,
+                        license_ido: e.target.value,
+                      })
+                    }
                     variant="outlined"
                     required
                     fullWidth

@@ -31,7 +31,9 @@ export default function EventOptions(props: any) {
                 {props.location.state.event_name}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                {new Date(props.location.state.event_date).toLocaleDateString("en-US")}
+                {new Date(props.location.state.event_date).toLocaleDateString(
+                  "en-US"
+                )}
               </Typography>
             </div>
             <CardMedia
@@ -40,7 +42,7 @@ export default function EventOptions(props: any) {
               title="Contemplative Reptile"
             />
           </CardContent>
-          <CardActions>
+          <CardActions style={{ justifyContent: "space-between" }}>
             <Button
               className={classes.action}
               disableRipple
