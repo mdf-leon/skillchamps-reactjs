@@ -18,6 +18,7 @@ import Login from "./pages/visitor/Login";
 // import Register from "./pages/visitor/Register";
 import Dashboard from "./pages/signed/Dashboard/index.tsx";
 import Rider from "./pages/signed/Rider";
+import NewRider from "./pages/signed/Rider/newRider";
 import AccountOptions from "./pages/signed/AccountOptions";
 // import Events from "./pages/signed/Events";
 // import Institute from "./pages/signed/Institute";
@@ -58,6 +59,7 @@ ReactDOM.render(
         {/* <VisitorRoute exact path="/register" component={Register} /> */}
         <ProtectedRoute exact path="/Dashboard" component={Dashboard} />
         <ProtectedRoute exact path="/Rider" component={Rider} />
+        <ProtectedRoute exact path="/newRider" component={NewRider} />
         {/* <ProtectedRoute exact path="/events" component={Events} /> */}
         {/* <ProtectedRoute exact path="/manageInstitute" component={Institute} /> */}
         {/* <ProtectedRoute exact path="/createEvent" component={CreateEvent} /> */}

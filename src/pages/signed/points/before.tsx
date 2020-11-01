@@ -46,7 +46,7 @@ function TabPanel(props: any) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography component={'span'}>{children}</Typography>
+          <Typography component={"span"}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -133,80 +133,58 @@ export default function BeforePoints(props) {
           <Row>
             <Col xs={12}>
               <Card className={classes.card}>
-                <CardContent
-                // className={classes.content}
-                >
+                <CardContent>
                   <div>
-                    <Typography component={'span'} gutterBottom variant="h5" >
+                    <Typography component={"span"} gutterBottom variant="h5">
                       {currentTitle
                         ? `Trial chosen: ${currentTitle}`
                         : "Trial chosen: None"}
                     </Typography>
+                  </div>
 
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "flex-end",
-                        justifyContent: "space-between",
-                      }}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-end",
+                      justifyContent: "space-between",
+                      minHeight: "75px",
+                    }}
+                  >
+                    {currentRiderInfo ? (
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <Typography
+                          component={"span"}
+                          gutterBottom
+                          variant="body2"
+                          color="primary"
+                        >
+                          {currentRiderInfo.name || "-"}
+                        </Typography>
+                        <Typography
+                          component={"span"}
+                          gutterBottom
+                          variant="body2"
+                          color="textSecondary"
+                        >
+                          {currentRiderInfo.category || "-"}
+                        </Typography>
+                        <Typography
+                          component={"span"}
+                          gutterBottom
+                          variant="body2"
+                          color="textSecondary"
+                        >
+                          {currentRiderInfo.motorcycle || "-"}
+                        </Typography>
+                      </div>
+                    ) : null}
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => history.push("/points")}
                     >
-                      {currentRiderInfo ? (
-                        <div>
-                          <Typography component={'span'}
-                            gutterBottom
-                            variant="body2"
-                            color="primary"
-                          >
-                            {currentRiderInfo.name}
-                          </Typography>
-                          <Typography component={'span'}
-                            gutterBottom
-                            variant="body2"
-                            color="textSecondary"
-                          >
-                            {currentRiderInfo.category}
-                          </Typography>
-                          <Typography component={'span'}
-                            gutterBottom
-                            variant="body2"
-                            color="textSecondary"
-                          >
-                            {currentRiderInfo.motorcycle}
-                          </Typography>
-                        </div>
-                      ) : (
-                        <div>
-                          <Typography component={'span'}
-                            gutterBottom
-                            variant="body2"
-                            color="textSecondary"
-                          >
-                            Name: Guilhermo del Touro
-                          </Typography>
-                          <Typography component={'span'}
-                            gutterBottom
-                            variant="body2"
-                            color="textSecondary"
-                          >
-                            Category: Advanced
-                          </Typography>
-                          <Typography component={'span'}
-                            gutterBottom
-                            variant="body2"
-                            color="textSecondary" 
-                          >
-                            Bike: GT5755
-                          </Typography>
-                        </div>
-                      )}
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => history.push("/points")}
-                      >
-                        START
-                      </Button>
-                    </div>
+                      START
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -227,14 +205,16 @@ export default function BeforePoints(props) {
               </AppBar>
               <TabPanel value={value} index={0} dir={theme.direction}>
                 {dataTrial.map((content, i) => (
-                  <Options key={`trials-${i}-${content.id}`}
+                  <Options
+                    key={`trials-${i}-${content.id}`}
                     className={classes.options}
                     onClick={() => {
                       setCurrentTitle(content.name);
                       localStorage.setItem("ongoing_trial", content.id);
                     }}
                   >
-                    <Typography component={'span'}
+                    <Typography
+                      component={"span"}
                       style={{ margin: 0 }}
                       gutterBottom
                       variant="h6"
@@ -246,7 +226,8 @@ export default function BeforePoints(props) {
               </TabPanel>
               <TabPanel value={value} index={1} dir={theme.direction}>
                 {dataRider.map((content, i) => (
-                  <Options key={`riders-${i}-${content.id}`} 
+                  <Options
+                    key={`riders-${i}-${content.id}`}
                     className={classes.options}
                     style={{ justifyContent: "flex-start", alignItems: "end" }}
                     onClick={(e) => {
@@ -267,7 +248,8 @@ export default function BeforePoints(props) {
                       }}
                     >
                       <div style={{ display: "flex" }}>
-                        <Typography component={'span'}
+                        <Typography
+                          component={"span"}
                           style={{ margin: 0 }}
                           gutterBottom
                           variant="h6"
@@ -275,7 +257,8 @@ export default function BeforePoints(props) {
                         >
                           {content.id}.&nbsp;
                         </Typography>
-                        <Typography component={'span'}
+                        <Typography
+                          component={"span"}
                           style={{ margin: 0 }}
                           gutterBottom
                           variant="h6"
@@ -284,7 +267,8 @@ export default function BeforePoints(props) {
                         </Typography>
                       </div>
 
-                      <Typography component={'span'}
+                      <Typography
+                        component={"span"}
                         style={{ margin: 0 }}
                         gutterBottom
                         variant="body2"
@@ -292,7 +276,8 @@ export default function BeforePoints(props) {
                       >
                         {content.category}
                       </Typography>
-                      <Typography component={'span'}
+                      <Typography
+                        component={"span"}
                         style={{ margin: 0 }}
                         gutterBottom
                         variant="body2"

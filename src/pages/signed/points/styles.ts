@@ -74,6 +74,9 @@ div{
 `;
 
 export const RoundButton = styled.button`
+  padding: 0px;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
   background-color: transparent;
   border: none;

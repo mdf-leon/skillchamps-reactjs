@@ -17,7 +17,7 @@ export const Card = styled.div`
   min-width: 90%;
 `;
 
-export const RowButton = styled.div`
+export const RowButton = styled.div<any>` 
   margin-top: ${(props) => (props.isTopSpaced ? '30px' : '0px')};
   display: flex;
   flex-direction: Row;

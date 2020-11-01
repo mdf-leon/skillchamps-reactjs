@@ -514,7 +514,7 @@ export default function BeforePoints(props) {
               </Typography>
               <ShowTimeInput
                 readOnly
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer', color: 'black' }}
                 placeholder="00:00.000"
                 inputtype="number"
                 value={baseTime}
