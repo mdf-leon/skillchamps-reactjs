@@ -67,17 +67,13 @@ function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function NewRider() {
+export default function NewRider(props: any) {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState<any>();
 
   const [registerInfo, setRegisterInfo] = useState<any>({
-    name: "",
-    category: "",
-    date_of_birth: "",
-    motorcycle: "",
-    motorcycle_plate: "",
-    license_ido: "",
+    event_name: "",
+    date_begin: selectedDate?.toISOString().split("T")[0],
   });
 
   const [open, setOpen] = useState<any>("");
@@ -89,13 +85,14 @@ export default function NewRider() {
   const handleSubmit = (e) => {
     e.preventDefault();
     let parameters = { event_id: localStorage.getItem("event_id") };
-    const rdata = {
+    const params = {
       ...registerInfo,
-      date_of_birth: selectedDate?.toISOString().split("T")[0],
+      date_begin: selectedDate?.toISOString().split("T")[0],
     };
     base
-      .post(`/uncontrolledRegister`, { parameters, rdata })
+      .post(`/createEvent`, params)
       .then((result) => {
+        console.log(result);
         setOpen("success");
       })
       .catch(() => setOpen("error")); // alert rider coundt be created
@@ -110,18 +107,18 @@ export default function NewRider() {
       >
         {open === "success" ? (
           <Alert onClose={handleClose} severity="success">
-            Rider created successfully
+            Event created successfully
           </Alert>
         ) : (
           <Alert onClose={handleClose} severity="error">
-            The Rider could not be created
+            The Event could not be created
           </Alert>
         )}
       </Snackbar>
       <Sidebar
         style={{ zIndex: 1000 }}
         topnav
-        title="New Rider"
+        title="New Event"
         rightIcon="gear"
       />
       <div style={{ paddingTop: "10px", minHeight: "100%" }}>
@@ -129,22 +126,24 @@ export default function NewRider() {
           <CssBaseline />
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
-              Create new Rider
+              Create new Event
             </Typography>
             <form onSubmit={handleSubmit} className={classes.form} noValidate>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
                     onChange={(e) =>
-                      setRegisterInfo({ ...registerInfo, name: e.target.value })
+                      setRegisterInfo({
+                        ...registerInfo,
+                        event_name: e.target.value,
+                      })
                     }
-                    autoComplete="name"
-                    name="Name"
+                    name="event_name"
                     variant="outlined"
                     required
                     fullWidth
-                    id="Name"
-                    label="Name"
+                    id="event_name"
+                    label="Event Name"
                     autoFocus
                   />
                 </Grid>
@@ -165,79 +164,6 @@ export default function NewRider() {
                     />
                   </Grid>
                 </MuiPickersUtilsProvider>
-                <Grid item xs={12}>
-                  <TextField
-                    className={classes.category}
-                    id="outlined-select-currency"
-                    select
-                    label="Select"
-                    value={registerInfo.category}
-                    onChange={(event) =>
-                      setRegisterInfo({
-                        ...registerInfo,
-                        category: event.target.value,
-                      })
-                    }
-                    variant="outlined"
-                  >
-                    {currencies.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={(e) =>
-                      setRegisterInfo({
-                        ...registerInfo,
-                        motorcycle: e.target.value,
-                      })
-                    }
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="motorcycle"
-                    label="Motorcycle"
-                    type="Motorcycle"
-                    id="Motorcycle"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={(e) =>
-                      setRegisterInfo({
-                        ...registerInfo,
-                        motorcycle_plate: e.target.value,
-                      })
-                    }
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="motorcycle_plate"
-                    label="Motorcycle plate"
-                    type="Motorcycle plate"
-                    id="Motorcycle plate"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={(e) =>
-                      setRegisterInfo({
-                        ...registerInfo,
-                        license_ido: e.target.value,
-                      })
-                    }
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="license_ido"
-                    label="License ido"
-                    type="License ido"
-                    id="License ido"
-                  />
-                </Grid>
               </Grid>
               <Button
                 type="submit"

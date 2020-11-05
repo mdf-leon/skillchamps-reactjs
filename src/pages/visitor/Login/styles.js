@@ -2,9 +2,9 @@ import styled from 'styled-components'
 
 export const Center = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: green;
   margin: auto;
   width: 100%;
   height: 100%;

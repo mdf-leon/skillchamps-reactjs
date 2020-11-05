@@ -69,15 +69,14 @@ function Alert(props: AlertProps) {
 
 export default function NewRider() {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState<any>();
 
   const [registerInfo, setRegisterInfo] = useState<any>({
     name: "",
     category: "",
     date_of_birth: "",
-    motorcycle: "",
-    motorcycle_plate: "",
-    license_ido: "",
+    fed_tax_ido: "",
+    subd_tax_ido: "",
+    city_tax_ido: "",
   });
 
   const [open, setOpen] = useState<any>("");
@@ -89,16 +88,12 @@ export default function NewRider() {
   const handleSubmit = (e) => {
     e.preventDefault();
     let parameters = { event_id: localStorage.getItem("event_id") };
-    const rdata = {
-      ...registerInfo,
-      date_of_birth: selectedDate?.toISOString().split("T")[0],
-    };
     base
-      .post(`/uncontrolledRegister`, { parameters, rdata })
+      .post(`/makeInstitute`, registerInfo)
       .then((result) => {
-        setOpen("success");
+        console.log(result);
       })
-      .catch(() => setOpen("error")); // alert rider coundt be created
+      .catch((er) => console.log(er)); // alert rider coundt be created
   };
 
   return (
@@ -110,18 +105,18 @@ export default function NewRider() {
       >
         {open === "success" ? (
           <Alert onClose={handleClose} severity="success">
-            Rider created successfully
+            Institute created successfully
           </Alert>
         ) : (
           <Alert onClose={handleClose} severity="error">
-            The Rider could not be created
+            The Institute could not be created
           </Alert>
         )}
       </Snackbar>
       <Sidebar
         style={{ zIndex: 1000 }}
         topnav
-        title="New Rider"
+        title="New Institute"
         rightIcon="gear"
       />
       <div style={{ paddingTop: "10px", minHeight: "100%" }}>
@@ -129,7 +124,7 @@ export default function NewRider() {
           <CssBaseline />
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
-              Create new Rider
+              Create new Institute
             </Typography>
             <form onSubmit={handleSubmit} className={classes.form} noValidate>
               <Grid container spacing={2}>
@@ -148,60 +143,21 @@ export default function NewRider() {
                     autoFocus
                   />
                 </Grid>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <Grid container justify="space-around">
-                    <KeyboardDatePicker
-                      className={classes.date}
-                      inputVariant="outlined"
-                      margin="normal"
-                      id="date-picker-dialog"
-                      label="Date picker dialog"
-                      format="MM/dd/yyyy"
-                      value={selectedDate}
-                      onChange={setSelectedDate}
-                      KeyboardButtonProps={{
-                        "aria-label": "change date",
-                      }}
-                    />
-                  </Grid>
-                </MuiPickersUtilsProvider>
-                <Grid item xs={12}>
-                  <TextField
-                    className={classes.category}
-                    id="outlined-select-currency"
-                    select
-                    label="Select"
-                    value={registerInfo.category}
-                    onChange={(event) =>
-                      setRegisterInfo({
-                        ...registerInfo,
-                        category: event.target.value,
-                      })
-                    }
-                    variant="outlined"
-                  >
-                    {currencies.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Grid>
                 <Grid item xs={12}>
                   <TextField
                     onChange={(e) =>
                       setRegisterInfo({
                         ...registerInfo,
-                        motorcycle: e.target.value,
+                        fed_tax_ido: e.target.value,
                       })
                     }
                     variant="outlined"
                     required
                     fullWidth
-                    name="motorcycle"
-                    label="Motorcycle"
-                    type="Motorcycle"
-                    id="Motorcycle"
+                    name="fed_tax_ido"
+                    label="Fed tax Ido"
+                    type="Fed tax Ido"
+                    id="Fed tax Ido"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -209,16 +165,16 @@ export default function NewRider() {
                     onChange={(e) =>
                       setRegisterInfo({
                         ...registerInfo,
-                        motorcycle_plate: e.target.value,
+                        subd_tax_ido: e.target.value,
                       })
                     }
                     variant="outlined"
                     required
                     fullWidth
-                    name="motorcycle_plate"
-                    label="Motorcycle plate"
-                    type="Motorcycle plate"
-                    id="Motorcycle plate"
+                    name="subd_tax_ido"
+                    label="Subd tax Ido"
+                    type="Subd tax Ido"
+                    id="Subd tax Ido"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -226,16 +182,16 @@ export default function NewRider() {
                     onChange={(e) =>
                       setRegisterInfo({
                         ...registerInfo,
-                        license_ido: e.target.value,
+                        city_tax_ido: e.target.value,
                       })
                     }
                     variant="outlined"
                     required
                     fullWidth
-                    name="license_ido"
-                    label="License ido"
-                    type="License ido"
-                    id="License ido"
+                    name="city_tax_ido"
+                    label="City tax Ido"
+                    type="City tax Ido"
+                    id="City tax Ido"
                   />
                 </Grid>
               </Grid>

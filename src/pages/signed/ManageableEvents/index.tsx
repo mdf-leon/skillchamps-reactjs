@@ -13,6 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { CheckCircle, VisibilityOff, Cancel } from "@material-ui/icons";
 import { base } from "../../../config/api";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -105,18 +106,25 @@ export default function ManageableEvents(props: any) {
   const todayEvent: any[] = events[0]
     ? events.filter(
         (event) =>
-          new Date(event.date_begin.replace(".000Z", "")).toDateString() ===
+          new Date(event.date_begin?.replace(".000Z", "")).toDateString() ===
           new Date().toDateString()
       )
     : [];
-
-  let AB = "ab";
 
   return (
     <>
       <Sidebar topnav title="Manageable Events" rightIcon="gear" />
       <div className={classes.mainDiv}>
         <div className={classes.ternaryDiv}>
+          <Button
+            disableRipple
+            variant="contained"
+            size="small"
+            color="primary"
+            onClick={() => props.history.push("/newEvent")}
+          >
+            NEW event
+          </Button>
           <Typography
             component="h6"
             variant="h6"
@@ -157,7 +165,14 @@ export default function ManageableEvents(props: any) {
               </Card>
             ))
           ) : (
-            <p>Nenhum evento</p>
+            <Typography
+              color="textSecondary"
+              component="h6"
+              variant="h6"
+              style={{ textAlign: "center", marginTop: "22px" }}
+            >
+              No events
+            </Typography>
           )}
         </div>
 
@@ -202,7 +217,14 @@ export default function ManageableEvents(props: any) {
               </Card>
             ))
           ) : (
-            <p>Nenhum evento</p>
+            <Typography
+              color="textSecondary"
+              component="h6"
+              variant="h6"
+              style={{ textAlign: "center", marginTop: "22px" }}
+            >
+              No events
+            </Typography>
           )}
         </div>
       </div>

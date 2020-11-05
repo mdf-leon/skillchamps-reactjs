@@ -18,9 +18,3 @@ export const Card = styled.div`
     height: 100%;
   }
 `;
-
-export const Row = styled.div`
-  margin-top: ${(props) => (props.isTopSpaced ? '10px' : '0px')};
-  display: flex;
-  flex-direction: Row;
-`;
