@@ -4,7 +4,8 @@ import { useHistory } from "react-router-dom";
 import { TextInput, CheckBox } from "components";
 // import { Redirect } from 'react-router-dom'
 import { Center, Col, Row, Grid } from "styles/global";
-
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { Options } from "./styles";
 
 import { base } from "../../../config/api";
@@ -31,6 +32,10 @@ interface TabPanelProps {
   dir?: string;
   index: any;
   value: any;
+}
+
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 function TabPanel(props: any) {
@@ -93,6 +98,12 @@ export default function BeforePoints(props) {
   const [currentRiderInfo, setCurrentRiderInfo] = useState<any>({});
   const [currentTrialInfo, setCurrentTrialInfo] = useState<any>({});
 
+  const [open, setOpen] = useState<any>(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
@@ -123,10 +134,20 @@ export default function BeforePoints(props) {
       .catch((er) => {
         console.log(er);
       });
+    if (props.location.state?.riderName) {
+      setOpen(true);
+    }
   }, []);
 
   return (
     <>
+      {props.location.state?.riderName ? (
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success">
+            Successfully added score to rider {props.location.state?.riderName}
+          </Alert>
+        </Snackbar>
+      ) : null}
       <Sidebar topnav title="Start Trial" rightIcon="gear" />
       <div className={classes.mainDiv}>
         <Grid>

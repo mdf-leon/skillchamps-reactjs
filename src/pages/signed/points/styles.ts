@@ -108,6 +108,7 @@ export const TimeInput = styled(TextInput)`
 
 export const ShowTimeInput = styled(TextInput)`
  input{
+  margin: 0;
   border: none;
   border-radius: 0;
   text-align: center;

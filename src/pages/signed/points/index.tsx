@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import Sidebar from '../../../components/Sidebar';
-import { Modal } from 'components';
-import { DateTime } from 'luxon';
+import React, { useState, useEffect } from "react";
+import Sidebar from "../../../components/Sidebar";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import { Modal } from "components";
+import { DateTime } from "luxon";
 import {
   SideBarDiv,
   TimeDiv,
@@ -12,7 +14,7 @@ import {
   MainDiv,
   ShowTimeInput,
   Blackground,
-} from './styles';
+} from "./styles";
 import {
   Card,
   CardActionArea,
@@ -21,46 +23,63 @@ import {
   CardMedia,
   Button,
   Typography,
-} from '@material-ui/core';
-import { base } from '../../../config/api';
+} from "@material-ui/core";
+import { base } from "../../../config/api";
 import {
   Theme,
   createStyles,
   makeStyles,
   useTheme,
-} from '@material-ui/core/styles';
-import { AiOutlineMinusCircle, AiFillPlusCircle } from 'react-icons/ai';
-import classes from '*.module.sass';
-import { Duration } from 'luxon';
+} from "@material-ui/core/styles";
+import { AiOutlineMinusCircle, AiFillPlusCircle } from "react-icons/ai";
+import classes from "*.module.sass";
+import { Duration } from "luxon";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainCardText: {
-      color: 'white',
+      color: "white",
     },
     numberText: {
       fontWeight: 300,
     },
+    content: {
+      display: "flex",
+      justifyContent: "space-between",
+      paddingBottom: "0px",
+    },
+    action: {
+      position: "unset",
+    },
   })
 );
+
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export default function BeforePoints(props) {
   const classes = useStyles();
   const [penaltiesConf, setPenaltiesConf] = useState<any[]>([]);
-  const [activeModal, setactiveModal] = useState<any>('');
+  const [activeModal, setactiveModal] = useState<any>("");
   const [dataTrial, setDataTrial] = useState<any>({});
   const [dataRider, setDataRider] = useState<any>({});
   const [baseTime, setbaseTime] = useState<any>();
   const [tempTime, setTempTime] = useState<any>();
   const [finalTime, setfinalTime] = useState<any>();
+  const [open, setOpen] = useState<any>(false);
 
   const [point, setpoint] = useState<any>({
-    rider_id: localStorage.getItem('ongoing_rider'),
-    trial_id: localStorage.getItem('ongoing_trial'),
-    time: '0',
+    rider_id: localStorage.getItem("ongoing_rider"),
+    trial_id: localStorage.getItem("ongoing_trial"),
+    time: "0",
   });
 
   const [pens, setpens] = useState<any[]>([]);
+
+  const handleClose = () => {
+    setOpen(true);
+  };
 
   useEffect(() => {
     updateFinalTime();
@@ -74,13 +93,13 @@ export default function BeforePoints(props) {
     // return tm[1].replace('.', '')
     return Duration.fromObject({
       minutes: tm[0],
-      milliseconds: tm[1].replace('.', ''),
-    }).as('milliseconds');
+      milliseconds: tm[1].replace(".", ""),
+    }).as("milliseconds");
     // return new Date(ms).toISOString().slice(14, -1);
   }
 
   const updateFinalTime = () => {
-    const msBase = baseTime ? Number(stringToMS(baseTime.split(':'))) : 0;
+    const msBase = baseTime ? Number(stringToMS(baseTime.split(":"))) : 0;
     // console.log(pens);
     setpoint({ ...point, time: msBase });
 
@@ -93,27 +112,27 @@ export default function BeforePoints(props) {
     let unformatedFinalTime: string = Duration.fromObject({
       milliseconds: tempTime,
     }).toFormat("mm':'S"); // .splice(4, 0, ":")
-    let milis = unformatedFinalTime.split(':')[1];
+    let milis = unformatedFinalTime.split(":")[1];
     unformatedFinalTime =
       unformatedFinalTime.substring(0, 3) +
-      '0'.repeat(5 - milis.length) +
+      "0".repeat(5 - milis.length) +
       milis;
 
     const formatedFinalTime =
       unformatedFinalTime.substring(0, 5) +
-      '.' + // '0'.repeat(5 - milis.length) +
+      "." + // '0'.repeat(5 - milis.length) +
       unformatedFinalTime.substring(5, unformatedFinalTime.length);
     setfinalTime(formatedFinalTime);
   };
 
   useEffect(() => {
     let params = {
-      event_id: localStorage.getItem('event_id'),
+      event_id: localStorage.getItem("event_id"),
       rider_id: point.rider_id,
       trial_id: point.trial_id,
     };
     base
-      .get('/managedTrialsList', { params })
+      .get("/managedTrialsList", { params })
       .then((r) => {
         setDataTrial(r.data);
         // // console.log(r.data);
@@ -122,7 +141,7 @@ export default function BeforePoints(props) {
         // // console.log(er);
       });
     base
-      .get('/managedRidersList', { params })
+      .get("/managedRidersList", { params })
       .then((r) => {
         setDataRider(r.data);
         // // console.log(r.data);
@@ -176,21 +195,21 @@ export default function BeforePoints(props) {
 
       <div
         style={{
-          display: 'flex',
-          marginTop: '10px',
-          width: '100%',
-          justifyContent: 'center',
-          minHeight: '58px',
+          display: "flex",
+          marginTop: "10px",
+          width: "100%",
+          justifyContent: "center",
+          minHeight: "58px",
         }}
       >
         <NumberBox>
           <div
             style={{
-              background: '#1976d3',
-              display: 'flex',
-              alignItems: 'center',
-              width: '50px',
-              justifyContent: 'center',
+              background: "#1976d3",
+              display: "flex",
+              alignItems: "center",
+              width: "50px",
+              justifyContent: "center",
             }}
           >
             <RoundButton
@@ -206,10 +225,10 @@ export default function BeforePoints(props) {
 
           <div
             style={{
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <Typography
@@ -217,17 +236,17 @@ export default function BeforePoints(props) {
               component="p"
               className={classes.numberText}
             >
-              {pens[index] || 'none'}
+              {pens[index] || "none"}
             </Typography>
           </div>
 
           <div
             style={{
-              background: '#1976d3',
-              display: 'flex',
-              alignItems: 'center',
-              width: '50px',
-              justifyContent: 'center',
+              background: "#1976d3",
+              display: "flex",
+              alignItems: "center",
+              width: "50px",
+              justifyContent: "center",
             }}
           >
             <RoundButton
@@ -246,7 +265,7 @@ export default function BeforePoints(props) {
   );
 
   const cancel = (
-    <div style={{ textAlign: 'left' }}>
+    <div style={{ textAlign: "left" }}>
       <h3>
         Are you sure you want to cancel
         <br /> the score for this runner?
@@ -254,23 +273,23 @@ export default function BeforePoints(props) {
       <p>current scores will be deleted</p>
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginTop: '20px',
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "20px",
         }}
       >
         <Button
           variant="contained"
           color="primary"
-          style={{ color: 'red', border: '1px solid red', marginRight: '10px' }}
-          onClick={() => setactiveModal('')}
+          style={{ color: "red", border: "1px solid red", marginRight: "10px" }}
+          onClick={() => setactiveModal("")}
         >
           Delete points
         </Button>
         <Button
           variant="contained"
           color="primary"
-          onClick={() => setactiveModal('')}
+          onClick={() => setactiveModal("")}
         >
           Continue scoring
         </Button>
@@ -279,9 +298,9 @@ export default function BeforePoints(props) {
   );
 
   const confirm = (
-    <div style={{ textAlign: 'left' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div style={{ marginRight: '59px' }}>
+    <div style={{ textAlign: "left" }}>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ marginRight: "59px" }}>
           <p>
             Name: NAME
             <br />
@@ -292,8 +311,8 @@ export default function BeforePoints(props) {
           </p>
         </div>
         <div>
-          <h3 style={{ margin: '0' }}>Realized Time</h3>
-          <h1 style={{ margin: '0' }}>00:00.000</h1>
+          <h3 style={{ margin: "0" }}>Realized Time</h3>
+          <h1 style={{ margin: "0" }}>00:00.000</h1>
         </div>
       </div>
 
@@ -306,7 +325,7 @@ export default function BeforePoints(props) {
                     penaltiesConf.find(
                       (e) => e.id === parseInt(penalty.penalty_conf_id)
                     ).name
-                  }{' '}
+                  }{" "}
                   --- {penalty.quantity}
                 </p>
               );
@@ -316,18 +335,18 @@ export default function BeforePoints(props) {
 
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginTop: '20px',
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "20px",
         }}
       >
         <Button
-          style={{ color: 'red', border: '1px solid red', marginRight: '10px' }}
-          onClick={() => setactiveModal('')}
+          style={{ color: "red", border: "1px solid red", marginRight: "10px" }}
+          onClick={() => setactiveModal("")}
         >
           Cancel
         </Button>
-        <Button onClick={() => setactiveModal('')}>Continue scoring</Button>
+        <Button onClick={() => setactiveModal("")}>Continue scoring</Button>
       </div>
     </div>
   );
@@ -373,12 +392,31 @@ export default function BeforePoints(props) {
   const setTimer = () => {
     setbaseTime(tempTime);
     // setpoint({ ...point, time: tempTime.replace(':', '').replace('.', '') });
-    setactiveModal('');
+    setactiveModal("");
     // updateFinalTime()
   };
 
+  const handleFinish = async () => {
+    const temp = { ...point, penalties: [] };
+    for (let i = 0; i < penaltiesConf.length; i++) {
+      temp.penalties.push({
+        penalty_conf_id: penaltiesConf[i].id,
+        quantity: pens[i],
+      });
+    }
+    await base
+      .post(`/addScore`, temp)
+      .then((r) => {
+        props.history.push(`/beforePoints`, { riderName: dataRider.name });
+      })
+      .catch((er) => {
+        setOpen(true);
+        console.log(er);
+      });
+  };
+
   const customTempDefine = (
-    <div>
+    <div style={{ padding: "25px 14px" }}>
       <Typography gutterBottom variant="h5" component="h2">
         Please set the runner time
       </Typography>
@@ -391,16 +429,16 @@ export default function BeforePoints(props) {
 
       <div
         style={{
-          display: 'flex',
-          marginTop: '20px',
-          justifyContent: 'space-between',
+          display: "flex",
+          marginTop: "20px",
+          justifyContent: "space-between",
         }}
       >
         <Button
           variant="outlined"
           color="secondary"
           onClick={() => {
-            setactiveModal('');
+            setactiveModal("");
             setTempTime(0);
           }}
         >
@@ -413,9 +451,89 @@ export default function BeforePoints(props) {
     </div>
   );
 
+  const finishConfirm = (
+    <Card>
+      <CardContent className={classes.content}>
+        <div
+          style={{ display: "flex", flexDirection: "column", width: "100%" }}
+        >
+          <Typography
+            style={{ textAlign: "center" }}
+            gutterBottom
+            variant="h5"
+            component="h2"
+          >
+            Do you really want to finish scoring for the rider {dataRider.name}?
+          </Typography>
+          <div style={{ margin: "auto" }}>
+            <Typography
+              style={{ textAlign: "center" }}
+              gutterBottom
+              color="textSecondary"
+              variant="body2"
+              component="p"
+            >
+              BASE TIME: &nbsp; TOTAL TIME:
+            </Typography>
+            <Typography
+              style={{ textAlign: "center" }}
+              gutterBottom
+              color="textSecondary"
+              variant="body2"
+              component="p"
+            >
+              {baseTime} &nbsp;&nbsp;&nbsp; {finalTime}
+            </Typography>
+
+            <Typography
+              gutterBottom
+              color="textSecondary"
+              variant="body2"
+              component="p"
+            >
+              Penalties:
+            </Typography>
+            {penaltiesConf.map((content, i) => (
+              <Typography
+                gutterBottom
+                color="textSecondary"
+                variant="body2"
+                component="p"
+              >
+                {content.name}: {pens[i] || "0"}
+              </Typography>
+            ))}
+          </div>
+        </div>
+      </CardContent>
+      <CardActions style={{ justifyContent: "center" }}>
+        <Button
+          className={classes.action}
+          disableRipple
+          variant="contained"
+          size="small"
+          color="primary"
+        >
+          Cancel
+        </Button>
+        <Button
+          className={classes.action}
+          disableRipple
+          variant="contained"
+          size="small"
+          color="secondary"
+          onClick={() => handleFinish()}
+        >
+          Finish
+        </Button>
+      </CardActions>
+    </Card>
+  );
+
   const modalContent = (modalName, id = null) => {
     const modals = {
       customTempDefine,
+      finishConfirm,
       // totalTempDefine,
       confirm,
     };
@@ -433,23 +551,27 @@ export default function BeforePoints(props) {
       });
     }
 
-    const body = {...point, penalties}
-
+    const body = { ...point, penalties };
 
     // console.log(body);
   };
 
   return (
     <>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          Error on trying to post the score, check your internet connection
+        </Alert>
+      </Snackbar>
       <Sidebar topnav title="Manageable Events" rightIcon="gear" />
-      <Card style={{ minHeight: '100%' }}>
-        <MainDiv style={{ marginTop: '50px', minHeight: '100%' }}>
+      <Card style={{ minHeight: "100%" }}>
+        <MainDiv style={{ marginTop: "50px", minHeight: "100%" }}>
           <div
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              backgroundColor: '#6202EE',
-              padding: '14px 16px',
+              display: "flex",
+              justifyContent: "space-between",
+              backgroundColor: "#6202EE",
+              padding: "14px 16px",
             }}
           >
             <div>
@@ -485,14 +607,14 @@ export default function BeforePoints(props) {
             </div>
             <div
               style={{
-                display: 'flex',
-                alignItems: 'flex-end',
+                display: "flex",
+                alignItems: "flex-end",
               }}
             >
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => onFinish()}
+                onClick={() => setactiveModal("finishConfirm")}
               >
                 FINISH
               </Button>
@@ -502,31 +624,30 @@ export default function BeforePoints(props) {
           <TimeDiv>
             <div
               style={{
-                width: '100%',
-                cursor: 'pointer',
-                border: '1px solid',
-                borderRadius: '4px',
+                width: "100%",
+                cursor: "pointer",
+                border: "1px solid",
+                borderRadius: "4px",
               }}
-              onClick={() => setactiveModal('customTempDefine')}
+              onClick={() => setactiveModal("customTempDefine")}
             >
               <Typography gutterBottom variant="h5" component="h2">
                 Base Time
               </Typography>
               <ShowTimeInput
                 readOnly
-                style={{ cursor: 'pointer', color: 'black' }} 
+                style={{ cursor: "pointer", color: "black" }}
                 placeholder="00:00.000"
-                inputtype="number"
-                value={baseTime}
+                value={baseTime || "00:00.000"}
               />
             </div>
 
-            <div style={{ width: '100%', cursor: 'context-menu' }}>
+            <div style={{ width: "100%", cursor: "context-menu" }}>
               <Typography gutterBottom variant="h5" component="h2">
                 Total Time
               </Typography>
               <Typography variant="h5" component="h2">
-                {finalTime || '00:00.000'}
+                {finalTime || "00:00.000"}
               </Typography>
             </div>
           </TimeDiv>
@@ -539,9 +660,10 @@ export default function BeforePoints(props) {
         </MainDiv>
       </Card>
       <Modal
-        bodyStyle={{ padding: '25px 14px' }}
-        show={activeModal !== ''}
-        onBackgroundClick={() => setactiveModal('')}
+        bodyStyle={{ margin: "auto 20px", width: "100%" }}
+        noPadding
+        show={activeModal !== ""}
+        onBackgroundClick={() => setactiveModal("")}
       >
         {modalContent(activeModal)}
       </Modal>

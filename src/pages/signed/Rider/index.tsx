@@ -34,7 +34,7 @@ export default function EventOptions(props: any) {
   const confirmDelete = (
     <Card>
       <CardContent className={classes.content}>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", flexDirection: "column", width: "100%"  }}>
           <Typography
             style={{ textAlign: "center" }}
             gutterBottom
@@ -224,7 +224,7 @@ export default function EventOptions(props: any) {
         ))}
       </div>
       <Modal
-        bodyStyle={{ margin: "auto 20px" }}
+        bodyStyle={{ margin: "auto 20px", width: "100%"  }}
         noPadding
         show={activeModal !== ""}
         onBackgroundClick={() => setActiveModal("")}
