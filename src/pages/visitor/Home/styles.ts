@@ -2,23 +2,14 @@ import styled from 'styled-components'
 
 
 export const TopBar = styled.div`
-  @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display&display=swap');
-  
   background-color: white;
   display: flex;
-  font-family: 'Big Shoulders Display', cursive;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  div, header {
-    height: 100%
-  }
+  justify-content: space-between;
+  padding: 5px 20px;
 `;
 
 export const Body = styled.div`
-  @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display&display=swap');
-  font-family: 'Big Shoulders Display', cursive;
-  height: calc(100% - 40px);
+  /* height: calc(100% - 40px); */
   background-color: #e6d1ab;
 `;
 
@@ -28,6 +19,21 @@ export const HomeButton = styled.button`
   border: none;
   letter-spacing: 2px;
   font-size: 25px;
+`;
+
+export const FirstDiv = styled.div`
+  background-image: linear-gradient(#0043c8, #ea284d);
+  padding: 40px 20px;
+`;
+
+export const SecondDiv = styled.div`
+  background: white;
+  padding: 40px 20px;
+`;
+
+export const ThirdDiv = styled.div`
+  background: #0043c8;
+  padding: 40px 20px;
 `;
 
 // export const AccountButton = styled.button`
