@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Container,
   Title,
@@ -6,10 +6,11 @@ import {
   Body,
   Page,
   TitleContainer,
-} from './styles';
-import { MdFormatIndentIncrease, MdFormatIndentDecrease } from 'react-icons/md';
-import { useHistory } from 'react-router-dom';
-import SettingsIcon from '@material-ui/icons/Settings';
+} from "./styles";
+import Typography from "@material-ui/core/Typography";
+import { MdFormatIndentIncrease, MdFormatIndentDecrease } from "react-icons/md";
+import { useHistory } from "react-router-dom";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 const Sidebar = (props) => {
   const history = useHistory();
@@ -19,8 +20,8 @@ const Sidebar = (props) => {
   const dynIcon = (iconName) => {
     // <DynIcon size={24} style={{ margin: '0' }} />
     switch (iconName) {
-      case 'gear':
-        return <SettingsIcon style={{ margin: '0'}} />;
+      case "gear":
+        return <SettingsIcon style={{ margin: "0" }} />;
       default:
         return <div />;
     }
@@ -38,32 +39,37 @@ const Sidebar = (props) => {
     <Container isOpen={isOpen} id="container">
       <Title onClick={() => setisOpen(!isOpen)} isOpen={isOpen} id="title">
         <TitleContainer>
-          <Icon size={24} style={{ margin: '0' }} />
-          <span>{props.title}</span>
-          {dynIcon(props.rightIcon || '')}
+          <Icon size={24} style={{ margin: "0" }} />
+          <Typography
+            component="h6"
+            variant="h6"
+          >
+            {props.title}
+          </Typography>
+          {dynIcon(props.rightIcon || "")}
         </TitleContainer>
       </Title>
       <Body isOpen={isOpen}>
         <Page
           isOpen={isOpen}
           onClick={() => {
-            localStorage.removeItem('token');
+            localStorage.removeItem("token");
             window.location.reload();
           }}
         >
           - log off
         </Page>
-        {page('- landing page', '/')}
-        {page('dashboard', '/dashboard')}
-        {page('eventOptions', '/eventOptions')}
-        {page('accountOptions', '/accountOptions')}
-        {page('createEvent', '/createEvent')}
-        {page('x Events', '/Events')}
-        {page('x Institute', '/Institute')}
-        {page('x ManageEvents', '/ManageEvent')}
-        {page('ManageableEvent', '/manageableEvents')}
-        {page('x BeforePoints', '/BeforePoints')}
-        {page('Rider', '/Rider')}
+        {page("- landing page", "/")}
+        {page("dashboard", "/dashboard")}
+        {page("eventOptions", "/eventOptions")}
+        {page("accountOptions", "/accountOptions")}
+        {page("createEvent", "/newEvent")}
+        {page("x Events", "/Events")}
+        {page("newInstitute", "/newInstitute")}
+        {page("x ManageEvents", "/ManageEvent")}
+        {page("ManageableEvent", "/manageableEvents")}
+        {page("x BeforePoints", "/BeforePoints")}
+        {page("Rider", "/Rider")}
       </Body>
     </Container>
   );

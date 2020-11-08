@@ -19,9 +19,9 @@ function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function Riders(props: any) {
+export default function Trials(props: any) {
   const classes = styles();
-  const [dataRider, setDataRider] = useState<any[]>([]);
+  const [dataTrial, setDataTrial] = useState<any[]>([]);
   const [activeModal, setActiveModal] = useState<any>("");
   const [currentId, setCurrentId] = useState<any>("");
 
@@ -55,7 +55,7 @@ export default function Riders(props: any) {
             variant="body2"
             component="p"
           >
-            Do you really want to delete this Rider? This process cannot be
+            Do you really want to delete this Trial? This process cannot be
             undone.
           </Typography>
         </div>
@@ -77,7 +77,7 @@ export default function Riders(props: any) {
           variant="contained"
           size="small"
           color="secondary"
-          onClick={() => deleteRider(currentId)}
+          onClick={() => deleteTrial(currentId)}
         >
           Delete
         </Button>
@@ -95,9 +95,9 @@ export default function Riders(props: any) {
   const softRefresh = () => {
     let params = { event_id: localStorage.getItem("event_id") };
     base
-      .get("/managedRidersList", { params })
+      .get("/managedTrialsList", { params })
       .then((r) => {
-        setDataRider(r.data);
+        setDataTrial(r.data);
       })
       .catch(() => {});
   };
@@ -105,9 +105,9 @@ export default function Riders(props: any) {
   useEffect(() => {
     let params = { event_id: localStorage.getItem("event_id") };
     base
-      .get("/managedRidersList", { params })
+      .get("/managedTrialsList", { params })
       .then((r) => {
-        setDataRider(r.data);
+        setDataTrial(r.data);
       })
       .catch(() => {});
     if (props.location.state?.created) {
@@ -115,9 +115,9 @@ export default function Riders(props: any) {
     }
   }, []);
 
-  const deleteRider = (id) => {
+  const deleteTrial = (id) => {
     base
-      .delete(`/deleteRider/${id}`)
+      .delete(`/deleteTrial/${id}`)
       .then((r) => {
         setActiveModal("");
         softRefresh();
@@ -140,7 +140,7 @@ export default function Riders(props: any) {
       <Sidebar
         style={{ zIndex: 1000 }}
         topnav
-        title="Riders"
+        title="Trials"
         rightIcon="gear"
       />
       <div className={classes.mainDiv}>
@@ -152,7 +152,7 @@ export default function Riders(props: any) {
               variant="h5"
               component="h2"
             >
-              List of Riders
+              List of Trials
             </Typography>
           </CardContent>
           <CardActions className={classes.actions}>
@@ -171,14 +171,14 @@ export default function Riders(props: any) {
               variant="contained"
               size="small"
               color="primary"
-              onClick={() => props.history.push("/newRider")}
+              onClick={() => props.history.push("/newTrial")}
             >
-              NEW RIDER
+              NEW Trial
             </Button>
           </CardActions>
         </Card>
-        {dataRider.map((content, i) => (
-          <div key={`riderList${content.id}`} className={classes.options}>
+        {dataTrial.map((content, i) => (
+          <div key={`TrialList${content.id}`} className={classes.options}>
             <div className={classes.row}>
               <div style={{ display: "flex" }}>
                 <Typography

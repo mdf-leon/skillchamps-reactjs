@@ -67,7 +67,7 @@ function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function NewRider() {
+export default function NewRider(props: any) {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState<any>();
 
@@ -97,6 +97,7 @@ export default function NewRider() {
       .post(`/uncontrolledRegister`, { parameters, rdata })
       .then((result) => {
         setOpen("success");
+        props.history.push(`/riders`, { created: true });
       })
       .catch(() => setOpen("error")); // alert rider coundt be created
   };
@@ -155,7 +156,7 @@ export default function NewRider() {
                       inputVariant="outlined"
                       margin="normal"
                       id="date-picker-dialog"
-                      label="Date picker dialog"
+                      label="Birth date"
                       format="MM/dd/yyyy"
                       value={selectedDate}
                       onChange={setSelectedDate}

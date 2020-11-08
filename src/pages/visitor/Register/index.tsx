@@ -56,125 +56,139 @@ export default function SignUp() {
     e.preventDefault();
     base
       .post(`/register`, registerInfo)
-      .then((result) => {
-        console.log(result);
+      .then(() => {
+        const fData = {
+          email: registerInfo.email,
+          password: registerInfo.password,
+        };
+        base
+          .post("/authenticate", fData)
+          .then((r) => {
+            console.log(r);
+            localStorage.setItem("token", r.data.token);
+            // setCookie("jwt", r.data.token);
+            window.location.reload();
+          })
+          .catch((e) => {
+            console.log(e.response);
+          });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.response.message));
   };
 
   return (
     <>
       <div style={{ paddingTop: "1px", minHeight: "100%" }}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <form onSubmit={handleSubmit} className={classes.form} noValidate>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  onChange={(e) =>
-                    setRegisterInfo({
-                      ...registerInfo,
-                      name: e.target.value,
-                    })
-                  }
-                  autoComplete="fname"
-                  name="firstName"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Typography component="h1" variant="h5">
+              Sign up
+            </Typography>
+            <form onSubmit={handleSubmit} className={classes.form} noValidate>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={(e) =>
+                      setRegisterInfo({
+                        ...registerInfo,
+                        name: e.target.value,
+                      })
+                    }
+                    autoComplete="fname"
+                    name="firstName"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="Full Name"
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={(e) =>
+                      setRegisterInfo({
+                        ...registerInfo,
+                        email: e.target.value,
+                      })
+                    }
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={(e) =>
+                      setRegisterInfo({
+                        ...registerInfo,
+                        password: e.target.value,
+                      })
+                    }
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={(e) =>
+                      setRegisterInfo({
+                        ...registerInfo,
+                        r_password: e.target.value,
+                      })
+                    }
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox value="allowExtraEmails" color="primary" />
+                    }
+                    label="I read and accept the terms of service."
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  onChange={(e) =>
-                    setRegisterInfo({
-                      ...registerInfo,
-                      email: e.target.value,
-                    })
-                  }
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign Up
+              </Button>
+              <Grid container justify="center">
+                <Grid item>
+                  <Link href="/login" variant="body2">
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  onChange={(e) =>
-                    setRegisterInfo({
-                      ...registerInfo,
-                      password: e.target.value,
-                    })
-                  }
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  onChange={(e) =>
-                    setRegisterInfo({
-                      ...registerInfo,
-                      r_password: e.target.value,
-                    })
-                  }
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I read and accept the terms of service."
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign Up
-            </Button>
-            <Grid container justify="center">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-        <Box mt={5}>
-          <Copyright />
-        </Box>
-      </Container>
+            </form>
+          </div>
+          <Box mt={5}>
+            <Copyright />
+          </Box>
+        </Container>
       </div>
     </>
   );

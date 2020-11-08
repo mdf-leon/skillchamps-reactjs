@@ -69,7 +69,7 @@ function Alert(props: AlertProps) {
 
 export default function NewRider(props: any) {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState<any>();
+  const [selectedDate, setSelectedDate] = useState<any>(new Date());
 
   const [registerInfo, setRegisterInfo] = useState<any>({
     event_name: "",
@@ -84,7 +84,6 @@ export default function NewRider(props: any) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let parameters = { event_id: localStorage.getItem("event_id") };
     const params = {
       ...registerInfo,
       date_begin: selectedDate?.toISOString().split("T")[0],
@@ -92,8 +91,8 @@ export default function NewRider(props: any) {
     base
       .post(`/createEvent`, params)
       .then((result) => {
-        console.log(result);
         setOpen("success");
+        props.history.push(`/manageableEvents`, { created: true });
       })
       .catch(() => setOpen("error")); // alert rider coundt be created
   };

@@ -482,7 +482,7 @@ export default function BeforePoints(props) {
               variant="body2"
               component="p"
             >
-              {baseTime} &nbsp;&nbsp;&nbsp; {finalTime}
+              {baseTime || "00:00.000"} &nbsp;&nbsp;&nbsp; {finalTime}
             </Typography>
 
             <Typography
@@ -495,6 +495,7 @@ export default function BeforePoints(props) {
             </Typography>
             {penaltiesConf.map((content, i) => (
               <Typography
+                key={`typography` + content.id}
                 gutterBottom
                 color="textSecondary"
                 variant="body2"

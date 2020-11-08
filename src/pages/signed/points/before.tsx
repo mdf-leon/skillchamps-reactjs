@@ -102,6 +102,9 @@ export default function BeforePoints(props) {
 
   const handleClose = () => {
     setOpen(false);
+    let state = { ...props.history.location.state };
+    delete state.riderName;
+    props.history.replace({ ...props.history.location, state });
   };
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {

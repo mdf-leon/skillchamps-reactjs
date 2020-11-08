@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../../components/Sidebar";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import {
   Theme,
   createStyles,
@@ -62,10 +64,23 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 export default function ManageableEvents(props: any) {
   const classes = useStyles();
   const theme = useTheme();
   const [events, setEvents] = useState<any[]>([]);
+
+  const [open, setOpen] = useState<any>(true);
+
+  const handleClose = () => {
+    setOpen(false);
+    let state = { ...props.history.location.state };
+    delete state.created;
+    props.history.replace({ ...props.history.location, state });
+  };
 
   const renderIcons = (iconName) => {
     switch (iconName) {
@@ -90,6 +105,9 @@ export default function ManageableEvents(props: any) {
       .catch((er) => {
         console.log(er);
       });
+    if (props.location.state?.created) {
+      setOpen(true);
+    }
   }, []);
 
   function getCurrentDate(separator = "") {
@@ -113,18 +131,27 @@ export default function ManageableEvents(props: any) {
 
   return (
     <>
+      {props.location.state?.created ? (
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success">
+            Trial successfully created
+          </Alert>
+        </Snackbar>
+      ) : null}
       <Sidebar topnav title="Manageable Events" rightIcon="gear" />
       <div className={classes.mainDiv}>
         <div className={classes.ternaryDiv}>
-          <Button
-            disableRipple
-            variant="contained"
-            size="small"
-            color="primary"
-            onClick={() => props.history.push("/newEvent")}
-          >
-            NEW event
-          </Button>
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              disableRipple
+              variant="contained"
+              size="small"
+              color="primary"
+              onClick={() => props.history.push("/newEvent")}
+            >
+              NEW event
+            </Button>
+          </div>
           <Typography
             component="h6"
             variant="h6"
@@ -135,6 +162,7 @@ export default function ManageableEvents(props: any) {
           {todayEvent[0] ? (
             todayEvent.map((event) => (
               <Card
+                key={`todayEvent${event.id}`}
                 className={classes.root}
                 onClick={() => {
                   localStorage.setItem("event_id", event.id);
@@ -187,6 +215,7 @@ export default function ManageableEvents(props: any) {
           {events[0] ? (
             events.map((event) => (
               <Card
+                key={`events${event.id}`}
                 className={classes.root}
                 onClick={() => {
                   localStorage.setItem("event_id", event.id);
