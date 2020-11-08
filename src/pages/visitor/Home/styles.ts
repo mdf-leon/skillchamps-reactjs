@@ -4,9 +4,8 @@ import styled from 'styled-components'
 export const TopBar = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display&display=swap');
   
-  background-color: #d8b370;
+  background-color: white;
   display: flex;
-  height: 40px;
   font-family: 'Big Shoulders Display', cursive;
   text-align: center;
   align-items: center;
@@ -16,7 +15,7 @@ export const TopBar = styled.div`
   }
 `;
 
-export const Body = styled.body`
+export const Body = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display&display=swap');
   font-family: 'Big Shoulders Display', cursive;
   height: calc(100% - 40px);
