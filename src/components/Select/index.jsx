@@ -1,5 +1,5 @@
-import React from 'react';
-import { SelectBlock } from './styles';
+import React from "react";
+import { SelectBlock } from "./styles";
 
 export default function Select(props) {
   const {
@@ -10,7 +10,7 @@ export default function Select(props) {
     error,
     touched,
     ...rest
-  } = props
+  } = props;
   return (
     <SelectBlock label={label} touched={touched} error={error} {...rest}>
       <label htmlFor={label}>{label}</label>
@@ -20,10 +20,10 @@ export default function Select(props) {
         </option>
         {options
           ? options.map((option) => (
-            <option value={option.value} key={option.label}>
-              {option.label}
-            </option>
-          ))
+              <option value={option.value} key={option.label}>
+                {option.label}
+              </option>
+            ))
           : children}
       </select>
       <span>{touched && error ? error : null}</span>

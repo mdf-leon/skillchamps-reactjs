@@ -1,25 +1,26 @@
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
-import { FaSpinner } from 'react-icons/fa';
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import { FaSpinner } from "react-icons/fa";
 
-import { ReactComponent as None } from '../../assets/images/None.svg';
-import { ReactComponent as Decreasing } from '../../assets/images/Decreasing.svg';
-import { ReactComponent as Increasing } from '../../assets/images/Increasing.svg';
+import { ReactComponent as None } from "../../assets/images/None.svg";
+import { ReactComponent as Decreasing } from "../../assets/images/Decreasing.svg";
+import { ReactComponent as Increasing } from "../../assets/images/Increasing.svg";
 
-import { Grid } from 'styles/grid'
-import { Table, LoadingContainer, Button, StatusCol, Col, Row, } from './styles';
+import { Grid } from "styles/grid";
+import { Table, LoadingContainer, Button, StatusCol, Col, Row } from "./styles";
 
 export default function CustomTable(props) {
   // eslint-disable-next-line react/prop-types
-  const { columns, sm, data, isLoading, onOrderChange, ...rest } = props
-  const [direction, setdirection] = useState('asc')
-  const [columnSort, setcolumnSort] = useState('')
+  const { columns, sm, data, isLoading, onOrderChange, ...rest } = props;
+  const [direction, setdirection] = useState("asc");
+  const [columnSort, setcolumnSort] = useState("");
   function renderRow(item) {
     return (
-      <Grid fluid>
+      <Grid fluid key={`grid${item.id}`}>
         <Row key={item.id}>
           {columns.map(({ title, dataIndex, width, align, render }, index) => (
-            <Col xs
+            <Col
+              xs
               key={`${item.id} - ${title} - ${dataIndex}`}
               style={{
                 width,
@@ -27,12 +28,12 @@ export default function CustomTable(props) {
               }}
             >
               {render ? (
-                <tr>{render('text', item, index)}</tr>
+                <tr>{render("text", item, index)}</tr>
               ) : (
-                  <tr>
-                    <span>{item[dataIndex]}</span>
-                  </tr>
-                )}
+                <tr>
+                  <span>{item[dataIndex]}</span>
+                </tr>
+              )}
             </Col>
           ))}
         </Row>
@@ -41,22 +42,27 @@ export default function CustomTable(props) {
   }
 
   const handleOnOrderChange = (e, dataIndex) => {
-    e.preventDefault()
-    setdirection(direction === 'asc' ? 'desc' : 'asc')
-    setcolumnSort(dataIndex)
-    onOrderChange(dataIndex, direction)
+    e.preventDefault();
+    setdirection(direction === "asc" ? "desc" : "asc");
+    setcolumnSort(dataIndex);
+    onOrderChange(dataIndex, direction);
     // console.log(dataIndex+' '+direction)
   };
 
-  const renderTitle = (Title) => {
-    if (typeof Title === 'string') return Title;
-    return <Title />;
-  };
+  const renderTitle = () => {};
+
+  // (
+  //   // <Grid fluid>
+  //     {/* <Row> */}
+
+  //     {/* </Row> */}
+  //   {/* </Grid> */}
+  // );
   const renderSort = (dataIndex) => {
     if (dataIndex === columnSort) {
-      return direction === 'asc' ? <Increasing /> : <Decreasing />;
+      return direction === "asc" ? <Increasing /> : <Decreasing />;
     }
-    return dataIndex === 'DropDownRender' ? null : <None />;
+    return dataIndex === "DropDownRender" ? null : <None />;
   };
 
   return (
@@ -66,23 +72,23 @@ export default function CustomTable(props) {
           <FaSpinner size={14} />
         </LoadingContainer>
       ) : (
-          <>
-            <thead>
-            <Grid fluid>
-            <Row>
-                {columns.map(({ title, width, align, dataIndex, }) => {
-                  return (
-                    <Col xs>
+        <>
+          <thead>
+            <tr>
+              {columns.map(({ title, width, align, dataIndex }) => {
+                return (
+                  <td>
+                    <Col xs key={title}>
                       {title}
                     </Col>
-                  );
-                })}
-              </Row>
-            </Grid>
-            </thead>
-            <tbody>{data.map(renderRow)}</tbody>
-          </>
-        )}
+                  </td> 
+                );
+              })}
+            </tr>
+          </thead> 
+          <tbody>{data.map(renderRow)}</tbody>
+        </>
+      )}
     </Table>
   );
 }

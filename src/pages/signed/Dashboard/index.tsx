@@ -83,7 +83,7 @@ export default function Dashboard(props) {
 
             <Row style={{ marginTop: "10px" }}>
               <Col xs>
-                <Select placeholder="Category">
+                <Select placeholder="Category" onChange={(e) => {}}>
                   <option>ea</option>
                   <option>AMSTERDAM</option>
                   <option>objectOf British</option>
@@ -91,7 +91,7 @@ export default function Dashboard(props) {
               </Col>
 
               <Col xs>
-                <Select placeholder="Trial">
+                <Select placeholder="Trial" onChange={(e) => {}}>
                   {trials[0]
                     ? trials.map((content) => <option>{content.name}</option>)
                     : null}

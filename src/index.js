@@ -61,7 +61,7 @@ ReactDOM.render(
         <Route exact path="/" component={Home} />
         <VisitorRoute exact path="/login" component={Login} />
         <VisitorRoute exact path="/register" component={Register} />
-        <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+        {/* <ProtectedRoute exact path="/dashboard" component={Dashboard} /> */}
         <ProtectedRoute exact path="/riders" component={Rider} />
         <ProtectedRoute exact path="/newRider" component={NewRider} />
         <ProtectedRoute exact path="/Trials" component={Trials} />
