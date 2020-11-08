@@ -66,7 +66,6 @@ export default function SignUp() {
           .then((r) => {
             console.log(r);
             localStorage.setItem("token", r.data.token);
-            // setCookie("jwt", r.data.token);
             window.location.reload();
           })
           .catch((e) => {
