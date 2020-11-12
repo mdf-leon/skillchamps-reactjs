@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import Sidebar from "../../../components/Sidebar";
@@ -90,9 +90,16 @@ export default function NewTrials(props: any) {
     description: "",
     time_penalty: "",
   });
+  const [dataBonuses, setdataBonuses] = useState<any>([]);
+  const [tempBonuses, setTempBonuses] = useState<any>({
+    name: "",
+    description: "",
+    time_bonus: "",
+  });
   const [registerInfo, setRegisterInfo] = useState<any>({
     name: "",
   });
+  const [open, setOpen] = useState<any>(false);
 
   const handleAddPenalty = () => {
     const temp = [...dataPenalties];
@@ -105,7 +112,16 @@ export default function NewTrials(props: any) {
     setdataPenalties(temp);
   };
 
-  const [open, setOpen] = useState<any>(false);
+  const handleAddBonuses = () => {
+    const temp = [...dataBonuses];
+    temp.push(tempBonuses);
+    setTempBonuses({
+      name: "",
+      description: "",
+      time_bonus: "",
+    });
+    setdataBonuses(temp);
+  };
 
   const handleClose = () => {
     setOpen(true);
@@ -118,12 +134,13 @@ export default function NewTrials(props: any) {
       ...registerInfo,
       event_id,
       penalties: [...dataPenalties],
+      bonuses: [...dataBonuses],
     };
     console.log(rdata);
 
     base
       .post(`/createTrial`, rdata)
-      .then((result) => {
+      .then(() => {
         props.history.push(`/Trials`, { created: true });
       })
       .catch((er) => {
@@ -238,6 +255,87 @@ export default function NewTrials(props: any) {
               >
                 Add penalties
               </Button>
+              {/* BONUSES */}
+              <Grid container spacing={2}>
+                <Typography
+                  style={{ textAlign: "center", width: "100%" }}
+                  component="h1"
+                  variant="h5"
+                >
+                  Bonuses
+                </Typography>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={(e) =>
+                      setTempBonuses({
+                        ...tempBonuses,
+                        name: e.target.value,
+                      })
+                    }
+                    value={tempBonuses.name}
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="bonusesName"
+                    label="Bonuses name"
+                    id="bonuses name"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={(e) =>
+                      setTempBonuses({
+                        ...tempBonuses,
+                        description: e.target.value,
+                      })
+                    }
+                    value={tempBonuses.description}
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="bonuses_description"
+                    label="Description"
+                    id="bonuses_escription"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={(e) =>
+                      setTempBonuses({
+                        ...tempBonuses,
+                        time_bonus: e.target.value,
+                      })
+                    }
+                    value={tempBonuses.time_bonus}
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="time_bonus"
+                    label="Bonuses time"
+                    id="time_bonus"
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={() => handleAddBonuses()}
+              >
+                Add Bonuses
+              </Button>
+              {/* RENDERS */}
+              {dataPenalties[0] ? (
+                <Typography
+                  style={{ textAlign: "center", width: "100%" }}
+                  component="h1"
+                  variant="h5"
+                >
+                  Penalties
+                </Typography>
+              ) : null}
               {dataPenalties.map((content, i) => (
                 <div
                   key={`TrialList${content.name}`}
@@ -277,6 +375,69 @@ export default function NewTrials(props: any) {
                       // delete dataPenalties[i];
                       temp.splice(i, 1);
                       setdataPenalties(temp);
+                    }}
+                    className={classes.action}
+                    disableRipple
+                    size="small"
+                    color="secondary"
+                  >
+                    Delete
+                  </Button>
+                </div>
+              ))}
+
+              {dataBonuses[0] ? (
+                <Typography
+                  style={{
+                    textAlign: "center",
+                    width: "100%",
+                    marginTop: "16px",
+                  }}
+                  component="h1"
+                  variant="h5"
+                >
+                  Bonuses
+                </Typography>
+              ) : null}
+              {dataBonuses.map((content, i) => (
+                <div
+                  key={`TrialList${content.name}`}
+                  className={classes.options}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <Typography
+                      component={"span"}
+                      style={{ margin: 0 }}
+                      gutterBottom
+                      variant="h6"
+                      color="textSecondary"
+                    >
+                      {content.name}
+                    </Typography>
+                    <Typography
+                      component={"span"}
+                      style={{ margin: 0 }}
+                      gutterBottom
+                      variant="h6"
+                    >
+                      {content.description}
+                    </Typography>
+                    <Typography
+                      component={"span"}
+                      style={{ margin: 0 }}
+                      gutterBottom
+                      variant="body2"
+                      color="textSecondary"
+                    >
+                      {content.time_bonus}
+                    </Typography>
+                  </div>
+                  <Button
+                    onClick={() => {
+                      const temp = [...dataBonuses];
+                      // delete dataBonuses[i];
+                      temp.splice(i, 1);
+                      setdataBonuses(temp);
                     }}
                     className={classes.action}
                     disableRipple

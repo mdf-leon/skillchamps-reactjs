@@ -16,7 +16,7 @@ import { ThemeProvider } from "styled-components";
 import Home from "./pages/visitor/Home/index.tsx";
 import Login from "./pages/visitor/Login";
 import Register from "./pages/visitor/Register";
-import Dashboard from "./pages/signed/Dashboard/index.tsx";
+import Dashboard from "./pages/signed/Dashboard/";
 import Rider from "./pages/signed/Rider";
 import NewRider from "./pages/signed/Rider/newRider";
 import Trials from "./pages/signed/Trials";
