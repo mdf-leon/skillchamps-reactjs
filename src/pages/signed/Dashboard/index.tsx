@@ -119,7 +119,7 @@ export default function CustomizedTables() {
                     console.log("pen.penalty_conf_id");
                     return (
                       <StyledTableCell align="right">
-                        {pen.score_id}
+                        {pen.quantity}
                       </StyledTableCell>
                     );
                   })}
