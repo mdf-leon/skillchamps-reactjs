@@ -1,107 +1,134 @@
 import React, { useState, useEffect } from "react";
-// styles //
-import { Box, Select, Table } from "components";
-import { Row, Center } from "styles/global";
-import { Col, Grid } from "styles/grid";
-// sidebar //
-import Sidebar from "../../../components/Sidebar";
-// api //
+import {
+  withStyles,
+  Theme,
+  createStyles,
+  makeStyles,
+} from "@material-ui/core/styles";
+import {
+  Card,
+  CardContent,
+  CardActions,
+  Paper,
+  TableRow,
+  TableHead,
+  TableContainer,
+  TableCell,
+  TableBody,
+  Table,
+} from "@material-ui/core";
 import { base } from "../../../config/api";
+import { useParams } from "react-router-dom";
 
-export default function Dashboard(props) {
-  const [trials, setTrials] = useState<any[]>([]);
-  const [eventList, seteventList] = useState<any[]>([]);
+const StyledTableCell = withStyles((theme: Theme) =>
+  createStyles({
+    head: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+    },
+  })
+)(TableCell);
 
+const StyledTableRow = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      "&:nth-of-type(odd)": {
+        backgroundColor: theme.palette.action.hover,
+      },
+    },
+  })
+)(TableRow);
+
+const useStyles = makeStyles({
+  table: {},
+  root: {
+    minWidth: 275,
+  },
+});
+
+export default function CustomizedTables() {
+  const classes = useStyles();
+
+  const [data, setData] = useState<any[]>([]);
+  const [penaltyConfs, setPenaltyConfs] = useState<any>([]);
+
+  let { trial_id, event_id } = useParams();
   useEffect(() => {
-    // console.log(trials[0])
-    let params = { event_id: localStorage.getItem("event_selected") };
+    let params: any = {
+      event_id,
+      trial_id,
+    };
+    console.log(params);
+
     base
-      .get(`/managedTrialsList`, { params })
+      .get(`/fullRanking/${event_id}`)
       .then((r) => {
+        setData(r.data.event.riders);
         console.log(r.data);
-        setTrials(r.data);
       })
-      .catch((er) => {
-        console.log(er);
-      });
+      .catch((err) => console.log(err));
     base
-      .get(`/eventsSigned`, { params })
-      .then(({ data }) => seteventList(data))
-      .catch((er) => {
-        console.log(er);
-      });
+      .get(`/managedPenaltyConfsFromTrial`, { params })
+      .then((r) => {
+        setPenaltyConfs(r.data);
+        console.log(r.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
-  const columns = [
-    {
-      title: "Pos",
-      dataIndex: "position",
-      render: (_: any, record) => <span>{record.position}</span>,
-    },
-    {
-      title: "Rider",
-      dataIndex: "name",
-      render: (_: any, record) => <span>{record.name}</span>,
-    },
-    {
-      title: "Bike",
-      dataIndex: "bike",
-      render: (_: any, record) => <span>{record.bike}</span>,
-    },
-    {
-      title: "Pontos",
-      dataIndex: "pontos",
-      render: (_: any, record) => <span>{record.pontos}</span>,
-    },
-  ];
-
-  const [data] = useState([
-    { position: "1", name: "carlos", bike: "harley", pontos: "26" },
-    { position: "1", name: "carlos", bike: "harley", pontos: "26" },
-    { position: "1", name: "carlos", bike: "harley", pontos: "26" },
-  ]);
-
   return (
-    <>
-      <Sidebar topnav title="SkillChamps" rightIcon="gear" />
-      <Center>
-        <Grid>
-          <Box>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "baseline",
-                marginBottom: "10px",
-                paddingBottom: "2px",
-                borderBottom: "1px solid #D8E2E7",
-              }}
-            >
-              <h1 style={{ margin: 0 }}>RESULTS & STATISTICS</h1>
-              <a href="/AccountOptions">Select Events</a>
-            </div>
-
-            <Row style={{ marginTop: "10px" }}>
-              <Col xs>
-                <Select placeholder="Category" onChange={(e) => {}}>
-                  <option>ea</option>
-                  <option>AMSTERDAM</option>
-                  <option>objectOf British</option>
-                </Select>
-              </Col>
-
-              <Col xs>
-                <Select placeholder="Trial" onChange={(e) => {}}>
-                  {trials[0]
-                    ? trials.map((content) => <option>{content.name}</option>)
-                    : null}
-                </Select>
-              </Col>
-            </Row>
-            <Table columns={columns} data={data} />
-          </Box>
-        </Grid>
-      </Center>
-    </>
+    <Card className={classes.root}>
+      <CardContent>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>DRIVER</StyledTableCell>
+                <StyledTableCell align="right">CATEGORY</StyledTableCell>
+                {data[0]?.scores[0].penalties.map((pen) => {
+                  console.log("pen.penalty_conf_id");
+                  return (
+                    <StyledTableCell align="right">
+                      {
+                        penaltyConfs?.filter(
+                          (conf) => conf.id == pen?.penalty_conf_id
+                        )[0]?.name
+                      }
+                    </StyledTableCell>
+                  );
+                })}
+                <StyledTableCell align="right">TOTAL TEMP</StyledTableCell>
+                <StyledTableCell align="right">
+                  Protein&nbsp;(g)
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map((row) => (
+                <StyledTableRow key={row.name}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.category}
+                  </StyledTableCell>
+                  {data[0]?.scores[0].penalties.map((pen) => {
+                    console.log("pen.penalty_conf_id");
+                    return (
+                      <StyledTableCell align="right">
+                        {pen.score_id}
+                      </StyledTableCell>
+                    );
+                  })}
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </CardContent>
+    </Card>
   );
 }

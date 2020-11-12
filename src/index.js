@@ -7,10 +7,10 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from "styled-components";
 
 // import App from "./App";
 import Home from "./pages/visitor/Home/index.tsx";
@@ -33,10 +33,10 @@ import BeforePoints from "./pages/signed/points/before";
 import Points from "./pages/signed/points";
 import EventOptions from "./pages/signed/EventOptions";
 
-import theme from './styles/theme';
+import theme from "./styles/theme";
 
 function ProtectedRoute(props) {
-  let token = localStorage.getItem('token')
+  let token = localStorage.getItem("token");
   if (token === null || token === undefined) {
     return <Redirect to="/login" />;
   } else {
@@ -45,14 +45,13 @@ function ProtectedRoute(props) {
 }
 
 function VisitorRoute(props) {
-  let token = localStorage.getItem('token')
+  let token = localStorage.getItem("token");
   if (token === null || token === undefined) {
     return <Route {...props} />;
   } else {
     return <Redirect to="/ManageableEvents" />;
   }
 }
-
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
@@ -61,7 +60,11 @@ ReactDOM.render(
         <Route exact path="/" component={Home} />
         <VisitorRoute exact path="/login" component={Login} />
         <VisitorRoute exact path="/register" component={Register} />
-        {/* <ProtectedRoute exact path="/dashboard" component={Dashboard} /> */}
+        <ProtectedRoute
+          exact
+          path="/dashboard/event/:event_id/trial/:trial_id"
+          component={Dashboard}
+        />
         <ProtectedRoute exact path="/riders" component={Rider} />
         <ProtectedRoute exact path="/newRider" component={NewRider} />
         <ProtectedRoute exact path="/Trials" component={Trials} />
@@ -72,7 +75,11 @@ ReactDOM.render(
         {/* <ProtectedRoute exact path="/createEvent" component={CreateEvent} /> */}
         {/* <ProtectedRoute exact path="/manageEvent" component={ManageEvent} /> */}
         <ProtectedRoute exact path="/eventOptions" component={EventOptions} />
-        <ProtectedRoute exact path="/manageableEvents" component={ManageableEvents} />
+        <ProtectedRoute
+          exact
+          path="/manageableEvents"
+          component={ManageableEvents}
+        />
         <ProtectedRoute exact path="/newEvent" component={NewEvent} />
         <ProtectedRoute exact path="/beforePoints" component={BeforePoints} />
         <ProtectedRoute exact path="/points" component={Points} />
