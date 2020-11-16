@@ -40,10 +40,7 @@ const Sidebar = (props) => {
       <Title onClick={() => setisOpen(!isOpen)} isOpen={isOpen} id="title">
         <TitleContainer>
           <Icon size={24} style={{ margin: "0" }} />
-          <Typography
-            component="h6"
-            variant="h6"
-          >
+          <Typography component="h6" variant="h6">
             {props.title}
           </Typography>
           {dynIcon(props.rightIcon || "")}
@@ -60,7 +57,7 @@ const Sidebar = (props) => {
           - log off
         </Page>
         {page("- landing page", "/")}
-        {page("dashboard", "/dashboard")}
+        {page("dashboard", "/dashboard/event/:event_id/trial/:trial_id")}
         {page("eventOptions", "/eventOptions")}
         {page("accountOptions", "/accountOptions")}
         {page("createEvent", "/newEvent")}
