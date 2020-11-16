@@ -100,10 +100,8 @@ export default function ManageableEvents(props: any) {
       .get(`/managedEventsList`)
       .then((r) => {
         setEvents(r.data);
-        console.log(r.data);
       })
-      .catch((er) => {
-        console.log(er);
+      .catch(() => {
       });
     if (props.location.state?.created) {
       setOpen(true);

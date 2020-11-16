@@ -54,6 +54,7 @@ export default function CustomizedTables() {
 
   const [data, setData] = useState<any[]>([]);
   const [penaltyConfs, setPenaltyConfs] = useState<any>([]);
+  const [bonusesConfs, setBonusesConfs] = useState<any>([]);
 
   let { trial_id, event_id } = useParams();
   useEffect(() => {
@@ -61,37 +62,39 @@ export default function CustomizedTables() {
       event_id,
       trial_id,
     };
-    console.log(params);
-
     base
       .get(`/fullRanking/${event_id}`)
       .then((r) => {
         setData(r.data.event.riders);
-        console.log(r.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
     base
       .get(`/managedPenaltyConfsFromTrial`, { params })
       .then((r) => {
         setPenaltyConfs(r.data);
-        console.log(r.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
+    base
+      .get(`/managedBonusConfsFromTrial`, { params })
+      .then((r) => {
+        setBonusesConfs(r.data);
+      })
+      .catch((err) => {});
   }, []);
 
   return (
     <Card className={classes.root}>
+      <button onClick={() => console.log(data)}>aa</button>
       <CardContent>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="customized table">
             <TableHead>
               <TableRow>
                 <StyledTableCell>DRIVER</StyledTableCell>
-                <StyledTableCell align="right">CATEGORY</StyledTableCell>
+                <StyledTableCell align="center">TIME</StyledTableCell>
                 {data[0]?.scores[0].penalties.map((pen) => {
-                  console.log("pen.penalty_conf_id");
                   return (
-                    <StyledTableCell align="right">
+                    <StyledTableCell align="center">
                       {
                         penaltyConfs?.filter(
                           (conf) => conf.id == pen?.penalty_conf_id
@@ -100,10 +103,18 @@ export default function CustomizedTables() {
                     </StyledTableCell>
                   );
                 })}
-                <StyledTableCell align="right">TOTAL TEMP</StyledTableCell>
-                <StyledTableCell align="right">
-                  Protein&nbsp;(g)
-                </StyledTableCell>
+                {data[0]?.scores[1].bonuses.map((bonus) => {
+                  return (
+                    <StyledTableCell align="center">
+                      {
+                        bonusesConfs?.filter(
+                          (conf) => conf.id == bonus?.bonus_conf_id
+                        )[0]?.name
+                      }
+                    </StyledTableCell>
+                  );
+                })}
+                <StyledTableCell align="center">TOTAL TEMP</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -112,17 +123,26 @@ export default function CustomizedTables() {
                   <StyledTableCell component="th" scope="row">
                     {row.name}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.category}
+                  <StyledTableCell align="center">
+                    {row.scores[0].time}
                   </StyledTableCell>
                   {data[0]?.scores[0].penalties.map((pen) => {
-                    console.log("pen.penalty_conf_id");
                     return (
-                      <StyledTableCell align="right">
+                      <StyledTableCell align="center">
                         {pen.quantity}
                       </StyledTableCell>
                     );
                   })}
+                  {data[0]?.scores[1].bonuses.map((bonus) => {
+                    return (
+                      <StyledTableCell align="center">
+                        {bonus.quantity}
+                      </StyledTableCell>
+                    );
+                  })}
+                  <StyledTableCell align="center">
+                    {row.scores[0].time_total}
+                  </StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>

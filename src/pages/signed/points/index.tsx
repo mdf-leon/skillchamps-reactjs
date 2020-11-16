@@ -61,6 +61,7 @@ function Alert(props: AlertProps) {
 export default function BeforePoints(props) {
   const classes = useStyles();
   const [penaltiesConf, setPenaltiesConf] = useState<any[]>([]);
+  const [bonusesConf, setBonusesConf] = useState<any[]>([]);
   const [activeModal, setactiveModal] = useState<any>("");
   const [dataTrial, setDataTrial] = useState<any>({});
   const [dataRider, setDataRider] = useState<any>({});
@@ -76,6 +77,7 @@ export default function BeforePoints(props) {
   });
 
   const [pens, setpens] = useState<any[]>([]);
+  const [bons, setbons] = useState<any[]>([]);
 
   const handleClose = () => {
     setOpen(true);
@@ -135,55 +137,35 @@ export default function BeforePoints(props) {
       .get("/managedTrialsList", { params })
       .then((r) => {
         setDataTrial(r.data);
-        // // console.log(r.data);
       })
-      .catch((er) => {
-        // // console.log(er);
+      .catch(() => {
       });
     base
       .get("/managedRidersList", { params })
       .then((r) => {
         setDataRider(r.data);
-        // // console.log(r.data);
       })
-      .catch((er) => {
-        // // console.log(er);
+      .catch(() => {
       });
-    base
-      .get(`/managedPenaltyConfsFromTrial`, { params })
-      .then((r) => {
-        setPenaltiesConf(r.data);
-      })
-      .catch((er) => {
-        // console.log(er);
-      });
+      base
+        .get(`/managedPenaltyConfsFromTrial`, { params })
+        .then((r) => {
+          setPenaltiesConf(r.data);
+        })
+        .catch(() => {
+        });
+        base
+          .get(`/managedBonusConfsFromTrial`, { params })
+          .then((r) => {
+            setBonusesConf(r.data);
+          })
+          .catch(() => {
+          });
   }, []);
 
   useEffect(() => {
     if (point.penalties) setactiveModal(confirm);
   }, [point]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const temp: any[] = [];
-    for (const i in pens) {
-      if (pens[i]) {
-        temp.push({
-          penalty_conf_id: i,
-          quantity: pens[i],
-        });
-      }
-    }
-    // pens.map((p, i) => {
-    //   if (p) {
-    //     temp.push({
-    //       "penalty_conf_id": i,
-    //       "quantity": p
-    //     })
-    //   }
-    // })
-    setpoint({ ...point, penalties: temp });
-  };
 
   const penalty = (pen, index) => (
     <div key={`${pen.name}-${pen.id}-${index}`}>
@@ -264,38 +246,117 @@ export default function BeforePoints(props) {
     </div>
   );
 
-  const cancel = (
-    <div style={{ textAlign: "left" }}>
-      <h3>
-        Are you sure you want to cancel
-        <br /> the score for this runner?
-      </h3>
-      <p>current scores will be deleted</p>
+  const bonuses = (bons, index) => (
+    <div key={`${bons.name}-${bons.id}-${index}`}>
+      <Typography variant="body2" component="p">
+        <strong>
+          {bons.id}. {bons.name} {index}
+        </strong>
+      </Typography>
+
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
-          marginTop: "20px",
+          marginTop: "10px",
+          width: "100%",
+          justifyContent: "center",
+          minHeight: "58px",
         }}
       >
-        <Button
-          variant="contained"
-          color="primary"
-          style={{ color: "red", border: "1px solid red", marginRight: "10px" }}
-          onClick={() => setactiveModal("")}
-        >
-          Delete points
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setactiveModal("")}
-        >
-          Continue scoring
-        </Button>
+        <NumberBox>
+          <div
+            style={{
+              background: "#1976d3",
+              display: "flex",
+              alignItems: "center",
+              width: "50px",
+              justifyContent: "center",
+            }}
+          >
+            <RoundButton
+              onClick={(e) => {
+                const temp: any[] = [...bons];
+                temp[index] = (temp[index] || 0) - 1;
+                setbons(temp);
+              }}
+            >
+              -
+            </RoundButton>
+          </div>
+
+          <div
+            style={{
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography
+              variant="h4"
+              component="p"
+              className={classes.numberText}
+            >
+              {bons[index] || "none"}
+            </Typography>
+          </div>
+
+          <div
+            style={{
+              background: "#1976d3",
+              display: "flex",
+              alignItems: "center",
+              width: "50px",
+              justifyContent: "center",
+            }}
+          >
+            <RoundButton
+              onClick={(e) => {
+                const temp = [...bons];
+                temp[index] = (temp[index] || 0) + 1;
+                setbons(temp);
+              }}
+            >
+              +
+            </RoundButton>
+          </div>
+        </NumberBox>
       </div>
     </div>
   );
+
+  // const cancel = (
+  //   <div style={{ textAlign: "left" }}>
+  //     <h3>
+  //       Are you sure you want to cancel
+  //       <br /> the score for this runner?
+  //     </h3>
+  //     <p>current scores will be deleted</p>
+  //     <div
+  //       style={{
+  //         display: "flex",
+  //         justifyContent: "space-between",
+  //         marginTop: "20px",
+  //       }}
+  //     >
+  //       <Button
+  //         variant="contained"
+  //         color="primary"
+  //         style={{ color: "red", border: "1px solid red", marginRight: "10px" }}
+  //         onClick={() => setactiveModal("")}
+  //       >
+  //         Delete points
+  //       </Button>
+  //       <Button
+  //         variant="contained"
+  //         color="primary"
+  //         onClick={() => setactiveModal("")}
+  //       >
+  //         Continue scoring
+  //       </Button>
+  //     </div>
+  //   </div>
+  // );
 
   const confirm = (
     <div style={{ textAlign: "left" }}>
@@ -656,6 +717,12 @@ export default function BeforePoints(props) {
           <PenaltyDiv>
             {penaltiesConf.map((p, i) => {
               return penalty(p, i);
+            })}
+          </PenaltyDiv>
+          
+          <PenaltyDiv>
+            {bonusesConf.map((p, i) => {
+              return bonuses(p, i);
             })}
           </PenaltyDiv>
         </MainDiv>
