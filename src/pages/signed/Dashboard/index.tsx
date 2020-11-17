@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Sidebar from "../../../components/Sidebar";
 import {
   withStyles,
   Theme,
@@ -8,7 +9,6 @@ import {
 import {
   Card,
   CardContent,
-  CardActions,
   Paper,
   TableRow,
   TableHead,
@@ -42,12 +42,20 @@ const StyledTableRow = withStyles((theme: Theme) =>
   })
 )(TableRow);
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   table: {},
   root: {
     minWidth: 275,
+    paddingTop: 50,
+    width: "100%",
   },
-});
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+}));
 
 export default function CustomizedTables() {
   const classes = useStyles();
@@ -68,99 +76,98 @@ export default function CustomizedTables() {
         setData(r.data);
         console.log(r.data);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
       });
     base
       .get(`/managedPenaltyConfsFromTrial`, { params })
       .then((r) => {
         setPenaltyConfs(r.data);
       })
-      .catch((err) => {});
+      .catch(() => {});
     base
       .get(`/managedBonusConfsFromTrial`, { params })
       .then((r) => {
         setBonusesConfs(r.data);
       })
-      .catch((err) => {});
+      .catch(() => {});
   }, []);
 
   return (
-    <Card className={classes.root}>
-      <button onClick={() => console.log(data.riders[0].scores.penalties)}>
-        aa
-      </button>
-      <CardContent>
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>DRIVER</StyledTableCell>
-                <StyledTableCell align="center">TIME</StyledTableCell>
-                {data.riders && data.riders[0]
-                  ? data.riders[0].scores.penalties.map((pen) => {
-                      return (
-                        <StyledTableCell align="center">
-                          {
-                            penaltyConfs?.filter(
-                              (conf) => conf.id == pen?.penalty_conf_id
-                            )[0]?.name
-                          }
+    <>
+      <Sidebar topnav title="Dashboard" rightIcon="gear" />
+        <Card className={classes.root}>
+          <CardContent>
+            <TableContainer component={Paper}>
+              <Table className={classes.table} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>DRIVER</StyledTableCell>
+                    <StyledTableCell align="center">TIME</StyledTableCell>
+                    {data.riders && data.riders[0]
+                      ? data.riders[0].scores.penalties.map((pen) => {
+                          return (
+                            <StyledTableCell align="center">
+                              {
+                                penaltyConfs?.filter(
+                                  (conf) => conf.id == pen?.penalty_conf_id
+                                )[0]?.name
+                              }
+                            </StyledTableCell>
+                          );
+                        })
+                      : null}
+                    {data.riders && data.riders[0]
+                      ? data.riders[0].scores.bonuses?.map((bonus) => {
+                          return (
+                            <StyledTableCell align="center">
+                              {
+                                bonusesConfs?.filter(
+                                  (conf) => conf.id == bonus?.bonus_conf_id
+                                )[0]?.name
+                              }
+                            </StyledTableCell>
+                          );
+                        })
+                      : null}
+                    <StyledTableCell align="center">TOTAL TEMP</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {data?.riders?.map((row) => {
+                    if (!row.scores) return null;
+                    return (
+                      <StyledTableRow key={row.name}>
+                        <StyledTableCell component="th" scope="row">
+                          {row.name}
                         </StyledTableCell>
-                      );
-                    })
-                  : null}
-                {data.riders && data.riders[0]
-                  ? data.riders[0].scores.bonuses?.map((bonus) => {
-                      return (
                         <StyledTableCell align="center">
-                          {
-                            bonusesConfs?.filter(
-                              (conf) => conf.id == bonus?.bonus_conf_id
-                            )[0]?.name
-                          }
+                          {row.scores?.time || 0}
                         </StyledTableCell>
-                      );
-                    })
-                  : null}
-                <StyledTableCell align="center">TOTAL TEMP</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data?.riders?.map((row) => {
-                if (!row.scores) return null;
-                return (
-                  <StyledTableRow key={row.name}>
-                    <StyledTableCell component="th" scope="row">
-                      {row.name}
-                    </StyledTableCell>
-                    <StyledTableCell align="center">
-                      {row.scores?.time || 0}
-                    </StyledTableCell>
-                    {row.scores?.penalties?.map((pen) => {
-                      return (
+                        {row.scores?.penalties?.map((pen) => {
+                          return (
+                            <StyledTableCell align="center">
+                              {pen.quantity}
+                            </StyledTableCell>
+                          );
+                        })}
+                        {row.scores?.bonuses?.map((bonus) => {
+                          return (
+                            <StyledTableCell align="center">
+                              {bonus.quantity}
+                            </StyledTableCell>
+                          );
+                        })}
                         <StyledTableCell align="center">
-                          {pen.quantity}
+                          {row.scores?.time_total || 0}
                         </StyledTableCell>
-                      );
-                    })}
-                    {row.scores?.bonuses?.map((bonus) => {
-                      return (
-                        <StyledTableCell align="center">
-                          {bonus.quantity}
-                        </StyledTableCell>
-                      );
-                    })}
-                    <StyledTableCell align="center">
-                      {row.scores?.time_total || 0}
-                    </StyledTableCell>
-                  </StyledTableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </CardContent>
-    </Card>
+                      </StyledTableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </CardContent>
+        </Card>
+    </>
   );
 }

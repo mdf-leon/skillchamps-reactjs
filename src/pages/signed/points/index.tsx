@@ -89,6 +89,10 @@ export default function BeforePoints(props) {
 
   useEffect(() => {
     updateFinalTime();
+  }, [bons]);
+
+  useEffect(() => {
+    updateFinalTime();
   }, [baseTime]);
 
   function stringToMS(tm) {
@@ -111,6 +115,12 @@ export default function BeforePoints(props) {
       tempTime += penaltiesConf[i].time_penalty * (pens[i] || 0);
       // console.log(tempTime);
     }
+
+    for (let i = 0; i < bonusesConf.length; i++) {
+      tempTime -= bonusesConf[i].time_bonus * (bons[i] || 0);
+      // console.log(tempTime);
+    }
+
     let unformatedFinalTime: string = Duration.fromObject({
       milliseconds: tempTime,
     }).toFormat("mm':'S"); // .splice(4, 0, ":")
@@ -138,29 +148,25 @@ export default function BeforePoints(props) {
       .then((r) => {
         setDataTrial(r.data);
       })
-      .catch(() => {
-      });
+      .catch(() => {});
     base
       .get("/managedRidersList", { params })
       .then((r) => {
         setDataRider(r.data);
       })
-      .catch(() => {
-      });
-      base
-        .get(`/managedPenaltyConfsFromTrial`, { params })
-        .then((r) => {
-          setPenaltiesConf(r.data);
-        })
-        .catch(() => {
-        });
-        base
-          .get(`/managedBonusConfsFromTrial`, { params })
-          .then((r) => {
-            setBonusesConf(r.data);
-          })
-          .catch(() => {
-          });
+      .catch(() => {});
+    base
+      .get(`/managedPenaltyConfsFromTrial`, { params })
+      .then((r) => {
+        setPenaltiesConf(r.data);
+      })
+      .catch(() => {});
+    base
+      .get(`/managedBonusConfsFromTrial`, { params })
+      .then((r) => {
+        setBonusesConf(r.data);
+      })
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -246,11 +252,11 @@ export default function BeforePoints(props) {
     </div>
   );
 
-  const bonuses = (bons, index) => (
-    <div key={`${bons.name}-${bons.id}-${index}`}>
+  const bonus = (bon, index) => (
+    <div key={`${bon.name}-${bon.id}-${index}`}>
       <Typography variant="body2" component="p">
         <strong>
-          {bons.id}. {bons.name} {index}
+          {bon.id}. {bon.name} {index}
         </strong>
       </Typography>
 
@@ -277,7 +283,7 @@ export default function BeforePoints(props) {
               onClick={(e) => {
                 const temp: any[] = [...bons];
                 temp[index] = (temp[index] || 0) - 1;
-                setbons(temp);
+                setbons(temp); 
               }}
             >
               -
@@ -294,7 +300,7 @@ export default function BeforePoints(props) {
           >
             <Typography
               variant="h4"
-              component="p"
+              component="p" 
               className={classes.numberText}
             >
               {bons[index] || "none"}
@@ -324,6 +330,85 @@ export default function BeforePoints(props) {
       </div>
     </div>
   );
+
+  // const bonuses = (bons, index) => (
+  //   <div key={`${bons.name}-${bons.id}-${index}`}>
+  //     <Typography variant="body2" component="p">
+  //       <strong>
+  //         {bons.id}. {bons.name} {index}
+  //       </strong>
+  //     </Typography>
+
+  //     <div
+  //       style={{
+  //         display: "flex",
+  //         marginTop: "10px",
+  //         width: "100%",
+  //         justifyContent: "center",
+  //         minHeight: "58px",
+  //       }}
+  //     >
+  //       <NumberBox>
+  //         <div
+  //           style={{
+  //             background: "#1976d3",
+  //             display: "flex",
+  //             alignItems: "center",
+  //             width: "50px",
+  //             justifyContent: "center",
+  //           }}
+  //         >
+  //           <RoundButton
+  //             onClick={(e) => {
+  //               const temp: any[] = [...bons];
+  //               temp[index] = (temp[index] || 0) - 1;
+  //               setbons(temp);
+  //             }}
+  //           >
+  //             -
+  //           </RoundButton>
+  //         </div>
+
+  //         <div
+  //           style={{
+  //             height: "100%",
+  //             display: "flex",
+  //             alignItems: "center",
+  //             justifyContent: "center",
+  //           }}
+  //         >
+  //           <Typography
+  //             variant="h4"
+  //             component="p"
+  //             className={classes.numberText}
+  //           >
+  //             {bons[index] || "none"}
+  //           </Typography>
+  //         </div>
+
+  //         <div
+  //           style={{
+  //             background: "#1976d3",
+  //             display: "flex",
+  //             alignItems: "center",
+  //             width: "50px",
+  //             justifyContent: "center",
+  //           }}
+  //         >
+  //           <RoundButton
+  //             onClick={() => {
+  //               const temp:any[] = [...bons]; 
+  //               temp[index] = (temp[index] || 0) + 1;
+  //               setbons(temp);
+  //             }}
+  //           >
+  //             +
+  //           </RoundButton>
+  //         </div>
+  //       </NumberBox>
+  //     </div>
+  //   </div>
+  // );
 
   // const cancel = (
   //   <div style={{ textAlign: "left" }}>
@@ -458,13 +543,20 @@ export default function BeforePoints(props) {
   };
 
   const handleFinish = async () => {
-    const temp = { ...point, penalties: [] };
+    const temp = { ...point, penalties: [], bonuses: [] };
     for (let i = 0; i < penaltiesConf.length; i++) {
       temp.penalties.push({
         penalty_conf_id: penaltiesConf[i].id,
-        quantity: pens[i],
+        quantity: pens[i] || 0,
       });
     }
+    for (let i = 0; i < bonusesConf.length; i++) {
+      temp.bonuses.push({
+        bonus_conf_id: bonusesConf[i].id,
+        quantity: bons[i] || 0,
+      });
+    }
+    console.log(temp)
     await base
       .post(`/addScore`, temp)
       .then((r) => {
@@ -575,6 +667,7 @@ export default function BeforePoints(props) {
           variant="contained"
           size="small"
           color="primary"
+          onClick={() => setactiveModal("")}
         >
           Cancel
         </Button>
@@ -719,10 +812,10 @@ export default function BeforePoints(props) {
               return penalty(p, i);
             })}
           </PenaltyDiv>
-          
+
           <PenaltyDiv>
             {bonusesConf.map((p, i) => {
-              return bonuses(p, i);
+              return bonus(p, i);
             })}
           </PenaltyDiv>
         </MainDiv>

@@ -67,7 +67,7 @@ function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function NewRider() {
+export default function NewRider(props) {
   const classes = useStyles();
 
   const [registerInfo, setRegisterInfo] = useState<any>({
@@ -80,134 +80,161 @@ export default function NewRider() {
   });
 
   const [open, setOpen] = useState<any>("");
+  const [hasInstitute, setHasInstitute] = useState<any>(false);
 
   const handleClose = () => {
     setOpen("");
   };
+
+  useEffect(() => {
+    base
+      .get(`/showInstitute`)
+      .then(() => {
+        setHasInstitute(true);
+      })
+      .catch((er) => console.log(er));
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let parameters = { event_id: localStorage.getItem("event_id") };
     base
       .post(`/makeInstitute`, registerInfo)
-      .then((result) => {
-        console.log(result);
+      .then(() => {
+        props.history.push(`/ManageableEvent`, { created: true });
       })
       .catch((er) => console.log(er)); // alert rider coundt be created
   };
 
   return (
-    <>
-      <Snackbar
-        open={open === "success" ? true : open === "error" ? true : false}
-        autoHideDuration={3000}
-        onClose={handleClose}
-      >
-        {open === "success" ? (
-          <Alert onClose={handleClose} severity="success">
-            Institute created successfully
-          </Alert>
-        ) : (
-          <Alert onClose={handleClose} severity="error">
-            The Institute could not be created
-          </Alert>
-        )}
-      </Snackbar>
+    <div>
       <Sidebar
         style={{ zIndex: 1000 }}
         topnav
         title="New Institute"
         rightIcon="gear"
       />
-      <div style={{ paddingTop: "10px", minHeight: "100%" }}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <div className={classes.paper}>
-            <Typography component="h1" variant="h5">
-              Create new Institute
-            </Typography>
-            <form onSubmit={handleSubmit} className={classes.form} noValidate>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={(e) =>
-                      setRegisterInfo({ ...registerInfo, name: e.target.value })
-                    }
-                    autoComplete="name"
-                    name="Name"
-                    variant="outlined"
-                    required
+      {hasInstitute ? (
+        <div style={{ paddingTop: "100px", textAlign: "center" }}>
+          <Typography component="h1" variant="h5">
+            You already have an institute
+          </Typography>
+        </div>
+      ) : (
+        <div>
+          <Snackbar
+            open={open === "success" ? true : open === "error" ? true : false}
+            autoHideDuration={3000}
+            onClose={handleClose}
+          >
+            {open === "success" ? (
+              <Alert onClose={handleClose} severity="success">
+                Institute created successfully
+              </Alert>
+            ) : (
+              <Alert onClose={handleClose} severity="error">
+                The Institute could not be created
+              </Alert>
+            )}
+          </Snackbar>
+          <div style={{ paddingTop: "10px", minHeight: "100%" }}>
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <div className={classes.paper}>
+                <Typography component="h1" variant="h5">
+                  Create new Institute
+                </Typography>
+                <form
+                  onSubmit={handleSubmit}
+                  className={classes.form}
+                  noValidate
+                >
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <TextField
+                        onChange={(e) =>
+                          setRegisterInfo({
+                            ...registerInfo,
+                            name: e.target.value,
+                          })
+                        }
+                        autoComplete="name"
+                        name="Name"
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="Name"
+                        label="Name"
+                        autoFocus
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        onChange={(e) =>
+                          setRegisterInfo({
+                            ...registerInfo,
+                            fed_tax_ido: e.target.value,
+                          })
+                        }
+                        variant="outlined"
+                        required
+                        fullWidth
+                        name="fed_tax_ido"
+                        label="Fed tax Ido"
+                        type="Fed tax Ido"
+                        id="Fed tax Ido"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        onChange={(e) =>
+                          setRegisterInfo({
+                            ...registerInfo,
+                            subd_tax_ido: e.target.value,
+                          })
+                        }
+                        variant="outlined"
+                        required
+                        fullWidth
+                        name="subd_tax_ido"
+                        label="Subd tax Ido"
+                        type="Subd tax Ido"
+                        id="Subd tax Ido"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        onChange={(e) =>
+                          setRegisterInfo({
+                            ...registerInfo,
+                            city_tax_ido: e.target.value,
+                          })
+                        }
+                        variant="outlined"
+                        required
+                        fullWidth
+                        name="city_tax_ido"
+                        label="City tax Ido"
+                        type="City tax Ido"
+                        id="City tax Ido"
+                      />
+                    </Grid>
+                  </Grid>
+                  <Button
+                    type="submit"
                     fullWidth
-                    id="Name"
-                    label="Name"
-                    autoFocus
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={(e) =>
-                      setRegisterInfo({
-                        ...registerInfo,
-                        fed_tax_ido: e.target.value,
-                      })
-                    }
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="fed_tax_ido"
-                    label="Fed tax Ido"
-                    type="Fed tax Ido"
-                    id="Fed tax Ido"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={(e) =>
-                      setRegisterInfo({
-                        ...registerInfo,
-                        subd_tax_ido: e.target.value,
-                      })
-                    }
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="subd_tax_ido"
-                    label="Subd tax Ido"
-                    type="Subd tax Ido"
-                    id="Subd tax Ido"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={(e) =>
-                      setRegisterInfo({
-                        ...registerInfo,
-                        city_tax_ido: e.target.value,
-                      })
-                    }
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="city_tax_ido"
-                    label="City tax Ido"
-                    type="City tax Ido"
-                    id="City tax Ido"
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Create
-              </Button>
-            </form>
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                  >
+                    Create
+                  </Button>
+                </form>
+              </div>
+            </Container>
           </div>
-        </Container>
-      </div>
-    </>
+        </div>
+      )}
+    </div>
   );
 }

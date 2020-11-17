@@ -70,7 +70,7 @@ function Alert(props: AlertProps) {
 
 export default function ManageableEvents(props: any) {
   const classes = useStyles();
-  const theme = useTheme();
+  // const theme = useTheme();
   const [events, setEvents] = useState<any[]>([]);
 
   const [open, setOpen] = useState<any>(true);
@@ -108,16 +108,16 @@ export default function ManageableEvents(props: any) {
     }
   }, []);
 
-  function getCurrentDate(separator = "") {
-    let newDate = new Date();
-    let date = newDate.getDate();
-    let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();
+  // function getCurrentDate(separator = "") {
+  //   let newDate = new Date();
+  //   let date = newDate.getDate();
+  //   let month = newDate.getMonth() + 1;
+  //   let year = newDate.getFullYear();
 
-    return `${year}${separator}${
-      month < 10 ? `0${month}` : `${month}`
-    }${separator}${date}`;
-  }
+  //   return `${year}${separator}${
+  //     month < 10 ? `0${month}` : `${month}`
+  //   }${separator}${date}`;
+  // }
 
   const todayEvent: any[] = events[0]
     ? events.filter(

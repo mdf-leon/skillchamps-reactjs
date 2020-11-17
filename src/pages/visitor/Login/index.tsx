@@ -5,7 +5,6 @@ import React, { useState } from "react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   TextField,
-  Checkbox,
   CssBaseline,
   makeStyles,
   Button,
