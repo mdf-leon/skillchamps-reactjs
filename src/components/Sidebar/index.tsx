@@ -57,16 +57,16 @@ const Sidebar = (props) => {
           - log off
         </Page>
         {page("- landing page", "/")}
-        {page("dashboard", "/dashboard/event/:event_id/trial/:trial_id")}
-        {page("eventOptions", "/eventOptions")}
-        {page("accountOptions", "/accountOptions")}
-        {page("createEvent", "/newEvent")}
-        {page("x Events", "/Events")}
+        {/* {page("dashboard", "/dashboard/event/:event_id/trial/:trial_id")} */}
+        {/* {page("eventOptions", "/eventOptions")} */}
+        {/* {page("accountOptions", "/accountOptions")} */}
+        {/* {page("createEvent", "/newEvent")} */}
+        {/* {page("x Events", "/Events")} */}
         {page("newInstitute", "/newInstitute")}
-        {page("x ManageEvents", "/ManageEvent")}
+        {/* {page("x ManageEvents", "/ManageEvent")} */}
         {page("ManageableEvent", "/manageableEvents")}
-        {page("x BeforePoints", "/BeforePoints")}
-        {page("Rider", "/Rider")}
+        {/* {page("x BeforePoints", "/BeforePoints")} */}
+        {/* {page("Rider", "/Rider")} */}
       </Body>
     </Container>
   );
