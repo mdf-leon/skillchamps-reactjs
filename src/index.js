@@ -17,6 +17,7 @@ import Home from "./pages/visitor/Home/index.tsx";
 import Login from "./pages/visitor/Login";
 import Register from "./pages/visitor/Register";
 import Dashboard from "./pages/signed/Dashboard/";
+import TrialsChoose from "./pages/signed/EventOptions/trialsChoose";
 import Rider from "./pages/signed/Rider";
 import NewRider from "./pages/signed/Rider/newRider";
 import Trials from "./pages/signed/Trials";
@@ -65,6 +66,7 @@ ReactDOM.render(
           path="/dashboard/event/:event_id/trial/:trial_id"
           component={Dashboard}
         />
+        <ProtectedRoute exact path="/TrialsChoose" component={TrialsChoose} />
         <ProtectedRoute exact path="/riders" component={Rider} />
         <ProtectedRoute exact path="/newRider" component={NewRider} />
         <ProtectedRoute exact path="/Trials" component={Trials} />

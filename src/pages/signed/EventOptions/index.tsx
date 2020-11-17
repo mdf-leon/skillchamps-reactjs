@@ -71,6 +71,26 @@ export default function EventOptions(props: any) {
             variant="h6"
             component="h6"
           >
+            Dashboard
+          </Typography>
+          <Button
+            className={classes.action}
+            onClick={() =>
+              props.history.push(`/trialsChoose`)}
+            disableRipple
+            size="small"
+            color="primary"
+          >
+            View
+          </Button>
+        </div>
+        <div className={classes.options}>
+          <Typography
+            style={{ margin: 0 }}
+            gutterBottom
+            variant="h6"
+            component="h6"
+          >
             Score
           </Typography>
           <Button

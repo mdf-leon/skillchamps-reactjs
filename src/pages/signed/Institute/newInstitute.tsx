@@ -101,7 +101,7 @@ export default function NewRider(props) {
     base
       .post(`/makeInstitute`, registerInfo)
       .then(() => {
-        props.history.push(`/ManageableEvent`, { created: true });
+        props.history.push(`/manageableEvents`, { created: true });
       })
       .catch((er) => console.log(er)); // alert rider coundt be created
   };

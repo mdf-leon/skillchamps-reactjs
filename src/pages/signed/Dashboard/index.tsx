@@ -14,6 +14,7 @@ import {
   TableHead,
   TableContainer,
   TableCell,
+  Typography,
   TableBody,
   Table,
 } from "@material-ui/core";
@@ -76,8 +77,7 @@ export default function CustomizedTables() {
         setData(r.data);
         console.log(r.data);
       })
-      .catch(() => {
-      });
+      .catch(() => {});
     base
       .get(`/managedPenaltyConfsFromTrial`, { params })
       .then((r) => {
@@ -95,6 +95,7 @@ export default function CustomizedTables() {
   return (
     <>
       <Sidebar topnav title="Dashboard" rightIcon="gear" />
+      {data?.riders && data.riders[0].scores ? (
         <Card className={classes.root}>
           <CardContent>
             <TableContainer component={Paper}>
@@ -168,6 +169,13 @@ export default function CustomizedTables() {
             </TableContainer>
           </CardContent>
         </Card>
+      ) : (
+        <div style={{ paddingTop: "100px", textAlign: "center" }}>
+          <Typography component="h1" variant="h5">
+            You don't have any scores yet
+          </Typography>
+        </div>
+      )}
     </>
   );
 }
