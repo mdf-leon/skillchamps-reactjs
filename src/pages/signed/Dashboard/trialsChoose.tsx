@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import Sidebar from "../../../components/Sidebar";
-import styles from "./useStyles";
+import styles from "../EventOptions/useStyles";
 import { Modal } from "components";
 import {
   Card,
@@ -21,9 +21,7 @@ function Alert(props: AlertProps) {
 
 export default function Trials(props: any) {
   const classes = styles();
-  const [dataTrial, setDataTrial] = useState<any[]>([]);
-  const [activeModal, setActiveModal] = useState<any>("");
-  const [currentId, setCurrentId] = useState<any>("");
+  const [dataTrial, setDataTrial] = useState<any>([]);
 
   const [open, setOpen] = useState<any>(true);
 
@@ -127,7 +125,8 @@ export default function Trials(props: any) {
                 props.history.push(
                   `/dashboard/event/${localStorage.getItem("event_id")}/trial/${
                     content.id
-                  }`
+                  }`,
+                  { trialName: dataTrial.name }
                 );
               }}
             >

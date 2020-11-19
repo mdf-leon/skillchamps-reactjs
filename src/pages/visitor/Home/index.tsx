@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import History from 'react-history';
 import {
   TopBar,
@@ -9,59 +9,55 @@ import {
   AccountButton,
   Body,
 } from "./styles";
-import DehazeIcon from "@material-ui/icons/Dehaze";
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardActions,
-  CardMedia,
-  Button,
-  Typography,
-} from "@material-ui/core";
-import TabPage from "./TabPage";
+// import DehazeIcon from "@material-ui/icons/Dehaze";
+// import { Typography } from "@material-ui/core";
+import { Typography } from "./styles";
 
 const Home = (props: any) => {
+  const [titleId, setTitleId] = useState<any>(0);
+  const [titles] = useState<any[]>([
+    { id: 0, name: "Home" },
+    { id: 1, name: "Login" },
+    { id: 2, name: "Register" },
+  ]);
+
   return (
     <div style={{ height: "100%" }}>
       <TopBar>
         <div style={{ display: "flex" }}>
-          <Typography style={{ color: "#0043c8" }} variant="h6" component="h2">
+          <Typography color="blue" variant="h6" component="h2">
             SKILL
           </Typography>
-          <Typography style={{ color: "#ee284b" }} variant="h6" component="h2">
+          <Typography color="red" variant="h6" component="h2">
             CHAMPS
           </Typography>
         </div>
-        <DehazeIcon fontSize="large" />
+        {/* <DehazeIcon fontSize="large" /> */}
+        {titles.map((title) => (
+          <Typography
+            topBarTitleActive={titleId === title.id}
+            onClick={() => setTitleId(title.id)}
+            color="blue"
+            variant="body2"
+            component="p"
+          >
+            {title.name}
+          </Typography>
+        ))}
       </TopBar>
       <FirstDiv>
-        <Typography
-          style={{ color: "white" }}
-          variant="h5"
-          gutterBottom
-          component="h5"
-        >
+        <Typography color="white" variant="h5" gutterBottom component="h5">
           Facilitated
           <br />
           Competitions.
         </Typography>
-        <Typography
-          style={{ color: "white" }}
-          component={"span"}
-          variant="body2"
-        >
+        <Typography color="white" component={"span"} variant="body2">
           Discover how easy it is to control
           <br /> a competition
         </Typography>
       </FirstDiv>
       <SecondDiv>
-        <Typography
-          style={{ color: "#1041a0" }}
-          variant="h5"
-          gutterBottom
-          component="h5"
-        >
+        <Typography color="blue" variant="h5" gutterBottom component="h5">
           Access to competitors' videos
         </Typography>
 
@@ -74,12 +70,7 @@ const Home = (props: any) => {
         </Typography>
       </SecondDiv>
       <ThirdDiv>
-        <Typography
-          style={{ color: "white" }}
-          variant="h5"
-          gutterBottom
-          component="h5"
-        >
+        <Typography color="white" variant="h5" gutterBottom component="h5">
           How it works
         </Typography>
         <div style={{ display: "flex" }}>

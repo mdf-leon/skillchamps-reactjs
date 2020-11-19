@@ -1,10 +1,16 @@
 import styled from 'styled-components'
+import { Typography as LandTypography } from "@material-ui/core";
 
+export const Typography = styled(LandTypography)<any>`
+  color: ${(props) => (props.color === 'blue' ? "#0043c8" : props.color === 'red' ? "#ee284b" : props.color === 'white' ? 'white' : null )};
+  border-bottom: ${(props) => (props.topBarTitleActive ? '1px solid #ee284b' : null)};
+`;
 
 export const TopBar = styled.div`
   background-color: white;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 5px 20px;
 `;
 

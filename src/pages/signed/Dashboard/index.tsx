@@ -94,7 +94,11 @@ export default function CustomizedTables() {
 
   return (
     <>
-      <Sidebar topnav title="Dashboard" rightIcon="gear" />
+      <Sidebar
+        topnav
+        title={localStorage.getItem("trialName")}
+        rightIcon="gear"
+      />
       {data?.riders && data.riders[0].scores ? (
         <Card className={classes.root}>
           <CardContent>
@@ -102,6 +106,7 @@ export default function CustomizedTables() {
               <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                   <TableRow>
+                    <StyledTableCell>POSITION</StyledTableCell>
                     <StyledTableCell>DRIVER</StyledTableCell>
                     <StyledTableCell align="center">TIME</StyledTableCell>
                     {data.riders && data.riders[0]
@@ -134,10 +139,13 @@ export default function CustomizedTables() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data?.riders?.map((row) => {
+                  {data?.riders?.map((row, i) => {
                     if (!row.scores) return null;
                     return (
                       <StyledTableRow key={row.name}>
+                        <StyledTableCell component="th" scope="row">
+                          {i + 1}
+                        </StyledTableCell>
                         <StyledTableCell component="th" scope="row">
                           {row.name}
                         </StyledTableCell>

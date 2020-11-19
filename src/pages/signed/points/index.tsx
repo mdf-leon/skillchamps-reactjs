@@ -283,7 +283,7 @@ export default function BeforePoints(props) {
               onClick={(e) => {
                 const temp: any[] = [...bons];
                 temp[index] = (temp[index] || 0) - 1;
-                setbons(temp); 
+                setbons(temp);
               }}
             >
               -
@@ -300,7 +300,7 @@ export default function BeforePoints(props) {
           >
             <Typography
               variant="h4"
-              component="p" 
+              component="p"
               className={classes.numberText}
             >
               {bons[index] || "none"}
@@ -397,7 +397,7 @@ export default function BeforePoints(props) {
   //         >
   //           <RoundButton
   //             onClick={() => {
-  //               const temp:any[] = [...bons]; 
+  //               const temp:any[] = [...bons];
   //               temp[index] = (temp[index] || 0) + 1;
   //               setbons(temp);
   //             }}
@@ -556,7 +556,7 @@ export default function BeforePoints(props) {
         quantity: bons[i] || 0,
       });
     }
-    console.log(temp)
+    console.log(temp);
     await base
       .post(`/addScore`, temp)
       .then((r) => {
