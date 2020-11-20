@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import { Typography as LandTypography } from "@material-ui/core";
 
 export const Typography = styled(LandTypography)<any>`
-  color: ${(props) => (props.color === 'blue' ? "#0043c8" : props.color === 'red' ? "#ee284b" : props.color === 'white' ? 'white' : null )};
-  border-bottom: ${(props) => (props.topBarTitleActive ? '1px solid #ee284b' : null)};
+  color: ${(props) => (props.textcolor === 'blue' ? "#0043c8" : props.textcolor === 'red' ? "#ee284b" : props.textcolor === 'white' ? 'white' : null )};
+  border-bottom: ${(props) => (props.topbartitleactive ? '1px solid #ee284b' : null)};
 `;
 
 export const TopBar = styled.div`
@@ -12,6 +12,12 @@ export const TopBar = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 5px 20px;
+`;
+
+export const DivTitles = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 10px;
 `;
 
 export const Body = styled.div`
@@ -30,16 +36,45 @@ export const HomeButton = styled.button`
 export const FirstDiv = styled.div`
   background-image: linear-gradient(#0043c8, #ea284d);
   padding: 40px 20px;
+  min-height: 24%;
 `;
 
 export const SecondDiv = styled.div`
   background: white;
   padding: 40px 20px;
+  min-height: 24%;
 `;
 
 export const ThirdDiv = styled.div`
   background: #0043c8;
   padding: 40px 20px;
+  min-height: 24%;
+`;
+
+export const FourthDiv = styled.div`
+  background: #252a2c;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 50px 10px;
+
+  display: flex;
+  div {
+    padding: 0 20px;
+    width: 100%;
+    a {
+      color: white;
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      list-style-type: none;
+      list-style: none;
+      margin-bottom: 10px;
+    }
+  }
 `;
 
 // export const AccountButton = styled.button`

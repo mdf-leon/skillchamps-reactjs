@@ -2,16 +2,15 @@ import React, { useState } from "react";
 // import History from 'react-history';
 import {
   TopBar,
+  DivTitles,
+  Typography,
   FirstDiv,
   SecondDiv,
   ThirdDiv,
-  HomeButton,
-  AccountButton,
-  Body,
+  FourthDiv,
 } from "./styles";
 // import DehazeIcon from "@material-ui/icons/Dehaze";
-// import { Typography } from "@material-ui/core";
-import { Typography } from "./styles";
+import { Link } from "@material-ui/core";
 
 const Home = (props: any) => {
   const [titleId, setTitleId] = useState<any>(0);
@@ -25,19 +24,21 @@ const Home = (props: any) => {
     <div style={{ height: "100%" }}>
       <TopBar>
         <div style={{ display: "flex" }}>
-          <Typography color="blue" variant="h6" component="h2">
+          <Typography textcolor="blue" variant="h6" component="h2">
             SKILL
           </Typography>
-          <Typography color="red" variant="h6" component="h2">
+          <Typography textcolor="red" variant="h6" component="h2">
             CHAMPS
           </Typography>
         </div>
         {/* <DehazeIcon fontSize="large" /> */}
+        <DivTitles></DivTitles>
         {titles.map((title) => (
           <Typography
-            topBarTitleActive={titleId === title.id}
+            key={title.name + title.id}
+            topbartitleactive={titleId === title.id}
             onClick={() => setTitleId(title.id)}
-            color="blue"
+            textcolor="blue"
             variant="body2"
             component="p"
           >
@@ -46,19 +47,20 @@ const Home = (props: any) => {
         ))}
       </TopBar>
       <FirstDiv>
-        <Typography color="white" variant="h5" gutterBottom component="h5">
+        <Typography textcolor="white" variant="h5" gutterBottom component="h5">
           Facilitated
           <br />
           Competitions.
         </Typography>
-        <Typography color="white" component={"span"} variant="body2">
+        <Typography textcolor="white" component={"span"} variant="body2">
           Discover how easy it is to control
           <br /> a competition
         </Typography>
       </FirstDiv>
       <SecondDiv>
-        <Typography color="blue" variant="h5" gutterBottom component="h5">
-          Access to competitors' videos
+        <Typography textcolor="blue" variant="h5" gutterBottom component="h5">
+          Make your own competition with different set of trials ans checkout of
+          them in the end
         </Typography>
 
         <Typography component={"span"} variant="body2">
@@ -70,7 +72,7 @@ const Home = (props: any) => {
         </Typography>
       </SecondDiv>
       <ThirdDiv>
-        <Typography color="white" variant="h5" gutterBottom component="h5">
+        <Typography textcolor="white" variant="h5" gutterBottom component="h5">
           How it works
         </Typography>
         <div style={{ display: "flex" }}>
@@ -134,6 +136,100 @@ const Home = (props: any) => {
           </Typography>
         </div>
       </ThirdDiv>
+      <FourthDiv>
+        <div>
+          <ul>
+            <li>
+              <Typography variant="body2">
+                <Link href="#" onClick={() => {}}>
+                  About
+                </Link>
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body2">
+                <Link href="#" onClick={() => {}}>
+                  Home
+                </Link>
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body2">
+                <Link href="#" onClick={() => {}}>
+                  Investors
+                </Link>
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body2">
+                <Link href="#" onClick={() => {}}>
+                  Account
+                </Link>
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body2">
+                <Link href="#" onClick={() => {}}>
+                  Login
+                </Link>
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body2">
+                <Link href="#" onClick={() => {}}>
+                  Register
+                </Link>
+              </Typography>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>
+              <Typography variant="body2">
+                <Link href="#" onClick={() => {}}>
+                  About
+                </Link>
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body2">
+                <Link href="#" onClick={() => {}}>
+                  Privacy + Security
+                </Link>
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body2">
+                <Link href="#" onClick={() => {}}>
+                  Terms of Use
+                </Link>
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body2">
+                <Link href="#" onClick={() => {}}>
+                  Account
+                </Link>
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body2">
+                <Link href="#" onClick={() => {}}>
+                  Support
+                </Link>
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body2">
+                <Link href="#" onClick={() => {}}>
+                  Return Policy
+                </Link>
+              </Typography>
+            </li>
+          </ul>
+        </div>
+      </FourthDiv>
     </div>
   );
 };

@@ -64,7 +64,7 @@ export default function Login() {
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
-            <Center> 
+            <Center>
               <div
                 style={{
                   textAlign: "center",
