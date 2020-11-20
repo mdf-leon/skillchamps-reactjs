@@ -657,6 +657,17 @@ export default function BeforePoints(props) {
                 {content.name}: {pens[i] || "0"}
               </Typography>
             ))}
+            {bonusesConf.map((content, i) => (
+              <Typography
+                key={`typography` + content.id}
+                gutterBottom
+                color="textSecondary"
+                variant="body2"
+                component="p"
+              >
+                {content.name}: {bons[i] || "0"}
+              </Typography>
+            ))}
           </div>
         </div>
       </CardContent>
@@ -713,6 +724,14 @@ export default function BeforePoints(props) {
 
   return (
     <>
+      <Modal
+        bodyStyle={{ margin: "auto 20px", width: "100%" }}
+        noPadding
+        show={activeModal !== ""}
+        onBackgroundClick={() => setactiveModal("")}
+      >
+        {modalContent(activeModal)}
+      </Modal>
       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
           Error on trying to post the score, check your internet connection
@@ -820,14 +839,6 @@ export default function BeforePoints(props) {
           </PenaltyDiv>
         </MainDiv>
       </Card>
-      <Modal
-        bodyStyle={{ margin: "auto 20px", width: "100%" }}
-        noPadding
-        show={activeModal !== ""}
-        onBackgroundClick={() => setactiveModal("")}
-      >
-        {modalContent(activeModal)}
-      </Modal>
     </>
   );
 }

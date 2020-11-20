@@ -126,7 +126,7 @@ export default function Trials(props: any) {
                   `/dashboard/event/${localStorage.getItem("event_id")}/trial/${
                     content.id
                   }`,
-                  { trialName: dataTrial.name }
+                  { trialName: content.name }
                 );
               }}
             >

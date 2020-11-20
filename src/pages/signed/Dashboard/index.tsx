@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomizedTables() {
+export default function CustomizedTables(props: any) {
   const classes = useStyles();
 
   const [data, setData] = useState<any>({});
@@ -75,7 +75,6 @@ export default function CustomizedTables() {
       .get(`/fullRanking2`, { params })
       .then((r) => {
         setData(r.data);
-        console.log(r.data);
       })
       .catch(() => {});
     base
@@ -96,7 +95,7 @@ export default function CustomizedTables() {
     <>
       <Sidebar
         topnav
-        title={localStorage.getItem("trialName")}
+        title={props.location.state?.trialName}
         rightIcon="gear"
       />
       {data?.riders && data.riders[0].scores ? (
