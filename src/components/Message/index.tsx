@@ -24,8 +24,9 @@ export default function Message(props: any) {
 
   return (
     <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity={props.location.state?.message_alert?.severity || 'success'}>
-      {props.location.state?.message_alert?.message}
+      <Alert onClose={handleClose} 
+      severity={props.location.state?.message_alert?.severity || props.severity || 'success'}>
+      {props.location.state?.message_alert?.message || props.message}
       </Alert>
     </Snackbar>
   );

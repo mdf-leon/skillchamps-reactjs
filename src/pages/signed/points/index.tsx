@@ -152,25 +152,25 @@ export default function BeforePoints(props) {
       .then((r) => {
         setDataTrial(r.data);
       })
-      .catch(() => {});
+      .catch(() => { });
     base
       .get("/managedRidersList", { params })
       .then((r) => {
         setDataRider(r.data);
       })
-      .catch(() => {});
+      .catch(() => { });
     base
       .get(`/managedPenaltyConfsFromTrial`, { params })
       .then((r) => {
         setPenaltiesConf(r.data);
       })
-      .catch(() => {});
+      .catch(() => { });
     base
       .get(`/managedBonusConfsFromTrial`, { params })
       .then((r) => {
         setBonusesConf(r.data);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   useEffect(() => {
@@ -486,17 +486,17 @@ export default function BeforePoints(props) {
       <div>
         {point.penalties
           ? point.penalties.map((penalty) => {
-              return (
-                <p>
-                  {
-                    penaltiesConf.find(
-                      (e) => e.id === parseInt(penalty.penalty_conf_id)
-                    ).name
-                  }{" "}
+            return (
+              <p>
+                {
+                  penaltiesConf.find(
+                    (e) => e.id === parseInt(penalty.penalty_conf_id)
+                  ).name
+                }{" "}
                   --- {penalty.quantity}
-                </p>
-              );
-            })
+              </p>
+            );
+          })
           : null}
       </div>
 
@@ -581,7 +581,13 @@ export default function BeforePoints(props) {
     await base
       .post(`/addScore`, temp)
       .then((r) => {
-        props.history.push(`/beforePoints`, { riderName: dataRider.name });
+        props.history.push(`/beforePoints`, {
+          // riderName: 
+          message_alert: {
+            message: `Score for ${dataRider.name} created successfully`,
+            severity: "success",
+          },
+        });
       })
       .catch((er) => {
         setOpen(true);
