@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../../../components/Sidebar';
+import Sidebar from 'components/Sidebar';
+import Message from 'components/Message';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import {
@@ -73,15 +74,6 @@ export default function ManageableEvents(props: any) {
   // const theme = useTheme();
   const [events, setEvents] = useState<any[]>([]);
 
-  const [open, setOpen] = useState<any>(true);
-
-  const handleClose = () => {
-    setOpen(false);
-    let state = { ...props.history.location.state };
-    delete state.created;
-    props.history.replace({ ...props.history.location, state });
-  };
-
   const renderIcons = (iconName) => {
     switch (iconName) {
       case 'CheckCircle':
@@ -102,9 +94,6 @@ export default function ManageableEvents(props: any) {
         setEvents(r.data);
       })
       .catch(() => {});
-    if (props.location.state?.created) {
-      setOpen(true);
-    }
   }, []);
 
   // function getCurrentDate(separator = "") {
@@ -128,13 +117,7 @@ export default function ManageableEvents(props: any) {
 
   return (
     <>
-      {true || props.location.state?.created ? (
-        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="success">
-            Trial successfully created
-          </Alert>
-        </Snackbar>
-      ) : null}
+      <Message {...props} />
       <Sidebar topnav title="Manageable Events" rightIcon="gear" />
       <div className={classes.mainDiv}>
         <div className={classes.ternaryDiv}>

@@ -56,8 +56,11 @@ function VisitorRoute(props) {
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
+
     <Router>
       <Switch>
+        
+        {/* <Route path="/" component={App} /> */}
         <Route exact path="/" component={Home} />
         <VisitorRoute exact path="/login" component={Login} />
         <VisitorRoute exact path="/register" component={Register} />
