@@ -100,19 +100,13 @@ export default function Riders(props: any) {
         setDataRider(r.data);
       })
       .catch(() => {});
-  };
-
-  useEffect(() => {
-    let params = { event_id: localStorage.getItem("event_id") };
-    base
-      .get("/managedRidersList", { params })
-      .then((r) => {
-        setDataRider(r.data);
-      })
-      .catch(() => {});
     if (props.location.state?.created) {
       setOpen(true);
     }
+  };
+
+  useEffect(() => {
+    softRefresh();
   }, []);
 
   const deleteRider = (id) => {

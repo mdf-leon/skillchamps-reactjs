@@ -37,6 +37,7 @@ export const DivTitles = styled.div`
   justify-content: flex-end;
   p {
     margin-left: 10px;
+    cursor: pointer;
   }
 `;
 

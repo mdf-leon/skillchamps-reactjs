@@ -69,6 +69,9 @@ export default function BeforePoints(props) {
   const [tempTime, setTempTime] = useState<any>();
   const [finalTime, setfinalTime] = useState<any>();
   const [open, setOpen] = useState<any>(false);
+  const [isButtonTimerDisabled, setIsButtonTimerDisabled] = useState<boolean>(
+    true
+  );
 
   const [point, setpoint] = useState<any>({
     rider_id: localStorage.getItem("ongoing_rider"),
@@ -93,7 +96,7 @@ export default function BeforePoints(props) {
 
   useEffect(() => {
     updateFinalTime();
-    console.log(point.time)
+    console.log(point.time);
   }, [baseTime]);
 
   function stringToMS(tm) {
@@ -171,6 +174,12 @@ export default function BeforePoints(props) {
   }, []);
 
   useEffect(() => {
+    if (tempTime && tempTime.length === 9) {
+      setIsButtonTimerDisabled(false);
+    }
+  }, [tempTime]);
+
+  useEffect(() => {
     if (point.penalties) setactiveModal(confirm);
   }, [point]);
 
@@ -204,8 +213,10 @@ export default function BeforePoints(props) {
             <RoundButton
               onClick={(e) => {
                 const temp: any[] = [...pens];
-                temp[index] = (temp[index] || 0) - 1;
-                setpens(temp);
+                if (pens[index] > 0) {
+                  temp[index] = (temp[index] || 0) - 1;
+                  setpens(temp);
+                }
               }}
             >
               -
@@ -283,8 +294,10 @@ export default function BeforePoints(props) {
             <RoundButton
               onClick={(e) => {
                 const temp: any[] = [...bons];
-                temp[index] = (temp[index] || 0) - 1;
-                setbons(temp);
+                if (bons[index] > 0) {
+                  temp[index] = (temp[index] || 0) - 1;
+                  setbons(temp);
+                }
               }}
             >
               -
@@ -320,9 +333,13 @@ export default function BeforePoints(props) {
             <RoundButton
               onClick={(e) => {
                 const temp = [...bons];
-                if (point.time <= 0 && (temp[index] === undefined || temp[index] >= 0)) {
+                if (
+                  point.time <= 0 &&
+                  (temp[index] === undefined || temp[index] >= 0)
+                ) {
                   return null;
                 }
+                // se o tempo total for maior que o tempo do bonus, permite clicar no botao
                 temp[index] = (temp[index] || 0) + 1;
                 setbons(temp);
               }}
@@ -584,6 +601,17 @@ export default function BeforePoints(props) {
         onChange={(e) => setTempTime(e.target.value)}
       />
 
+      {tempTime && tempTime.length < 9 ? (
+        <Typography
+          style={{ position: "absolute" }}
+          color="error"
+          variant="body2"
+          component="p"
+        >
+          Please write down the full time, i.e. 12:34.567
+        </Typography>
+      ) : null}
+
       <div
         style={{
           display: "flex",
@@ -601,7 +629,12 @@ export default function BeforePoints(props) {
         >
           Cancel
         </Button>
-        <Button variant="contained" color="primary" onClick={() => setTimer()}>
+        <Button
+          disabled={isButtonTimerDisabled}
+          variant="contained"
+          color="primary"
+          onClick={() => setTimer()}
+        >
           Save Time
         </Button>
       </div>

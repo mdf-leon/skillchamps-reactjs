@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from 'components/Sidebar';
 import Message from 'components/Message';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import {
   Theme,
   createStyles,
@@ -65,9 +63,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 export default function ManageableEvents(props: any) {
   const classes = useStyles();

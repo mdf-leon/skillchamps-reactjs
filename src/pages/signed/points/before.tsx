@@ -96,8 +96,7 @@ export default function BeforePoints(props) {
   const [dataTrial, setDataTrial] = useState<any[]>([]);
   const [dataRider, setDataRider] = useState<any[]>([]);
   const [currentRiderInfo, setCurrentRiderInfo] = useState<any>({});
-  const [currentTrialInfo, setCurrentTrialInfo] = useState<any>({});
-
+  // const [currentTrialInfo, setCurrentTrialInfo] = useState<any>({});
   const [open, setOpen] = useState<any>(false);
 
   const handleClose = () => {
@@ -123,16 +122,16 @@ export default function BeforePoints(props) {
       .get("/managedTrialsList", { params })
       .then((r) => {
         setDataTrial(r.data);
-        console.log(params);
       })
       .catch((er) => {
-        console.log(params);
+        console.log(er);
       });
     base
-      .get("/managedRidersList", { params })
+      .get("/managedRidersList2", {
+        params: { ...params, trial_id: localStorage.getItem("ongoing_trial") },
+      })
       .then((r) => {
         setDataRider(r.data);
-        console.log(r.data);
       })
       .catch((er) => {
         console.log(er);
@@ -140,6 +139,11 @@ export default function BeforePoints(props) {
     if (props.location.state?.riderName) {
       setOpen(true);
     }
+  }, [localStorage.getItem("ongoing_trial")]);
+
+  useEffect(() => {
+    localStorage.removeItem("ongoing_trial");
+    console.log(localStorage.getItem("ongoing_trial"));
   }, []);
 
   return (
@@ -228,90 +232,126 @@ export default function BeforePoints(props) {
                 </Tabs>
               </AppBar>
               <TabPanel value={value} index={0} dir={theme.direction}>
-                {dataTrial.map((content, i) => (
-                  <Options
-                    key={`trials-${i}-${content.id}`}
-                    className={classes.options}
-                    onClick={() => {
-                      setCurrentTitle(content.name);
-                      localStorage.setItem("ongoing_trial", content.id);
-                    }}
+                {dataTrial[0] ? (
+                  dataTrial.map((content, i) => (
+                    <Options
+                      key={`trials-${i}-${content.id}`}
+                      className={classes.options}
+                      onClick={() => {
+                        setCurrentTitle(content.name);
+                        localStorage.setItem("ongoing_trial", content.id);
+                      }}
+                    >
+                      <Typography
+                        component={"span"}
+                        style={{ margin: 0 }}
+                        gutterBottom
+                        variant="h6"
+                      >
+                        Trial: {content.name}
+                      </Typography>
+                    </Options>
+                  ))
+                ) : (
+                  <Typography
+                    component={"span"}
+                    style={{ margin: 0 }}
+                    gutterBottom
+                    variant="h6"
                   >
+                    This event don't have any trial yet.
+                  </Typography>
+                )}
+              </TabPanel>
+              <TabPanel value={value} index={1} dir={theme.direction}>
+                {localStorage.getItem("ongoing_trial") ? (
+                  dataRider[0] ? (
+                    dataRider.map((content, i) => (
+                      <Options
+                        key={`riders-${i}-${content.id}`}
+                        className={classes.options}
+                        style={{
+                          justifyContent: "flex-start",
+                          alignItems: "end",
+                        }}
+                        onClick={(e) => {
+                          setCurrentRiderInfo({ ...content });
+                          localStorage.setItem("ongoing_rider", content.id);
+                        }}
+                      >
+                        <Avatar
+                          alt="Remy Sharp"
+                          src="https://img.discogs.com/u7AaUdt7Xw4gfZPovCQljJSXxOM=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-9136705-1475410670-6244.jpeg.jpg"
+                        />
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            marginLeft: "16px",
+                          }}
+                        >
+                          <div style={{ display: "flex" }}>
+                            <Typography
+                              component={"span"}
+                              style={{ margin: 0 }}
+                              gutterBottom
+                              variant="h6"
+                              color="textSecondary"
+                            >
+                              {content.id}.&nbsp;
+                            </Typography>
+                            <Typography
+                              component={"span"}
+                              style={{ margin: 0 }}
+                              gutterBottom
+                              variant="h6"
+                            >
+                              {content.name}
+                            </Typography>
+                          </div>
+
+                          <Typography
+                            component={"span"}
+                            style={{ margin: 0 }}
+                            gutterBottom
+                            variant="body2"
+                            color="textSecondary"
+                          >
+                            {content.category}
+                          </Typography>
+                          <Typography
+                            component={"span"}
+                            style={{ margin: 0 }}
+                            gutterBottom
+                            variant="body2"
+                            color="textSecondary"
+                          >
+                            Bike: {content.motorcycle}
+                          </Typography>
+                        </div>
+                      </Options>
+                    ))
+                  ) : (
                     <Typography
                       component={"span"}
                       style={{ margin: 0 }}
                       gutterBottom
                       variant="h6"
                     >
-                      Trial: {content.name}
+                      This trial don't have any riders yet.
                     </Typography>
-                  </Options>
-                ))}
-              </TabPanel>
-              <TabPanel value={value} index={1} dir={theme.direction}>
-                {dataRider.map((content, i) => (
-                  <Options
-                    key={`riders-${i}-${content.id}`}
-                    className={classes.options}
-                    style={{ justifyContent: "flex-start", alignItems: "end" }}
-                    onClick={(e) => {
-                      setCurrentRiderInfo({ ...content });
-                      localStorage.setItem("ongoing_rider", content.id);
-                    }}
+                  )
+                ) : (
+                  <Typography
+                    component={"span"}
+                    style={{ margin: 0 }}
+                    gutterBottom
+                    variant="h6"
                   >
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="https://img.discogs.com/u7AaUdt7Xw4gfZPovCQljJSXxOM=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-9136705-1475410670-6244.jpeg.jpg"
-                    />
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "flex-start",
-                        marginLeft: "16px",
-                      }}
-                    >
-                      <div style={{ display: "flex" }}>
-                        <Typography
-                          component={"span"}
-                          style={{ margin: 0 }}
-                          gutterBottom
-                          variant="h6"
-                          color="textSecondary"
-                        >
-                          {content.id}.&nbsp;
-                        </Typography>
-                        <Typography
-                          component={"span"}
-                          style={{ margin: 0 }}
-                          gutterBottom
-                          variant="h6"
-                        >
-                          {content.name}
-                        </Typography>
-                      </div>
-
-                      <Typography
-                        component={"span"}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="body2"
-                        color="textSecondary"
-                      >
-                        {content.category}
-                      </Typography>
-                      <Typography
-                        component={"span"}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="body2"
-                        color="textSecondary"
-                      >
-                        Bike: {content.motorcycle}
-                      </Typography>
-                    </div>
-                  </Options>
-                ))}
+                    Please choose a trial first.
+                  </Typography>
+                )}
               </TabPanel>
             </div>
           </Row>
