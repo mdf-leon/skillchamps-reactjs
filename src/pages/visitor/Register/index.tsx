@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import VisitorTopBar from "components/VisitorTopBar";
 import {
   Container,
   Typography,
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignUp(props: any) {
   const classes = useStyles();
   const [registerInfo, setRegisterInfo] = useState<any>({
     name: "",
@@ -77,6 +78,7 @@ export default function SignUp() {
 
   return (
     <>
+      <VisitorTopBar isTopBarButtonActive="register" {...props} />
       <div style={{ paddingTop: "1px", minHeight: "100%" }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />

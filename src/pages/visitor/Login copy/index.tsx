@@ -13,17 +13,9 @@ import {
 } from "@material-ui/core";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Center, Card, Row } from "./styles";
-// import { Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { base } from "../../../config/api";
-import {
-  Typography,
-  FirstDiv,
-  SecondDiv,
-  ThirdDiv,
-  FourthDiv,
-  // LandPageButton,
-  // DivButtons,
-} from "./stylees";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),

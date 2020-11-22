@@ -1,54 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 // import History from 'react-history';
+import VisitorTopBar from "components/VisitorTopBar";
+import { Link, Container, CssBaseline } from "@material-ui/core";
 import {
-  TopBar,
-  DivTitles,
   Typography,
   FirstDiv,
   SecondDiv,
   ThirdDiv,
   FourthDiv,
-  LandPageButton,
-  DivButtons,
+  // LandPageButton,
+  // DivButtons,
 } from "./styles";
 // import DehazeIcon from "@material-ui/icons/Dehaze";
-import { Link } from "@material-ui/core";
 
 const Home = (props: any) => {
-  const [titleId, setTitleId] = useState<any>(0);
-  const [titles] = useState<any[]>([
-    { id: 0, name: "Home" },
-    { id: 1, name: "Login" },
-    { id: 2, name: "Register" },
-  ]);
-
   return (
-    <div style={{ height: "100%" }}>
-      <TopBar>
-        <div style={{ display: "flex" }}>
-          <Typography textcolor="blue" variant="h6" component="h2">
-            SKILL
-          </Typography>
-          <Typography textcolor="red" variant="h6" component="h2">
-            CHAMPS
-          </Typography>
-        </div>
-        {/* <DehazeIcon fontSize="large" /> */}
-        <DivTitles>
-          {titles.map((title) => (
-            <Typography
-              key={title.name + title.id}
-              topbartitleactive={titleId === title.id}
-              onClick={() => setTitleId(title.id)}
-              textcolor="blue"
-              variant="body2"
-              component="p"
-            >
-              {title.name}
-            </Typography>
-          ))}
-        </DivTitles>
-      </TopBar>
+    <div style={{ height: "100%", position: "relative" }}>
+      <VisitorTopBar isTopBarButtonActive="home" {...props} />
+      <CssBaseline />
       <FirstDiv>
         <Typography textcolor="white" variant="h5" gutterBottom component="h5">
           Facilitated
@@ -128,7 +97,11 @@ const Home = (props: any) => {
             ever since the 1500s, when an unknown printer took a galley of type
           </Typography>
           <Typography
-            style={{ color: "white", fontSize: "x-small", marginLeft: "10px" }}
+            style={{
+              color: "white",
+              fontSize: "x-small",
+              marginLeft: "10px",
+            }}
             component={"span"}
             variant="body2"
           >
@@ -137,7 +110,11 @@ const Home = (props: any) => {
             ever since the 1500s, when an unknown printer took a galley of type
           </Typography>
           <Typography
-            style={{ color: "white", fontSize: "x-small", marginLeft: "10px" }}
+            style={{
+              color: "white",
+              fontSize: "x-small",
+              marginLeft: "10px",
+            }}
             component={"span"}
             variant="body2"
           >
