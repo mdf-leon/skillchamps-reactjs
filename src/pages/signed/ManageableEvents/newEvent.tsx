@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import Sidebar from '../../../components/Sidebar';
+import AppBar from '../../../components/AppBar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -128,12 +129,13 @@ export default function NewRider(props: any) {
       >
         trial success
       </Button> */}
-      <Sidebar
+      <AppBar />
+      {/* <Sidebar
         style={{ zIndex: 1000 }}
         topnav
         title="New Event"
         rightIcon="gear"
-      />
+      /> */}
       <div style={{ paddingTop: '10px', minHeight: '100%' }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
