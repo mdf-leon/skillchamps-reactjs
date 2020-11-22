@@ -58,7 +58,7 @@ function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function BeforePoints(props) {
+export default function AddScore(props) {
   const classes = useStyles();
   const [penaltiesConf, setPenaltiesConf] = useState<any[]>([]);
   const [bonusesConf, setBonusesConf] = useState<any[]>([]);
@@ -332,16 +332,19 @@ export default function BeforePoints(props) {
           >
             <RoundButton
               onClick={(e) => {
-                const temp = [...bons];
-                if (
-                  point.time <= 0 &&
-                  (temp[index] === undefined || temp[index] >= 0)
-                ) {
-                  return null;
-                }
+                const temp: any[] = [...bons];
                 // se o tempo total for maior que o tempo do bonus, permite clicar no botao
-                temp[index] = (temp[index] || 0) + 1;
-                setbons(temp);
+                const minutes = finalTime.split(":")[0]
+                const milliseconds = finalTime.split(":")[1].replace('.', '')
+                const dur = Duration.fromObject({ minutes, milliseconds })
+                  .normalize()
+                  .shiftTo('milliseconds')
+                  .toObject()
+                  .milliseconds
+                if (dur >= bonusesConf[index].time_bonus) {
+                  temp[index] = (temp[index] || 0) + 1;
+                  setbons(temp);
+                }
               }}
             >
               +
