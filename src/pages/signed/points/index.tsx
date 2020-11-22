@@ -93,6 +93,7 @@ export default function BeforePoints(props) {
 
   useEffect(() => {
     updateFinalTime();
+    console.log(point.time)
   }, [baseTime]);
 
   function stringToMS(tm) {
@@ -106,7 +107,7 @@ export default function BeforePoints(props) {
 
   const updateFinalTime = () => {
     const msBase = baseTime ? Number(stringToMS(baseTime.split(":"))) : 0;
-    // console.log(pens);
+    // console.log(base);
     setpoint({ ...point, time: msBase });
 
     let tempTime = msBase;
@@ -319,6 +320,9 @@ export default function BeforePoints(props) {
             <RoundButton
               onClick={(e) => {
                 const temp = [...bons];
+                if (point.time <= 0 && (temp[index] === undefined || temp[index] >= 0)) {
+                  return null;
+                }
                 temp[index] = (temp[index] || 0) + 1;
                 setbons(temp);
               }}
@@ -638,36 +642,50 @@ export default function BeforePoints(props) {
               {baseTime || "00:00.000"} &nbsp;&nbsp;&nbsp; {finalTime}
             </Typography>
 
-            <Typography
-              gutterBottom
-              color="textSecondary"
-              variant="body2"
-              component="p"
-            >
-              Penalties:
-            </Typography>
-            {penaltiesConf.map((content, i) => (
-              <Typography
-                key={`typography` + content.id}
-                gutterBottom
-                color="textSecondary"
-                variant="body2"
-                component="p"
-              >
-                {content.name}: {pens[i] || "0"}
-              </Typography>
-            ))}
-            {bonusesConf.map((content, i) => (
-              <Typography
-                key={`typography` + content.id}
-                gutterBottom
-                color="textSecondary"
-                variant="body2"
-                component="p"
-              >
-                {content.name}: {bons[i] || "0"}
-              </Typography>
-            ))}
+            <div style={{ marginTop: "20px" }}>
+              <div>
+                <Typography
+                  gutterBottom
+                  color="textSecondary"
+                  variant="body2"
+                  component="p"
+                >
+                  Penalties:
+                </Typography>
+                {penaltiesConf.map((content, i) => (
+                  <Typography
+                    key={`typography` + content.id}
+                    gutterBottom
+                    color="textSecondary"
+                    variant="body2"
+                    component="p"
+                  >
+                    {content.name}: {pens[i] || "0"}
+                  </Typography>
+                ))}
+              </div>
+              <div style={{ marginTop: "20px" }}>
+                <Typography
+                  gutterBottom
+                  color="textSecondary"
+                  variant="body2"
+                  component="p"
+                >
+                  Bonuses:
+                </Typography>
+                {bonusesConf.map((content, i) => (
+                  <Typography
+                    key={`typography` + content.id}
+                    gutterBottom
+                    color="textSecondary"
+                    variant="body2"
+                    component="p"
+                  >
+                    {content.name}: {bons[i] || "0"}
+                  </Typography>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </CardContent>
