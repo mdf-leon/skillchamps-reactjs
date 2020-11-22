@@ -1,6 +1,24 @@
 import styled from 'styled-components'
 import { Typography as LandTypography } from "@material-ui/core";
 
+export const DivButtons = styled.div`
+display: flex;
+margin-top: 16px;
+& :not(:first-child) {
+  margin-left: 10px;
+}
+`;
+
+export const LandPageButton = styled.button<any>`
+font-size: 9px;
+background-color: ${(props) => (props.backcolor === 'red' ? '#ee284b' : '#6246ac' )};
+color: white;
+min-width: 100px;
+padding: 10px;
+border-radius: 20px;
+border: 0px;
+`;
+
 export const Typography = styled(LandTypography)<any>`
   color: ${(props) => (props.textcolor === 'blue' ? "#0043c8" : props.textcolor === 'red' ? "#ee284b" : props.textcolor === 'white' ? 'white' : null )};
   border-bottom: ${(props) => (props.topbartitleactive ? '1px solid #ee284b' : null)};
@@ -17,20 +35,14 @@ export const TopBar = styled.div`
 export const DivTitles = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin: 0 10px;
+  p {
+    margin-left: 10px;
+  }
 `;
 
 export const Body = styled.div`
   /* height: calc(100% - 40px); */
   background-color: #e6d1ab;
-`;
-
-export const HomeButton = styled.button`
-  height: 40px;
-  background: none;
-  border: none;
-  letter-spacing: 2px;
-  font-size: 25px;
 `;
 
 export const FirstDiv = styled.div`

@@ -8,6 +8,8 @@ import {
   SecondDiv,
   ThirdDiv,
   FourthDiv,
+  LandPageButton,
+  DivButtons,
 } from "./styles";
 // import DehazeIcon from "@material-ui/icons/Dehaze";
 import { Link } from "@material-ui/core";
@@ -32,19 +34,20 @@ const Home = (props: any) => {
           </Typography>
         </div>
         {/* <DehazeIcon fontSize="large" /> */}
-        <DivTitles></DivTitles>
-        {titles.map((title) => (
-          <Typography
-            key={title.name + title.id}
-            topbartitleactive={titleId === title.id}
-            onClick={() => setTitleId(title.id)}
-            textcolor="blue"
-            variant="body2"
-            component="p"
-          >
-            {title.name}
-          </Typography>
-        ))}
+        <DivTitles>
+          {titles.map((title) => (
+            <Typography
+              key={title.name + title.id}
+              topbartitleactive={titleId === title.id}
+              onClick={() => setTitleId(title.id)}
+              textcolor="blue"
+              variant="body2"
+              component="p"
+            >
+              {title.name}
+            </Typography>
+          ))}
+        </DivTitles>
       </TopBar>
       <FirstDiv>
         <Typography textcolor="white" variant="h5" gutterBottom component="h5">
@@ -56,6 +59,11 @@ const Home = (props: any) => {
           Discover how easy it is to control
           <br /> a competition
         </Typography>
+
+        {/* <DivButtons>
+          <LandPageButton backcolor="red">DOWNLOAD NOW</LandPageButton>
+          <LandPageButton>FREE TRIAL</LandPageButton>
+        </DivButtons> */}
       </FirstDiv>
       <SecondDiv>
         <Typography textcolor="blue" variant="h5" gutterBottom component="h5">
@@ -70,6 +78,9 @@ const Home = (props: any) => {
           scrambled it to make a type specimen book. It has survived not only
           five centuries.
         </Typography>
+        {/* <DivButtons>
+          <LandPageButton backcolor="red">TRY IT NOW</LandPageButton>
+        </DivButtons> */}
       </SecondDiv>
       <ThirdDiv>
         <Typography textcolor="white" variant="h5" gutterBottom component="h5">
