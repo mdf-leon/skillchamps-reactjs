@@ -58,7 +58,7 @@ function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function BeforePoints(props) {
+export default function AddScore(props) {
   const classes = useStyles();
   const [penaltiesConf, setPenaltiesConf] = useState<any[]>([]);
   const [bonusesConf, setBonusesConf] = useState<any[]>([]);
@@ -152,25 +152,25 @@ export default function BeforePoints(props) {
       .then((r) => {
         setDataTrial(r.data);
       })
-      .catch(() => {});
+      .catch(() => { });
     base
       .get("/managedRidersList", { params })
       .then((r) => {
         setDataRider(r.data);
       })
-      .catch(() => {});
+      .catch(() => { });
     base
       .get(`/managedPenaltyConfsFromTrial`, { params })
       .then((r) => {
         setPenaltiesConf(r.data);
       })
-      .catch(() => {});
+      .catch(() => { });
     base
       .get(`/managedBonusConfsFromTrial`, { params })
       .then((r) => {
         setBonusesConf(r.data);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   useEffect(() => {
@@ -332,16 +332,19 @@ export default function BeforePoints(props) {
           >
             <RoundButton
               onClick={(e) => {
-                const temp = [...bons];
-                if (
-                  point.time <= 0 &&
-                  (temp[index] === undefined || temp[index] >= 0)
-                ) {
-                  return null;
-                }
+                const temp: any[] = [...bons];
                 // se o tempo total for maior que o tempo do bonus, permite clicar no botao
-                temp[index] = (temp[index] || 0) + 1;
-                setbons(temp);
+                const minutes = finalTime.split(":")[0]
+                const milliseconds = finalTime.split(":")[1].replace('.', '')
+                const dur = Duration.fromObject({ minutes, milliseconds })
+                  .normalize()
+                  .shiftTo('milliseconds')
+                  .toObject()
+                  .milliseconds
+                if (dur >= bonusesConf[index].time_bonus) {
+                  temp[index] = (temp[index] || 0) + 1;
+                  setbons(temp);
+                }
               }}
             >
               +
@@ -486,17 +489,17 @@ export default function BeforePoints(props) {
       <div>
         {point.penalties
           ? point.penalties.map((penalty) => {
-              return (
-                <p>
-                  {
-                    penaltiesConf.find(
-                      (e) => e.id === parseInt(penalty.penalty_conf_id)
-                    ).name
-                  }{" "}
+            return (
+              <p>
+                {
+                  penaltiesConf.find(
+                    (e) => e.id === parseInt(penalty.penalty_conf_id)
+                  ).name
+                }{" "}
                   --- {penalty.quantity}
-                </p>
-              );
-            })
+              </p>
+            );
+          })
           : null}
       </div>
 
@@ -581,7 +584,13 @@ export default function BeforePoints(props) {
     await base
       .post(`/addScore`, temp)
       .then((r) => {
-        props.history.push(`/beforePoints`, { riderName: dataRider.name });
+        props.history.push(`/beforePoints`, {
+          // riderName: 
+          message_alert: {
+            message: `Score for ${dataRider.name} created successfully`,
+            severity: "success",
+          },
+        });
       })
       .catch((er) => {
         setOpen(true);

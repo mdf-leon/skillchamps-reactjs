@@ -141,7 +141,13 @@ export default function NewTrials(props: any) {
     base
       .post(`/createTrial`, rdata)
       .then(() => {
-        props.history.push(`/Trials`, { created: true });
+        props.history.push(`/Trials`, {
+          // riderName: 
+          message_alert: {
+            message: `Trial created successfully`,
+            severity: "success",
+          },
+        });
       })
       .catch((er) => {
         setOpen(true);

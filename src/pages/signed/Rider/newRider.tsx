@@ -97,7 +97,13 @@ export default function NewRider(props: any) {
       .post(`/uncontrolledRegister`, { parameters, rdata })
       .then((result) => {
         setOpen("success");
-        props.history.push(`/riders`, { created: true });
+        props.history.push(`/riders`, {
+          // riderName: 
+          message_alert: {
+            message: `Rider created successfully`,
+            severity: "success",
+          },
+        });
       })
       .catch(() => setOpen("error")); // alert rider coundt be created
   };
