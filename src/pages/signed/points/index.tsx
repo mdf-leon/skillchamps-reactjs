@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../../../components/Sidebar";
-import Snackbar from "@material-ui/core/Snackbar";
+import Message from "components/Message";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { Modal } from "components";
-import { DateTime } from "luxon";
 import {
-  SideBarDiv,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Typography,
+} from "@material-ui/core";
+import {
   TimeDiv,
   RoundButton,
   NumberBox,
@@ -15,24 +19,9 @@ import {
   ShowTimeInput,
   Blackground,
 } from "./styles";
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardActions,
-  CardMedia,
-  Button,
-  Typography,
-} from "@material-ui/core";
+import Sidebar from "../../../components/Sidebar";
 import { base } from "../../../config/api";
-import {
-  Theme,
-  createStyles,
-  makeStyles,
-  useTheme,
-} from "@material-ui/core/styles";
-import { AiOutlineMinusCircle, AiFillPlusCircle } from "react-icons/ai";
-import classes from "*.module.sass";
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import { Duration } from "luxon";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -68,10 +57,14 @@ export default function AddScore(props) {
   const [baseTime, setbaseTime] = useState<any>();
   const [tempTime, setTempTime] = useState<any>();
   const [finalTime, setfinalTime] = useState<any>();
-  const [open, setOpen] = useState<any>(false);
   const [isButtonTimerDisabled, setIsButtonTimerDisabled] = useState<boolean>(
     true
   );
+
+  const [messageParams, setMessageParams] = useState<any>({
+    message: "",
+    severity: "",
+  });
 
   const [point, setpoint] = useState<any>({
     rider_id: localStorage.getItem("ongoing_rider"),
@@ -81,10 +74,6 @@ export default function AddScore(props) {
 
   const [pens, setpens] = useState<any[]>([]);
   const [bons, setbons] = useState<any[]>([]);
-
-  const handleClose = () => {
-    setOpen(true);
-  };
 
   useEffect(() => {
     updateFinalTime();
@@ -99,7 +88,7 @@ export default function AddScore(props) {
     console.log(point.time);
   }, [baseTime]);
 
-  function stringToMS(tm) {
+  function stringToMS(tm: string[]) {
     // return tm[1].replace('.', '')
     return Duration.fromObject({
       minutes: tm[0],
@@ -152,25 +141,25 @@ export default function AddScore(props) {
       .then((r) => {
         setDataTrial(r.data);
       })
-      .catch(() => { });
+      .catch(() => {});
     base
       .get("/managedRidersList", { params })
       .then((r) => {
         setDataRider(r.data);
       })
-      .catch(() => { });
+      .catch(() => {});
     base
       .get(`/managedPenaltyConfsFromTrial`, { params })
       .then((r) => {
         setPenaltiesConf(r.data);
       })
-      .catch(() => { });
+      .catch(() => {});
     base
       .get(`/managedBonusConfsFromTrial`, { params })
       .then((r) => {
         setBonusesConf(r.data);
       })
-      .catch(() => { });
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -211,7 +200,7 @@ export default function AddScore(props) {
             }}
           >
             <RoundButton
-              onClick={(e) => {
+              onClick={() => {
                 const temp: any[] = [...pens];
                 if (pens[index] > 0) {
                   temp[index] = (temp[index] || 0) - 1;
@@ -334,13 +323,12 @@ export default function AddScore(props) {
               onClick={(e) => {
                 const temp: any[] = [...bons];
                 // se o tempo total for maior que o tempo do bonus, permite clicar no botao
-                const minutes = finalTime.split(":")[0]
-                const milliseconds = finalTime.split(":")[1].replace('.', '')
+                const minutes = finalTime.split(":")[0];
+                const milliseconds = finalTime.split(":")[1].replace(".", "");
                 const dur = Duration.fromObject({ minutes, milliseconds })
                   .normalize()
-                  .shiftTo('milliseconds')
-                  .toObject()
-                  .milliseconds
+                  .shiftTo("milliseconds")
+                  .toObject().milliseconds;
                 if (dur >= bonusesConf[index].time_bonus) {
                   temp[index] = (temp[index] || 0) + 1;
                   setbons(temp);
@@ -489,17 +477,17 @@ export default function AddScore(props) {
       <div>
         {point.penalties
           ? point.penalties.map((penalty) => {
-            return (
-              <p>
-                {
-                  penaltiesConf.find(
-                    (e) => e.id === parseInt(penalty.penalty_conf_id)
-                  ).name
-                }{" "}
+              return (
+                <p>
+                  {
+                    penaltiesConf.find(
+                      (e) => e.id === parseInt(penalty.penalty_conf_id)
+                    ).name
+                  }{" "}
                   --- {penalty.quantity}
-              </p>
-            );
-          })
+                </p>
+              );
+            })
           : null}
       </div>
 
@@ -585,7 +573,7 @@ export default function AddScore(props) {
       .post(`/addScore`, temp)
       .then((r) => {
         props.history.push(`/beforePoints`, {
-          // riderName: 
+          // riderName:
           message_alert: {
             message: `Score for ${dataRider.name} created successfully`,
             severity: "success",
@@ -593,7 +581,11 @@ export default function AddScore(props) {
         });
       })
       .catch((er) => {
-        setOpen(true);
+        setMessageParams({
+          message:
+            "Error on trying to post the score, check your internet connection",
+          severity: "error",
+        });
         console.log(er);
       });
   };
@@ -792,11 +784,10 @@ export default function AddScore(props) {
       >
         {modalContent(activeModal)}
       </Modal>
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          Error on trying to post the score, check your internet connection
-        </Alert>
-      </Snackbar>
+      <Message
+        message={messageParams.message}
+        severity={messageParams.severity}
+      />
       <Sidebar topnav title="Manageable Events" rightIcon="gear" />
       <Card style={{ minHeight: "100%" }}>
         <MainDiv style={{ marginTop: "50px", minHeight: "100%" }}>

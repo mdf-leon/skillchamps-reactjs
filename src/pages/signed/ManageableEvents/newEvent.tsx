@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
-import Sidebar from "../../../components/Sidebar";
+import React, { useState } from "react";
+import Message from "components/Message";
 import AppBar from "../../../components/AppBar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -17,23 +14,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-import MenuItem from "@material-ui/core/MenuItem";
 import { base } from "config/api";
-
-const currencies = [
-  {
-    value: "Beginner",
-    label: "Beginner",
-  },
-  {
-    value: "Advanced",
-    label: "Advanced",
-  },
-  {
-    value: "Police",
-    label: "Police",
-  },
-];
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -64,24 +45,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
 export default function NewRider(props: any) {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState<any>(new Date());
-
+  const [messageParams, setMessageParams] = useState<any>({
+    message: "",
+    severity: "",
+  });
   const [registerInfo, setRegisterInfo] = useState<any>({
     event_name: "",
     date_begin: selectedDate?.toISOString().split("T")[0],
   });
-
-  const [open, setOpen] = useState<any>("");
-
-  const handleClose = () => {
-    setOpen("");
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -91,8 +65,7 @@ export default function NewRider(props: any) {
     };
     base
       .post(`/createEvent`, params)
-      .then((result) => {
-        setOpen("success");
+      .then(() => {
         props.history.push("/ManageableEvents", {
           message_alert: {
             message: "Event created Successfully",
@@ -100,26 +73,20 @@ export default function NewRider(props: any) {
           },
         });
       })
-      .catch(() => setOpen("error")); // alert rider coundt be created
+      .catch(() =>
+        setMessageParams({
+          message: "Sorry, the Institute could not be created",
+          severity: "error",
+        })
+      ); // alert rider coundt be created
   };
 
   return (
     <>
-      <Snackbar
-        open={open === "success" ? true : open === "error" ? true : false}
-        autoHideDuration={3000}
-        onClose={handleClose}
-      >
-        {open === "success" ? (
-          <Alert onClose={handleClose} severity="success">
-            Event created successfully
-          </Alert>
-        ) : (
-          <Alert onClose={handleClose} severity="error">
-            The Event could not be created
-          </Alert>
-        )}
-      </Snackbar>
+      <Message
+        message={messageParams.message}
+        severity={messageParams.severity}
+      />
       {/* <Button
         disableRipple
         variant="contained"

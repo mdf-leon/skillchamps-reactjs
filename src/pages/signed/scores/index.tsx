@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Message from "components/Message";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import Sidebar from "../../../components/Sidebar";
 import styles from "./useStyles";
 import { Modal } from "components";
@@ -13,13 +12,9 @@ import {
 } from "@material-ui/core";
 import { base } from "../../../config/api";
 
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
-export default function Trials(props: any) {
+export default function Scores(props: any) {
   const classes = styles();
-  const [dataTrial, setDataTrial] = useState<any[]>([]);
+  const [dataRider, setDataRider] = useState<any[]>([]);
   const [activeModal, setActiveModal] = useState<any>("");
   const [currentId, setCurrentId] = useState<any>("");
 
@@ -44,7 +39,7 @@ export default function Trials(props: any) {
             variant="body2"
             component="p"
           >
-            Do you really want to delete this Trial? This process cannot be
+            Do you really want to delete this Score? This process cannot be
             undone.
           </Typography>
         </div>
@@ -66,7 +61,7 @@ export default function Trials(props: any) {
           variant="contained"
           size="small"
           color="secondary"
-          onClick={() => deleteTrial(currentId)}
+          onClick={() => deleteRider(currentId)}
         >
           Delete
         </Button>
@@ -82,34 +77,27 @@ export default function Trials(props: any) {
   };
 
   const softRefresh = () => {
-    let params = { event_id: localStorage.getItem("event_id") };
+    let params = { event_id: localStorage.getItem("trial_id") };
     base
-      .get("/managedTrialsList", { params })
+      .get("/score", { params })
       .then((r) => {
-        setDataTrial(r.data);
+        setDataRider(r.data);
       })
       .catch(() => {});
   };
 
   useEffect(() => {
-    let params = { event_id: localStorage.getItem("event_id") };
-    base
-      .get("/managedTrialsList", { params })
-      .then((r) => {
-        setDataTrial(r.data);
-      })
-      .catch(() => {});
+    softRefresh();
   }, []);
 
-  const deleteTrial = (id) => {
+  const deleteRider = (id: any) => {
     base
-      .delete(`/deleteTrial/${id}`)
-      .then((r) => {
+      .delete(`/deleteRider/${id}`)
+      .then(() => {
         setActiveModal("");
         softRefresh();
       })
-      .catch(() => {
-      });
+      .catch(() => {});
   };
 
   return (
@@ -118,7 +106,7 @@ export default function Trials(props: any) {
       <Sidebar
         style={{ zIndex: 1000 }}
         topnav
-        title="Trials"
+        title="Riders"
         rightIcon="gear"
       />
       <div className={classes.mainDiv}>
@@ -130,33 +118,12 @@ export default function Trials(props: any) {
               variant="h5"
               component="h2"
             >
-              List of Trials
+              List of Scores
             </Typography>
           </CardContent>
-          <CardActions className={classes.actions}>
-            {/* <Button
-              className={classes.action}
-              disableRipple
-              size="small"
-              color="primary"
-              onClick={() => console.log()}
-            >
-              SETTINGS
-            </Button> */}
-            <Button
-              className={classes.action}
-              disableRipple
-              variant="contained"
-              size="small"
-              color="primary"
-              onClick={() => props.history.push("/newTrial")}
-            >
-              NEW Trial
-            </Button>
-          </CardActions>
         </Card>
-        {dataTrial.map((content, i) => (
-          <div key={`TrialList${content.id}`} className={classes.options}>
+        {dataRider.map((content, i) => (
+          <div key={`scoresList${content.id}`} className={classes.options}>
             <div className={classes.row}>
               <div style={{ display: "flex" }}>
                 <Typography

@@ -1,38 +1,17 @@
 import React, { useState } from "react";
-import Snackbar from "@material-ui/core/Snackbar";
+import Message from "components/Message";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import Sidebar from "../../../components/Sidebar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import "date-fns";
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
-import MenuItem from "@material-ui/core/MenuItem";
 import { base } from "config/api";
 
-const currencies = [
-  {
-    value: "Beginner",
-    label: "Beginner",
-  },
-  {
-    value: "Advanced",
-    label: "Advanced",
-  },
-  {
-    value: "Police",
-    label: "Police",
-  },
-];
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -99,7 +78,11 @@ export default function NewTrials(props: any) {
   const [registerInfo, setRegisterInfo] = useState<any>({
     name: "",
   });
-  const [open, setOpen] = useState<any>(false);
+
+  const [messageParams, setMessageParams] = useState<any>({
+    message: "",
+    severity: "",
+  });
 
   const handleAddPenalty = () => {
     const temp = [...dataPenalties];
@@ -123,10 +106,6 @@ export default function NewTrials(props: any) {
     setdataBonuses(temp);
   };
 
-  const handleClose = () => {
-    setOpen(true);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const event_id = localStorage.getItem("event_id");
@@ -142,7 +121,7 @@ export default function NewTrials(props: any) {
       .post(`/createTrial`, rdata)
       .then(() => {
         props.history.push(`/Trials`, {
-          // riderName: 
+          // riderName:
           message_alert: {
             message: `Trial created successfully`,
             severity: "success",
@@ -150,18 +129,20 @@ export default function NewTrials(props: any) {
         });
       })
       .catch((er) => {
-        setOpen(true);
+        setMessageParams({
+          message: "Sorry, the Trial could not be created",
+          severity: "error",
+        });
         console.log(er.response.message);
-      }); // alert Trial coundt be created
+      });
   };
 
   return (
     <>
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          The Trial could not be created
-        </Alert>
-      </Snackbar>
+      <Message
+        message={messageParams.message}
+        severity={messageParams.severity}
+      />
       <Sidebar
         style={{ zIndex: 1000 }}
         topnav

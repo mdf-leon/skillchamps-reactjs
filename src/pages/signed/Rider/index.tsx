@@ -1,38 +1,22 @@
 import React, { useState, useEffect } from "react";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import Message from "components/Message";
 import Sidebar from "../../../components/Sidebar";
 import styles from "./useStyles";
 import { Modal } from "components";
 import {
   Card,
-  CardActionArea,
   CardContent,
   CardActions,
-  CardMedia,
   Button,
   Typography,
 } from "@material-ui/core";
 import { base } from "../../../config/api";
-
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 export default function Riders(props: any) {
   const classes = styles();
   const [dataRider, setDataRider] = useState<any[]>([]);
   const [activeModal, setActiveModal] = useState<any>("");
   const [currentId, setCurrentId] = useState<any>("");
-
-  const [open, setOpen] = useState<any>(true);
-
-  const handleClose = () => {
-    setOpen(false);
-    let state = { ...props.history.location.state };
-    delete state.created;
-    props.history.replace({ ...props.history.location, state });
-  };
 
   const confirmDelete = (
     <Card>
@@ -100,37 +84,25 @@ export default function Riders(props: any) {
         setDataRider(r.data);
       })
       .catch(() => {});
-    if (props.location.state?.created) {
-      setOpen(true);
-    }
   };
 
   useEffect(() => {
     softRefresh();
   }, []);
 
-  const deleteRider = (id) => {
+  const deleteRider = (id: any) => {
     base
       .delete(`/deleteRider/${id}`)
-      .then((r) => {
+      .then(() => {
         setActiveModal("");
         softRefresh();
-        // setOpen("success");
       })
-      .catch(() => {
-        // setOpen("error");
-      });
+      .catch(() => {});
   };
 
   return (
     <>
-      {props.location.state?.created ? (
-        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="success">
-            Trial successfully created
-          </Alert>
-        </Snackbar>
-      ) : null}
+      <Message {...props} />
       <Sidebar
         style={{ zIndex: 1000 }}
         topnav

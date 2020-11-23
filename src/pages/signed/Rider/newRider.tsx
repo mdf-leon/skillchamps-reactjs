@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Snackbar from "@material-ui/core/Snackbar";
+import Message from "components/Message";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import Sidebar from "../../../components/Sidebar";
 import Button from "@material-ui/core/Button";
@@ -70,7 +70,10 @@ function Alert(props: AlertProps) {
 export default function NewRider(props: any) {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState<any>();
-
+  const [messageParams, setMessageParams] = useState<any>({
+    message: "",
+    severity: "",
+  });
   const [registerInfo, setRegisterInfo] = useState<any>({
     name: "",
     category: "",
@@ -79,12 +82,6 @@ export default function NewRider(props: any) {
     motorcycle_plate: "",
     license_ido: "",
   });
-
-  const [open, setOpen] = useState<any>("");
-
-  const handleClose = () => {
-    setOpen("");
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -95,36 +92,29 @@ export default function NewRider(props: any) {
     };
     base
       .post(`/uncontrolledRegister`, { parameters, rdata })
-      .then((result) => {
-        setOpen("success");
+      .then(() => {
         props.history.push(`/riders`, {
-          // riderName: 
+          // riderName:
           message_alert: {
             message: `Rider created successfully`,
             severity: "success",
           },
         });
       })
-      .catch(() => setOpen("error")); // alert rider coundt be created
+      .catch(() =>
+        setMessageParams({
+          message: "Sorry, the Rider could not be created",
+          severity: "error",
+        })
+      ); // alert rider coundt be created
   };
 
   return (
     <>
-      <Snackbar
-        open={open === "success" ? true : open === "error" ? true : false}
-        autoHideDuration={3000}
-        onClose={handleClose}
-      >
-        {open === "success" ? (
-          <Alert onClose={handleClose} severity="success">
-            Rider created successfully
-          </Alert>
-        ) : (
-          <Alert onClose={handleClose} severity="error">
-            The Rider could not be created
-          </Alert>
-        )}
-      </Snackbar>
+      <Message
+        message={messageParams.message}
+        severity={messageParams.severity}
+      />
       <Sidebar
         style={{ zIndex: 1000 }}
         topnav

@@ -17,7 +17,9 @@ import Home from "./pages/visitor/Home/index.tsx";
 import Login from "./pages/visitor/Login";
 import Register from "./pages/visitor/Register";
 import Dashboard from "./pages/signed/Dashboard/";
-import TrialsChoose from "./pages/signed/Dashboard/trialsChoose";
+import TrialsChooseDashboard from "./pages/signed/Dashboard/trialsChooseDashboard";
+import Scores from "./pages/signed/scores";
+import TrialsChooseScores from "./pages/signed/scores/trialsChooseScores";
 import Rider from "./pages/signed/Rider";
 import NewRider from "./pages/signed/Rider/newRider";
 import Trials from "./pages/signed/Trials";
@@ -56,10 +58,8 @@ function VisitorRoute(props) {
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-
     <Router>
       <Switch>
-        
         {/* <Route path="/" component={App} /> */}
         <Route exact path="/" component={Home} />
         <VisitorRoute exact path="/login" component={Login} />
@@ -69,7 +69,17 @@ ReactDOM.render(
           path="/dashboard/event/:event_id/trial/:trial_id"
           component={Dashboard}
         />
-        <ProtectedRoute exact path="/TrialsChoose" component={TrialsChoose} />
+        <ProtectedRoute
+          exact
+          path="/trialsChooseDashboard"
+          component={TrialsChooseDashboard}
+        />
+        <ProtectedRoute exact path="/scores" component={Scores} />
+        <ProtectedRoute
+          exact
+          path="/trialsChooseScores"
+          component={TrialsChooseScores}
+        />
         <ProtectedRoute exact path="/riders" component={Rider} />
         <ProtectedRoute exact path="/newRider" component={NewRider} />
         <ProtectedRoute exact path="/Trials" component={Trials} />

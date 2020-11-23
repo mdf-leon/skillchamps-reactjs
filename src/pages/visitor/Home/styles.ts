@@ -66,7 +66,6 @@ export const ThirdDiv = styled.div`
 
 export const FourthDiv = styled.div`
   background: #252a2c;
-  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
   padding: 40px 10px;

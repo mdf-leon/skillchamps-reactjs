@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../../components/Sidebar";
+import Message from "components/Message";
 import { useHistory } from "react-router-dom";
-import { TextInput, CheckBox } from "components";
 // import { Redirect } from 'react-router-dom'
-import { Center, Col, Row, Grid } from "styles/global";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import { Col, Row, Grid } from "styles/global";
 import { Options } from "./styles";
 
 import { base } from "../../../config/api";
 
 import {
   Card,
-  CardActionArea,
   CardContent,
-  CardActions,
   CardMedia,
   Button,
   Typography,
@@ -32,10 +28,6 @@ interface TabPanelProps {
   dir?: string;
   index: any;
   value: any;
-}
-
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 function TabPanel(props: any) {
@@ -97,21 +89,9 @@ export default function BeforePoints(props) {
   const [dataRider, setDataRider] = useState<any[]>([]);
   const [currentRiderInfo, setCurrentRiderInfo] = useState<any>({});
   // const [currentTrialInfo, setCurrentTrialInfo] = useState<any>({});
-  const [open, setOpen] = useState<any>(false);
-
-  const handleClose = () => {
-    setOpen(false);
-    let state = { ...props.history.location.state };
-    delete state.riderName;
-    props.history.replace({ ...props.history.location, state });
-  };
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
-  };
-
-  const handleChangeIndex = (index: number) => {
-    setValue(index);
   };
 
   useEffect(() => {
@@ -136,9 +116,6 @@ export default function BeforePoints(props) {
       .catch((er) => {
         console.log(er);
       });
-    if (props.location.state?.riderName) {
-      setOpen(true);
-    }
   }, [localStorage.getItem("ongoing_trial")]);
 
   useEffect(() => {
@@ -148,13 +125,7 @@ export default function BeforePoints(props) {
 
   return (
     <>
-      {props.location.state?.riderName ? (
-        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="success">
-            Successfully added score to rider {props.location.state?.riderName}
-          </Alert>
-        </Snackbar>
-      ) : null}
+      <Message {...props} />
       <Sidebar topnav title="Start Trial" rightIcon="gear" />
       <div className={classes.mainDiv}>
         <Grid>
@@ -238,6 +209,8 @@ export default function BeforePoints(props) {
                       key={`trials-${i}-${content.id}`}
                       className={classes.options}
                       onClick={() => {
+                        localStorage.removeItem("ongoing_rider");
+                        setCurrentRiderInfo({});
                         setCurrentTitle(content.name);
                         localStorage.setItem("ongoing_trial", content.id);
                       }}
@@ -274,9 +247,12 @@ export default function BeforePoints(props) {
                           justifyContent: "flex-start",
                           alignItems: "end",
                         }}
-                        onClick={(e) => {
-                          setCurrentRiderInfo({ ...content });
-                          localStorage.setItem("ongoing_rider", content.id);
+                        onClick={() => {
+                          if (!content.scores) {
+                            setCurrentRiderInfo({ ...content });
+                            localStorage.setItem("ongoing_rider", content.id);
+                          }
+                          return;
                         }}
                       >
                         <Avatar
@@ -303,7 +279,10 @@ export default function BeforePoints(props) {
                             </Typography>
                             <Typography
                               component={"span"}
-                              style={{ margin: 0 }}
+                              style={{
+                                margin: 0,
+                                color: content.scores ? "#2ECC40" : "unset",
+                              }}
                               gutterBottom
                               variant="h6"
                             >

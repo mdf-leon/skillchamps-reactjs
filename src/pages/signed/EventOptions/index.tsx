@@ -75,7 +75,7 @@ export default function EventOptions(props: any) {
           </Typography>
           <Button
             className={classes.action}
-            onClick={() => props.history.push(`/trialsChoose`)}
+            onClick={() => props.history.push(`/trialsChooseDashboard`)}
             disableRipple
             size="small"
             color="primary"
@@ -94,6 +94,7 @@ export default function EventOptions(props: any) {
           </Typography>
           <Button
             className={classes.action}
+            onClick={() => props.history.push(`/trialsChooseScores`)}
             disableRipple
             size="small"
             color="primary"

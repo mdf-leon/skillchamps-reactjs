@@ -1,38 +1,16 @@
 import React, { useState, useEffect } from "react";
-import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import Message from "components/Message";
 import Sidebar from "../../../components/Sidebar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import "date-fns";
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
-import MenuItem from "@material-ui/core/MenuItem";
 import { base } from "config/api";
-
-const currencies = [
-  {
-    value: "Beginner",
-    label: "Beginner",
-  },
-  {
-    value: "Advanced",
-    label: "Advanced",
-  },
-  {
-    value: "Police",
-    label: "Police",
-  },
-];
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -69,7 +47,10 @@ function Alert(props: AlertProps) {
 
 export default function NewRider(props) {
   const classes = useStyles();
-
+  const [messageParams, setMessageParams] = useState<any>({
+    message: "",
+    severity: "",
+  });
   const [registerInfo, setRegisterInfo] = useState<any>({
     name: "",
     category: "",
@@ -79,12 +60,7 @@ export default function NewRider(props) {
     city_tax_ido: "",
   });
 
-  const [open, setOpen] = useState<any>("");
   const [hasInstitute, setHasInstitute] = useState<any>(false);
-
-  const handleClose = () => {
-    setOpen("");
-  };
 
   useEffect(() => {
     base
@@ -97,13 +73,23 @@ export default function NewRider(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let parameters = { event_id: localStorage.getItem("event_id") };
     base
       .post(`/makeInstitute`, registerInfo)
       .then(() => {
-        props.history.push(`/manageableEvents`, { created: true });
+        props.history.push(`/manageableEvents`, {
+          message_alert: {
+            message: "Institute successfully created.",
+            severity: "success",
+          },
+        });
       })
-      .catch((er) => console.log(er)); // alert rider coundt be created
+      .catch((er) => {
+        console.log(er);
+        setMessageParams({
+          message: "Sorry, the Institute could not be created",
+          severity: "error",
+        });
+      }); // alert rider coundt be created
   };
 
   return (
@@ -122,21 +108,10 @@ export default function NewRider(props) {
         </div>
       ) : (
         <div>
-          <Snackbar
-            open={open === "success" ? true : open === "error" ? true : false}
-            autoHideDuration={3000}
-            onClose={handleClose}
-          >
-            {open === "success" ? (
-              <Alert onClose={handleClose} severity="success">
-                Institute created successfully
-              </Alert>
-            ) : (
-              <Alert onClose={handleClose} severity="error">
-                The Institute could not be created
-              </Alert>
-            )}
-          </Snackbar>
+          <Message
+            message={messageParams.message}
+            severity={messageParams.severity}
+          />
           <div style={{ paddingTop: "10px", minHeight: "100%" }}>
             <Container component="main" maxWidth="xs">
               <CssBaseline />
