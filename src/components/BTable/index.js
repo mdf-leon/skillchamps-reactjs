@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Row, Col, Grid } from 'styles/grid'
 
 export default function BTable(props) {
   // eslint-disable-next-line react/prop-types
-  const { columns, data } = props
+  const { columns } = props
 
   return (
     <div style={{ display: "flex" }}>

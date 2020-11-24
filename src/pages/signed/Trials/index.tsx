@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Message from "components/Message";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import AppBar from "components/AppBar";
 import styles from "./useStyles";
 import { Modal } from "components";
@@ -12,10 +11,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { base } from "../../../config/api";
-
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 export default function Trials(props: any) {
   const classes = styles();

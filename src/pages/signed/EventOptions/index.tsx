@@ -1,16 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import AppBar from "../../../components/AppBar";
 import styles from "./styles";
 import {
   Card,
-  CardActionArea,
   CardContent,
   CardActions,
   CardMedia,
   Button,
   Typography,
 } from "@material-ui/core";
-import { base } from "../../../config/api";
 
 export default function EventOptions(props: any) {
   const classes = styles();

@@ -1,5 +1,5 @@
 import styled, { keyframes, css } from 'styled-components';
-import { Row as RowRow, Col as ColCol, Grid } from 'styles/grid'
+import { Row as RowRow, Col as ColCol } from 'styles/grid'
 
 const spin = keyframes`
 from{

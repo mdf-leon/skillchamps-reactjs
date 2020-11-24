@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function AddScore(props: any) {
   const classes = useStyles();
-  const [scoreInfo, setScoreInfo] = useState<any>({});
+  // const [scoreInfo, setScoreInfo] = useState<any>({});
   const [penaltiesConf, setPenaltiesConf] = useState<any[]>([]);
   const [bonusesConf, setBonusesConf] = useState<any[]>([]);
   const [activeModal, setactiveModal] = useState<any>("");
@@ -73,14 +73,17 @@ export default function AddScore(props: any) {
 
   useEffect(() => {
     updateFinalTime();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pens]);
 
   useEffect(() => {
     updateFinalTime();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bons]);
 
   useEffect(() => {
     updateFinalTime();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [baseTime]);
 
   function stringToMS(tm: string[]) {
@@ -159,7 +162,7 @@ export default function AddScore(props: any) {
     base
       .get(`/score/${score_id}`)
       .then((r) => {
-        setScoreInfo(r.data);
+        // setScoreInfo(r.data);
         const pensTemp: any[] = [];
         const bonsTemp: any[] = [];
         for (const pen of r.data.penalties) {
@@ -197,6 +200,7 @@ export default function AddScore(props: any) {
         }, 500);
       })
       .catch(() => {});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -860,21 +864,21 @@ export default function AddScore(props: any) {
     return modals[modalName] || null;
   };
 
-  const onFinish = () => {
-    // TODO: fazer um modal confirmando o fim da corrida
+  // const onFinish = () => {
+  //   // TODO: fazer um modal confirmando o fim da corrida
 
-    let penalties: any[] = [];
-    for (let i = 0; i < penaltiesConf.length; i++) {
-      penalties.push({
-        penalty_conf_id: penaltiesConf[i].id,
-        quantity: pens[i] || 0,
-      });
-    }
+  //   let penalties: any[] = [];
+  //   for (let i = 0; i < penaltiesConf.length; i++) {
+  //     penalties.push({
+  //       penalty_conf_id: penaltiesConf[i].id,
+  //       quantity: pens[i] || 0,
+  //     });
+  //   }
 
-    const body = { ...point, penalties };
+  //   const body = { ...point, penalties };
 
-    // console.log(body);
-  };
+  //   // console.log(body);
+  // };
 
   return (
     <>

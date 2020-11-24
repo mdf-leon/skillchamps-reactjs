@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Message from "components/Message";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import AppBar from "components/AppBar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -55,10 +54,6 @@ const useStyles = makeStyles((theme) => ({
     position: "unset",
   },
 }));
-
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 export default function NewTrials(props: any) {
   const classes = useStyles();
@@ -144,7 +139,7 @@ export default function NewTrials(props: any) {
         {...props}
       />
       <AppBar title="Choose new trial" {...props} />
-      <div style={{ paddingTop: "10px", minHeight: "100%" }}>
+      <div style={{ paddingTop: "1px", minHeight: "100%" }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>

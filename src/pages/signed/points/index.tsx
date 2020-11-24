@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Message from "components/Message";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import AppBar from "components/AppBar";
 import { Modal } from "components";
 import {
@@ -18,13 +17,12 @@ import {
   PenaltyDiv,
   MainDiv,
   ShowTimeInput,
-  Blackground,
 } from "./styles";
 import { base } from "../../../config/api";
-import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 import { Duration } from "luxon";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     mainCardText: {
       color: "white",
@@ -43,9 +41,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 export default function AddScore(props) {
   const classes = useStyles();
@@ -77,15 +72,18 @@ export default function AddScore(props) {
 
   useEffect(() => {
     updateFinalTime();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pens]);
 
   useEffect(() => {
     updateFinalTime();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bons]);
 
   useEffect(() => {
     updateFinalTime();
     console.log(point.time);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [baseTime]);
 
   function stringToMS(tm: string[]) {
@@ -160,6 +158,7 @@ export default function AddScore(props) {
         setBonusesConf(r.data);
       })
       .catch(() => {});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -170,6 +169,7 @@ export default function AddScore(props) {
 
   useEffect(() => {
     if (point.penalties) setactiveModal(confirm);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [point]);
 
   const penalty = (pen, index) => (
@@ -239,7 +239,7 @@ export default function AddScore(props) {
             }}
           >
             <RoundButton
-              onClick={(e) => {
+              onClick={() => {
                 const temp = [...pens];
                 temp[index] = (temp[index] || 0) + 1;
                 setpens(temp);
@@ -281,7 +281,7 @@ export default function AddScore(props) {
             }}
           >
             <RoundButton
-              onClick={(e) => {
+              onClick={() => {
                 const temp: any[] = [...bons];
                 if (bons[index] > 0) {
                   temp[index] = (temp[index] || 0) - 1;
@@ -320,7 +320,7 @@ export default function AddScore(props) {
             }}
           >
             <RoundButton
-              onClick={(e) => {
+              onClick={() => {
                 const temp: any[] = [...bons];
                 // se o tempo total for maior que o tempo do bonus, permite clicar no botao
                 const minutes = finalTime.split(":")[0];
@@ -571,7 +571,7 @@ export default function AddScore(props) {
     console.log(temp);
     await base
       .post(`/addScore`, temp)
-      .then((r) => {
+      .then(() => {
         props.history.push(`/beforePoints`, {
           // riderName:
           message_alert: {
@@ -748,7 +748,7 @@ export default function AddScore(props) {
     </Card>
   );
 
-  const modalContent = (modalName, id = null) => {
+  const modalContent = (modalName) => {
     const modals = {
       customTempDefine,
       finishConfirm,
@@ -758,21 +758,6 @@ export default function AddScore(props) {
     return modals[modalName] || null;
   };
 
-  const onFinish = () => {
-    // TODO: fazer um modal confirmando o fim da corrida
-
-    let penalties: any[] = [];
-    for (let i = 0; i < penaltiesConf.length; i++) {
-      penalties.push({
-        penalty_conf_id: penaltiesConf[i].id,
-        quantity: pens[i] || 0,
-      });
-    }
-
-    const body = { ...point, penalties };
-
-    // console.log(body);
-  };
 
   return (
     <>

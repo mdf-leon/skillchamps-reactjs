@@ -24,7 +24,6 @@ import Rider from "./pages/signed/Rider";
 import NewRider from "./pages/signed/Rider/newRider";
 import Trials from "./pages/signed/Trials";
 import NewTrials from "./pages/signed/Trials/newTrials";
-import AccountOptions from "./pages/signed/AccountOptions";
 // import Events from "./pages/signed/Events";
 // import Institute from "./pages/signed/Institute";
 import NewInstitute from "./pages/signed/Institute/newInstitute";
@@ -98,12 +97,6 @@ ReactDOM.render(
         <ProtectedRoute exact path="/newEvent" component={NewEvent} />
         <ProtectedRoute exact path="/beforePoints" component={BeforePoints} />
         <ProtectedRoute exact path="/points" component={Points} />
-
-        <ProtectedRoute
-          exact
-          path="/AccountOptions"
-          component={AccountOptions}
-        />
         {/* <Route exact path="/portfolio/:id" component={App} />
                 <Route path="/contact" component={App} /> */}
       </Switch>

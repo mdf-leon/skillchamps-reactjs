@@ -98,7 +98,7 @@ export default function NewRider(props: any) {
         trial success
       </Button> */}
       <AppBar title="Create a New Event" {...props} />
-      <div style={{ paddingTop: "10px", minHeight: "100%" }}>
+      <div style={{ paddingTop: "1px", minHeight: "100%" }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>

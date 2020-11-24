@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Message from "components/Message";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import AppBar from "components/AppBar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -63,9 +61,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 export default function NewRider(props: any) {
   const classes = useStyles();
@@ -117,7 +112,7 @@ export default function NewRider(props: any) {
         {...props}
       />
       <AppBar title="Create a new Rider" {...props} />
-      <div style={{ paddingTop: "10px", minHeight: "100%" }}>
+      <div style={{ paddingTop: "1px", minHeight: "100%" }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
