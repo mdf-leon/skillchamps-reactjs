@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Message from "components/Message";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
-import Sidebar from "../../../components/Sidebar";
+import AppBar from "components/AppBar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -114,13 +114,9 @@ export default function NewRider(props: any) {
       <Message
         message={messageParams.message}
         severity={messageParams.severity}
+        {...props}
       />
-      <Sidebar
-        style={{ zIndex: 1000 }}
-        topnav
-        title="New Rider"
-        rightIcon="gear"
-      />
+      <AppBar title="Create a new Rider" {...props} />
       <div style={{ paddingTop: "10px", minHeight: "100%" }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />

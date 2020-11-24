@@ -86,6 +86,7 @@ export default function NewRider(props: any) {
       <Message
         message={messageParams.message}
         severity={messageParams.severity}
+        {...props}
       />
       {/* <Button
         disableRipple
@@ -96,13 +97,7 @@ export default function NewRider(props: any) {
       >
         trial success
       </Button> */}
-      <AppBar {...props} />
-      {/* <Sidebar
-        style={{ zIndex: 1000 }}
-        topnav
-        title="New Event"
-        rightIcon="gear"
-      /> */}
+      <AppBar title="Create a New Event" {...props} />
       <div style={{ paddingTop: "10px", minHeight: "100%" }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />

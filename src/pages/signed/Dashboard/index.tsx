@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../../../components/Sidebar";
+import AppBar from "../../../components/AppBar";
 import {
   withStyles,
   Theme,
   createStyles,
   makeStyles,
 } from "@material-ui/core/styles";
+import { useParams } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -19,7 +20,6 @@ import {
   Table,
 } from "@material-ui/core";
 import { base } from "../../../config/api";
-import { useParams } from "react-router-dom";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -93,11 +93,7 @@ export default function CustomizedTables(props: any) {
 
   return (
     <>
-      <Sidebar
-        topnav
-        title={props.location.state?.trialName}
-        rightIcon="gear"
-      />
+      <AppBar title={props.location.state.trialName} {...props} />
       {data?.riders && data.riders[0].scores ? (
         <Card className={classes.root}>
           <CardContent>

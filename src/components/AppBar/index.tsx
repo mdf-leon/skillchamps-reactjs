@@ -225,10 +225,53 @@ export default function AppBarComponent(props: any) {
                   <MenuIcon />
                 </ListItemIcon>
               </ListItem>
-              <ListItem
+              <ListItem // cada um desse é um link
                 button
                 key="appbar-menu-0"
-                onClick={() =>  props.history.push("/manageableEvents")}
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  window.location.reload();
+                }}
+              >
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Log off"} />
+              </ListItem>
+              <ListItem // cada um desse é um link
+                button
+                key="appbar-menu-0"
+                onClick={() => props.history.push("/")}
+              >
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Landing page"} />
+              </ListItem>
+              {/* <ListItem // cada um desse é um link
+                button
+                key="appbar-menu-0"
+                onClick={() => props.history.push("/newInstitute")}
+              >
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary={"New Institute"} />
+              </ListItem> */}
+              <ListItem // cada um desse é um link
+                button
+                key="appbar-menu-0"
+                onClick={() => props.history.push("/eventOptions")}
+              >
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Event Options"} />
+              </ListItem>
+              <ListItem // cada um desse é um link
+                button
+                key="appbar-menu-0"
+                onClick={() => props.history.push("/manageableEvents")}
               >
                 <ListItemIcon>
                   <InboxIcon />
@@ -237,7 +280,7 @@ export default function AppBarComponent(props: any) {
               </ListItem>
             </List>
             <Divider />
-            <List>
+            {/* <List>
               {["All mail", "Trash", "Spam"].map((text, index) => (
                 <ListItem button key={text}>
                   <ListItemIcon>
@@ -246,7 +289,7 @@ export default function AppBarComponent(props: any) {
                   <ListItemText primary={text} />
                 </ListItem>
               ))}
-            </List>
+            </List> */}
           </div>
         </Drawer>
       </React.Fragment>
@@ -268,7 +311,7 @@ export default function AppBarComponent(props: any) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            New Event
+            {props.title || "no title"}
           </Typography>
           {/* <div className={classes.search}>
             <div className={classes.searchIcon}>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Sidebar from "../../../components/Sidebar";
+import AppBar from "../../../components/AppBar";
 import styles from "./styles";
 import {
   Card,
@@ -17,23 +17,18 @@ export default function EventOptions(props: any) {
 
   return (
     <>
-      <Sidebar
-        style={{ zIndex: 1000 }}
-        topnav
-        title="Event Options"
-        rightIcon="gear"
-      />
+      <AppBar title="Event Options" {...props} />
       <div className={classes.mainDiv}>
         <Card className={classes.root}>
           <CardContent className={classes.content}>
             <div>
               <Typography gutterBottom variant="h5" component="h2">
-                {props.location.state.event_name}
+                {localStorage.getItem("temp_event_name")}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                {new Date(props.location.state.event_date).toLocaleDateString(
-                  "en-US"
-                )}
+                {new Date(
+                  localStorage.getItem("temp_event_date_begin") || ""
+                ).toLocaleDateString("en-US")}
               </Typography>
             </div>
             <CardMedia
@@ -94,7 +89,7 @@ export default function EventOptions(props: any) {
           </Typography>
           <Button
             className={classes.action}
-            onClick={() => props.history.push(`/trialsChooseScores`)}
+            onClick={() => props.history.push(`/trialsAndRiderChoose`)}
             disableRipple
             size="small"
             color="primary"

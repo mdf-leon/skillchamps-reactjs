@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
-import Sidebar from "../../../components/Sidebar";
+import AppBar from "../../../components/AppBar";
 import styles from "../EventOptions/useStyles";
 import {
   Card,
@@ -36,12 +35,7 @@ export default function Trials(props: any) {
 
   return (
     <>
-      <Sidebar
-        style={{ zIndex: 1000 }}
-        topnav
-        title="Trials"
-        rightIcon="gear"
-      />
+      <AppBar title="Choose a Trial" {...props} />
       <div className={classes.mainDiv}>
         <Card className={classes.root}>
           <CardContent className={classes.content}>

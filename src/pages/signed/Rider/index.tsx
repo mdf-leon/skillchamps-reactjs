@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Message from "components/Message";
-import Sidebar from "../../../components/Sidebar";
+import AppBar from "components/AppBar";
 import styles from "./useStyles";
 import { Modal } from "components";
 import {
@@ -103,12 +103,7 @@ export default function Riders(props: any) {
   return (
     <>
       <Message {...props} />
-      <Sidebar
-        style={{ zIndex: 1000 }}
-        topnav
-        title="Riders"
-        rightIcon="gear"
-      />
+      <AppBar title="Rider list" {...props} />
       <div className={classes.mainDiv}>
         <Card className={classes.root}>
           <CardContent className={classes.content}>

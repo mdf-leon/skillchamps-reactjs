@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import Message from "components/Message";
-import Sidebar from "../../../components/Sidebar";
+import AppBar from "../../../components/AppBar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -94,12 +94,7 @@ export default function NewRider(props) {
 
   return (
     <div>
-      <Sidebar
-        style={{ zIndex: 1000 }}
-        topnav
-        title="New Institute"
-        rightIcon="gear"
-      />
+      <AppBar title="Create a New Institute" {...props} />
       {hasInstitute ? (
         <div style={{ paddingTop: "100px", textAlign: "center" }}>
           <Typography component="h1" variant="h5">
@@ -111,6 +106,7 @@ export default function NewRider(props) {
           <Message
             message={messageParams.message}
             severity={messageParams.severity}
+            {...props}
           />
           <div style={{ paddingTop: "10px", minHeight: "100%" }}>
             <Container component="main" maxWidth="xs">

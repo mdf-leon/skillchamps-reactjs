@@ -126,7 +126,7 @@ export default function BeforePoints(props) {
   return (
     <>
       <Message {...props} />
-      <AppBar title="Choose rider to Score" {...props} />
+      <AppBar title="Choose score to update" {...props} />
       <div className={classes.mainDiv}>
         <Grid>
           <Row>
@@ -180,7 +180,11 @@ export default function BeforePoints(props) {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => history.push("/points")}
+                      onClick={() =>
+                        history.push(
+                          `/editScores/${currentRiderInfo?.scores?.id}`
+                        )
+                      }
                     >
                       START
                     </Button>
@@ -239,78 +243,77 @@ export default function BeforePoints(props) {
               <TabPanel value={value} index={1} dir={theme.direction}>
                 {localStorage.getItem("ongoing_trial") ? (
                   dataRider[0] ? (
-                    dataRider.map((content, i) => (
-                      <Options
-                        key={`riders-${i}-${content.id}`}
-                        className={classes.options}
-                        style={{
-                          justifyContent: "flex-start",
-                          alignItems: "end",
-                        }}
-                        onClick={() => {
-                          if (!content.scores) {
+                    dataRider.map((content, i) =>
+                      content.scores ? (
+                        <Options
+                          key={`riders-${i}-${content.id}`}
+                          className={classes.options}
+                          style={{
+                            justifyContent: "flex-start",
+                            alignItems: "end",
+                          }}
+                          onClick={() => {
                             setCurrentRiderInfo({ ...content });
                             localStorage.setItem("ongoing_rider", content.id);
-                          }
-                          return;
-                        }}
-                      >
-                        <Avatar
-                          alt="Remy Sharp"
-                          src="https://img.discogs.com/u7AaUdt7Xw4gfZPovCQljJSXxOM=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-9136705-1475410670-6244.jpeg.jpg"
-                        />
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "flex-start",
-                            marginLeft: "16px",
                           }}
                         >
-                          <div style={{ display: "flex" }}>
+                          <Avatar
+                            alt="Remy Sharp"
+                            src="https://img.discogs.com/u7AaUdt7Xw4gfZPovCQljJSXxOM=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-9136705-1475410670-6244.jpeg.jpg"
+                          />
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "flex-start",
+                              marginLeft: "16px",
+                            }}
+                          >
+                            <div style={{ display: "flex" }}>
+                              <Typography
+                                component={"span"}
+                                style={{ margin: 0 }}
+                                gutterBottom
+                                variant="h6"
+                                color="textSecondary"
+                              >
+                                {content.id}.&nbsp;
+                              </Typography>
+                              <Typography
+                                component={"span"}
+                                style={{
+                                  margin: 0,
+                                  color: content.scores ? "#2ECC40" : "unset",
+                                }}
+                                gutterBottom
+                                variant="h6"
+                              >
+                                {content.name}
+                              </Typography>
+                            </div>
+
                             <Typography
                               component={"span"}
                               style={{ margin: 0 }}
                               gutterBottom
-                              variant="h6"
+                              variant="body2"
                               color="textSecondary"
                             >
-                              {content.id}.&nbsp;
+                              {content.category}
                             </Typography>
                             <Typography
                               component={"span"}
-                              style={{
-                                margin: 0,
-                                color: content.scores ? "#2ECC40" : "unset",
-                              }}
+                              style={{ margin: 0 }}
                               gutterBottom
-                              variant="h6"
+                              variant="body2"
+                              color="textSecondary"
                             >
-                              {content.name}
+                              Bike: {content.motorcycle}
                             </Typography>
                           </div>
-
-                          <Typography
-                            component={"span"}
-                            style={{ margin: 0 }}
-                            gutterBottom
-                            variant="body2"
-                            color="textSecondary"
-                          >
-                            {content.category}
-                          </Typography>
-                          <Typography
-                            component={"span"}
-                            style={{ margin: 0 }}
-                            gutterBottom
-                            variant="body2"
-                            color="textSecondary"
-                          >
-                            Bike: {content.motorcycle}
-                          </Typography>
-                        </div>
-                      </Options>
-                    ))
+                        </Options>
+                      ) : null
+                    )
                   ) : (
                     <Typography
                       component={"span"}

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Message from "components/Message";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import AppBar from "components/AppBar";
 import { Modal } from "components";
 import {
@@ -10,6 +9,7 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
+import { useParams } from "react-router-dom";
 import {
   TimeDiv,
   RoundButton,
@@ -18,7 +18,6 @@ import {
   PenaltyDiv,
   MainDiv,
   ShowTimeInput,
-  Blackground,
 } from "./styles";
 import { base } from "../../../config/api";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
@@ -43,12 +42,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
-export default function AddScore(props) {
+export default function AddScore(props: any) {
   const classes = useStyles();
+  const [scoreInfo, setScoreInfo] = useState<any>({});
   const [penaltiesConf, setPenaltiesConf] = useState<any[]>([]);
   const [bonusesConf, setBonusesConf] = useState<any[]>([]);
   const [activeModal, setactiveModal] = useState<any>("");
@@ -85,7 +81,6 @@ export default function AddScore(props) {
 
   useEffect(() => {
     updateFinalTime();
-    console.log(point.time);
   }, [baseTime]);
 
   function stringToMS(tm: string[]) {
@@ -99,7 +94,6 @@ export default function AddScore(props) {
 
   const updateFinalTime = () => {
     const msBase = baseTime ? Number(stringToMS(baseTime.split(":"))) : 0;
-    // console.log(base);
     setpoint({ ...point, time: msBase });
 
     let tempTime = msBase;
@@ -130,6 +124,7 @@ export default function AddScore(props) {
     setfinalTime(formatedFinalTime);
   };
 
+  let { score_id } = useParams();
   useEffect(() => {
     let params = {
       event_id: localStorage.getItem("event_id"),
@@ -142,6 +137,7 @@ export default function AddScore(props) {
         setDataTrial(r.data);
       })
       .catch(() => {});
+
     base
       .get("/managedRidersList", { params })
       .then((r) => {
@@ -160,6 +156,47 @@ export default function AddScore(props) {
         setBonusesConf(r.data);
       })
       .catch(() => {});
+    base
+      .get(`/score/${score_id}`)
+      .then((r) => {
+        setScoreInfo(r.data);
+        const pensTemp: any[] = [];
+        const bonsTemp: any[] = [];
+        for (const pen of r.data.penalties) {
+          pensTemp.push(pen.quantity);
+        }
+        for (const bon of r.data.bonuses) {
+          bonsTemp.push(bon.quantity);
+        }
+        setpens(pensTemp);
+        setbons(bonsTemp);
+        // setbons(r.data.bonuses);
+        const duration = Duration.fromObject({ milliseconds: r.data.time })
+          .normalize()
+          .shiftTo("minutes", "seconds", "milliseconds")
+          .toObject();
+        const minutesT = `${duration.minutes}`.padStart(2, "0");
+        const secondsT = `${duration.seconds}`.padStart(2, "0");
+        const millisecondsT = `${duration.milliseconds}`.padEnd(3, "0");
+        const timeT = `${minutesT}:${secondsT}.${millisecondsT}`;
+        setbaseTime(timeT);
+
+        const durationF = Duration.fromObject({
+          milliseconds: r.data.time_total,
+        })
+          .normalize()
+          .shiftTo("minutes", "seconds", "milliseconds")
+          .toObject();
+        const minutesTF = `${durationF.minutes}`.padStart(2, "0");
+        const secondsTF = `${durationF.seconds}`.padStart(2, "0");
+        const millisecondsTF = `${durationF.milliseconds}`.padEnd(3, "0");
+        const timeTF = `${minutesTF}:${secondsTF}.${millisecondsTF}`;
+
+        setTimeout(function () {
+          setfinalTime(timeTF);
+        }, 500);
+      })
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -169,7 +206,7 @@ export default function AddScore(props) {
   }, [tempTime]);
 
   useEffect(() => {
-    if (point.penalties) setactiveModal(confirm);
+    // if (point.penalties) setactiveModal(confirm);
   }, [point]);
 
   const penalty = (pen, index) => (
@@ -455,59 +492,59 @@ export default function AddScore(props) {
   //   </div>
   // );
 
-  const confirm = (
-    <div style={{ textAlign: "left" }}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div style={{ marginRight: "59px" }}>
-          <p>
-            Name: NAME
-            <br />
-            Category: CATEGORY
-            <br />
-            Position*: POSITION
-            <br />
-          </p>
-        </div>
-        <div>
-          <h3 style={{ margin: "0" }}>Realized Time</h3>
-          <h1 style={{ margin: "0" }}>00:00.000</h1>
-        </div>
-      </div>
+  // const confirm = (
+  //   <div style={{ textAlign: "left" }}>
+  //     <div style={{ display: "flex", justifyContent: "space-between" }}>
+  //       <div style={{ marginRight: "59px" }}>
+  //         <p>
+  //           Name: NAME
+  //           <br />
+  //           Category: CATEGORY
+  //           <br />
+  //           Position*: POSITION
+  //           <br />
+  //         </p>
+  //       </div>
+  //       <div>
+  //         <h3 style={{ margin: "0" }}>Realized Time</h3>
+  //         <h1 style={{ margin: "0" }}>00:00.000</h1>
+  //       </div>
+  //     </div>
 
-      <div>
-        {point.penalties
-          ? point.penalties.map((penalty) => {
-              return (
-                <p>
-                  {
-                    penaltiesConf.find(
-                      (e) => e.id === parseInt(penalty.penalty_conf_id)
-                    ).name
-                  }{" "}
-                  --- {penalty.quantity}
-                </p>
-              );
-            })
-          : null}
-      </div>
+  //     <div>
+  //       {point.penalties
+  //         ? point.penalties.map((penalty) => {
+  //             return (
+  //               <p>
+  //                 {
+  //                   penaltiesConf.find(
+  //                     (e) => e.id === parseInt(penalty.penalty_conf_id)
+  //                   ).name
+  //                 }{" "}
+  //                 --- {penalty.quantity}
+  //               </p>
+  //             );
+  //           })
+  //         : null}
+  //     </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginTop: "20px",
-        }}
-      >
-        <Button
-          style={{ color: "red", border: "1px solid red", marginRight: "10px" }}
-          onClick={() => setactiveModal("")}
-        >
-          Cancel
-        </Button>
-        <Button onClick={() => setactiveModal("")}>Continue scoring</Button>
-      </div>
-    </div>
-  );
+  //     <div
+  //       style={{
+  //         display: "flex",
+  //         justifyContent: "space-between",
+  //         marginTop: "20px",
+  //       }}
+  //     >
+  //       <Button
+  //         style={{ color: "red", border: "1px solid red", marginRight: "10px" }}
+  //         onClick={() => setactiveModal("")}
+  //       >
+  //         Cancel
+  //       </Button>
+  //       <Button onClick={() => setactiveModal("")}>Continue scoring</Button>
+  //     </div>
+  //   </div>
+  // );
 
   // const totalTempDefine = (
   //   <div>
@@ -568,14 +605,13 @@ export default function AddScore(props) {
         quantity: bons[i] || 0,
       });
     }
-    console.log(temp);
     await base
-      .post(`/addScore`, temp)
-      .then((r) => {
-        props.history.push(`/beforePoints`, {
+      .put(`/score/${score_id}`, temp)
+      .then(() => {
+        props.history.push(`/trialsAndRiderChoose`, {
           // riderName:
           message_alert: {
-            message: `Score for ${dataRider.name} created successfully`,
+            message: `Score for ${dataRider.name} updated successfully`,
             severity: "success",
           },
         });
@@ -586,8 +622,30 @@ export default function AddScore(props) {
             "Error on trying to post the score, check your internet connection",
           severity: "error",
         });
-        console.log(er);
       });
+  };
+
+  const handleDelete = async () => {
+    await base
+      .delete(`/scoree/${score_id}`)
+      .then(() => {
+        props.history.push(`/trialsAndRiderChoose`, {
+          message_alert: {
+            message: `Score for ${dataRider.name} deleted successfully`,
+            severity: "success",
+          },
+        });
+      })
+      .catch(() => {
+        console.log("oi eu errwei");
+        setMessageParams({
+          message:
+            "Error on trying to delete the score, check your internet connection",
+          severity: "error",
+        });
+        console.log(messageParams);
+      });
+    setactiveModal("");
   };
 
   const customTempDefine = (
@@ -642,6 +700,48 @@ export default function AddScore(props) {
     </div>
   );
 
+  const deleteConfirm = (
+    <Card>
+      <CardContent className={classes.content}>
+        <div
+          style={{ display: "flex", flexDirection: "column", width: "100%" }}
+        >
+          <Typography
+            style={{ textAlign: "center" }}
+            gutterBottom
+            variant="h5"
+            component="h2"
+          >
+            Do you really want to delete the score for the rider
+            {dataRider.name}?
+          </Typography>
+        </div>
+      </CardContent>
+      <CardActions style={{ justifyContent: "center" }}>
+        <Button
+          className={classes.action}
+          disableRipple
+          variant="contained"
+          size="small"
+          color="primary"
+          onClick={() => setactiveModal("")}
+        >
+          CANCEL
+        </Button>
+        <Button
+          className={classes.action}
+          disableRipple
+          variant="contained"
+          size="small"
+          color="secondary"
+          onClick={() => handleDelete()}
+        >
+          DELETE
+        </Button>
+      </CardActions>
+    </Card>
+  );
+
   const finishConfirm = (
     <Card>
       <CardContent className={classes.content}>
@@ -654,7 +754,8 @@ export default function AddScore(props) {
             variant="h5"
             component="h2"
           >
-            Do you really want to finish scoring for the rider {dataRider.name}?
+            Do you really want to finish update the score for the rider{" "}
+            {dataRider.name}?
           </Typography>
           <div style={{ margin: "auto" }}>
             <Typography
@@ -751,9 +852,10 @@ export default function AddScore(props) {
   const modalContent = (modalName, id = null) => {
     const modals = {
       customTempDefine,
+      deleteConfirm,
       finishConfirm,
       // totalTempDefine,
-      confirm,
+      // confirm,
     };
     return modals[modalName] || null;
   };
@@ -776,6 +878,11 @@ export default function AddScore(props) {
 
   return (
     <>
+      <Message
+        message={messageParams.message}
+        severity={messageParams.severity}
+        {...props}
+      />
       <Modal
         bodyStyle={{ margin: "auto 20px", width: "100%" }}
         noPadding
@@ -784,12 +891,7 @@ export default function AddScore(props) {
       >
         {modalContent(activeModal)}
       </Modal>
-      <Message
-        message={messageParams.message}
-        severity={messageParams.severity}
-        {...props}
-      />
-      <AppBar title="Scoring for a rider" {...props} />
+      <AppBar title="Update score" {...props} />
       <Card style={{ minHeight: "100%" }}>
         <MainDiv style={{ marginTop: "50px", minHeight: "100%" }}>
           <div
@@ -838,11 +940,20 @@ export default function AddScore(props) {
               }}
             >
               <Button
+                style={{ width: "100%" }}
+                variant="contained"
+                color="secondary"
+                onClick={() => setactiveModal("deleteConfirm")}
+              >
+                DELETE
+              </Button>
+              <Button
+                style={{ width: "100%", marginLeft: "10px" }}
                 variant="contained"
                 color="primary"
                 onClick={() => setactiveModal("finishConfirm")}
               >
-                FINISH
+                EDIT
               </Button>
             </div>
           </div>

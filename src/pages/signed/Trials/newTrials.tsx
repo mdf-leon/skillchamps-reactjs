@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Message from "components/Message";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
-import Sidebar from "../../../components/Sidebar";
+import AppBar from "components/AppBar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -11,7 +11,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import "date-fns";
 import { base } from "config/api";
-
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -142,13 +141,9 @@ export default function NewTrials(props: any) {
       <Message
         message={messageParams.message}
         severity={messageParams.severity}
+        {...props}
       />
-      <Sidebar
-        style={{ zIndex: 1000 }}
-        topnav
-        title="New Trial"
-        rightIcon="gear"
-      />
+      <AppBar title="Choose new trial" {...props} />
       <div style={{ paddingTop: "10px", minHeight: "100%" }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
