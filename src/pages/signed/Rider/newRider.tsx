@@ -21,16 +21,16 @@ import { base } from "config/api";
 
 const currencies = [
   {
-    value: "Beginner",
-    label: "Beginner",
+    value: "Beginners",
+    label: "Beginners",
   },
   {
     value: "Advanced",
     label: "Advanced",
   },
   {
-    value: "Police",
-    label: "Police",
+    value: "Expert",
+    label: "Expert",
   },
 ];
 

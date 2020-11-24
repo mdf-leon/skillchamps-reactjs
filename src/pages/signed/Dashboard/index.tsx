@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import AppBar from "../../../components/AppBar";
+import React, { useState, useEffect } from 'react';
+import AppBar from '../../../components/AppBar';
 import {
   withStyles,
   Theme,
   createStyles,
   makeStyles,
-} from "@material-ui/core/styles";
-import { useParams } from "react-router-dom";
+} from '@material-ui/core/styles';
+import { useParams } from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -18,8 +18,9 @@ import {
   Typography,
   TableBody,
   Table,
-} from "@material-ui/core";
-import { base } from "../../../config/api";
+} from '@material-ui/core';
+import { base } from '../../../config/api';
+import { Duration } from "luxon";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -36,7 +37,7 @@ const StyledTableCell = withStyles((theme: Theme) =>
 const StyledTableRow = withStyles((theme: Theme) =>
   createStyles({
     root: {
-      "&:nth-of-type(odd)": {
+      '&:nth-of-type(odd)': {
         backgroundColor: theme.palette.action.hover,
       },
     },
@@ -48,13 +49,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
     paddingTop: 50,
-    width: "100%",
+    width: '100%',
   },
   paper: {
     marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 }));
 
@@ -91,6 +92,18 @@ export default function CustomizedTables(props: any) {
       .catch(() => {});
   }, []);
 
+  const msToDefault = (ms) => {
+    const duration = Duration.fromObject({ milliseconds: ms })
+    .normalize()
+    .shiftTo("minutes", "seconds", "milliseconds")
+    .toObject();
+  const minutesT = `${duration.minutes}`.padStart(2, "0");
+  const secondsT = `${duration.seconds}`.padStart(2, "0");
+  const millisecondsT = `${duration.milliseconds}`.padEnd(3, "0");
+  const timeT = `${minutesT}:${secondsT}.${millisecondsT}`;
+  return timeT
+  } 
+
   return (
     <>
       <AppBar title={props.location.state.trialName} {...props} />
@@ -117,6 +130,7 @@ export default function CustomizedTables(props: any) {
                           );
                         })
                       : null}
+                      <StyledTableCell align="center">PENALTIES TOTAL</StyledTableCell>
                     {data.riders && data.riders[0]
                       ? data.riders[0].scores.bonuses?.map((bonus) => {
                           return (
@@ -130,6 +144,7 @@ export default function CustomizedTables(props: any) {
                           );
                         })
                       : null}
+                      <StyledTableCell align="center">BONUSES TOTAL</StyledTableCell>
                     <StyledTableCell align="center">TOTAL TEMP</StyledTableCell>
                   </TableRow>
                 </TableHead>
@@ -145,7 +160,7 @@ export default function CustomizedTables(props: any) {
                           {row.name}
                         </StyledTableCell>
                         <StyledTableCell align="center">
-                          {row.scores?.time || 0}
+                          {row.scores?.time ? msToDefault(row.scores?.time) : 0}
                         </StyledTableCell>
                         {row.scores?.penalties?.map((pen) => {
                           return (
@@ -154,6 +169,9 @@ export default function CustomizedTables(props: any) {
                             </StyledTableCell>
                           );
                         })}
+                        <StyledTableCell align="center">
+                          n/a
+                        </StyledTableCell>
                         {row.scores?.bonuses?.map((bonus) => {
                           return (
                             <StyledTableCell align="center">
@@ -162,7 +180,10 @@ export default function CustomizedTables(props: any) {
                           );
                         })}
                         <StyledTableCell align="center">
-                          {row.scores?.time_total || 0}
+                          n/a
+                        </StyledTableCell>
+                        <StyledTableCell align="center">
+                        {row.scores?.time_total ? msToDefault(row.scores?.time_total) : 0}
                         </StyledTableCell>
                       </StyledTableRow>
                     );
@@ -173,7 +194,7 @@ export default function CustomizedTables(props: any) {
           </CardContent>
         </Card>
       ) : (
-        <div style={{ paddingTop: "100px", textAlign: "center" }}>
+        <div style={{ paddingTop: '100px', textAlign: 'center' }}>
           <Typography component="h1" variant="h5">
             You don't have any scores yet
           </Typography>
