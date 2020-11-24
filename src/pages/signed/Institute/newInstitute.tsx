@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import Message from "components/Message";
 import AppBar from "../../../components/AppBar";
 import Button from "@material-ui/core/Button";
@@ -40,10 +39,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
 }));
-
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 export default function NewRider(props) {
   const classes = useStyles();
@@ -96,7 +91,7 @@ export default function NewRider(props) {
     <div>
       <AppBar title="Create a New Institute" {...props} />
       {hasInstitute ? (
-        <div style={{ paddingTop: "100px", textAlign: "center" }}>
+        <div style={{ paddingTop: "60px", textAlign: "center" }}>
           <Typography component="h1" variant="h5">
             You already have an institute
           </Typography>
@@ -108,7 +103,7 @@ export default function NewRider(props) {
             severity={messageParams.severity}
             {...props}
           />
-          <div style={{ paddingTop: "10px", minHeight: "100%" }}>
+          <div style={{ paddingTop: "1px", minHeight: "100%" }}>
             <Container component="main" maxWidth="xs">
               <CssBaseline />
               <div className={classes.paper}>

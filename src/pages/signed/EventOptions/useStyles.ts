@@ -7,7 +7,6 @@ const useStyles = makeStyles({
       justifyContent: "space-between",
     },
     mainDiv: {
-      paddingTop: "50px",
     },
     content: {
       display: "flex",

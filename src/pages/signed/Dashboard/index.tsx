@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
   table: {},
   root: {
     minWidth: 275,
-    paddingTop: 50,
     width: '100%',
   },
   paper: {
@@ -107,6 +106,7 @@ export default function CustomizedTables(props: any) {
         setBonusesConfs(r.data);
       })
       .catch(() => {});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const msToDefault = (ms) => {
@@ -167,7 +167,7 @@ export default function CustomizedTables(props: any) {
                             <StyledTableCell key={"pen-conf-id-"+pen.penalty_conf_id} align="center">
                               {
                                 penaltyConfs?.filter(
-                                  (conf) => conf.id == pen?.penalty_conf_id
+                                  (conf) => conf.id === pen?.penalty_conf_id
                                 )[0]?.name
                               }
                             </StyledTableCell>
@@ -183,7 +183,7 @@ export default function CustomizedTables(props: any) {
                             <StyledTableCell key={"bon-conf-id-"+bonus?.bonus_conf_id} align="center">
                               {
                                 bonusesConfs?.filter(
-                                  (conf) => conf.id == bonus?.bonus_conf_id
+                                  (conf) => conf.id === bonus?.bonus_conf_id
                                 )[0]?.name
                               }
                             </StyledTableCell>
@@ -240,7 +240,7 @@ export default function CustomizedTables(props: any) {
           </CardContent>
         </Card>
       ) : (
-        <div style={{ paddingTop: '100px', textAlign: 'center' }}>
+        <div style={{ paddingTop: '60px', textAlign: 'center' }}>
           <Typography component="h1" variant="h5">
             You don't have any scores yet
           </Typography>

@@ -11,7 +11,6 @@ import { base } from "../../../config/api";
 import {
   Card,
   CardContent,
-  CardMedia,
   Button,
   Typography,
   Avatar,
@@ -63,7 +62,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: "100%",
   },
   mainDiv: {
-    paddingTop: "50px",
   },
   card: {
     margin: "18px 8px 18px 8px",
@@ -116,6 +114,7 @@ export default function BeforePoints(props) {
       .catch((er) => {
         console.log(er);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localStorage.getItem("ongoing_trial")]);
 
   useEffect(() => {

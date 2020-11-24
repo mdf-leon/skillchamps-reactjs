@@ -5,7 +5,6 @@ const useStyles = makeStyles({
       margin: "18px 8px 0 8px",
     },
     mainDiv: {
-      paddingTop: "50px",
     },
     content: {
       display: "flex",

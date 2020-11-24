@@ -1,24 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { TopBar, DivTitles, Typography } from "./styles";
 
 const VisitorTopBar = (props: any) => {
-  const [titleId, setTitleId] = useState<any>(0);
-  const [titles] = useState<any[]>([
-    { id: 0, name: "Home" },
-    { id: 1, name: "Login" },
-    { id: 2, name: "Register" },
-  ]);
-
-  const onClickTitle = async (title) => {
-    await setTitleId(title.id);
-    if (titleId === 1) {
-      props.history.push("/login");
-    } else if (titleId === 2) {
-      props.history.push("/register");
-    }
-    return;
-  };
-
   return (
     <TopBar>
       <div style={{ display: "flex" }}>

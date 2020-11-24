@@ -1,7 +1,7 @@
 import React from "react";
 // import History from 'react-history';
 import VisitorTopBar from "components/VisitorTopBar";
-import { Link, Container, CssBaseline } from "@material-ui/core";
+import { Link, CssBaseline } from "@material-ui/core";
 import {
   Typography,
   FirstDiv,

@@ -20,6 +20,7 @@ export default function Message(props: any) {
     if (props.location.state?.message_alert?.message) {
       setOpen(true);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

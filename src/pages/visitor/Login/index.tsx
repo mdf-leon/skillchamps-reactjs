@@ -12,15 +12,11 @@ import {
   Container,
 } from "@material-ui/core";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Center, Card, Row } from "./styles";
+import { Center } from "./styles";
 // import { Typography } from "@material-ui/core";
 import { base } from "../../../config/api";
 import {
   Typography,
-  FirstDiv,
-  SecondDiv,
-  ThirdDiv,
-  FourthDiv,
   // LandPageButton,
   // DivButtons,
 } from "./stylees";
@@ -46,7 +42,7 @@ export default function Login(props: any) {
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState(false); 
+  const [, setLoading] = useState(false); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
