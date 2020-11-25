@@ -1,7 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 // import clsx from 'clsx';
-// import { lighten, makeStyles } from '@material-ui/core/styles'; 
+// import { lighten, makeStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -22,8 +22,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 // import DeleteIcon from '@material-ui/icons/Delete';
 // import FilterListIcon from '@material-ui/icons/FilterList';
 
-function createData(name, calories, ) {
-  return { name, calories,  };
+function createData(name, calories) {
+  return { name, calories };
 }
 
 const rows = [
@@ -121,36 +121,6 @@ function EnhancedTableHead(props) {
   );
 }
 
-// EnhancedTableHead.propTypes = {
-//   classes: PropTypes.object.isRequired,
-//   numSelected: PropTypes.number.isRequired,
-//   onRequestSort: PropTypes.func.isRequired,
-//   onSelectAllClick: PropTypes.func.isRequired,
-//   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-//   orderBy: PropTypes.string.isRequired,
-//   rowCount: PropTypes.number.isRequired,
-// };
-
-// const useToolbarStyles = makeStyles((theme) => ({
-//   root: {
-//     paddingLeft: theme.spacing(2),
-//     paddingRight: theme.spacing(1),
-//   },
-//   highlight:
-//     theme.palette.type === 'light'
-//       ? {
-//           color: theme.palette.secondary.main,
-//           backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-//         }
-//       : {
-//           color: theme.palette.text.primary,
-//           backgroundColor: theme.palette.secondary.dark,
-//         },
-//   title: {
-//     flex: '1 1 100%',
-//   },
-// }));
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -175,9 +145,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+type Order = 'asc' | 'desc';
+
 export default function EnhancedTable() {
   const classes = useStyles();
-  const [order, setOrder] = React.useState('asc');
+  const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState<any[]>([]);
 
@@ -218,6 +190,10 @@ export default function EnhancedTable() {
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
+  const createSortHandler = (property) => (event) => {
+    handleRequestSort(event, property);
+  };
+
   return (
     <div className={classes.root}>
       <TableContainer>
@@ -226,7 +202,7 @@ export default function EnhancedTable() {
           aria-labelledby="tableTitle"
           aria-label="enhanced table"
         >
-          <EnhancedTableHead
+          {/* <EnhancedTableHead
             classes={classes}
             numSelected={selected.length}
             order={order}
@@ -234,7 +210,53 @@ export default function EnhancedTable() {
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
             rowCount={rows.length}
-          />
+          /> */}
+          <TableHead>
+            <TableRow>
+              <TableCell
+                key={'name'}
+                align={false ? 'right' : 'left'}
+                padding={false ? 'none' : 'default'}
+                sortDirection={orderBy === 'name' ? order : false}
+              >
+                <TableSortLabel
+                  active={orderBy === 'name'}
+                  direction={orderBy === 'name' ? order : 'asc'}
+                  onClick={createSortHandler('name')}
+                >
+                  name
+                  {orderBy === 'name' ? (
+                    <span className={classes.visuallyHidden}>
+                      {order === 'desc'
+                        ? 'sorted descending'
+                        : 'sorted ascending'}
+                    </span>
+                  ) : null}
+                </TableSortLabel>
+              </TableCell>
+              <TableCell
+                key={'calories'}
+                align={false ? 'right' : 'left'}
+                padding={false ? 'none' : 'default'}
+                sortDirection={orderBy === 'calories' ? order : false}
+              >
+                <TableSortLabel
+                  active={orderBy === 'calories'}
+                  direction={orderBy === 'calories' ? order : 'asc'}
+                  onClick={createSortHandler('calories')}
+                >
+                  calories
+                  {orderBy === 'calories' ? (
+                    <span className={classes.visuallyHidden}>
+                      {order === 'desc'
+                        ? 'sorted descending'
+                        : 'sorted ascending'}
+                    </span>
+                  ) : null}
+                </TableSortLabel>
+              </TableCell>
+            </TableRow>
+          </TableHead>
           <TableBody>
             {stableSort(rows, getComparator(order, orderBy)).map(
               (row, index) => {
