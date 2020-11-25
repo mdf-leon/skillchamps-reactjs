@@ -18,9 +18,10 @@ import {
   Typography,
   TableBody,
   Table,
+  TableSortLabel,
 } from '@material-ui/core';
 import { base } from '../../../config/api';
-import { Duration } from "luxon";
+import { Duration } from 'luxon';
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -56,7 +57,20 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  visuallyHidden: {
+    border: 0,
+    clip: 'rect(0 0 0 0)',
+    height: 1,
+    margin: -1,
+    overflow: 'hidden',
+    padding: 0,
+    position: 'absolute',
+    top: 20,
+    width: 1,
+  },
 }));
+
+type Order = 'asc' | 'desc';
 
 export default function CustomizedTables(props: any) {
   const classes = useStyles();
@@ -64,6 +78,9 @@ export default function CustomizedTables(props: any) {
   const [data, setData] = useState<any>({});
   const [penaltyConfs, setPenaltyConfs] = useState<any>([]);
   const [bonusesConfs, setBonusesConfs] = useState<any>([]);
+
+  const [order, setOrder] = React.useState<Order>('asc');
+  const [orderBy, setOrderBy] = React.useState('position');
 
   let { trial_id, event_id } = useParams();
   useEffect(() => {
@@ -94,15 +111,24 @@ export default function CustomizedTables(props: any) {
 
   const msToDefault = (ms) => {
     const duration = Duration.fromObject({ milliseconds: ms })
-    .normalize()
-    .shiftTo("minutes", "seconds", "milliseconds")
-    .toObject();
-  const minutesT = `${duration.minutes}`.padStart(2, "0");
-  const secondsT = `${duration.seconds}`.padStart(2, "0");
-  const millisecondsT = `${duration.milliseconds}`.padEnd(3, "0");
-  const timeT = `${minutesT}:${secondsT}.${millisecondsT}`;
-  return timeT
-  } 
+      .normalize()
+      .shiftTo('minutes', 'seconds', 'milliseconds')
+      .toObject();
+    const minutesT = `${duration.minutes}`.padStart(2, '0');
+    const secondsT = `${duration.seconds}`.padStart(2, '0');
+    const millisecondsT = `${duration.milliseconds}`.padEnd(3, '0');
+    const timeT = `${minutesT}:${secondsT}.${millisecondsT}`;
+    return timeT;
+  };
+
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
+  const createSortHandler = (property) => (event) => {
+    handleRequestSort(event, property);
+  };
 
   return (
     <>
@@ -114,13 +140,31 @@ export default function CustomizedTables(props: any) {
               <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell>POSITION</StyledTableCell>
+                    <StyledTableCell
+                      key="position"
+                      sortDirection={orderBy === 'position' ? order : false}
+                    >
+                      <TableSortLabel
+                        active={orderBy === 'position'}
+                        direction={orderBy === 'position' ? order : 'asc'}
+                        onClick={createSortHandler('position')}
+                      >
+                        POSITION
+                        {orderBy === 'position' ? (
+                          <span className={classes.visuallyHidden}>
+                            {order === 'desc'
+                              ? 'sorted descending'
+                              : 'sorted ascending'}
+                          </span>
+                        ) : null}
+                      </TableSortLabel>
+                    </StyledTableCell>
                     <StyledTableCell>DRIVER</StyledTableCell>
                     <StyledTableCell align="center">TIME</StyledTableCell>
                     {data.riders && data.riders[0]
                       ? data.riders[0].scores.penalties.map((pen) => {
                           return (
-                            <StyledTableCell align="center">
+                            <StyledTableCell key={"pen-conf-id-"+pen.penalty_conf_id} align="center">
                               {
                                 penaltyConfs?.filter(
                                   (conf) => conf.id === pen?.penalty_conf_id
@@ -130,11 +174,13 @@ export default function CustomizedTables(props: any) {
                           );
                         })
                       : null}
-                      <StyledTableCell align="center">PENALTIES TOTAL</StyledTableCell>
+                    <StyledTableCell align="center">
+                      PENALTIES TOTAL
+                    </StyledTableCell>
                     {data.riders && data.riders[0]
                       ? data.riders[0].scores.bonuses?.map((bonus) => {
                           return (
-                            <StyledTableCell align="center">
+                            <StyledTableCell key={"bon-conf-id-"+bonus?.bonus_conf_id} align="center">
                               {
                                 bonusesConfs?.filter(
                                   (conf) => conf.id === bonus?.bonus_conf_id
@@ -144,7 +190,9 @@ export default function CustomizedTables(props: any) {
                           );
                         })
                       : null}
-                      <StyledTableCell align="center">BONUSES TOTAL</StyledTableCell>
+                    <StyledTableCell align="center">
+                      BONUSES TOTAL
+                    </StyledTableCell>
                     <StyledTableCell align="center">TOTAL TEMP</StyledTableCell>
                   </TableRow>
                 </TableHead>
@@ -164,26 +212,24 @@ export default function CustomizedTables(props: any) {
                         </StyledTableCell>
                         {row.scores?.penalties?.map((pen) => {
                           return (
-                            <StyledTableCell align="center">
+                            <StyledTableCell key={pen.id+"-pen-quantity"} align="center">
                               {pen.quantity}
                             </StyledTableCell>
                           );
                         })}
-                        <StyledTableCell align="center">
-                          n/a
-                        </StyledTableCell>
+                        <StyledTableCell align="center">n/a</StyledTableCell>
                         {row.scores?.bonuses?.map((bonus) => {
                           return (
-                            <StyledTableCell align="center">
+                            <StyledTableCell key={bonus.id+"-bon-quantity"} align="center">
                               {bonus.quantity}
                             </StyledTableCell>
                           );
                         })}
+                        <StyledTableCell align="center">n/a</StyledTableCell>
                         <StyledTableCell align="center">
-                          n/a
-                        </StyledTableCell>
-                        <StyledTableCell align="center">
-                        {row.scores?.time_total ? msToDefault(row.scores?.time_total) : 0}
+                          {row.scores?.time_total
+                            ? msToDefault(row.scores?.time_total)
+                            : 0}
                         </StyledTableCell>
                       </StyledTableRow>
                     );
