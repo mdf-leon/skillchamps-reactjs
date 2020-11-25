@@ -7,18 +7,25 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 
 function createData(name, calories) {
   return { name, calories };
 }
 
+// const rows = [
+//   createData('Cupcake', 305),
+//   createData('Donut', 452),
+//   createData('Eclair', 262),
+//   createData('Nougat', 360),
+//   createData('Oreo', 437),
+// ];
+
 const rows = [
-  createData('Cupcake', 305),
-  createData('Donut', 452),
-  createData('Eclair', 262),
-  createData('Nougat', 360),
-  createData('Oreo', 437),
+  createData('Cupcake', '22:11.111'),
+  createData('Donut', '11:22.111'),
+  createData('Eclair', '11:11.222'),
+  createData('Nougat', '33:11.111'),
+  createData('Oreo', '11:33.333'),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -76,36 +83,13 @@ type Order = 'asc' | 'desc';
 export default function EnhancedTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
-  const [selected, setSelected] = React.useState<any[]>([]);
+  const [orderBy, setOrderBy] = React.useState('position');
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected: any[] = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
-  };
-
-  const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const createSortHandler = (property) => (event) => {
     handleRequestSort(event, property);
@@ -168,16 +152,13 @@ export default function EnhancedTable() {
           <TableBody>
             {stableSort(rows, getComparator(order, orderBy)).map(
               (row, index) => {
-                const isItemSelected = isSelected(row.name);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    aria-checked={isItemSelected}
                     tabIndex={-1}
                     key={row.name}
-                    selected={isItemSelected}
                   >
                     <TableCell
                       component="th"

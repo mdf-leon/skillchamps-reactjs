@@ -23,6 +23,19 @@ import {
 import { base } from '../../../config/api';
 import { Duration } from 'luxon';
 
+//TableSortLabel
+// const StyledTableSortLabel = withStyles((theme: Theme) =>
+//   createStyles({
+//     head: {
+//       backgroundColor: theme.palette.common.black,
+//       color: theme.palette.common.white,
+//     },
+//     body: {
+//       fontSize: 14,
+//     },
+//   })
+// )(TableSortLabel);
+
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
@@ -106,7 +119,7 @@ export default function CustomizedTables(props: any) {
   const [bonusesConfs, setBonusesConfs] = useState<any>([]);
 
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [orderBy, setOrderBy] = React.useState('position');
 
   let { trial_id, event_id } = useParams();
   useEffect(() => {
@@ -115,7 +128,7 @@ export default function CustomizedTables(props: any) {
       trial_id,
     };
     base
-      .get(`/fullRanking2`, { params })
+      .get(`/fullRanking3`, { params })
       .then((r) => {
         setData(r.data);
       })
@@ -154,7 +167,6 @@ export default function CustomizedTables(props: any) {
   };
   const createSortHandler = (property) => (event) => {
     handleRequestSort(event, property);
-    console.log('oi');
   };
 
   return (
@@ -167,8 +179,10 @@ export default function CustomizedTables(props: any) {
               <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    {/* <StyledTableCell
-                      key="position"
+                    <TableCell
+                      key={'position'}
+                      align={false ? 'right' : 'left'}
+                      padding={false ? 'none' : 'default'}
                       sortDirection={orderBy === 'position' ? order : false}
                     >
                       <TableSortLabel
@@ -185,7 +199,7 @@ export default function CustomizedTables(props: any) {
                           </span>
                         ) : null}
                       </TableSortLabel>
-                    </StyledTableCell> */}
+                    </TableCell>
                     <TableCell
                       key={'name'}
                       align={false ? 'right' : 'left'}
@@ -197,7 +211,7 @@ export default function CustomizedTables(props: any) {
                         direction={orderBy === 'name' ? order : 'asc'}
                         onClick={createSortHandler('name')}
                       >
-                        name
+                        NAME
                         {orderBy === 'name' ? (
                           <span className={classes.visuallyHidden}>
                             {order === 'desc'
@@ -207,8 +221,27 @@ export default function CustomizedTables(props: any) {
                         ) : null}
                       </TableSortLabel>
                     </TableCell>
-                    <StyledTableCell>DRIVER</StyledTableCell>
-                    <StyledTableCell align="center">TIME</StyledTableCell>
+                    <TableCell
+                      key={'treated_time'}
+                      align={false ? 'right' : 'left'}
+                      padding={false ? 'none' : 'default'}
+                      sortDirection={orderBy === 'treated_time' ? order : false}
+                    >
+                      <TableSortLabel
+                        active={orderBy === 'treated_time'}
+                        direction={orderBy === 'treated_time' ? order : 'asc'}
+                        onClick={createSortHandler('treated_time')}
+                      >
+                        BASE TIME
+                        {orderBy === 'treated_time' ? (
+                          <span className={classes.visuallyHidden}>
+                            {order === 'desc'
+                              ? 'sorted descending'
+                              : 'sorted ascending'}
+                          </span>
+                        ) : null}
+                      </TableSortLabel>
+                    </TableCell>
                     {data.riders && data.riders[0]
                       ? data.riders[0].scores.penalties.map((pen) => {
                           return (
@@ -247,53 +280,77 @@ export default function CustomizedTables(props: any) {
                     <StyledTableCell align="center">
                       BONUSES TOTAL
                     </StyledTableCell>
-                    <StyledTableCell align="center">TOTAL TEMP</StyledTableCell>
+                    <TableCell
+                      key={'treated_time_total'}
+                      align={false ? 'right' : 'left'}
+                      padding={false ? 'none' : 'default'}
+                      sortDirection={
+                        orderBy === 'treated_time_total' ? order : false
+                      }
+                    >
+                      <TableSortLabel
+                        active={orderBy === 'treated_time_total'}
+                        direction={
+                          orderBy === 'treated_time_total' ? order : 'asc'
+                        }
+                        onClick={createSortHandler('treated_time_total')}
+                      >
+                        TOTAL TIME
+                        {orderBy === 'treated_time_total' ? (
+                          <span className={classes.visuallyHidden}>
+                            {order === 'desc'
+                              ? 'sorted descending'
+                              : 'sorted ascending'}
+                          </span>
+                        ) : null}
+                      </TableSortLabel>
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {stableSort(data?.riders, getComparator(order, orderBy)).map((row, i) => {
-                    if (!row.scores) return null;
-                    return (
-                      <StyledTableRow key={row.name}>
-                        <StyledTableCell component="th" scope="row">
-                          {i + 1}
-                        </StyledTableCell>
-                        <StyledTableCell component="th" scope="row">
-                          {row.name}
-                        </StyledTableCell>
-                        <StyledTableCell align="center">
-                          {row.scores?.time ? msToDefault(row.scores?.time) : 0}
-                        </StyledTableCell>
-                        {row.scores?.penalties?.map((pen) => {
-                          return (
-                            <StyledTableCell
-                              key={pen.id + '-pen-quantity'}
-                              align="center"
-                            >
-                              {pen.quantity}
-                            </StyledTableCell>
-                          );
-                        })}
-                        <StyledTableCell align="center">n/a</StyledTableCell>
-                        {row.scores?.bonuses?.map((bonus) => {
-                          return (
-                            <StyledTableCell
-                              key={bonus.id + '-bon-quantity'}
-                              align="center"
-                            >
-                              {bonus.quantity}
-                            </StyledTableCell>
-                          );
-                        })}
-                        <StyledTableCell align="center">n/a</StyledTableCell>
-                        <StyledTableCell align="center">
-                          {row.scores?.time_total
-                            ? msToDefault(row.scores?.time_total)
-                            : 0}
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    );
-                  })}
+                  {stableSort(data?.riders, getComparator(order, orderBy)).map(
+                    (row, i) => {
+                      if (!row.scores) return null;
+                      return (
+                        <StyledTableRow key={row.name}>
+                          <StyledTableCell component="th" scope="row">
+                            {row.position}
+                          </StyledTableCell>
+                          <StyledTableCell component="th" scope="row">
+                            {row.name}
+                          </StyledTableCell>
+                          <StyledTableCell align="center">
+                            {row.treated_time}
+                          </StyledTableCell>
+                          {row.scores?.penalties?.map((pen) => {
+                            return (
+                              <StyledTableCell
+                                key={pen.id + '-pen-quantity'}
+                                align="center"
+                              >
+                                {pen.quantity}
+                              </StyledTableCell>
+                            );
+                          })}
+                          <StyledTableCell align="center">n/a</StyledTableCell>
+                          {row.scores?.bonuses?.map((bonus) => {
+                            return (
+                              <StyledTableCell
+                                key={bonus.id + '-bon-quantity'}
+                                align="center"
+                              >
+                                {bonus.quantity}
+                              </StyledTableCell>
+                            );
+                          })}
+                          <StyledTableCell align="center">n/a</StyledTableCell>
+                          <StyledTableCell align="center">
+                            {row.treated_time_total}
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      );
+                    }
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
