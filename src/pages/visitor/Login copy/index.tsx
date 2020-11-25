@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import VisitorTopBar from "components/VisitorTopBar";
-// import { Button } from 'components';
 // import { Redirect } from 'react-router-dom'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
