@@ -72,6 +72,32 @@ const useStyles = makeStyles((theme) => ({
 
 type Order = 'asc' | 'desc';
 
+function stableSort(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) return order;
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
+}
+
+function descendingComparator(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
+function getComparator(order, orderBy) {
+  return order === 'desc'
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
 export default function CustomizedTables(props: any) {
   const classes = useStyles();
 
@@ -80,7 +106,7 @@ export default function CustomizedTables(props: any) {
   const [bonusesConfs, setBonusesConfs] = useState<any>([]);
 
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState('position');
+  const [orderBy, setOrderBy] = React.useState('calories');
 
   let { trial_id, event_id } = useParams();
   useEffect(() => {
@@ -106,7 +132,7 @@ export default function CustomizedTables(props: any) {
         setBonusesConfs(r.data);
       })
       .catch(() => {});
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const msToDefault = (ms) => {
@@ -128,8 +154,7 @@ export default function CustomizedTables(props: any) {
   };
   const createSortHandler = (property) => (event) => {
     handleRequestSort(event, property);
-    console.log("oi");
-    
+    console.log('oi');
   };
 
   return (
@@ -142,7 +167,7 @@ export default function CustomizedTables(props: any) {
               <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell
+                    {/* <StyledTableCell
                       key="position"
                       sortDirection={orderBy === 'position' ? order : false}
                     >
@@ -160,13 +185,37 @@ export default function CustomizedTables(props: any) {
                           </span>
                         ) : null}
                       </TableSortLabel>
-                    </StyledTableCell>
+                    </StyledTableCell> */}
+                    <TableCell
+                      key={'name'}
+                      align={false ? 'right' : 'left'}
+                      padding={false ? 'none' : 'default'}
+                      sortDirection={orderBy === 'name' ? order : false}
+                    >
+                      <TableSortLabel
+                        active={orderBy === 'name'}
+                        direction={orderBy === 'name' ? order : 'asc'}
+                        onClick={createSortHandler('name')}
+                      >
+                        name
+                        {orderBy === 'name' ? (
+                          <span className={classes.visuallyHidden}>
+                            {order === 'desc'
+                              ? 'sorted descending'
+                              : 'sorted ascending'}
+                          </span>
+                        ) : null}
+                      </TableSortLabel>
+                    </TableCell>
                     <StyledTableCell>DRIVER</StyledTableCell>
                     <StyledTableCell align="center">TIME</StyledTableCell>
                     {data.riders && data.riders[0]
                       ? data.riders[0].scores.penalties.map((pen) => {
                           return (
-                            <StyledTableCell key={"pen-conf-id-"+pen.penalty_conf_id} align="center">
+                            <StyledTableCell
+                              key={'pen-conf-id-' + pen.penalty_conf_id}
+                              align="center"
+                            >
                               {
                                 penaltyConfs?.filter(
                                   (conf) => conf.id === pen?.penalty_conf_id
@@ -182,7 +231,10 @@ export default function CustomizedTables(props: any) {
                     {data.riders && data.riders[0]
                       ? data.riders[0].scores.bonuses?.map((bonus) => {
                           return (
-                            <StyledTableCell key={"bon-conf-id-"+bonus?.bonus_conf_id} align="center">
+                            <StyledTableCell
+                              key={'bon-conf-id-' + bonus?.bonus_conf_id}
+                              align="center"
+                            >
                               {
                                 bonusesConfs?.filter(
                                   (conf) => conf.id === bonus?.bonus_conf_id
@@ -199,7 +251,7 @@ export default function CustomizedTables(props: any) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data?.riders?.map((row, i) => {
+                  {stableSort(data?.riders, getComparator(order, orderBy)).map((row, i) => {
                     if (!row.scores) return null;
                     return (
                       <StyledTableRow key={row.name}>
@@ -214,7 +266,10 @@ export default function CustomizedTables(props: any) {
                         </StyledTableCell>
                         {row.scores?.penalties?.map((pen) => {
                           return (
-                            <StyledTableCell key={pen.id+"-pen-quantity"} align="center">
+                            <StyledTableCell
+                              key={pen.id + '-pen-quantity'}
+                              align="center"
+                            >
                               {pen.quantity}
                             </StyledTableCell>
                           );
@@ -222,7 +277,10 @@ export default function CustomizedTables(props: any) {
                         <StyledTableCell align="center">n/a</StyledTableCell>
                         {row.scores?.bonuses?.map((bonus) => {
                           return (
-                            <StyledTableCell key={bonus.id+"-bon-quantity"} align="center">
+                            <StyledTableCell
+                              key={bonus.id + '-bon-quantity'}
+                              align="center"
+                            >
                               {bonus.quantity}
                             </StyledTableCell>
                           );
