@@ -15,7 +15,7 @@ const VisitorTopBar = (props: any) => {
       {/* <DehazeIcon fontSize="large" /> */}
       <DivTitles>
         <Typography
-          topbartitleactive={props.isTopBarButtonActive === "home"}
+          topbartitleactive={props.isTopBarButtonActive === "home" ? "home" : null}
           onClick={() => props.history.push("/")}
           textcolor="blue"
           variant="body2"
@@ -24,7 +24,7 @@ const VisitorTopBar = (props: any) => {
           Home
         </Typography>
         <Typography
-          topbartitleactive={props.isTopBarButtonActive === "login"}
+          topbartitleactive={props.isTopBarButtonActive === "login" ? "login" : null}
           onClick={() => props.history.push("/login")}
           textcolor="blue"
           variant="body2"
@@ -33,7 +33,7 @@ const VisitorTopBar = (props: any) => {
           Login
         </Typography>
         <Typography
-          topbartitleactive={props.isTopBarButtonActive === "register"}
+          topbartitleactive={props.isTopBarButtonActive === "register" ? "register" : null}
           onClick={() => props.history.push("/register")}
           textcolor="blue"
           variant="body2"
