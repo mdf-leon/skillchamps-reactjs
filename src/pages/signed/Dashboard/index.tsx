@@ -205,9 +205,6 @@ export default function CustomizedTables(props: any) {
               <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    {category ? (
-                      <StyledTableCell align="center">CATEGORY</StyledTableCell>
-                    ) : null}
                     <TableCell
                       key="position"
                       style={{ overflow: "hidden" }}
@@ -263,6 +260,9 @@ export default function CustomizedTables(props: any) {
                         ) : null}
                       </TableSortLabel>
                     </TableCell>
+                    {category ? (
+                      <StyledTableCell align="center">CATEGORY</StyledTableCell>
+                    ) : null}
                     <TableCell
                       key="treated_time"
                       align="center"
@@ -367,15 +367,6 @@ export default function CustomizedTables(props: any) {
                       if (!row.scores) return null;
                       return (
                         <StyledTableRow key={row.name}>
-                          {category ? (
-                            <StyledTableCell
-                              align="center"
-                              component="th"
-                              scope="row"
-                            >
-                              {row.position}
-                            </StyledTableCell>
-                          ) : null}
                           <StyledTableCell
                             align="center"
                             component="th"
@@ -390,6 +381,15 @@ export default function CustomizedTables(props: any) {
                           >
                             {row.name}
                           </StyledTableCell>
+                          {category ? (
+                            <StyledTableCell
+                              align="center"
+                              component="th"
+                              scope="row"
+                            >
+                              {row.position}
+                            </StyledTableCell>
+                          ) : null}
                           <StyledTableCell align="center">
                             {row.treated_time}
                           </StyledTableCell>
