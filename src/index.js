@@ -60,7 +60,9 @@ ReactDOM.render(
     <Router>
       <Switch>
         {/* <Route path="/" component={App} /> */}
-        <Route exact path="/" component={Home} />
+        <Route exact path="/"  >
+          <Home/>
+        </Route>
         <VisitorRoute exact path="/login" component={Login} />
         <VisitorRoute exact path="/register" component={Register} />
         <ProtectedRoute

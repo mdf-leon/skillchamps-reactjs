@@ -13,9 +13,14 @@ import {
 } from "./styles";
 // import DehazeIcon from "@material-ui/icons/Dehaze";
 
+import ComponenteF from "./ComponentF"
+
 const Home = (props: any) => {
   return (
     <div style={{ height: "100%", position: "relative" }}>
+      {/* <ComponenteF onClick={(e)=>{
+        console.log("abacate")
+      }}/> */}
       <VisitorTopBar isTopBarButtonActive="home" {...props} />
       <CssBaseline />
       <FirstDiv>
