@@ -13,7 +13,7 @@ import {
 } from "./styles";
 // import DehazeIcon from "@material-ui/icons/Dehaze";
 
-import ComponenteF from "./ComponentF"
+// import ComponenteF from "./ComponentF"
 
 const Home = (props: any) => {
   return (
@@ -21,7 +21,7 @@ const Home = (props: any) => {
       {/* <ComponenteF onClick={(e, a)=>{
         console.log("abacate")
         console.log(e.target.name, e.currentTarget.name, a)
-      }}/> */}
+      }}/> */} 
       <VisitorTopBar isTopBarButtonActive="home" {...props} />
       <CssBaseline />
       <FirstDiv>
