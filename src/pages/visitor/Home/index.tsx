@@ -18,8 +18,9 @@ import ComponenteF from "./ComponentF"
 const Home = (props: any) => {
   return (
     <div style={{ height: "100%", position: "relative" }}>
-      {/* <ComponenteF onClick={(e)=>{
+      {/* <ComponenteF onClick={(e, a)=>{
         console.log("abacate")
+        console.log(e.target.name, e.currentTarget.name, a)
       }}/> */}
       <VisitorTopBar isTopBarButtonActive="home" {...props} />
       <CssBaseline />
