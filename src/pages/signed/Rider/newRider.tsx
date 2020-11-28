@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export default function NewRider(props: any) {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState<any>();
@@ -83,6 +82,7 @@ export default function NewRider(props: any) {
     let parameters = { event_id: localStorage.getItem("event_id") };
     const rdata = {
       ...registerInfo,
+      category: registerInfo.category.toLowerCase(),
       date_of_birth: selectedDate?.toISOString().split("T")[0],
     };
     base
@@ -160,12 +160,13 @@ export default function NewRider(props: any) {
                     select
                     label="Select"
                     value={registerInfo.category}
-                    onChange={(event) =>
+                    onChange={(event) => {
                       setRegisterInfo({
                         ...registerInfo,
                         category: event.target.value,
-                      })
-                    }
+                      });
+                      console.log(event.target.value.toLowerCase());
+                    }}
                     variant="outlined"
                   >
                     {currencies.map((option) => (

@@ -121,7 +121,7 @@ function getComparator(order, orderBy) {
 
 export default function CustomizedTables(props: any) {
   const classes = useStyles();
-  const [category, setCategory] = useState<any>("");
+  const [category, setCategory] = useState<any>("advanced");
   const [data, setData] = useState<any>({});
   const [penaltyConfs, setPenaltyConfs] = useState<any>([]);
   const [bonusesConfs, setBonusesConfs] = useState<any>([]);
@@ -134,6 +134,7 @@ export default function CustomizedTables(props: any) {
     let params: any = {
       event_id,
       trial_id,
+      category,
     };
     base
       .get(`/fullRanking3`, { params })
@@ -154,7 +155,7 @@ export default function CustomizedTables(props: any) {
       })
       .catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [category]);
 
   // const msToDefault = (ms) => {
   //   const duration = Duration.fromObject({ milliseconds: ms })
@@ -180,7 +181,7 @@ export default function CustomizedTables(props: any) {
   return (
     <>
       <AppBar title={props.location.state.trialName} {...props} />
-      {data?.riders && data.riders[0].scores ? (
+      {data?.riders && data?.riders[0]?.scores ? (
         <Card className={classes.root}>
           <CardContent>
             <FormControl variant="outlined" className={classes.formControl}>
@@ -192,13 +193,10 @@ export default function CustomizedTables(props: any) {
                 onChange={(e) => setCategory(e.target.value)}
                 label="Category"
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {/* <MenuItem value={0}>None</MenuItem> */}
-                <MenuItem value={10}>Beginner</MenuItem>
-                <MenuItem value={20}>Advanced</MenuItem>
-                <MenuItem value={30}>Police</MenuItem>
+                <MenuItem value="null">None</MenuItem>
+                <MenuItem value="beginner">Beginner</MenuItem>
+                <MenuItem value="advanced">Advanced</MenuItem>
+                <MenuItem value="expert">Expert</MenuItem>
               </Select>
             </FormControl>
             <TableContainer component={Paper}>
@@ -306,9 +304,39 @@ export default function CustomizedTables(props: any) {
                           );
                         })
                       : null}
-                    <StyledTableCell align="center">
-                      PENALTIES TOTAL
-                    </StyledTableCell>
+
+                    <TableCell
+                      key="penalty_time"
+                      align="center"
+                      padding={false ? "none" : "default"}
+                      sortDirection={
+                        orderBy === "penalty_time" ? order : false
+                      }
+                    >
+                      <TableSortLabel
+                        hideSortIcon={true}
+                        active={orderBy === "penalty_time"}
+                        direction={
+                          orderBy === "penalty_time" ? order : "asc"
+                        }
+                        onClick={createSortHandler("penalty_time")}
+                      >
+                        PENALTIES TOTAL
+                        {orderBy !== "penalty_time" ? (
+                          <ImportExportIcon
+                            style={{ color: "rgb(0 0 0 / 20%)" }}
+                          />
+                        ) : null}
+                        {orderBy === "penalty_time" ? (
+                          <span className={classes.visuallyHidden}>
+                            {order === "desc"
+                              ? "sorted descending"
+                              : "sorted ascending"}
+                          </span>
+                        ) : null}
+                      </TableSortLabel>
+                    </TableCell>
+
                     {data.riders && data.riders[0]
                       ? data.riders[0].scores.bonuses?.map((bonus) => {
                           return (
@@ -325,9 +353,37 @@ export default function CustomizedTables(props: any) {
                           );
                         })
                       : null}
-                    <StyledTableCell align="center">
-                      BONUSES TOTAL
-                    </StyledTableCell>
+                    <TableCell
+                      key="bonus_time"
+                      align="center"
+                      padding={false ? "none" : "default"}
+                      sortDirection={
+                        orderBy === "bonus_time" ? order : false
+                      }
+                    >
+                      <TableSortLabel
+                        hideSortIcon={true}
+                        active={orderBy === "bonus_time"}
+                        direction={
+                          orderBy === "bonus_time" ? order : "asc"
+                        }
+                        onClick={createSortHandler("bonus_time")}
+                      >
+                        BONUSES TOTAL
+                        {orderBy !== "bonus_time" ? (
+                          <ImportExportIcon
+                            style={{ color: "rgb(0 0 0 / 20%)" }}
+                          />
+                        ) : null}
+                        {orderBy === "bonus_time" ? (
+                          <span className={classes.visuallyHidden}>
+                            {order === "desc"
+                              ? "sorted descending"
+                              : "sorted ascending"}
+                          </span>
+                        ) : null}
+                      </TableSortLabel>
+                    </TableCell>
                     <TableCell
                       key="treated_time_total"
                       align="center"
@@ -387,7 +443,7 @@ export default function CustomizedTables(props: any) {
                               component="th"
                               scope="row"
                             >
-                              {row.position}
+                              {row.category}
                             </StyledTableCell>
                           ) : null}
                           <StyledTableCell align="center">
@@ -403,7 +459,9 @@ export default function CustomizedTables(props: any) {
                               </StyledTableCell>
                             );
                           })}
-                          <StyledTableCell align="center">n/a</StyledTableCell>
+                          <StyledTableCell align="center">
+                            {row.penalty_time}
+                          </StyledTableCell>
                           {row.scores?.bonuses?.map((bonus) => {
                             return (
                               <StyledTableCell
@@ -414,7 +472,9 @@ export default function CustomizedTables(props: any) {
                               </StyledTableCell>
                             );
                           })}
-                          <StyledTableCell align="center">n/a</StyledTableCell>
+                          <StyledTableCell align="center">
+                            {row.bonus_time}
+                          </StyledTableCell>
                           <StyledTableCell align="center">
                             {row.treated_time_total}
                           </StyledTableCell>
