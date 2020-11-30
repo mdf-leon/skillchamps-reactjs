@@ -96,16 +96,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
 export default function FirstTable(props: any) {
   const classes = useStyles();
   const [data, setData] = useState<any>({});
@@ -136,6 +126,7 @@ export default function FirstTable(props: any) {
         setData(r.data);
       })
       .catch(() => {});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const customTableConeMaster = (coner_mater) => {
