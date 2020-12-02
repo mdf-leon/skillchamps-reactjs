@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import AppBar from "../../../components/AppBar";
+import React, { useState, useEffect } from 'react';
+import AppBar from '../../../components/AppBar';
 import {
   withStyles,
   Theme,
   createStyles,
   makeStyles,
-} from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+} from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import {
   Paper,
   TableRow,
@@ -17,10 +17,10 @@ import {
   Typography,
   Card,
   CardContent,
-} from "@material-ui/core";
-import qs from "query-string";
-import { base } from "config/api";
-import { TableCell, TitleDiv, TheConeMasterDiv } from "./styles";
+} from '@material-ui/core';
+import qs from 'query-string';
+import { base } from 'config/api';
+import { TableCell, TitleDiv, TheConeMasterDiv } from './styles';
 // import { Duration } from "luxon";
 
 //TableSortLabel
@@ -48,7 +48,7 @@ const StyledTableCell = withStyles((theme: Theme) =>
 const StyledTableRow = withStyles((theme: Theme) =>
   createStyles({
     root: {
-      "&:nth-of-type(odd)": {
+      '&:nth-of-type(odd)': {
         backgroundColor: theme.palette.action.hover,
       },
     },
@@ -58,13 +58,13 @@ const StyledTableRow = withStyles((theme: Theme) =>
 const useStyles = makeStyles((theme) => ({
   table: {},
   paper: {
-    borderTopLeftRadius: "0px",
-    borderTopRightRadius: "0px",
+    borderTopLeftRadius: '0px',
+    borderTopRightRadius: '0px',
   },
   root: {
     minWidth: 275,
-    width: "100%",
-    height: "calc(100% - 64px)",
+    width: '100%',
+    height: 'calc(100% - 64px)',
   },
   // paper: {
   //   marginTop: theme.spacing(8),
@@ -74,12 +74,12 @@ const useStyles = makeStyles((theme) => ({
   // },
   visuallyHidden: {
     border: 0,
-    clip: "rect(0 0 0 0)",
+    clip: 'rect(0 0 0 0)',
     height: 1,
     margin: -1,
-    overflow: "hidden",
+    overflow: 'hidden',
     padding: 0,
-    position: "absolute",
+    position: 'absolute',
     top: 20,
     width: 1,
   },
@@ -91,8 +91,8 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 120,
   },
   gridConeMaster: {
-    display: "flex",
-    justifyContent: "center",
+    display: 'flex',
+    justifyContent: 'center',
   },
 }));
 
@@ -111,7 +111,7 @@ export default function FirstTable(props: any) {
 
       tempParametersNameObject[letter] = {
         ...tempParametersNameObject[letter],
-        [word]: parameters[word + "_" + letter],
+        [word]: parameters[word + '_' + letter],
       };
     }
 
@@ -119,6 +119,7 @@ export default function FirstTable(props: any) {
     for (const key in tempParametersNameObject) {
       tempParametersNameArray.push(tempParametersNameObject[key]);
     }
+    console.log(tempParametersNameArray);
 
     base
       .post(`/allRanking`, { events_request: tempParametersNameArray })
@@ -126,7 +127,7 @@ export default function FirstTable(props: any) {
         setData(r.data);
       })
       .catch(() => {});
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const customTableConeMaster = (coner_mater) => {
@@ -145,7 +146,7 @@ export default function FirstTable(props: any) {
                   <StyledTableRow key={i + 1}>
                     <StyledTableCell align="center">
                       <div
-                        style={{ display: "flex", justifyContent: "center" }}
+                        style={{ display: 'flex', justifyContent: 'center' }}
                       >
                         <Typography
                           component="p"
@@ -172,10 +173,14 @@ export default function FirstTable(props: any) {
       <>
         <TitleDiv>
           <Typography component="h5" variant="subtitle1">
-            {event.trial_name}{" "}
-            {event.category_chosen !== "null" &&
-            event.category_chosen !== "none"
+            {event.trial_name}{' '}
+            {event.category_chosen !== 'null' &&
+            event.category_chosen !== 'none'
               ? event.category_chosen
+              : null}
+            {event.category2_chosen !== 'null' &&
+            event.category2_chosen !== 'none'
+              ? event.category2_chosen
               : null}
           </Typography>
         </TitleDiv>
@@ -197,8 +202,8 @@ export default function FirstTable(props: any) {
                         {row.name ? (
                           <div
                             style={{
-                              display: "flex",
-                              justifyContent: "center",
+                              display: 'flex',
+                              justifyContent: 'center',
                             }}
                           >
                             <Typography

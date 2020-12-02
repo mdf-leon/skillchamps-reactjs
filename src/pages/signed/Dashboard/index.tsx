@@ -121,7 +121,7 @@ function getComparator(order, orderBy) {
 
 export default function CustomizedTables(props: any) {
   const classes = useStyles();
-  const [category, setCategory] = useState<any>("advanced");
+  const [category, setCategory] = useState<any>();
   const [data, setData] = useState<any>({});
   const [penaltyConfs, setPenaltyConfs] = useState<any>([]);
   const [bonusesConfs, setBonusesConfs] = useState<any>([]);
