@@ -1,0 +1,22 @@
+{
+  "files.exclude": {
+    "public": true,
+    "node_modules": true,
+    ".vscode": true,
+    "package-lock.json": true,
+    "README.md": true,
+    "tsconfig.json": true,
+    "package.json": true,
+    ".gitignore": true,
+    ".gitattributes": true,
+    "src\\App.js": true,
+    "src\\App.css": true,
+    "src\\index.css": true,
+    "src\\App.test.js": true,
+    "src\\styles": true,
+    "src\\react-app-env.d.ts": true,
+    "src\\logo.svg": true,
+    "src\\serviceWorker.js": true,
+    "src\\setupTests.js": true
+  }
+}

@@ -238,7 +238,7 @@ export default function NewTrials(props: any) {
                 className={classes.submit}
                 onClick={() => handleAddUrlInfo()}
               >
-                Add penalties
+                Add table
               </Button>
 
               {/* RENDERS */}
@@ -318,7 +318,7 @@ export default function NewTrials(props: any) {
                 color="primary"
                 className={classes.submit}
               >
-                Create
+                View Result
               </Button>
             </form>
           </div>
