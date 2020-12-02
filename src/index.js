@@ -18,6 +18,7 @@ import Login from "./pages/visitor/Login";
 import Register from "./pages/visitor/Register";
 import Dashboard from "./pages/signed/Dashboard/";
 import TrialsChooseDashboard from "./pages/signed/Dashboard/trialsChooseDashboard";
+import BeforeResult from "./pages/signed/Result/beforeResults";
 import Result from "./pages/signed/Result/";
 import Scores from "./pages/signed/score";
 import TrialsAndRiderChoose from "./pages/signed/score/before";
@@ -69,11 +70,8 @@ ReactDOM.render(
           path="/dashboard/event/:event_id/trial/:trial_id"
           component={Dashboard}
         />
-        <ProtectedRoute
-          exact
-          path="/result"
-          component={Result}
-        />
+        <ProtectedRoute exact path="/beforeResult" component={BeforeResult} />
+        <ProtectedRoute exact path="/result" component={Result} />
         <ProtectedRoute
           exact
           path="/trialsChooseDashboard"

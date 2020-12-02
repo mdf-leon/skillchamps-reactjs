@@ -123,7 +123,6 @@ export default function AppBarComponent(props: any) {
     handleMobileMenuClose();
   };
 
-
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -273,6 +272,16 @@ export default function AppBarComponent(props: any) {
               </ListItem>
             </List>
             <Divider />
+            <ListItem // cada um desse é um link
+              button
+              key="appbar-menu-0"
+              onClick={() => props.history.push("/beforeResult")}
+            >
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Final Results"} />
+            </ListItem>
             {/* <List>
               {["All mail", "Trash", "Spam"].map((text, index) => (
                 <ListItem button key={text}>
