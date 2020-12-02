@@ -105,7 +105,7 @@ export default function BeforePoints(props) {
         console.log(er);
       });
     base
-      .get("/managedRidersList2", {
+      .get("/managedRidersList3", {
         params: { ...params, trial_id: localStorage.getItem("ongoing_trial") },
       })
       .then((r) => {
