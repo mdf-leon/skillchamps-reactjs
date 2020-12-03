@@ -141,7 +141,7 @@ export default function NewTrials(props: any) {
         severity={messageParams.severity}
         {...props}
       />
-      <AppBar title="Choose new trial" {...props} />
+      <AppBar title="Building result tables" {...props} />
       <div style={{ paddingTop: '1px', minHeight: 'calc(100% - 56px)' }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -153,7 +153,7 @@ export default function NewTrials(props: any) {
                   component="h1"
                   variant="h5"
                 >
-                  Penalties
+                  Choose trial to display
                 </Typography>
                 <FormControl
                   variant="outlined"
@@ -201,16 +201,25 @@ export default function NewTrials(props: any) {
                     labelId="Trial"
                     id="Trial"
                     value={tempInfo.trial_id}
-                    onChange={(e) =>
-                      setTempInfo({
-                        ...tempInfo,
-                        trial_id: e.target.value,
-                      })
-                    }
+                    // onChange={(e) =>
+                    //   setTempInfo({
+                    //     ...tempInfo,
+                    //     trial_id: e.target.value,
+                    //     trial_name: event.name,
+                    //   })
+                    // }
                   >
                     {tempInfo.event_id ? (
                       trials.map((trial) => (
-                        <MenuItem key={`trial-id-${trial.id}`} value={trial.id}>
+                        <MenuItem key={`trial-id-${trial.id}`} 
+                        onClick={() => {
+                          setTempInfo({
+                            ...tempInfo,
+                            trial_id: trial.id,
+                            trial_name: trial.name,
+                          });
+                        }}
+                        value={trial.id}>
                           {trial.name}
                         </MenuItem>
                       ))
@@ -340,7 +349,7 @@ export default function NewTrials(props: any) {
                       variant="body2"
                       color="textSecondary"
                     >
-                      {content.category}
+                      {content.category}&nbsp;-&nbsp;{content.category2}
                     </Typography>
                   </div>
                   <Button
