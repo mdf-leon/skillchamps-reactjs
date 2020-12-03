@@ -178,6 +178,7 @@ export default function FirstTable(props: any) {
             event.category_chosen !== 'none'
               ? event.category_chosen
               : null}
+            &nbsp;
             {event.category2_chosen !== 'null' &&
             event.category2_chosen !== 'none'
               ? event.category2_chosen
