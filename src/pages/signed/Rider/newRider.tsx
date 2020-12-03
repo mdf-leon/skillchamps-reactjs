@@ -1,63 +1,74 @@
-import React, { useState } from "react";
-import Message from "components/Message";
-import AppBar from "components/AppBar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import "date-fns";
-import DateFnsUtils from "@date-io/date-fns";
+import React, { useState } from 'react';
+import Message from 'components/Message';
+import AppBar from 'components/AppBar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
-} from "@material-ui/pickers";
-import MenuItem from "@material-ui/core/MenuItem";
-import { base } from "config/api";
+} from '@material-ui/pickers';
+import MenuItem from '@material-ui/core/MenuItem';
+import { base } from 'config/api';
 
 const currencies = [
   {
-    value: "Beginners",
-    label: "Beginners",
+    value: 'beginners',
+    label: 'Beginners',
   },
   {
-    value: "Advanced",
-    label: "Advanced",
+    value: 'advanced',
+    label: 'Advanced',
   },
   {
-    value: "Expert",
-    label: "Expert",
+    value: 'expert',
+    label: 'Expert',
+  },
+];
+
+const currencies2 = [
+  {
+    value: 'police',
+    label: 'Police',
+  },
+  {
+    value: 'civil',
+    label: 'Civil',
   },
 ];
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
   root: {
-    "& .MuiTextField-root": {
+    '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: "25ch",
+      width: '25ch',
     },
   },
   date: {
-    width: "100%",
-    margin: "8px 9px",
+    width: '100%',
+    margin: '8px 9px',
   },
   category: {
-    width: "100%",
+    width: '100%',
   },
 }));
 
@@ -65,25 +76,25 @@ export default function NewRider(props: any) {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState<any>();
   const [messageParams, setMessageParams] = useState<any>({
-    message: "",
-    severity: "",
+    message: '',
+    severity: '',
   });
   const [registerInfo, setRegisterInfo] = useState<any>({
-    name: "",
-    category: "",
-    date_of_birth: "",
-    motorcycle: "",
-    motorcycle_plate: "",
-    license_ido: "",
+    name: '',
+    category: '',
+    date_of_birth: '',
+    motorcycle: '',
+    motorcycle_plate: '',
+    license_ido: '',
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let parameters = { event_id: localStorage.getItem("event_id") };
+    let parameters = { event_id: localStorage.getItem('event_id') };
     const rdata = {
       ...registerInfo,
       category: registerInfo.category.toLowerCase(),
-      date_of_birth: selectedDate?.toISOString().split("T")[0],
+      date_of_birth: selectedDate?.toISOString().split('T')[0],
     };
     base
       .post(`/uncontrolledRegister`, { parameters, rdata })
@@ -92,14 +103,14 @@ export default function NewRider(props: any) {
           // riderName:
           message_alert: {
             message: `Rider created successfully`,
-            severity: "success",
+            severity: 'success',
           },
         });
       })
       .catch(() =>
         setMessageParams({
-          message: "Sorry, the Rider could not be created",
-          severity: "error",
+          message: 'Sorry, the Rider could not be created',
+          severity: 'error',
         })
       ); // alert rider coundt be created
   };
@@ -112,7 +123,7 @@ export default function NewRider(props: any) {
         {...props}
       />
       <AppBar title="Create a new Rider" {...props} />
-      <div style={{ paddingTop: "1px", minHeight: "100%" }}>
+      <div style={{ paddingTop: '1px', minHeight: '100%' }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
@@ -148,7 +159,7 @@ export default function NewRider(props: any) {
                       value={selectedDate}
                       onChange={setSelectedDate}
                       KeyboardButtonProps={{
-                        "aria-label": "change date",
+                        'aria-label': 'change date',
                       }}
                     />
                   </Grid>
@@ -170,6 +181,29 @@ export default function NewRider(props: any) {
                     variant="outlined"
                   >
                     {currencies.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    className={classes.category}
+                    id="outlined-select-currency"
+                    select
+                    label="Select"
+                    value={registerInfo.category2}
+                    onChange={(event) => {
+                      setRegisterInfo({
+                        ...registerInfo,
+                        category2: event.target.value,
+                      });
+                      console.log(event.target.value.toLowerCase());
+                    }}
+                    variant="outlined"
+                  >
+                    {currencies2.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
