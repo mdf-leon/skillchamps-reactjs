@@ -1,51 +1,50 @@
-import React, { useState, useEffect } from "react";
-import AppBar from "../../../components/AppBar";
-import Message from "components/Message";
-import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-import { CheckCircle, VisibilityOff, Cancel } from "@material-ui/icons";
-import { base } from "../../../config/api";
-import { Button } from "@material-ui/core";
+import React, { useState, useEffect } from 'react';
+import AppBar from '../../../components/AppBar';
+import Message from 'components/Message';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import { CheckCircle, VisibilityOff, Cancel } from '@material-ui/icons';
+import { base } from '../../../config/api';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    mainDiv: {
-    },
+    mainDiv: {},
     root: {
-      display: "flex",
-      flexDirection: "column",
-      background: "transparent",
-      boxShadow: "0px 0px 0px 0px #888888",
-      margin: "5px 0 5px 0",
-      width: "100%",
-      cursor: "pointer",
+      display: 'flex',
+      flexDirection: 'column',
+      background: 'transparent',
+      boxShadow: '0px 0px 0px 0px #888888',
+      margin: '5px 0 5px 0',
+      width: '100%',
+      cursor: 'pointer',
     },
     ternaryDiv: {
-      width: "100%",
+      width: '100%',
     },
     details: {
-      display: "flex",
-      marginLeft: "5px",
-      paddingRight: "5px",
-      flexDirection: "row",
-      borderBottom: "1px solid #D5D5D5",
-      alignItems: "center",
-      width: "100%",
+      display: 'flex',
+      marginLeft: '5px',
+      paddingRight: '5px',
+      flexDirection: 'row',
+      borderBottom: '1px solid #D5D5D5',
+      alignItems: 'center',
+      width: '100%',
     },
     content: {
-      flex: "1 0 auto",
-      padding: "16px 16px 16px 0",
+      flex: '1 0 auto',
+      padding: '16px 16px 16px 0',
     },
     cover: {
       height: 92,
       width: 151,
     },
     controls: {
-      display: "flex",
-      alignItems: "center",
+      display: 'flex',
+      alignItems: 'center',
       paddingLeft: theme.spacing(1),
       paddingBottom: theme.spacing(1),
     },
@@ -64,11 +63,11 @@ export default function ManageableEvents(props: any) {
 
   const renderIcons = (iconName) => {
     switch (iconName) {
-      case "CheckCircle":
+      case 'CheckCircle':
         return <CheckCircle />;
-      case "VisibilityOff":
+      case 'VisibilityOff':
         return <VisibilityOff />;
-      case "Cancel":
+      case 'Cancel':
         return <Cancel fill="#D5D5D5" />;
       default:
         return null;
@@ -104,7 +103,7 @@ export default function ManageableEvents(props: any) {
   const todayEvent: any[] = events[0]
     ? events.filter(
         (event) =>
-          new Date(event.date_begin?.replace(".000Z", "")).toDateString() ===
+          new Date(event.date_begin?.replace('.000Z', '')).toDateString() ===
           new Date().toDateString()
       )
     : [];
@@ -117,13 +116,13 @@ export default function ManageableEvents(props: any) {
           <Message {...props} />
           <div className={classes.mainDiv}>
             <div className={classes.ternaryDiv}>
-              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Button
                   disableRipple
                   variant="contained"
                   size="small"
                   color="primary"
-                  onClick={() => props.history.push("/newEvent")}
+                  onClick={() => props.history.push('/newEvent')}
                 >
                   NEW event
                 </Button>
@@ -131,7 +130,7 @@ export default function ManageableEvents(props: any) {
               <Typography
                 component="h6"
                 variant="h6"
-                style={{ textAlign: "center", marginTop: "22px" }}
+                style={{ textAlign: 'center', marginTop: '22px' }}
               >
                 Today
               </Typography>
@@ -141,14 +140,14 @@ export default function ManageableEvents(props: any) {
                     key={`todayEvent${event.id}`}
                     className={classes.root}
                     onClick={() => {
-                      localStorage.setItem("event_id", event.id);
-                      props.history.push(`/eventOptions`, {
+                      localStorage.setItem('event_id', event.id);
+                      props.history.push(`/eventOptions`, { 
                         event_name: event.event_name,
                         event_date: event.date_begin,
                       });
                     }}
                   >
-                    <div style={{ display: "flex", marginLeft: "5px" }}>
+                    <div style={{ display: 'flex', marginLeft: '5px' }}>
                       <CardMedia
                         className={classes.cover}
                         image="https://tracks.content.hardstyle.com/products/0/431/150/thumbs/256x256/teknoclash-elbowz.jpg"
@@ -157,15 +156,15 @@ export default function ManageableEvents(props: any) {
                       <div className={classes.details}>
                         <CardContent className={classes.content}>
                           <Typography component="h6" variant="h6">
-                            {event.event_name}
+                            {event.id}. {event.event_name}
                           </Typography>
                           <Typography variant="subtitle1" color="textSecondary">
                             {new Date(event.date_begin).toLocaleDateString(
-                              "en-US"
+                              'en-US'
                             )}
                           </Typography>
                         </CardContent>
-                        {renderIcons("Cancel")}
+                        {renderIcons('Cancel')}
                       </div>
                     </div>
                   </Card>
@@ -175,7 +174,7 @@ export default function ManageableEvents(props: any) {
                   color="textSecondary"
                   component="h6"
                   variant="h6"
-                  style={{ textAlign: "center", marginTop: "22px" }}
+                  style={{ textAlign: 'center', marginTop: '22px' }}
                 >
                   No events
                 </Typography>
@@ -186,7 +185,7 @@ export default function ManageableEvents(props: any) {
               <Typography
                 component="h6"
                 variant="h6"
-                style={{ textAlign: "center", marginTop: "22px" }}
+                style={{ textAlign: 'center', marginTop: '22px' }}
               >
                 Other Events
               </Typography>
@@ -196,16 +195,16 @@ export default function ManageableEvents(props: any) {
                     key={`events${event.id}`}
                     className={classes.root}
                     onClick={() => {
-                      localStorage.setItem("event_id", event.id);
-                      localStorage.setItem("temp_event_name", event.event_name);
+                      localStorage.setItem('event_id', event.id);
+                      localStorage.setItem('temp_event_name', event.event_name);
                       localStorage.setItem(
-                        "temp_event_date_begin",
+                        'temp_event_date_begin',
                         event.date_begin
                       );
                       props.history.push(`/eventOptions`);
                     }}
                   >
-                    <div style={{ display: "flex", marginLeft: "5px" }}>
+                    <div style={{ display: 'flex', marginLeft: '5px' }}>
                       <CardMedia
                         className={classes.cover}
                         image="https://tracks.content.hardstyle.com/products/0/431/150/thumbs/256x256/teknoclash-elbowz.jpg"
@@ -218,11 +217,11 @@ export default function ManageableEvents(props: any) {
                           </Typography>
                           <Typography variant="subtitle1" color="textSecondary">
                             {new Date(event.date_begin).toLocaleDateString(
-                              "en-US"
+                              'en-US'
                             )}
                           </Typography>
                         </CardContent>
-                        {renderIcons("Cancel")}
+                        {renderIcons('Cancel')}
                       </div>
                     </div>
                   </Card>
@@ -232,7 +231,7 @@ export default function ManageableEvents(props: any) {
                   color="textSecondary"
                   component="h6"
                   variant="h6"
-                  style={{ textAlign: "center", marginTop: "22px" }}
+                  style={{ textAlign: 'center', marginTop: '22px' }}
                 >
                   No events
                 </Typography>
@@ -245,9 +244,9 @@ export default function ManageableEvents(props: any) {
           <Typography
             component="h6"
             variant="h6"
-            style={{ textAlign: "center", marginTop: "22px" }}
+            style={{ textAlign: 'center', marginTop: '22px' }}
           >
-            You don't have an institute, please create one{" "}
+            You don't have an institute, please create one{' '}
             <a href="/newInstitute">here.</a>
           </Typography>
         </div>

@@ -133,7 +133,7 @@ export default function EventOptions(props: any) {
             Settings
           </Button>
         </div>
-        <div className={classes.options}>
+        {/* <div className={classes.options}>
           <Typography
             style={{ margin: 0 }}
             gutterBottom
@@ -150,8 +150,8 @@ export default function EventOptions(props: any) {
           >
             Settings
           </Button>
-        </div>
-        <div className={classes.options}>
+        </div> */}
+        {/* <div className={classes.options}>
           <Typography
             style={{ margin: 0 }}
             gutterBottom
@@ -168,7 +168,7 @@ export default function EventOptions(props: any) {
           >
             Settings
           </Button>
-        </div>
+        </div> */}
       </div>
     </>
   );

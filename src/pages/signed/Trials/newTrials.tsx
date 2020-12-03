@@ -217,9 +217,10 @@ export default function NewTrials(props: any) {
                     required
                     fullWidth
                     name="time_penalty"
-                    label="Penalty time"
+                    label="Penalty time (in milliseconds)"
                     id="Penalty time"
                   />
+                  <span>Warning: the time here needs to be in full milliseconds. i.e. 1000 = 1s</span>
                 </Grid>
               </Grid>
               <Button
@@ -288,9 +289,10 @@ export default function NewTrials(props: any) {
                     required
                     fullWidth
                     name="time_bonus"
-                    label="Bonuses time"
+                    label="Bonuses time (in milliseconds)"
                     id="time_bonus"
                   />
+                  <span>Warning: the time here needs to be in full milliseconds. i.e. 1000 = 1s</span>
                 </Grid>
               </Grid>
               <Button
