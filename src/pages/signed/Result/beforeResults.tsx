@@ -70,7 +70,7 @@ export default function NewTrials(props: any) {
   const classes = useStyles();
   const [events, setEvents] = useState<any[]>([]);
   const [trials, setTrials] = useState<any[]>([]);
-  const [dataPenalties, setdataPenalties] = useState<any>([]);
+  const [data, setdata] = useState<any>([]);
   const [tempInfo, setTempInfo] = useState<any>({
     event_id: "",
     event_name: "",
@@ -102,14 +102,14 @@ export default function NewTrials(props: any) {
   }, [tempInfo.event_id]);
 
   const handleAddUrlInfo = () => {
-    const temp = [...dataPenalties];
+    const temp = [...data];
     temp.push(tempInfo);
     setTempInfo({
       event_id: "",
       trial_id: "",
       category: "",
     });
-    setdataPenalties(temp);
+    setdata(temp);
   };
 
   const handleSubmit = (e) => {
@@ -242,7 +242,7 @@ export default function NewTrials(props: any) {
               </Button>
 
               {/* RENDERS */}
-              {dataPenalties[0] ? (
+              {data[0] ? (
                 <Typography
                   style={{ textAlign: "center", width: "100%" }}
                   component="h1"
@@ -251,7 +251,7 @@ export default function NewTrials(props: any) {
                   Penalties
                 </Typography>
               ) : null}
-              {dataPenalties.map((content, i) => (
+              {data.map((content, i) => (
                 <div
                   key={`infoList${content.event_id}`}
                   className={classes.options}
@@ -297,10 +297,10 @@ export default function NewTrials(props: any) {
                   </div>
                   <Button
                     onClick={() => {
-                      const temp = [...dataPenalties];
-                      // delete dataPenalties[i];
+                      const temp = [...data];
+                      // delete data[i];
                       temp.splice(i, 1);
-                      setdataPenalties(temp);
+                      setdata(temp);
                     }}
                     className={classes.action}
                     disableRipple
