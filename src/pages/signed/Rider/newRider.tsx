@@ -169,7 +169,7 @@ export default function NewRider(props: any) {
                     className={classes.category}
                     id="outlined-select-currency"
                     select
-                    label="Select"
+                    label="category"
                     value={registerInfo.category}
                     onChange={(event) => {
                       setRegisterInfo({
@@ -192,7 +192,7 @@ export default function NewRider(props: any) {
                     className={classes.category}
                     id="outlined-select-currency"
                     select
-                    label="Select"
+                    label="sub category"
                     value={registerInfo.category2}
                     onChange={(event) => {
                       setRegisterInfo({
