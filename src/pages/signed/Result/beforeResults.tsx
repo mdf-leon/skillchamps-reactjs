@@ -1,61 +1,61 @@
-import React, { useState, useEffect } from "react";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
-import Message from "components/Message";
-import AppBar from "components/AppBar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import "date-fns";
-import { base } from "config/api";
+import React, { useState, useEffect } from 'react';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import Message from 'components/Message';
+import AppBar from 'components/AppBar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import 'date-fns';
+import { base } from 'config/api';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
   root: {
-    "& .MuiTextField-root": {
+    '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: "25ch",
+      width: '25ch',
     },
   },
   date: {
-    width: "100%",
-    margin: "8px 9px",
+    width: '100%',
+    margin: '8px 9px',
   },
   category: {
-    width: "100%",
+    width: '100%',
   },
   options: {
-    display: "flex",
-    padding: "16px",
-    justifyContent: "space-between",
-    alignItems: "center",
-    background: "transparent",
-    borderBottom: "1px solid #D5D5D5",
+    display: 'flex',
+    padding: '16px',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    background: 'transparent',
+    borderBottom: '1px solid #D5D5D5',
   },
   row: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
   },
   action: {
-    position: "unset",
+    position: 'unset',
   },
   formControl: {
     margin: theme.spacing(1),
@@ -72,16 +72,17 @@ export default function NewTrials(props: any) {
   const [trials, setTrials] = useState<any[]>([]);
   const [data, setdata] = useState<any>([]);
   const [tempInfo, setTempInfo] = useState<any>({
-    event_id: "",
-    event_name: "",
-    trial_id: "",
-    trial_name: "",
-    category: "",
+    event_id: '',
+    event_name: '',
+    trial_id: '',
+    trial_name: '',
+    category: '',
+    category2: '',
   });
 
   const [messageParams, setMessageParams] = useState<any>({
-    message: "",
-    severity: "",
+    message: '',
+    severity: '',
   });
 
   useEffect(() => {
@@ -105,16 +106,32 @@ export default function NewTrials(props: any) {
     const temp = [...data];
     temp.push(tempInfo);
     setTempInfo({
-      event_id: "",
-      trial_id: "",
-      category: "",
+      event_id: '',
+      event_name: '',
+      trial_id: '',
+      trial_name: '',
+      category: '',
+      category2: '',
     });
     setdata(temp);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // props.history.push('/result')
+    const toSend: any = {};
+    for (let i = 0; i < data.length; i++) {
+      const letter = '_' + (i + 10).toString(36).toLowerCase();
+      if (data[i].event_id) toSend['event_id' + letter] = data[i].event_id;
+      if (data[i].trial_id) toSend['trial_id' + letter] = data[i].trial_id;
+      if (data[i].category) toSend['category' + letter] = data[i].category;
+      if (data[i].category2) toSend['category2' + letter] = data[i].category2;
+    }
+    let searchParams = new URLSearchParams(toSend);
+    console.log(searchParams.toString());
+    props.history.push({
+      pathname: '/result',
+      search: searchParams.toString(),
+    });
   };
 
   return (
@@ -125,14 +142,14 @@ export default function NewTrials(props: any) {
         {...props}
       />
       <AppBar title="Choose new trial" {...props} />
-      <div style={{ paddingTop: "1px", minHeight: "calc(100% - 56px)" }}>
+      <div style={{ paddingTop: '1px', minHeight: 'calc(100% - 56px)' }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
             <form onSubmit={handleSubmit} className={classes.form} noValidate>
               <Grid container spacing={2}>
                 <Typography
-                  style={{ textAlign: "center", width: "100%" }}
+                  style={{ textAlign: 'center', width: '100%' }}
                   component="h1"
                   variant="h5"
                 >
@@ -155,6 +172,7 @@ export default function NewTrials(props: any) {
                   >
                     {events.map((event) => (
                       <MenuItem
+                        key={`menuitem-${event.id}`}
                         value={event.id}
                         onClick={() => {
                           setTempInfo({
@@ -192,7 +210,9 @@ export default function NewTrials(props: any) {
                   >
                     {tempInfo.event_id ? (
                       trials.map((trial) => (
-                        <MenuItem value={trial.id}>{trial.name}</MenuItem>
+                        <MenuItem key={`trial-id-${trial.id}`} value={trial.id}>
+                          {trial.name}
+                        </MenuItem>
                       ))
                     ) : (
                       <MenuItem value="">Choose a event first</MenuItem>
@@ -229,6 +249,34 @@ export default function NewTrials(props: any) {
                     <MenuItem value="expert">Expert</MenuItem>
                   </Select>
                 </FormControl>
+                <FormControl
+                  variant="outlined"
+                  className={classes.formControl}
+                  fullWidth
+                >
+                  <InputLabel id="demo-simple-select-outlined-label">
+                    Sub Category
+                  </InputLabel>
+                  <Select
+                    name="category2"
+                    label="Category2"
+                    labelId="Category2"
+                    id="Category2"
+                    value={tempInfo.category2}
+                    onChange={(e) =>
+                      setTempInfo({
+                        ...tempInfo,
+                        category2: e.target.value,
+                      })
+                    }
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value="police">Police</MenuItem>
+                    <MenuItem value="civil">Civil</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid>
               <Button
                 type="button"
@@ -244,7 +292,7 @@ export default function NewTrials(props: any) {
               {/* RENDERS */}
               {data[0] ? (
                 <Typography
-                  style={{ textAlign: "center", width: "100%" }}
+                  style={{ textAlign: 'center', width: '100%' }}
                   component="h1"
                   variant="h5"
                 >
@@ -256,10 +304,10 @@ export default function NewTrials(props: any) {
                   key={`infoList${content.event_id}`}
                   className={classes.options}
                 >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <div style={{ display: "flex" }}>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ display: 'flex' }}>
                       <Typography
-                        component={"span"}
+                        component={'span'}
                         style={{ margin: 0 }}
                         gutterBottom
                         variant="h6"
@@ -267,13 +315,13 @@ export default function NewTrials(props: any) {
                       >
                         {content.event_id}.&nbsp;
                       </Typography>
-                      <Typography component={"span"} gutterBottom variant="h6">
+                      <Typography component={'span'} gutterBottom variant="h6">
                         {content.event_name}
                       </Typography>
                     </div>
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: 'flex' }}>
                       <Typography
-                        component={"span"}
+                        component={'span'}
                         style={{ margin: 0 }}
                         gutterBottom
                         variant="h6"
@@ -281,12 +329,12 @@ export default function NewTrials(props: any) {
                       >
                         {content.trial_id}.&nbsp;
                       </Typography>
-                      <Typography component={"span"} gutterBottom variant="h6">
+                      <Typography component={'span'} gutterBottom variant="h6">
                         {content.trial_name}
                       </Typography>
                     </div>
                     <Typography
-                      component={"span"}
+                      component={'span'}
                       style={{ margin: 0 }}
                       gutterBottom
                       variant="body2"
