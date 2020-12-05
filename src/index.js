@@ -70,7 +70,7 @@ ReactDOM.render(
           component={Dashboard}
         />
         <ProtectedRoute exact path="/beforeResult" component={BeforeResult} />
-        <ProtectedRoute exact path="/result" component={Result} />
+        <Route exact path="/result" component={Result} />
         <ProtectedRoute
           exact
           path="/trialsChooseDashboard"
