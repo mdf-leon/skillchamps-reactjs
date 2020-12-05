@@ -235,7 +235,7 @@ export default function FirstTable(props: any) {
         <CardContent>
           <Grid container spacing={3}>
             <Grid className={classes.gridConeMaster} item xs={12}>
-              <Grid item xs={4}>
+              <Grid item xl={12} sm={12} md={12} style={{width: "100%"}}>
                 {data?.the_cone_master?.length === 1 ? (
                   <TheConeMasterDiv>
                     <Typography component="h5" variant="subtitle1">
