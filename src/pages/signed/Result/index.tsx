@@ -64,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
     width: '100%',
-    height: 'calc(100% - 64px)',
   },
   // paper: {
   //   marginTop: theme.spacing(8),
