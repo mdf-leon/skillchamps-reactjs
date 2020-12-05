@@ -125,7 +125,7 @@ export default function FirstTable(props: any) {
       .then((r) => {
         setData(r.data);
       })
-      .catch(() => {});
+      .catch(() => { });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -174,12 +174,12 @@ export default function FirstTable(props: any) {
           <Typography component="h5" variant="subtitle1">
             {event.trial_name}{' '}
             {event.category_chosen !== 'null' &&
-            event.category_chosen !== 'none'
+              event.category_chosen !== 'none'
               ? event.category_chosen
               : null}
             &nbsp;
             {event.category2_chosen !== 'null' &&
-            event.category2_chosen !== 'none'
+              event.category2_chosen !== 'none'
               ? event.category2_chosen
               : null}
           </Typography>
@@ -248,13 +248,13 @@ export default function FirstTable(props: any) {
                     </div>
                   </TheConeMasterDiv>
                 ) : (
-                  customTableConeMaster(data?.the_cone_master)
-                )}
+                    customTableConeMaster(data?.the_cone_master)
+                  )}
               </Grid>
             </Grid>
 
             {data?.total_events?.map((event, i) => (
-              <Grid item key={i} xs={4}>
+              <Grid item key={i} xs={12} sm={12} md={4}>
                 {customTable(event)}
               </Grid>
             ))}
