@@ -64,7 +64,7 @@ ReactDOM.render(
         <Route exact path="/" component={Home} />
         <VisitorRoute exact path="/login" component={Login} />
         <VisitorRoute exact path="/register" component={Register} />
-        <ProtectedRoute
+        <Route
           exact
           path="/dashboard/event/:event_id/trial/:trial_id"
           component={Dashboard}

@@ -123,6 +123,7 @@ export default function CustomizedTables(props: any) {
   const classes = useStyles();
   const [category, setCategory] = useState<any>();
   const [data, setData] = useState<any>({});
+  const [trialData, settrialData] = useState<any>({});
   const [penaltyConfs, setPenaltyConfs] = useState<any>([]);
   const [bonusesConfs, setBonusesConfs] = useState<any>([]);
 
@@ -136,6 +137,12 @@ export default function CustomizedTables(props: any) {
       trial_id,
       category,
     };
+    base
+    .get(`/trial/${trial_id}`)
+    .then((r) => {
+      settrialData(r.data);
+    })
+    .catch(() => {});
     base
       .get(`/fullRanking3`, { params })
       .then((r) => {
@@ -180,7 +187,7 @@ export default function CustomizedTables(props: any) {
 
   return (
     <>
-      <AppBar title={props.location.state.trialName} {...props} />
+      <AppBar title={trialData.name || 'TRIAL NAME'} {...props} /> 
       {data?.riders && data?.riders[0]?.scores ? (
         <Card className={classes.root}>
           <CardContent>
