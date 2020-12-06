@@ -252,7 +252,7 @@ export default function NewTrials(props: any) {
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value="beginner">Beginner</MenuItem>
+                    <MenuItem value="beginners">Beginner</MenuItem>
                     <MenuItem value="advanced">Advanced</MenuItem>
                     <MenuItem value="expert">Expert</MenuItem>
                   </Select>
