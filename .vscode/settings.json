@@ -1,6 +1,5 @@
 {
   "files.exclude": {
-    "public": true,
     "node_modules": true,
     ".vscode": true,
     "package-lock.json": true,
@@ -17,6 +16,7 @@
     "src\\react-app-env.d.ts": true,
     "src\\logo.svg": true,
     "src\\serviceWorker.js": true,
-    "src\\setupTests.js": true
+    "src\\setupTests.js": true,
+    "public": true
   }
 }

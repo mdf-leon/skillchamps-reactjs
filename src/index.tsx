@@ -15,26 +15,28 @@ import { ThemeProvider } from "styled-components";
 import Home from "./pages/visitor/Home/index";
 import Login from "./pages/visitor/Login";
 import Register from "./pages/visitor/Register";
-import Dashboard from "./pages/signed/Dashboard/";
-import TrialsChooseDashboard from "./pages/signed/Dashboard/trialsChooseDashboard";
-import BeforeResult from "./pages/signed/Result/beforeResults";
-import Result from "./pages/signed/Result/";
-import Scores from "./pages/signed/score";
-import TrialsAndRiderChoose from "./pages/signed/score/before";
-import Rider from "./pages/signed/Rider";
-import NewRider from "./pages/signed/Rider/newRider";
-import Trials from "./pages/signed/Trials";
-import NewTrials from "./pages/signed/Trials/newTrials";
+import RegisterRider from "./pages/visitor/Register/Rider";
+import RegisterInstitute from "./pages/visitor/Register/Institute";
+import Dashboard from "./pages/InstituteDashboard/Dashboard";
+import TrialsChooseDashboard from "./pages/InstituteDashboard/Dashboard/trialsChooseDashboard";
+import BeforeResult from "./pages/InstituteDashboard/Result/beforeResults";
+import Result from "./pages/InstituteDashboard/Result";
+import Scores from "./pages/InstituteDashboard/score";
+import TrialsAndRiderChoose from "./pages/InstituteDashboard/score/before";
+import Rider from "./pages/InstituteDashboard/Rider";
+import NewRider from "./pages/InstituteDashboard/Rider/newRider";
+import Trials from "./pages/InstituteDashboard/Trials";
+import NewTrials from "./pages/InstituteDashboard/Trials/newTrials";
 // import Events from "./pages/signed/Events";
 // import Institute from "./pages/signed/Institute";
-import NewInstitute from "./pages/signed/Institute/newInstitute";
+import NewInstitute from "./pages/InstituteDashboard/Institute/newInstitute";
 // import CreateEvent from "./pages/signed/CreateEvent";
 // import ManageEvent from "./pages/signed/ManageEvent";
-import ManageableEvents from "./pages/signed/ManageableEvents";
-import NewEvent from "./pages/signed/ManageableEvents/newEvent";
-import BeforePoints from "./pages/signed/points/before";
-import Points from "./pages/signed/points";
-import EventOptions from "./pages/signed/EventOptions";
+import ManageableEvents from "./pages/InstituteDashboard/ManageableEvents";
+import NewEvent from "./pages/InstituteDashboard/ManageableEvents/newEvent";
+import BeforePoints from "./pages/InstituteDashboard/points/before";
+import Points from "./pages/InstituteDashboard/points";
+import EventOptions from "./pages/InstituteDashboard/EventOptions";
 
 import theme from "./styles/theme";
 
@@ -64,6 +66,8 @@ ReactDOM.render(
         <Route exact path="/" component={Home} />
         <VisitorRoute exact path="/login" component={Login} />
         <VisitorRoute exact path="/register" component={Register} />
+        <VisitorRoute exact path="/register/Rider" component={RegisterRider} />
+        <VisitorRoute exact path="/register/Institute" component={RegisterInstitute} />
         <Route
           exact
           path="/dashboard/event/:event_id/trial/:trial_id"

@@ -232,7 +232,7 @@ export default function AppBarComponent(props: any) {
               </ListItem>
               <ListItem // cada um desse é um link
                 button
-                key="appbar-menu-0"
+                key="appbar-menu-10"
                 onClick={() => props.history.push("/")}
               >
                 <ListItemIcon>
@@ -252,7 +252,7 @@ export default function AppBarComponent(props: any) {
               </ListItem> */}
               <ListItem // cada um desse é um link
                 button
-                key="appbar-menu-0"
+                key="appbar-menu-20"
                 onClick={() => props.history.push("/eventOptions")}
               >
                 <ListItemIcon>
@@ -262,7 +262,7 @@ export default function AppBarComponent(props: any) {
               </ListItem>
               <ListItem // cada um desse é um link
                 button
-                key="appbar-menu-0"
+                key="appbar-menu-30"
                 onClick={() => props.history.push("/manageableEvents")}
               >
                 <ListItemIcon>
@@ -274,7 +274,7 @@ export default function AppBarComponent(props: any) {
             <Divider />
             <ListItem // cada um desse é um link
               button
-              key="appbar-menu-0"
+              key="appbar-menu-40"
               onClick={() => props.history.push("/beforeResult")}
             >
               <ListItemIcon>

@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { CheckCircle, VisibilityOff, Cancel } from '@material-ui/icons';
 import { base } from '../../../config/api';
 import { Button } from '@material-ui/core';
+import ConeSVG from 'assets/svg/traffic-cone-svgrepo-com 1.svg';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -134,14 +135,14 @@ export default function ManageableEvents(props: any) {
               >
                 Today
               </Typography>
-              {todayEvent[0] ? (
+              {todayEvent[0] ? (  
                 todayEvent.map((event) => (
                   <Card
                     key={`todayEvent${event.id}`}
                     className={classes.root}
                     onClick={() => {
                       localStorage.setItem('event_id', event.id);
-                      props.history.push(`/eventOptions`, { 
+                      props.history.push(`/eventOptions`, {
                         event_name: event.event_name,
                         event_date: event.date_begin,
                       });
@@ -150,7 +151,11 @@ export default function ManageableEvents(props: any) {
                     <div style={{ display: 'flex', marginLeft: '5px' }}>
                       <CardMedia
                         className={classes.cover}
-                        image="https://tracks.content.hardstyle.com/products/0/431/150/thumbs/256x256/teknoclash-elbowz.jpg"
+                        image={
+                          event.photo_event
+                            ? `data:image/png;base64, ${event.photo_event}`
+                            : ConeSVG
+                        }
                         title="Live from space album cover"
                       />
                       <div className={classes.details}>
@@ -207,13 +212,17 @@ export default function ManageableEvents(props: any) {
                     <div style={{ display: 'flex', marginLeft: '5px' }}>
                       <CardMedia
                         className={classes.cover}
-                        image="https://tracks.content.hardstyle.com/products/0/431/150/thumbs/256x256/teknoclash-elbowz.jpg"
+                        image={
+                          event.photo_event
+                            ? `data:image/png;base64, ${event.photo_event}`
+                            : ConeSVG
+                        }
                         title="Live from space album cover"
                       />
                       <div className={classes.details}>
                         <CardContent className={classes.content}>
                           <Typography component="h6" variant="h6">
-                            {event.event_name}
+                            {event.id}. {event.event_name}
                           </Typography>
                           <Typography variant="subtitle1" color="textSecondary">
                             {new Date(event.date_begin).toLocaleDateString(

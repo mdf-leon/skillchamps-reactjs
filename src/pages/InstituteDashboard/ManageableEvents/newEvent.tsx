@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 export default function NewRider(props: any) {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState<any>(new Date());
-  const [eventPhoto, seteventPhoto] = useState<any>();
+  const [eventPhoto, seteventPhoto] = useState<any>(undefined);
   const [messageParams, setMessageParams] = useState<any>({
     message: '',
     severity: '',
@@ -59,28 +59,53 @@ export default function NewRider(props: any) {
     date_begin: selectedDate?.toISOString().split('T')[0],
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // const params = {
-    //   ...registerInfo,
-    //   date_begin: selectedDate?.toISOString().split('T')[0],
-    // };
-    // base
-    //   .post(`/createEvent`, params)
-    //   .then(() => { 
-    //     props.history.push('/ManageableEvents', {
-    //       message_alert: {
-    //         message: 'Event created Successfully',
-    //         severity: 'success',
-    //       },
-    //     });
-    //   })
-    //   .catch(() =>
-    //     setMessageParams({
-    //       message: 'Sorry, the Institute could not be created',
-    //       severity: 'error',
-    //     })
-    //   ); // alert rider coundt be created
+    console.log(eventPhoto);
+    const body = {
+      ...registerInfo,
+      date_begin: selectedDate?.toISOString().split('T')[0],
+    };
+    const event = await base
+      .post(`/createEvent`, body)
+      .then((r) => {
+        return r.data;
+      })
+      .catch(() => {
+        setMessageParams({
+          message: 'Sorry, the Institute could not be created',
+          severity: 'error',
+        });
+        return false;
+      }); // alert rider coundt be created
+      console.log(event.id);
+    if (!event || !event.id) return false;
+
+    const formData = new FormData();
+    formData.append('photo_event', eventPhoto);
+    await base
+      .put(`/uploadEventPhoto/${event.id}`, formData, {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      })
+      .then((r) => {
+        console.log(r.data);
+        props.history.push('/ManageableEvents', {
+          message_alert: {
+            message: 'Event created Successfully',
+            severity: 'success',
+          },
+        });
+      })
+      .catch((e) => {
+        console.log(e)
+        setMessageParams({
+          message: 'Sorry, the Image was not uploaded',
+          severity: 'error',
+        });
+        return false;
+      });
   };
 
   return (
@@ -163,10 +188,10 @@ export default function NewRider(props: any) {
                   type="file"
                   id="photo_event"
                   name="photo_event"
-                  value={eventPhoto}
+                  // value={eventPhoto}
                   onChange={(e) => {
                     if (e && e.target && e.target.files)
-                      seteventPhoto(e.target?.files[0]);
+                      seteventPhoto(e.target.files[0]);
                   }}
                 />
               </Grid>

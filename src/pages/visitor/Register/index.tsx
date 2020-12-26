@@ -1,29 +1,25 @@
-import React, { useState } from "react";
-import VisitorTopBar from "components/VisitorTopBar";
+import React from 'react';
+import VisitorTopBar from 'components/VisitorTopBar';
 import {
   Container,
   Typography,
   Box,
-  Grid,
   Link,
-  Checkbox,
-  FormControlLabel,
-  TextField,
   CssBaseline,
   Button,
   makeStyles,
-} from "@material-ui/core";
-import { base } from "config/api";
+} from '@material-ui/core';
+// import { base } from 'config/api';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
+      {'Copyright © '}
       <Link color="inherit" href="#">
         Your Website
-      </Link>{" "}
+      </Link>{' '}
       {new Date().getFullYear()}
-      {"."}
+      {'.'}
     </Typography>
   );
 }
@@ -31,12 +27,12 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -46,145 +42,37 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp(props: any) {
   const classes = useStyles();
-  const [registerInfo, setRegisterInfo] = useState<any>({
-    name: "",
-    email: "",
-    password: "",
-    r_password: "",
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    base
-      .post(`/register`, registerInfo)
-      .then(() => {
-        const fData = {
-          email: registerInfo.email,
-          password: registerInfo.password,
-        };
-        base
-          .post("/authenticate", fData)
-          .then((r) => {
-            console.log(r);
-            localStorage.setItem("token", r.data.token);
-            window.location.reload();
-          })
-          .catch((e) => {
-            console.log(e.response);
-          });
-      })
-      .catch((err) => console.log(err.response.message));
-  };
 
   return (
     <>
       <VisitorTopBar isTopBarButtonActive="register" {...props} />
-      <div style={{ paddingTop: "1px", minHeight: "100%" }}>
+      <div style={{ paddingTop: '1px', minHeight: '100%' }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
               Sign up
             </Typography>
-            <form onSubmit={handleSubmit} className={classes.form} noValidate>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={(e) =>
-                      setRegisterInfo({
-                        ...registerInfo,
-                        name: e.target.value,
-                      })
-                    }
-                    autoComplete="fname"
-                    name="firstName"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="Full Name"
-                    autoFocus
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={(e) =>
-                      setRegisterInfo({
-                        ...registerInfo,
-                        email: e.target.value,
-                      })
-                    }
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={(e) =>
-                      setRegisterInfo({
-                        ...registerInfo,
-                        password: e.target.value,
-                      })
-                    }
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={(e) =>
-                      setRegisterInfo({
-                        ...registerInfo,
-                        r_password: e.target.value,
-                      })
-                    }
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox value="allowExtraEmails" color="primary" />
-                    }
-                    label="I read and accept the terms of service."
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Sign Up
-              </Button>
-              <Grid container justify="center">
-                <Grid item>
-                  <Link href="/login" variant="body2">
-                    Already have an account? Sign in
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ marginTop: 10 }}
+              onClick={() => {
+                props.history.push(`/register/rider`);
+              }}
+            >
+              I am a RIDER
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{ marginTop: 10 }}
+              onClick={() => {
+                props.history.push(`/register/institute`);
+              }}
+            >
+              I am an INSTITUTE
+            </Button>
           </div>
           <Box mt={5}>
             <Copyright />
