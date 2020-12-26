@@ -12,7 +12,7 @@ import {
 import { ThemeProvider } from "styled-components";
 
 // import App from "./App";
-import Home from "./pages/visitor/Home/index.tsx";
+import Home from "./pages/visitor/Home/index";
 import Login from "./pages/visitor/Login";
 import Register from "./pages/visitor/Register";
 import Dashboard from "./pages/signed/Dashboard/";
