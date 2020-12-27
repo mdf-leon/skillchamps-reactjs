@@ -13,6 +13,7 @@ import { ThemeProvider } from "styled-components";
 
 // import App from "./App";
 import Home from "./pages/visitor/Home/index";
+import SharedHome from "./pages/SharedDashboard/Home/index";
 import Login from "./pages/visitor/Login";
 import Register from "./pages/visitor/Register";
 import RegisterRider from "./pages/visitor/Register/Rider";
@@ -54,7 +55,7 @@ function VisitorRoute(props) {
   if (token === null || token === undefined) {
     return <Route {...props} />;
   } else {
-    return <Redirect to="/ManageableEvents" />;
+    return <Redirect to="/dashboard/home" />;
   }
 }
 
@@ -73,6 +74,9 @@ ReactDOM.render(
           path="/dashboard/event/:event_id/trial/:trial_id"
           component={Dashboard}
         />
+
+        <ProtectedRoute exact path="/dashboard/home" component={SharedHome} />
+        
         <ProtectedRoute exact path="/beforeResult" component={BeforeResult} />
         <Route exact path="/result" component={Result} />
         <ProtectedRoute
