@@ -20,13 +20,10 @@ export default function ManageableEvents(props: any) {
 
   return (
     <>
-      <AppBar title="Manageable Events List" {...props} />
-      <div>
-        <Grid className={classes.root}>
+      <AppBar title="Dashboard" {...props} />
+        <Grid>
           <p>arobado</p>
         </Grid>
-
-      </div>
     </>
   );
 }
