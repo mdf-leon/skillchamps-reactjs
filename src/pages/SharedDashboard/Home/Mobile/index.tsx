@@ -4,7 +4,7 @@ import React from 'react';
 // import Tabs from '@material-ui/core/Tabs';
 // import Tab from '@material-ui/core/Tab';
 // import Box from '@material-ui/core/Box';
-import TabNav from './TabPanel';
+import TabNav from 'components/TabNav';
 
 // const styles = {
 //   tabs: {
@@ -45,7 +45,7 @@ export default function ManageableEvents(props: any) {
         tabList={[
           { label: 'Overview', body: testBody('aaa') },
           { label: 'Events', body: testBody('bbb') },
-          { label: 'manager', body: testBody('ccc') },
+          { label: 'Manager', body: testBody('ccc') },
         ]}
       />
     </>

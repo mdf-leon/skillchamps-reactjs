@@ -10,7 +10,7 @@ import AppBar from '../../../components/AppBar';
 import { Grid } from '@material-ui/core';
 // import ConeSVG from 'assets/svg/traffic-cone-svgrepo-com 1.svg';
 
-import MobileView from './mindex';
+import MobileView from './Mobile'; 
 
 // import { homeStyles } from './styles';
 

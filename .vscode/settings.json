@@ -14,9 +14,7 @@
     "src\\App.test.js": true,
     "src\\styles": true,
     "src\\react-app-env.d.ts": true,
-    "src\\logo.svg": true,
     "src\\serviceWorker.js": true,
-    "src\\setupTests.js": true,
-    "public": true
+    "src\\setupTests.js": true
   }
 }
