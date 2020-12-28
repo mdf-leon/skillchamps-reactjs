@@ -7,10 +7,10 @@ import AppBar from '../../../components/AppBar';
 // import Typography from '@material-ui/core/Typography';
 // import { CheckCircle, VisibilityOff, Cancel } from '@material-ui/icons';
 // import { base } from '../../../config/api';
-import { Grid, Hidden  } from '@material-ui/core';
+import { Grid, Hidden } from '@material-ui/core';
 // import ConeSVG from 'assets/svg/traffic-cone-svgrepo-com 1.svg';
 
-import MobileView from './Mobile'; 
+import MobileView from './Mobile';
 
 // import { homeStyles } from './styles';
 
@@ -24,10 +24,11 @@ export default function ManageableEvents(props: any) {
     <>
       <AppBar title="Dashboard" {...props} />
       <Grid container>
-        <Hidden smUp> 
+        <Hidden smUp>
+          {/* only shows on mobile */}
           <MobileView />
         </Hidden>
-        
+
         {/* <Grid xs={12} md={6}>
           <p>adsf</p>
         </Grid>
