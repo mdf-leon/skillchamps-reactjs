@@ -1,6 +1,5 @@
 import React from 'react';
 import AppBar from '../../../components/AppBar';
-// import Message from 'components/Message';
 // import Card from '@material-ui/core/Card';
 // import CardContent from '@material-ui/core/CardContent';
 // import CardMedia from '@material-ui/core/CardMedia';
