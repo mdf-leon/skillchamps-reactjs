@@ -11,6 +11,7 @@ import { Grid, Hidden } from '@material-ui/core';
 // import ConeSVG from 'assets/svg/traffic-cone-svgrepo-com 1.svg';
 
 import MobileView from './Mobile';
+import DesktopView from './Desktop';
 
 // import { homeStyles } from './styles';
 
@@ -25,8 +26,12 @@ export default function ManageableEvents(props: any) {
       <AppBar title="Dashboard" {...props} />
       <Grid container>
         <Hidden smUp>
-          {/* only shows on mobile */}
+          {/* only shows on mobile (not-sm and above it)*/}
           <MobileView />
+        </Hidden>
+        <Hidden xsDown>
+          {/* only shows on desktop (sm or bigger)*/}
+          <DesktopView/>
         </Hidden>
 
         {/* <Grid xs={12} md={6}>
