@@ -206,21 +206,7 @@ export default function ManageableEvents(props: any) {
     </div>
   );
 
-  const EventsView = (
-    <Card className={classes.root}>
-      <CardHeader>
-        <Typography gutterBottom variant="h5" component="h2">
-          Subscribed Events
-        </Typography>
-        <Divider />
-      </CardHeader>
-      <CardContent className={classes.subscribedEventContent}>
-        <div>
-          <SubscribedEvents {...props} />
-        </div>
-      </CardContent>
-    </Card>
-  );
+  const EventsView = <SubscribedEvents {...props} />;
 
   return (
     <>
