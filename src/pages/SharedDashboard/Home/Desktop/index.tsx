@@ -109,8 +109,12 @@ export default function DesktopHome(props: any) {
   React.useLayoutEffect(() => {
     function updateSize() {
       const vari = riderCardRef?.current?.getBoundingClientRect()?.height || 0;
-      sethistoryCardSize(window.innerHeight - vari - 128);
-      setsubscribedEventCardSize(window.innerHeight - 110);
+      sethistoryCardSize(
+        window.innerHeight - vari - 128 - (props.appBarHeight || 0)
+      );
+      setsubscribedEventCardSize(
+        window.innerHeight - 110 - (props.appBarHeight || 0)
+      );
     }
     window.addEventListener('resize', updateSize);
     updateSize();
