@@ -121,7 +121,8 @@ export default function DesktopHome(props: any) {
     }
     window.addEventListener("resize", updateSize);
     updateSize();
-    return () => window.removeEventListener("resize", updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+    // eslint-disable-next-line 
   }, []);
 
   // const modalContent = (modalName, id = null) => { // modal da paytime que eU FIZ E MATEUS N GOSTA
