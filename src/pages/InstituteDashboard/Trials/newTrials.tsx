@@ -356,7 +356,7 @@ export default function NewTrials(props: any) {
                       setdataPenalties(temp);
                     }}
                     className={classes.action}
-                    disableRipple
+                    
                     size="small"
                     color="secondary"
                   >
@@ -419,7 +419,7 @@ export default function NewTrials(props: any) {
                       setdataBonuses(temp);
                     }}
                     className={classes.action}
-                    disableRipple
+                    
                     size="small"
                     color="secondary"
                   >

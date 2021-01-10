@@ -359,7 +359,7 @@ export default function NewTrials(props: any) {
                       setdata(temp);
                     }}
                     className={classes.action}
-                    disableRipple
+                    
                     size="small"
                     color="secondary"
                   >

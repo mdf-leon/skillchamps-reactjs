@@ -38,7 +38,7 @@ import NewEvent from "./pages/InstituteDashboard/ManageableEvents/newEvent";
 import BeforePoints from "./pages/InstituteDashboard/points/before";
 import Points from "./pages/InstituteDashboard/points";
 import EventOptions from "./pages/InstituteDashboard/EventOptions";
-
+import GlobalStyles from "./global/global";
 import theme from "./styles/theme";
 
 function ProtectedRoute(props) {
@@ -68,7 +68,11 @@ ReactDOM.render(
         <VisitorRoute exact path="/login" component={Login} />
         <VisitorRoute exact path="/register" component={Register} />
         <VisitorRoute exact path="/register/Rider" component={RegisterRider} />
-        <VisitorRoute exact path="/register/Institute" component={RegisterInstitute} />
+        <VisitorRoute
+          exact
+          path="/register/Institute"
+          component={RegisterInstitute}
+        />
         <Route
           exact
           path="/dashboard/event/:event_id/trial/:trial_id"
@@ -76,7 +80,7 @@ ReactDOM.render(
         />
 
         <ProtectedRoute exact path="/dashboard/home" component={SharedHome} />
-        
+
         <ProtectedRoute exact path="/beforeResult" component={BeforeResult} />
         <Route exact path="/result" component={Result} />
         <ProtectedRoute
@@ -112,6 +116,7 @@ ReactDOM.render(
                 <Route path="/contact" component={App} /> */}
       </Switch>
     </Router>
+    <GlobalStyles />
   </ThemeProvider>,
   document.getElementById("root")
 );

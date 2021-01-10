@@ -17,6 +17,7 @@ export default function Message(props: any) {
   };
 
   useEffect(() => {
+    console.log(props.location)
     if (props.location.state?.message_alert?.message) {
       setOpen(true);
     }

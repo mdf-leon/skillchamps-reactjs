@@ -47,7 +47,7 @@ export default function Riders(props: any) {
       <CardActions style={{ justifyContent: "center" }}>
         <Button
           className={classes.action}
-          disableRipple
+          
           variant="contained"
           size="small"
           color="primary"
@@ -57,7 +57,7 @@ export default function Riders(props: any) {
         </Button>
         <Button
           className={classes.action}
-          disableRipple
+          
           variant="contained"
           size="small"
           color="secondary"
@@ -119,7 +119,7 @@ export default function Riders(props: any) {
           <CardActions className={classes.actions}>
             {/* <Button
               className={classes.action}
-              disableRipple
+              
               size="small"
               color="primary"
               onClick={() => console.log()}
@@ -128,7 +128,7 @@ export default function Riders(props: any) {
             </Button> */}
             <Button
               className={classes.action}
-              disableRipple
+              
               variant="contained"
               size="small"
               color="primary"
@@ -172,7 +172,7 @@ export default function Riders(props: any) {
             </div>
             <Button
               className={classes.action}
-              disableRipple
+              
               size="small"
               color="secondary"
               onClick={() => {

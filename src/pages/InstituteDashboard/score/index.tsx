@@ -724,7 +724,7 @@ export default function AddScore(props: any) {
       <CardActions style={{ justifyContent: "center" }}>
         <Button
           className={classes.action}
-          disableRipple
+          
           variant="contained"
           size="small"
           color="primary"
@@ -734,7 +734,7 @@ export default function AddScore(props: any) {
         </Button>
         <Button
           className={classes.action}
-          disableRipple
+          
           variant="contained"
           size="small"
           color="secondary"
@@ -831,7 +831,7 @@ export default function AddScore(props: any) {
       <CardActions style={{ justifyContent: "center" }}>
         <Button
           className={classes.action}
-          disableRipple
+          
           variant="contained"
           size="small"
           color="primary"
@@ -841,7 +841,7 @@ export default function AddScore(props: any) {
         </Button>
         <Button
           className={classes.action}
-          disableRipple
+          
           variant="contained"
           size="small"
           color="secondary"

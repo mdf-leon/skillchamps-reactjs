@@ -38,7 +38,7 @@ export default function EventOptions(props: any) {
           <CardActions style={{ justifyContent: "space-between" }}>
             <Button
               className={classes.action}
-              disableRipple
+              
               size="small"
               color="primary"
               onClick={() => console.log()}
@@ -47,7 +47,7 @@ export default function EventOptions(props: any) {
             </Button>
             <Button
               className={classes.action}
-              disableRipple
+              
               variant="contained"
               size="small"
               color="primary"
@@ -69,7 +69,7 @@ export default function EventOptions(props: any) {
           <Button
             className={classes.action}
             onClick={() => props.history.push(`/trialsChooseDashboard`)}
-            disableRipple
+            
             size="small"
             color="primary"
           >
@@ -88,7 +88,7 @@ export default function EventOptions(props: any) {
           <Button
             className={classes.action}
             onClick={() => props.history.push(`/trialsAndRiderChoose`)}
-            disableRipple
+            
             size="small"
             color="primary"
           >
@@ -107,7 +107,7 @@ export default function EventOptions(props: any) {
           <Button
             className={classes.action}
             onClick={() => props.history.push(`/trials`)}
-            disableRipple
+            
             size="small"
             color="primary"
           >
@@ -126,7 +126,7 @@ export default function EventOptions(props: any) {
           <Button
             className={classes.action}
             onClick={() => props.history.push(`/riders`)}
-            disableRipple
+            
             size="small"
             color="primary"
           >
@@ -144,7 +144,7 @@ export default function EventOptions(props: any) {
           </Typography>
           <Button
             className={classes.action}
-            disableRipple
+            
             size="small"
             color="primary"
           >
@@ -162,7 +162,7 @@ export default function EventOptions(props: any) {
           </Typography>
           <Button
             className={classes.action}
-            disableRipple
+            
             size="small"
             color="primary"
           >

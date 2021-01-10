@@ -74,7 +74,7 @@ export default function Trials(props: any) {
             </div>
             <Button
               className={classes.action}
-              disableRipple
+              
               size="small"
               color="primary"
               onClick={() => {
