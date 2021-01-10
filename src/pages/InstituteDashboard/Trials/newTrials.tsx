@@ -156,7 +156,6 @@ export default function NewTrials(props: any) {
                     autoComplete="name"
                     name="Name"
                     variant="outlined"
-                    required
                     fullWidth
                     id="Name"
                     label="Name"
@@ -180,7 +179,6 @@ export default function NewTrials(props: any) {
                     }
                     value={tempPenalties.name}
                     variant="outlined"
-                    required
                     fullWidth
                     name="penaltyName"
                     label="Penalty name"
@@ -197,7 +195,6 @@ export default function NewTrials(props: any) {
                     }
                     value={tempPenalties.description}
                     variant="outlined"
-                    required
                     fullWidth
                     name="description"
                     label="Description"
@@ -214,13 +211,31 @@ export default function NewTrials(props: any) {
                     }
                     value={tempPenalties.time_penalty}
                     variant="outlined"
-                    required
                     fullWidth
                     name="time_penalty"
                     label="Penalty time (in milliseconds)"
                     id="Penalty time"
+                    type="number"
                   />
-                  <span>Warning: the time here needs to be in full milliseconds. i.e. 1000 = 1s</span>
+                  <div className="d-flex">
+                    <Typography
+                      gutterBottom
+                      color="error"
+                      variant="subtitle2"
+                      component="p"
+                    >
+                      Warning:&nbsp;
+                    </Typography>
+                    <Typography
+                      gutterBottom
+                      color="textSecondary"
+                      variant="subtitle2"
+                      component="p"
+                    >
+                      the time here needs to be in full milliseconds. i.e. 1000
+                      = 1s
+                    </Typography>
+                  </div>
                 </Grid>
               </Grid>
               <Button
@@ -252,7 +267,6 @@ export default function NewTrials(props: any) {
                     }
                     value={tempBonuses.name}
                     variant="outlined"
-                    required
                     fullWidth
                     name="bonusesName"
                     label="Bonuses name"
@@ -269,7 +283,6 @@ export default function NewTrials(props: any) {
                     }
                     value={tempBonuses.description}
                     variant="outlined"
-                    required
                     fullWidth
                     name="bonuses_description"
                     label="Description"
@@ -286,13 +299,31 @@ export default function NewTrials(props: any) {
                     }
                     value={tempBonuses.time_bonus}
                     variant="outlined"
-                    required
                     fullWidth
                     name="time_bonus"
                     label="Bonuses time (in milliseconds)"
                     id="time_bonus"
+                    type="number"
                   />
-                  <span>Warning: the time here needs to be in full milliseconds. i.e. 1000 = 1s</span>
+                  <div className="d-flex">
+                    <Typography
+                      gutterBottom
+                      color="error"
+                      variant="subtitle2"
+                      component="p"
+                    >
+                      Warning:&nbsp;
+                    </Typography>
+                    <Typography
+                      gutterBottom
+                      color="textSecondary"
+                      variant="subtitle2"
+                      component="p"
+                    >
+                      the time here needs to be in full milliseconds. i.e. 1000
+                      = 1s
+                    </Typography>
+                  </div>
                 </Grid>
               </Grid>
               <Button
@@ -356,7 +387,6 @@ export default function NewTrials(props: any) {
                       setdataPenalties(temp);
                     }}
                     className={classes.action}
-                    
                     size="small"
                     color="secondary"
                   >
@@ -419,7 +449,6 @@ export default function NewTrials(props: any) {
                       setdataBonuses(temp);
                     }}
                     className={classes.action}
-                    
                     size="small"
                     color="secondary"
                   >

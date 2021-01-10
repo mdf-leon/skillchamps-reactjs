@@ -11,8 +11,7 @@ import ConeSVG from "assets/svg/traffic-cone-svgrepo-com 1.svg";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    mainDiv: {
-    },
+    mainDiv: {},
     root: {
       display: "flex",
       flexDirection: "column",
