@@ -22,8 +22,10 @@ import SubscribedEvents from '../SubscribedEvents';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainDiv: {
-      // overflowX: "hidden",
-      maxHeight: '100%',
+      // overflowX: 'hidden',
+      maxHeight: 'calc(100% - 64px)',
+      marginBottom: '10px',
+      paddingBottom: '10px',
     },
     root: {
       flexGrow: 1,
@@ -35,12 +37,10 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'flex-start',
     },
     historyContent: {
-      maxHeight: '90%',
       overflow: 'auto',
     },
     subscribedEventContent: {
       overflow: 'auto',
-      maxHeight: '100%',
     },
     riderImage: {
       minHeight: 110,
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function ManageableEvents(props: any) {
+export default function DesktopHome(props: any) {
   const classes = useStyles();
 
   const historyMocked = [
@@ -93,54 +93,54 @@ export default function ManageableEvents(props: any) {
   ];
 
   return (
-    <div className={classes.mainDiv}>
-      <Grid container spacing={3} style={{ maxHeight: '100%' }}>
-        <Grid item xs={6}>
-          <Card className={classes.root}>
-            <CardContent className={classes.riderContent}>
-              <CardMedia
-                className={classes.riderImage}
-                image="https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png"
-                title="Contemplative Reptile"
-              />
-              <div className="ml-20">
-                <Typography gutterBottom variant="h5" component="h2">
-                  Rider very big large name Rider very big large name
-                </Typography>
-              </div>
-            </CardContent>
-            <CardActions style={{ justifyContent: 'space-between' }}>
-              <Button
-                className={classes.action}
-                size="small"
-                color="primary"
-                onClick={() => console.log()}
-              >
-                SETTINGS
-              </Button>
-              <Button
-                className={classes.action}
-                variant="contained"
-                size="small"
-                color="primary"
-                onClick={() => props.history.push('/beforePoints')}
-              >
-                SIGN TO EVENT
-              </Button>
-            </CardActions>
-          </Card>
-
-          <Card className={classes.root}>
-            <CardHeader>
+    <Grid container spacing={3} style={{ maxHeight: '100%' }}>
+      <Grid item xs={6}>
+        <Card className={classes.root}>
+          <CardContent className={classes.riderContent}>
+            <CardMedia
+              className={classes.riderImage}
+              image="https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png"
+              title="Contemplative Reptile"
+            />
+            <div className="ml-20">
               <Typography gutterBottom variant="h5" component="h2">
-                History
+                Rider very big large name Rider very big large name
               </Typography>
-              <Divider />
-            </CardHeader>
-            <CardContent
-              className={classes.historyContent}
-              style={{ maxHeight: '70%' }}
+            </div>
+          </CardContent>
+          <CardActions style={{ justifyContent: 'space-between' }}>
+            <Button
+              className={classes.action}
+              size="small"
+              color="primary"
+              onClick={() => console.log()}
             >
+              SETTINGS
+            </Button>
+            <Button
+              className={classes.action}
+              variant="contained"
+              size="small"
+              color="primary"
+              onClick={() => props.history.push('/beforePoints')}
+            >
+              SIGN TO EVENT
+            </Button>
+          </CardActions>
+        </Card>
+
+        <Card className={classes.root}>
+          <CardHeader>
+            <Typography gutterBottom variant="h5" component="h2">
+              History
+            </Typography>
+            <Divider />
+          </CardHeader>
+          <CardContent
+            className={classes.historyContent}
+            style={{ maxHeight: '70%', overflow: 'auto' }}
+          >
+            <div>
               {historyMocked.map((history) => (
                 <div>
                   <HistoryInfoDiv>
@@ -175,25 +175,25 @@ export default function ManageableEvents(props: any) {
                   <Divider />
                 </div>
               ))}
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={6} style={{ maxHeight: '70%' }}>
-          <Card className={classes.root} style={{ maxHeight: '70%' }}>
-            <CardHeader>
-              <Typography gutterBottom variant="h5" component="h2">
-                Subscribed Events
-              </Typography>
-              <Divider />
-            </CardHeader>
-            <CardContent className={classes.subscribedEventContent}>
-              <div>
-                <SubscribedEvents {...props} />
-              </div>
-            </CardContent>
-          </Card>
-        </Grid>
+            </div>
+          </CardContent>
+        </Card>
       </Grid>
-    </div>
+      <Grid item xs={6}>
+        <Card className={classes.root}>
+          <CardHeader>
+            <Typography gutterBottom variant="h5" component="h2">
+              Subscribed Events
+            </Typography>
+            <Divider />
+          </CardHeader>
+          <CardContent className={classes.subscribedEventContent}>
+            <div>
+              {/* <SubscribedEvents {...props} /> */}
+            </div>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   );
 }

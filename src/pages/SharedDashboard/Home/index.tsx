@@ -15,7 +15,7 @@ import DesktopView from './Desktop';
 
 // import { homeStyles } from './styles';
 
-export default function ManageableEvents(props: any) {
+export default function SharedDashboardHome(props: any) {
   // const classes = homeStyles();
   // const theme = useTheme();
   // const [events, setEvents] = React.useState<any[]>([]);
@@ -23,16 +23,16 @@ export default function ManageableEvents(props: any) {
 
   // calc(100% - 64px)
   return (
-    <div style={{ maxHeight: '100%', overflow: 'hidden' }}>
-      <AppBar title="Dashboard" {...props}  />
-      <Grid container style={{ maxHeight: '100%' }}>
+    <div style={{ maxHeight: '100%', overflowX: 'hidden' }}>
+      <AppBar title="Dashboard" {...props} />
+      <Grid container style={{ maxHeight: 'calc(100% - 64px)' }}>
         <Hidden smUp>
           {/* only shows on mobile (not-sm and above it)*/}
           <MobileView />
         </Hidden>
         <Hidden xsDown>
           {/* only shows on desktop (sm or bigger)*/}
-          <DesktopView />
+          <DesktopView style={{ maxHeight: 'calc(100% - 64px)' }} />
         </Hidden>
 
         {/* <Grid xs={12} md={6}>

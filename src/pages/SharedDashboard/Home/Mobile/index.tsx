@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme: Theme) =>
 //   },
 // };
 
-export default function ManageableEvents(props: any) {
+export default function MobileHome(props: any) {
   // const classes = homeStyles();
   // const theme = useTheme();
   // const [events, setEvents] = React.useState<any[]>([]);
