@@ -23,7 +23,7 @@ export default function SharedDashboardHome(props: any) {
 
   // calc(100% - 64px)
   return (
-    <div style={{ maxHeight: '100%', overflowX: 'hidden' }}>
+    <div style={{ maxHeight: '100%', minHeight: '100%', overflowX: 'hidden' }}>
       {/* <AppBar title="Dashboard" {...props} /> */}
       <Grid container style={{ maxHeight: '100%' }}>
         <Hidden smUp>
@@ -31,8 +31,8 @@ export default function SharedDashboardHome(props: any) {
           <MobileView />
         </Hidden>
         {/* <Hidden xsDown> */}
-          {/* only shows on desktop (sm or bigger)*/}
-          <DesktopView style={{ maxHeight: '100%' }} />
+        {/* only shows on desktop (sm or bigger)*/}
+        <DesktopView style={{ maxHeight: '100%' }} />
         {/* </Hidden> */}
 
         {/* <Grid xs={12} md={6}>
