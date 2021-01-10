@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainDiv: {
       // overflowX: 'hidden',
-      maxHeight: 'calc(100% - 64px)',
+      maxHeight: '100%',
       marginBottom: '10px',
       paddingBottom: '10px',
     },
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'flex-start',
     },
     historyContent: {
+      maxHeight: '100%',
       overflow: 'auto',
     },
     subscribedEventContent: {
@@ -93,7 +94,7 @@ export default function DesktopHome(props: any) {
   ];
 
   return (
-    <Grid container spacing={3} style={{ maxHeight: '100%' }}>
+    <Grid container spacing={3} className={classes.mainDiv}>
       <Grid item xs={6}>
         <Card className={classes.root}>
           <CardContent className={classes.riderContent}>
@@ -138,7 +139,6 @@ export default function DesktopHome(props: any) {
           </CardHeader>
           <CardContent
             className={classes.historyContent}
-            style={{ maxHeight: '70%', overflow: 'auto' }}
           >
             <div>
               {historyMocked.map((history) => (
