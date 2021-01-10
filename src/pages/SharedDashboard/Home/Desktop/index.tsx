@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme: Theme) =>
     mainDiv: {
       // overflowX: 'hidden',
       maxHeight: '100%',
+      height: '100%',
+      position: 'relative',
       marginBottom: '10px',
       paddingBottom: '10px',
     },
@@ -37,8 +39,10 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'flex-start',
     },
     historyContent: {
-      maxHeight: '100%',
-      overflow: 'auto',
+      maxHeight: '100%', 
+      height: '100%',
+      position: 'relative',
+      overflowY: 'scroll',
     },
     subscribedEventContent: {
       overflow: 'auto',
@@ -137,45 +141,37 @@ export default function DesktopHome(props: any) {
             </Typography>
             <Divider />
           </CardHeader>
-          <CardContent
-            className={classes.historyContent}
-          >
-            <div>
-              {historyMocked.map((history) => (
-                <div>
-                  <HistoryInfoDiv>
-                    <CardMedia
-                      className={classes.historyImg}
-                      image="https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png"
-                      title="Contemplative Reptile"
-                    />
-                    <DivDepoisPensoNome>
-                      <div>
-                        <Typography
-                          className="ml-20"
-                          variant="h5"
-                          component="h2"
-                        >
-                          {history.event_name}
-                        </Typography>
-                        <Typography
-                          className="ml-20"
-                          color="textSecondary"
-                          variant="subtitle1"
-                          component="p"
-                        >
-                          {history.institute}
-                        </Typography>
-                      </div>
-                      <FirstMedal size="40" internalSize="5">
-                        {history.podium}
-                      </FirstMedal>
-                    </DivDepoisPensoNome>
-                  </HistoryInfoDiv>
-                  <Divider />
-                </div>
-              ))}
-            </div>
+          <CardContent className={classes.historyContent}>
+            {historyMocked.map((history) => (
+              <div>
+                <HistoryInfoDiv>
+                  <CardMedia
+                    className={classes.historyImg}
+                    image="https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png"
+                    title="Contemplative Reptile"
+                  />
+                  <DivDepoisPensoNome>
+                    <div>
+                      <Typography className="ml-20" variant="h5" component="h2">
+                        {history.event_name}
+                      </Typography>
+                      <Typography
+                        className="ml-20"
+                        color="textSecondary"
+                        variant="subtitle1"
+                        component="p"
+                      >
+                        {history.institute}
+                      </Typography>
+                    </div>
+                    <FirstMedal size="40" internalSize="5">
+                      {history.podium}
+                    </FirstMedal>
+                  </DivDepoisPensoNome>
+                </HistoryInfoDiv>
+                <Divider />
+              </div>
+            ))}
           </CardContent>
         </Card>
       </Grid>
@@ -188,9 +184,7 @@ export default function DesktopHome(props: any) {
             <Divider />
           </CardHeader>
           <CardContent className={classes.subscribedEventContent}>
-            <div>
-              {/* <SubscribedEvents {...props} /> */}
-            </div>
+            <div>{/* <SubscribedEvents {...props} /> */}</div>
           </CardContent>
         </Card>
       </Grid>
