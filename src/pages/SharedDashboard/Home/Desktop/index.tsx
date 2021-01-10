@@ -17,6 +17,8 @@ import {
   HistoryInfoDiv,
   DivDepoisPensoNome,
   FirstMedal,
+  SecondMedal,
+  ThirdMedal,
 } from './styles';
 import SubscribedEvents from '../SubscribedEvents';
 const useStyles = makeStyles((theme: Theme) =>
@@ -75,30 +77,30 @@ export default function DesktopHome(props: any) {
     {
       photo:
         'https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png',
-      event_name: 'Discover',
-      institute: 'Institute',
-      podium: 0,
-    },
-    {
-      photo:
-        'https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png',
-      event_name: 'Discover',
-      institute: 'Institute',
+      event_name: 'Quinto Evento de Motohabilidade',
+      institute: 'Discover rideskill',
       podium: 1,
     },
     {
       photo:
         'https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png',
-      event_name: 'Discover',
-      institute: 'Institute',
-      podium: 2,
+      event_name: 'Chicago summer skill championship',
+      institute: 'Chicago P.D.',
+      podium: 3,
     },
     {
       photo:
         'https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png',
-      event_name: 'Discover',
-      institute: 'Institute',
-      podium: 3,
+      event_name: 'OpenPublic motorcycle ride skill',
+      institute: 'NY P.D.',
+      podium: 0,
+    },
+    {
+      photo:
+        'https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png',
+      event_name: 'Quarto Evento de Motohabilidade',
+      institute: 'Discover rideskill',
+      podium: 2,
     },
   ];
 
@@ -108,7 +110,8 @@ export default function DesktopHome(props: any) {
 
   React.useLayoutEffect(() => {
     function updateSize() {
-      const riderCardHeight = riderCardRef?.current?.getBoundingClientRect()?.height || 0;
+      const riderCardHeight =
+        riderCardRef?.current?.getBoundingClientRect()?.height || 0;
       sethistoryCardSize(
         window.innerHeight - riderCardHeight - 138 - (props.appBarHeight || 0)
       );
@@ -120,6 +123,28 @@ export default function DesktopHome(props: any) {
     updateSize();
     return () => window.removeEventListener('resize', updateSize);
   }, []);
+
+  // const modalContent = (modalName, id = null) => { // modal da paytime que eU FIZ E MATEUS N GOSTA
+  //   const modals = {
+  //     PermissionsModal: <PermissionsModal onButtonCancel={() => setActiveModal('')} id={id} />
+  //   }
+  //   return modals[modalName] || null
+  // }
+
+  const renderPodium = (podium) => {
+    if (podium === 0) return null;
+    const Medal = {
+      1: FirstMedal,
+      2: SecondMedal,
+      3: ThirdMedal,
+    }[podium];
+    console.log(podium, Medal);
+    return (
+      <Medal size="40" internalSize="5">
+        {podium}
+      </Medal>
+    );
+  };
 
   // historyMocked = []
   //calc(100vh - 420px)
@@ -198,9 +223,7 @@ export default function DesktopHome(props: any) {
                         {history.institute}
                       </Typography>
                     </div>
-                    <FirstMedal size="40" internalSize="5">
-                      {history.podium}
-                    </FirstMedal>
+                    {renderPodium(history.podium)}
                   </DivDepoisPensoNome>
                 </HistoryInfoDiv>
                 <Divider />
