@@ -213,7 +213,7 @@ export default function MobileHome(props: any) {
       <TabNav
         tabList={[
           { label: "Overview", body: testBody(OverView) },
-          { label: "Events", body: testBody(EventsView) },
+          { label: "Subscriptions", body: testBody(EventsView) },
           { label: "Manager", body: testBody("TODO") },
         ]}
       />
