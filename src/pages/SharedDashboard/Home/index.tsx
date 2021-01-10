@@ -21,17 +21,18 @@ export default function ManageableEvents(props: any) {
   // const [events, setEvents] = React.useState<any[]>([]);
   // const [hasInstitute, setHasInstitute] = React.useState<any>(false);
 
+  // calc(100% - 64px)
   return (
-    <>
-      <AppBar title="Dashboard" {...props} />
-      <Grid container>
+    <div style={{ maxHeight: '100%', overflow: 'hidden' }}>
+      <AppBar title="Dashboard" {...props}  />
+      <Grid container style={{ maxHeight: '100%' }}>
         <Hidden smUp>
           {/* only shows on mobile (not-sm and above it)*/}
           <MobileView />
         </Hidden>
         <Hidden xsDown>
           {/* only shows on desktop (sm or bigger)*/}
-          <DesktopView/>
+          <DesktopView />
         </Hidden>
 
         {/* <Grid xs={12} md={6}>
@@ -41,6 +42,6 @@ export default function ManageableEvents(props: any) {
           <p>adsf</p>
         </Grid> */}
       </Grid>
-    </>
+    </div>
   );
 }

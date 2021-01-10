@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   makeStyles,
   createStyles,
@@ -11,33 +11,36 @@ import {
   Button,
   Typography,
   Divider,
-} from "@material-ui/core";
+} from '@material-ui/core';
 import {
   CardHeader,
   HistoryInfoDiv,
   DivDepoisPensoNome,
   FirstMedal,
-} from "./styles";
-import SubscribedEvents from "../SubscribedEvents";
+} from './styles';
+import SubscribedEvents from '../SubscribedEvents';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainDiv: {
-      overflow: "hidden",
+      // overflowX: "hidden",
+      maxHeight: '100%',
     },
     root: {
       flexGrow: 1,
-      margin: "18px 8px 0 8px",
+      margin: '18px 8px 0 8px',
+      // overflow: "hidden",
     },
     riderContent: {
-      display: "flex",
-      justifyContent: "flex-start",
-      overflow: "auto",
+      display: 'flex',
+      justifyContent: 'flex-start',
     },
     historyContent: {
-      overflow: "auto",
+      maxHeight: '90%',
+      overflow: 'auto',
     },
     subscribedEventContent: {
-      overflow: "auto",
+      overflow: 'auto',
+      maxHeight: '100%',
     },
     riderImage: {
       minHeight: 110,
@@ -50,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 75,
     },
     action: {
-      position: "unset",
+      position: 'unset',
     },
   })
 );
@@ -61,37 +64,37 @@ export default function ManageableEvents(props: any) {
   const historyMocked = [
     {
       photo:
-        "https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png",
-      event_name: "Discover",
-      institute: "Institute",
+        'https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png',
+      event_name: 'Discover',
+      institute: 'Institute',
       podium: 0,
     },
     {
       photo:
-        "https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png",
-      event_name: "Discover",
-      institute: "Institute",
+        'https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png',
+      event_name: 'Discover',
+      institute: 'Institute',
       podium: 1,
     },
     {
       photo:
-        "https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png",
-      event_name: "Discover",
-      institute: "Institute",
+        'https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png',
+      event_name: 'Discover',
+      institute: 'Institute',
       podium: 2,
     },
     {
       photo:
-        "https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png",
-      event_name: "Discover",
-      institute: "Institute",
+        'https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png',
+      event_name: 'Discover',
+      institute: 'Institute',
       podium: 3,
     },
   ];
 
   return (
     <div className={classes.mainDiv}>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} style={{ maxHeight: '100%' }}>
         <Grid item xs={6}>
           <Card className={classes.root}>
             <CardContent className={classes.riderContent}>
@@ -106,7 +109,7 @@ export default function ManageableEvents(props: any) {
                 </Typography>
               </div>
             </CardContent>
-            <CardActions style={{ justifyContent: "space-between" }}>
+            <CardActions style={{ justifyContent: 'space-between' }}>
               <Button
                 className={classes.action}
                 size="small"
@@ -120,7 +123,7 @@ export default function ManageableEvents(props: any) {
                 variant="contained"
                 size="small"
                 color="primary"
-                onClick={() => props.history.push("/beforePoints")}
+                onClick={() => props.history.push('/beforePoints')}
               >
                 SIGN TO EVENT
               </Button>
@@ -134,7 +137,10 @@ export default function ManageableEvents(props: any) {
               </Typography>
               <Divider />
             </CardHeader>
-            <CardContent className={classes.historyContent}>
+            <CardContent
+              className={classes.historyContent}
+              style={{ maxHeight: '70%' }}
+            >
               {historyMocked.map((history) => (
                 <div>
                   <HistoryInfoDiv>
@@ -172,8 +178,8 @@ export default function ManageableEvents(props: any) {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={6}>
-          <Card className={classes.root}>
+        <Grid item xs={6} style={{ maxHeight: '70%' }}>
+          <Card className={classes.root} style={{ maxHeight: '70%' }}>
             <CardHeader>
               <Typography gutterBottom variant="h5" component="h2">
                 Subscribed Events
