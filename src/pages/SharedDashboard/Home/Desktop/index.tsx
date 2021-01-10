@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       // overflowX: 'hidden',
       maxHeight: '100%',
       height: '100%',
-
+      margin: 0,
       marginBottom: '10px',
       paddingBottom: '10px',
     },
@@ -108,12 +108,12 @@ export default function DesktopHome(props: any) {
 
   React.useLayoutEffect(() => {
     function updateSize() {
-      const vari = riderCardRef?.current?.getBoundingClientRect()?.height || 0;
+      const riderCardHeight = riderCardRef?.current?.getBoundingClientRect()?.height || 0;
       sethistoryCardSize(
-        window.innerHeight - vari - 128 - (props.appBarHeight || 0)
+        window.innerHeight - riderCardHeight - 138 - (props.appBarHeight || 0)
       );
       setsubscribedEventCardSize(
-        window.innerHeight - 110 - (props.appBarHeight || 0)
+        window.innerHeight - 120 - (props.appBarHeight || 0)
       );
     }
     window.addEventListener('resize', updateSize);
