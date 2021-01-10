@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Message from "components/Message";
+// import Message from "components/Message";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
