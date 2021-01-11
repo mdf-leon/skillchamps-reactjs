@@ -19,6 +19,7 @@ import Register from "./pages/visitor/Register";
 import RegisterRider from "./pages/visitor/Register/Rider";
 import RegisterInstitute from "./pages/visitor/Register/Institute";
 import Dashboard from "./pages/InstituteDashboard/Dashboard";
+import FindEvents from "./pages/InstituteDashboard/findEvents";
 import TrialsChooseDashboard from "./pages/InstituteDashboard/Dashboard/trialsChooseDashboard";
 import BeforeResult from "./pages/InstituteDashboard/Result/beforeResults";
 import Result from "./pages/InstituteDashboard/Result";
@@ -112,6 +113,8 @@ ReactDOM.render(
         <ProtectedRoute exact path="/newEvent" component={NewEvent} />
         <ProtectedRoute exact path="/beforePoints" component={BeforePoints} />
         <ProtectedRoute exact path="/points" component={Points} />
+        <ProtectedRoute exact path="/points" component={Points} />
+        <ProtectedRoute exact path="/FindEvents" component={FindEvents} />
         {/* <Route exact path="/portfolio/:id" component={App} />
                 <Route path="/contact" component={App} /> */}
       </Switch>

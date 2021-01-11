@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
 
@@ -25,6 +25,11 @@ button{
 .flex-center{
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+.flex-space-between{
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 .flex-column-center{
