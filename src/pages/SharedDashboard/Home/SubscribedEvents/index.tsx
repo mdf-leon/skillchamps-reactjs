@@ -210,9 +210,11 @@ export default function ManageableEvents(props: any) {
                             {event.id}. {event.event_name}
                           </Typography>
                           <Typography variant="subtitle1" color="textSecondary">
-                            {new Date(event.date_begin).toLocaleDateString(
-                              'en-US'
-                            )}
+                            {new Date(new Date(event.date_begin)
+                              .setDate(new Date(event.date_begin).getDate() + 1))
+                              .toLocaleDateString(
+                                'en-US'
+                              )}
                           </Typography>
                         </CardContent>
                         {renderIcons('Cancel')}
