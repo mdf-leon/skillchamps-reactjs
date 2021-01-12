@@ -84,7 +84,7 @@ export default function ManageableEvents(props: any) {
       .then((r) => {
         setEvents(r.data);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   // const todayEvent: any[] = events[0]
@@ -97,8 +97,11 @@ export default function ManageableEvents(props: any) {
 
   const todayEvent: any[] = events[0]
     ? events.filter((event) => {
-        return event.date_begin === getTodayWithoutTime();
-      })
+      console.log(event.date_begin);
+      console.log(getTodayWithoutTime());
+
+      return event.date_begin === getTodayWithoutTime();
+    })
     : [];
 
   return (
@@ -144,9 +147,11 @@ export default function ManageableEvents(props: any) {
                             {event.id}. {event.event_name}
                           </Typography>
                           <Typography variant="subtitle1" color="textSecondary">
-                            {new Date(event.date_begin).toLocaleDateString(
-                              'en-US'
-                            )}
+                            {new Date(new Date(event.date_begin)
+                              .setDate(new Date(event.date_begin).getDate() + 1))
+                              .toLocaleDateString(
+                                'en-US'
+                              )}
                           </Typography>
                         </CardContent>
                         {renderIcons('Cancel')}
@@ -155,15 +160,15 @@ export default function ManageableEvents(props: any) {
                   </Card>
                 ))
               ) : (
-                <Typography
-                  color="textSecondary"
-                  component="h6"
-                  variant="h6"
-                  style={{ textAlign: 'center', marginTop: '22px' }}
-                >
-                  No events
-                </Typography>
-              )}
+                  <Typography
+                    color="textSecondary"
+                    component="h6"
+                    variant="h6"
+                    style={{ textAlign: 'center', marginTop: '22px' }}
+                  >
+                    No events
+                  </Typography>
+                )}
             </div>
 
             <div className={classes.ternaryDiv}>
@@ -216,21 +221,21 @@ export default function ManageableEvents(props: any) {
                   </Card>
                 ))
               ) : (
-                <Typography
-                  color="textSecondary"
-                  component="h6"
-                  variant="h6"
-                  style={{ textAlign: 'center', marginTop: '22px' }}
-                >
-                  No events
-                </Typography>
-              )}
+                  <Typography
+                    color="textSecondary"
+                    component="h6"
+                    variant="h6"
+                    style={{ textAlign: 'center', marginTop: '22px' }}
+                  >
+                    No events
+                  </Typography>
+                )}
             </div>
           </div>
         </div>
       ) : (
-        <p>loading</p>
-      )}
+          <p>loading</p>
+        )}
     </>
   );
 }
