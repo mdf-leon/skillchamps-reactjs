@@ -61,6 +61,10 @@ export default function NewRider(props: any) {
     date_begin: selectedDate?.toISOString().split('T')[0],
   });
 
+  React.useEffect(() => {
+    console.log(eventPhoto);
+  }, [eventPhoto]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(eventPhoto);
@@ -144,7 +148,6 @@ export default function NewRider(props: any) {
                         event_name: e.target.value,
                       })
                     }
-                    type="file"
                     name="event_name"
                     variant="outlined"
                     required
@@ -171,7 +174,7 @@ export default function NewRider(props: any) {
                     />
                   </Grid>
                 </MuiPickersUtilsProvider>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <div style={{ position: 'relative', width: '100%' }}>
                     <TextField
                       name="photo_eventt"
@@ -206,7 +209,7 @@ export default function NewRider(props: any) {
                       </UploadInputLabel>
                     </UploadInputDiv>
                   </div>
-                </Grid>
+                </Grid> */}
               </Grid>
               {/* <Grid container justify="space-around">
                 <label htmlFor="photo_folder">Select a photo_folder:</label>
@@ -222,7 +225,13 @@ export default function NewRider(props: any) {
                 />
               </Grid> */}
               <Grid container>
-                <UploadFile style={{marginTop: '16px'}}/>
+                <UploadFile
+                  style={{ marginTop: '16px' }}
+                  onChange={(e) => {
+                    if (e && e.target && e.target.files)
+                      seteventPhoto(e.target.files[0]);
+                  }}
+                />
               </Grid>
               {/* <Grid container justify="space-around"> */}
               {/* <label htmlFor="photo_event">Select a photo_event:</label> */}

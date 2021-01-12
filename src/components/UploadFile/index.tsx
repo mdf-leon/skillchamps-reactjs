@@ -1,5 +1,9 @@
 import React from 'react';
-import { UploadInputDiv, UploadInputLabel, UploadInputLabelText } from './styles';
+import {
+  UploadInputDiv,
+  UploadInputLabel,
+  UploadInputLabelText,
+} from './styles';
 import Button from '@material-ui/core/Button';
 
 export default function UploadFileComponent(props: any) {
@@ -14,6 +18,15 @@ export default function UploadFileComponent(props: any) {
 
     if (message) setfile({ ...file, message });
   };
+  const handleChange = (e) => {
+    getUploadedFileName(e);
+    return props.onChange(e); // lifting the state up the right TS way
+  };
+
+  React.useEffect(() => {
+    if (props.uploadPlaceholderText)
+      setfile({ ...file, message: props.uploadPlaceholderText });
+  }, []);
 
   return (
     <UploadInputDiv {...props}>
@@ -24,18 +37,13 @@ export default function UploadFileComponent(props: any) {
           color="primary"
           style={{ zIndex: -10, marginRight: '6px' }}
         >
-          Browse
+          {props.uploadButtonText || 'Browse'}
         </Button>
-        <input
-          hidden
-          id="input-file-id"
-          type="file"
-          onChange={getUploadedFileName}
-        />
+        <input hidden id="input-file-id" type="file" onChange={handleChange} />
         {file.message}
       </UploadInputLabel>
       <UploadInputLabelText>
-        Select a photo
+        {props.labelTitle || 'Select a File'}
       </UploadInputLabelText>
     </UploadInputDiv>
   );
