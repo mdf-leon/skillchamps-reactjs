@@ -85,7 +85,6 @@ export default function ManageableEvents(props: any) {
         setEvents(r.data);
       })
       .catch(() => {});
-    console.log(getTodayWithoutTime());
   }, []);
 
   // const todayEvent: any[] = events[0]
