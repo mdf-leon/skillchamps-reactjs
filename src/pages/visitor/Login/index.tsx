@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import VisitorTopBar from "components/VisitorTopBar";
+import React, { useState } from 'react';
+import VisitorTopBar from 'components/VisitorTopBar';
 // import { Redirect } from 'react-router-dom'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -9,25 +9,25 @@ import {
   makeStyles,
   Button,
   Container,
-} from "@material-ui/core";
+} from '@material-ui/core';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Center } from "./styles";
+import { Center } from './styles';
 // import { Typography } from "@material-ui/core";
-import { base } from "../../../config/api";
+import { base } from '../../../config/api';
 import {
   Typography,
   // LandPageButton,
   // DivButtons,
-} from "./stylees";
+} from './stylees';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -38,19 +38,24 @@ const useStyles = makeStyles((theme) => ({
 export default function Login(props: any) {
   const classes = useStyles();
   const [fData, setFData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
-  const [, setLoading] = useState(false); 
+  const [, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
     base
-      .post("/authenticate", fData)
+      .post('/authenticate', fData)
       .then((r) => {
         console.log(r);
-        localStorage.setItem("token", r.data.token);
+        localStorage.setItem('token', r.data.token);
+        localStorage.setItem('rider_info', JSON.stringify(r.data.rider)); // informacoes do rider direto do back salvo no LS
+        localStorage.setItem(
+          'institute_info',
+          JSON.stringify(r.data.institute)
+        ); // informacoes do institute direto do back salvo no LS
         // setCookie("jwt", r.data.token);
         window.location.reload();
       })
@@ -65,40 +70,40 @@ export default function Login(props: any) {
     // <Redirect to="/dashboard" />
     <>
       <VisitorTopBar isTopBarButtonActive="login" {...props} />
-      <div style={{ paddingTop: "1px", minHeight: "100%" }}>
+      <div style={{ paddingTop: '1px', minHeight: '100%' }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
             <Center>
               <div
                 style={{
-                  textAlign: "center",
-                  fontSize: "20px",
+                  textAlign: 'center',
+                  fontSize: '20px',
                   // fontWeight: "500"
                 }}
               >
                 <Typography
                   component="h4"
                   variant="h4"
-                  style={{ textAlign: "center", marginTop: "22px" }}
+                  style={{ textAlign: 'center', marginTop: '22px' }}
                 >
                   Login
                 </Typography>
               </div>
-              <div style={{ textAlign: "center", margin: "5px 0 20px 0" }}>
+              <div style={{ textAlign: 'center', margin: '5px 0 20px 0' }}>
                 <Typography
                   component="h6"
                   variant="h6"
-                  style={{ textAlign: "center", marginTop: "22px" }}
+                  style={{ textAlign: 'center', marginTop: '22px' }}
                 >
                   Dont have an account? <a href="/register">Register</a>
                 </Typography>
               </div>
               {/* className="login-form" */}
               <form onSubmit={handleSubmit} className={classes.form}>
-                <div style={{ marginBottom: "10px" }}>
+                <div style={{ marginBottom: '10px' }}>
                   <TextField
-                    style={{ width: "100%" }}
+                    style={{ width: '100%' }}
                     label="E-mail"
                     onChange={(e) =>
                       setFData({ ...fData, email: e.target.value })
@@ -107,9 +112,9 @@ export default function Login(props: any) {
                     variant="outlined"
                   />
                 </div>
-                <div style={{ marginBottom: "15px" }}>
+                <div style={{ marginBottom: '15px' }}>
                   <TextField
-                    style={{ width: "100%" }}
+                    style={{ width: '100%' }}
                     label="Password"
                     onChange={(e) =>
                       setFData({ ...fData, password: e.target.value })
@@ -127,13 +132,13 @@ export default function Login(props: any) {
           </Row> */}
                 <div
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "100%",
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    width: '100%',
                   }}
                 >
                   <Typography
-                    component={"span"}
+                    component={'span'}
                     style={{ margin: 0 }}
                     gutterBottom
                     variant="h6"
@@ -141,7 +146,7 @@ export default function Login(props: any) {
                   >
                     <a href="/"> Forgot password </a>
                   </Typography>
-                  <div style={{ width: "60px" }} />
+                  <div style={{ width: '60px' }} />
                   <Button variant="contained" color="primary" type="submit">
                     Log in
                   </Button>
