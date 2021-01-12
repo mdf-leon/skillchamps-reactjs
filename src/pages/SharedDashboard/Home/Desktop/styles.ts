@@ -30,6 +30,7 @@ export const FirstMedal = styled.div<any>`
   height: ${(props) => props.size || 70}px;
   position: relative;
   box-shadow: 0px 0px 3px 0px #989898;
+  min-width: 40px;
 
   :after {
     content: "";
@@ -57,6 +58,7 @@ export const SecondMedal = styled.div<any>`
   height: ${(props) => props.size || 70}px;
   position: relative;
   box-shadow: 0px 0px 3px 0px #989898;
+  min-width: 40px;
 
   :after {
     content: "";
@@ -84,6 +86,7 @@ export const ThirdMedal = styled.div<any>`
   height: ${(props) => props.size || 70}px;
   position: relative;
   box-shadow: 0px 0px 3px 0px #989898;
+  min-width: 40px;
 
   :after {
     content: "";
