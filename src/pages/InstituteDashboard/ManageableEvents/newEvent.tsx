@@ -15,7 +15,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { base } from 'config/api';
-import { UploadInputDiv, UploadInputLabel } from './styles';
+// import { UploadInputDiv, UploadInputLabel } from './styles';
 import UploadFile from 'components/UploadFile';
 // import { FaceForm } from './Image';
 

@@ -26,6 +26,7 @@ export default function UploadFileComponent(props: any) {
   React.useEffect(() => {
     if (props.uploadPlaceholderText)
       setfile({ ...file, message: props.uploadPlaceholderText });
+      // eslint-disable-next-line
   }, []);
 
   return (
