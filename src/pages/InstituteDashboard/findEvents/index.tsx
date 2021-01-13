@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     cardRoot: {
-      maxWidth: 345,
     },
     paper: {
       padding: theme.spacing(2),
@@ -58,57 +57,62 @@ export default function CenteredGrid(props: any) {
     <MainDiv>
       <AppBar title="Find Events" {...props} />
       <div className={classes.root}>
-        <Grid container spacing={3}>
-          <Grid item xs={4}>
-            <FormControl
-              fullWidth
-              variant="outlined"
-              className={classes.formControl}
-            >
-              <InputLabel id="demo-simple-select-outlined-label">
-                Type
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={selectValue}
-                onChange={(e) => setSelectValue(e.target.value)}
-                label="Type"
-              >
-                {/* <MenuItem value="">
-                <em>None</em>
-              </MenuItem> */}
-                <MenuItem value={0}>Ten</MenuItem>
-                <MenuItem value={1}>Twenty</MenuItem>
-                <MenuItem value={2}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={8}>
-            <div>
-              <TextField
+        <div>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={12} md={4}>
+              <FormControl
                 fullWidth
                 variant="outlined"
-                id="input-with-icon-textfield"
-                label="TextField"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon color="action" />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </div>
+                className={classes.formControl}
+              >
+                <InputLabel id="demo-simple-select-outlined-label">
+                  Type
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={selectValue}
+                  onChange={(e) => setSelectValue(e.target.value)}
+                  label="Type"
+                >
+                  {/* <MenuItem value="">
+                <em>None</em>
+              </MenuItem> */}
+                  <MenuItem value={0}>Ten</MenuItem>
+                  <MenuItem value={1}>Twenty</MenuItem>
+                  <MenuItem value={2}>Thirty</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sm={12} md={8}>
+              <div>
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  id="input-with-icon-textfield"
+                  label="TextField"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon color="action" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </div>
+            </Grid>
           </Grid>
-        </Grid>
+        </div>
+
+        {/* <Grid container spacing={3}></Grid> */}
 
         <CardsDiv>
           <Card className={classes.cardRoot}>
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
+                image="https://thumbs.dreamstime.com/x/competition-moto-gymkhana-events-start-motorcycle-cones-full-hd-107010990.jpg"
                 title="Contemplative Reptile"
               />
               <CardContent>
@@ -139,7 +143,7 @@ export default function CenteredGrid(props: any) {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
+                image="https://thumbs.dreamstime.com/x/competition-moto-gymkhana-events-start-motorcycle-cones-full-hd-107010990.jpg"
                 title="Contemplative Reptile"
               />
               <CardContent>
@@ -165,11 +169,12 @@ export default function CenteredGrid(props: any) {
                 </div>
               </CardContent>
             </CardActionArea>
-          </Card>          <Card className={classes.cardRoot}>
+          </Card>{" "}
+          <Card className={classes.cardRoot}>
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
+                image="https://thumbs.dreamstime.com/x/competition-moto-gymkhana-events-start-motorcycle-cones-full-hd-107010990.jpg"
                 title="Contemplative Reptile"
               />
               <CardContent>
@@ -195,11 +200,12 @@ export default function CenteredGrid(props: any) {
                 </div>
               </CardContent>
             </CardActionArea>
-          </Card>          <Card className={classes.cardRoot}>
+          </Card>{" "}
+          <Card className={classes.cardRoot}>
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
+                image="https://thumbs.dreamstime.com/x/competition-moto-gymkhana-events-start-motorcycle-cones-full-hd-107010990.jpg"
                 title="Contemplative Reptile"
               />
               <CardContent>
@@ -225,11 +231,12 @@ export default function CenteredGrid(props: any) {
                 </div>
               </CardContent>
             </CardActionArea>
-          </Card>          <Card className={classes.cardRoot}>
+          </Card>{" "}
+          <Card className={classes.cardRoot}>
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
+                image="https://thumbs.dreamstime.com/x/competition-moto-gymkhana-events-start-motorcycle-cones-full-hd-107010990.jpg"
                 title="Contemplative Reptile"
               />
               <CardContent>
