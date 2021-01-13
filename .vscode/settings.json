@@ -4,8 +4,6 @@
     ".vscode": true,
     "package-lock.json": true,
     "README.md": true,
-    "tsconfig.json": true,
-    "package.json": true,
     ".gitignore": true,
     ".gitattributes": true,
     "src\\App.js": true,
@@ -15,7 +13,9 @@
     "src\\styles": true,
     "src\\react-app-env.d.ts": true,
     "src\\serviceWorker.js": true,
-    "src\\setupTests.js": true
+    "src\\setupTests.js": true,
+    "package.json": true,
+    "tsconfig.json": true
   },
   "cSpell.words": [
     "setfile"
