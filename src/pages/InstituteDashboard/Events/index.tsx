@@ -16,6 +16,11 @@ import {
   CardMedia,
   Typography,
 } from "@material-ui/core";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 import SearchIcon from "@material-ui/icons/Search";
 import AppBar from "../../../components/AppBar";
 import { MainDiv, CardsDiv } from "./styles";
@@ -29,8 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: "18px 8px 0 8px",
       flexGrow: 1,
     },
-    cardRoot: {
-    },
+    cardRoot: {},
     paper: {
       padding: theme.spacing(2),
       textAlign: "center",
@@ -45,11 +49,16 @@ const useStyles = makeStyles((theme: Theme) =>
     media: {
       height: 140,
     },
+    date: {
+      width: "100%",
+      margin: 0,
+    },
   })
 );
 
-export default function CenteredGrid(props: any) {
+export default function FindEvents(props: any) {
   const classes = useStyles();
+  const [selectedDate, setSelectedDate] = useState<any>(new Date());
 
   const [selectValue, setSelectValue] = useState<any>(0);
 
@@ -78,29 +87,48 @@ export default function CenteredGrid(props: any) {
                   {/* <MenuItem value="">
                 <em>None</em>
               </MenuItem> */}
-                  <MenuItem value={0}>Ten</MenuItem>
-                  <MenuItem value={1}>Twenty</MenuItem>
-                  <MenuItem value={2}>Thirty</MenuItem>
+                  <MenuItem value={"event_name"}>Event name</MenuItem>
+                  <MenuItem value={"date"}>Date</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
 
             <Grid item xs={12} sm={12} md={8}>
-              <div>
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  id="input-with-icon-textfield"
-                  label="TextField"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon color="action" />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </div>
+              {selectValue === "date" ? (
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <Grid container justify="space-around">
+                    <KeyboardDatePicker
+                      className={classes.date}
+                      inputVariant="outlined"
+                      margin="normal"
+                      id="date-picker-dialog"
+                      label="Date picker dialog"
+                      format="MM/dd/yyyy"
+                      value={selectedDate}
+                      onChange={setSelectedDate}
+                      KeyboardButtonProps={{
+                        "aria-label": "change date",
+                      }}
+                    />
+                  </Grid>
+                </MuiPickersUtilsProvider>
+              ) : (
+                <div>
+                  <TextField
+                    fullWidth
+                    variant="outlined"
+                    id="input-with-icon-textfield"
+                    label="TextField"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon color="action" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </div>
+              )}
             </Grid>
           </Grid>
         </div>
@@ -112,7 +140,7 @@ export default function CenteredGrid(props: any) {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="https://thumbs.dreamstime.com/x/competition-moto-gymkhana-events-start-motorcycle-cones-full-hd-107010990.jpg"
+                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
                 title="Contemplative Reptile"
               />
               <CardContent>
@@ -143,7 +171,7 @@ export default function CenteredGrid(props: any) {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="https://thumbs.dreamstime.com/x/competition-moto-gymkhana-events-start-motorcycle-cones-full-hd-107010990.jpg"
+                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
                 title="Contemplative Reptile"
               />
               <CardContent>
@@ -174,7 +202,7 @@ export default function CenteredGrid(props: any) {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="https://thumbs.dreamstime.com/x/competition-moto-gymkhana-events-start-motorcycle-cones-full-hd-107010990.jpg"
+                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
                 title="Contemplative Reptile"
               />
               <CardContent>
@@ -205,7 +233,7 @@ export default function CenteredGrid(props: any) {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="https://thumbs.dreamstime.com/x/competition-moto-gymkhana-events-start-motorcycle-cones-full-hd-107010990.jpg"
+                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
                 title="Contemplative Reptile"
               />
               <CardContent>
@@ -236,7 +264,7 @@ export default function CenteredGrid(props: any) {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="https://thumbs.dreamstime.com/x/competition-moto-gymkhana-events-start-motorcycle-cones-full-hd-107010990.jpg"
+                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
                 title="Contemplative Reptile"
               />
               <CardContent>
