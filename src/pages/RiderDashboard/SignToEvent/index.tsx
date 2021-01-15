@@ -91,11 +91,12 @@ export default function FindEvents(props: any) {
                   {/* <MenuItem value="">
                 <em>None</em>
               </MenuItem> */}
-                  <MenuItem value={'event_name'}>Event name</MenuItem>
-                  <MenuItem value={'event_id'}>Event ID</MenuItem>
-                  <MenuItem value={'institute_name'}>Institute name</MenuItem>
-                  <MenuItem value={'institute_id'}>Institute ID</MenuItem>
                   <MenuItem value={'date'}>Date</MenuItem>
+                  <MenuItem value={'event_id'}>Event ID</MenuItem>
+                  <MenuItem value={'event_name'}>Event name</MenuItem>
+                  {/* <p>institute name por enquanto ta comentado pq precisa ser implementado</p> */}
+                  <MenuItem value={'institute_id'}>Institute ID</MenuItem>
+                  <MenuItem value={'institute_name'} disabled>Institute name</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
