@@ -13,14 +13,14 @@ import { ThemeProvider } from "styled-components";
 
 // import App from "./App";
 import Home from "./pages/visitor/Home/index";
-import SharedHome from "./pages/SharedDashboard/Home/index";
+import SharedHome from "./pages/RiderDashboard/Home/index";
 import Login from "./pages/visitor/Login";
 import Register from "./pages/visitor/Register";
 import RegisterRider from "./pages/visitor/Register/Rider";
 import RegisterInstitute from "./pages/visitor/Register/Institute";
 import Dashboard from "./pages/InstituteDashboard/Dashboard";
-import FindEvents from "./pages/InstituteDashboard/Events";
-import SubscribeEvent from "./pages/InstituteDashboard/Events/subscribeEvent";
+import FindEvents from "./pages/RiderDashboard/SignToEvent";
+import SubscribeEvent from "./pages/RiderDashboard/SignToEvent/subscribeEvent";
 import TrialsChooseDashboard from "./pages/InstituteDashboard/Dashboard/trialsChooseDashboard";
 import BeforeResult from "./pages/InstituteDashboard/Result/beforeResults";
 import Result from "./pages/InstituteDashboard/Result";

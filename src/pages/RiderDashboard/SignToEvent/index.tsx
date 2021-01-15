@@ -64,7 +64,7 @@ export default function FindEvents(props: any) {
 
   return (
     <MainDiv>
-      <AppBar title="Find Events" {...props} />
+      <AppBar title="Find events to participate" {...props} />
       <div className={classes.root}>
         <div>
           <Grid container spacing={3}>
