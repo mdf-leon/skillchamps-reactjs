@@ -50,7 +50,7 @@ export default function MobileHome(props: any) {
         className={classes.root}
         style={{ margin: '0', paddingTop: '15px' }}
       >
-        <RiderContent />
+        <RiderContent {...props}/>
       </Card>
       
       <Card className={classes.root} style={{ marginBottom: '15px' }}>

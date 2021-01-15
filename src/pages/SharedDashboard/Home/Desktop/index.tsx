@@ -63,7 +63,7 @@ export default function DesktopHome(props: any) {
     <Grid container spacing={3} className={classes.mainDiv}>
       <Grid item xs={6}>
         <Card className={classes.root} ref={riderCardRef}>
-          <RiderContent />
+          <RiderContent {...props} />
         </Card>
         <Card className={classes.root} style={{ height: 'auto' }} id="paidoboi">
           <CardHeader>
