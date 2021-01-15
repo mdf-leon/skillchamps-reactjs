@@ -60,7 +60,11 @@ export default function FindEvents(props: any) {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState<any>(new Date());
 
-  const [selectValue, setSelectValue] = useState<any>(0);
+  const [selectInputValue, setselectInputValue] = useState<any>(0);
+
+  const handleSearch = (type) => (e) => {
+      console.log('sdasdadasdasd', type, e.target.value);
+  }
 
   return (
     <MainDiv>
@@ -80,21 +84,24 @@ export default function FindEvents(props: any) {
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
-                  value={selectValue}
-                  onChange={(e) => setSelectValue(e.target.value)}
+                  value={selectInputValue}
+                  onChange={(e) => setselectInputValue(e.target.value)}
                   label="Type"
                 >
                   {/* <MenuItem value="">
                 <em>None</em>
               </MenuItem> */}
                   <MenuItem value={'event_name'}>Event name</MenuItem>
+                  <MenuItem value={'event_id'}>Event ID</MenuItem>
+                  <MenuItem value={'institute_name'}>Institute name</MenuItem>
+                  <MenuItem value={'institute_id'}>Institute ID</MenuItem>
                   <MenuItem value={'date'}>Date</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
 
             <Grid item xs={12} sm={12} md={8}>
-              {selectValue === 'date' ? (
+              {selectInputValue === 'date' ? (
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <Grid container justify="space-around">
                     <KeyboardDatePicker
@@ -119,6 +126,7 @@ export default function FindEvents(props: any) {
                     variant="outlined"
                     id="input-with-icon-textfield"
                     label="TextField"
+                    onChange={handleSearch('text')}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
