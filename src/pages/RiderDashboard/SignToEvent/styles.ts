@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 export const MainDiv = styled.div`
-  margin: 0;
+/* style={{ maxHeight: '100%', minHeight: '100%', overflowX: 'hidden' }} */
+  max-height: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  /* margin: 0; */
   input {
     margin: 0;
   }

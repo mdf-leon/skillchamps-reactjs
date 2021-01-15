@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   makeStyles,
   createStyles,
@@ -15,15 +15,15 @@ import {
   CardContent,
   CardMedia,
   Typography,
-} from "@material-ui/core";
+} from '@material-ui/core';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
-} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-import SearchIcon from "@material-ui/icons/Search";
-import AppBar from "../../../components/AppBar";
-import { MainDiv, CardsDiv } from "./styles";
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import SearchIcon from '@material-ui/icons/Search';
+import AppBar from '../../../components/AppBar';
+import { MainDiv, CardsDiv } from './styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,13 +31,13 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 0,
     },
     root: {
-      margin: "18px 8px 0 8px",
+      margin: '18px 8px 0 8px',
       flexGrow: 1,
     },
     cardRoot: {},
     paper: {
       padding: theme.spacing(2),
-      textAlign: "center",
+      textAlign: 'center',
       color: theme.palette.text.secondary,
     },
     formControl: {
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 140,
     },
     date: {
-      width: "100%",
+      width: '100%',
       margin: 0,
     },
   })
@@ -87,14 +87,14 @@ export default function FindEvents(props: any) {
                   {/* <MenuItem value="">
                 <em>None</em>
               </MenuItem> */}
-                  <MenuItem value={"event_name"}>Event name</MenuItem>
-                  <MenuItem value={"date"}>Date</MenuItem>
+                  <MenuItem value={'event_name'}>Event name</MenuItem>
+                  <MenuItem value={'date'}>Date</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
 
             <Grid item xs={12} sm={12} md={8}>
-              {selectValue === "date" ? (
+              {selectValue === 'date' ? (
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <Grid container justify="space-around">
                     <KeyboardDatePicker
@@ -107,7 +107,7 @@ export default function FindEvents(props: any) {
                       value={selectedDate}
                       onChange={setSelectedDate}
                       KeyboardButtonProps={{
-                        "aria-label": "change date",
+                        'aria-label': 'change date',
                       }}
                     />
                   </Grid>
@@ -136,130 +136,6 @@ export default function FindEvents(props: any) {
         {/* <Grid container spacing={3}></Grid> */}
 
         <CardsDiv>
-          <Card className={classes.cardRoot}>
-            <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
-                title="Contemplative Reptile"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  ID. Event Name
-                </Typography>
-                <Typography
-                  gutterBottom
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                >
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
-                </Typography>
-                <div className="flex-space-between">
-                  <Typography variant="h5" component="h2">
-                    INSTITUTE
-                  </Typography>
-                  <Typography variant="h5" component="h2">
-                    2021-08-06
-                  </Typography>
-                </div>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-          <Card className={classes.cardRoot}>
-            <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
-                title="Contemplative Reptile"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  ID. Event Name
-                </Typography>
-                <Typography
-                  gutterBottom
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                >
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
-                </Typography>
-                <div className="flex-space-between">
-                  <Typography variant="h5" component="h2">
-                    INSTITUTE
-                  </Typography>
-                  <Typography variant="h5" component="h2">
-                    2021-08-06
-                  </Typography>
-                </div>
-              </CardContent>
-            </CardActionArea>
-          </Card>{" "}
-          <Card className={classes.cardRoot}>
-            <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
-                title="Contemplative Reptile"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  ID. Event Name
-                </Typography>
-                <Typography
-                  gutterBottom
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                >
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
-                </Typography>
-                <div className="flex-space-between">
-                  <Typography variant="h5" component="h2">
-                    INSTITUTE
-                  </Typography>
-                  <Typography variant="h5" component="h2">
-                    2021-08-06
-                  </Typography>
-                </div>
-              </CardContent>
-            </CardActionArea>
-          </Card>{" "}
-          <Card className={classes.cardRoot}>
-            <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
-                title="Contemplative Reptile"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  ID. Event Name
-                </Typography>
-                <Typography
-                  gutterBottom
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                >
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
-                </Typography>
-                <div className="flex-space-between">
-                  <Typography variant="h5" component="h2">
-                    INSTITUTE
-                  </Typography>
-                  <Typography variant="h5" component="h2">
-                    2021-08-06
-                  </Typography>
-                </div>
-              </CardContent>
-            </CardActionArea>
-          </Card>{" "}
           <Card className={classes.cardRoot}>
             <CardActionArea>
               <CardMedia
