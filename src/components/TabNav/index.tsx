@@ -30,7 +30,8 @@ function TabPanel(props: any) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        // <Box p={3}> // se quiser padding em volta da card
+        <Box>
           <Typography component={'span'}>{children}</Typography>
         </Box>
       )}

@@ -28,11 +28,11 @@ export default function SharedDashboardHome(props: any) {
       <Grid container style={{ height: 'calc(100% - 64px)' }}>
         <Hidden smUp>
           {/* only shows on mobile (not-sm and above it)*/}
-          <MobileView />
+          <MobileView  {...props}/>
         </Hidden>
         <Hidden xsDown>
           {/* only shows on desktop (sm or bigger)*/}
-          <DesktopView appBarHeight={64}/>
+          <DesktopView appBarHeight={64} {...props}/>
         </Hidden>
 
         {/* <Grid xs={12} md={6}>

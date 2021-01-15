@@ -1,66 +1,88 @@
-import React from "react";
+import React from 'react';
 
-// import AppBarTab from '@material-ui/core/AppBar';
-// import Tabs from '@material-ui/core/Tabs';
-// import Tab from '@material-ui/core/Tab';
-// import Box from '@material-ui/core/Box';
-import TabNav from "components/TabNav";
+import TabNav from 'components/TabNav';
+
 import {
   makeStyles,
   createStyles,
   Theme,
   Card,
   CardContent,
-  CardActions,
-  CardMedia,
-  Button,
   Typography,
   Divider,
-} from "@material-ui/core";
+} from '@material-ui/core';
+
 import {
   CardHeader,
-  HistoryInfoDiv,
-  DivDepoisPensoNome,
-  FirstMedal,
-} from "../Desktop/styles";
-import SubscribedEvents from "../SubscribedEvents";
+} from '../Desktop/styles';
+
+import SubscribedEvents from '../LocalComponents/SubscribedEvents';
+import RiderContent from '../LocalComponents/RiderContent';
+import HistoryContent from '../LocalComponents/HistoryContent';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainDiv: {
-      overflow: "hidden",
+      overflow: 'hidden',
     },
     root: {
       flexGrow: 1,
-      margin: "18px 8px 0 8px",
-    },
-    riderContent: {
-      display: "flex",
-      justifyContent: "flex-start",
-      overflow: "auto",
+      margin: '18px 8px 0 8px',
     },
     historyContent: {
-      overflow: "auto",
-    },
-    subscribedEventContent: {
-      overflow: "auto",
-    },
-    riderImage: {
-      minHeight: 110,
-      minWidth: 110,
-      height: 110,
-      width: 110,
-    },
-    historyImg: {
-      height: 75,
-      width: 75,
-    },
-    action: {
-      position: "unset",
+      overflow: 'auto',
     },
   })
 );
 
+
+export default function MobileHome(props: any) {
+  
+  function testBody(str) {
+    return <div>{str}</div>;
+  }
+  
+  const classes = useStyles();
+  
+  const OverView = (
+    <div id="overview-main">
+      <Card
+        className={classes.root}
+        style={{ margin: '0', paddingTop: '15px' }}
+      >
+        <RiderContent />
+      </Card>
+      
+      <Card className={classes.root} style={{ marginBottom: '15px' }}>
+        <CardHeader>
+          <Typography gutterBottom variant="h5" component="h2">
+            History
+          </Typography>
+          <Divider />
+          </CardHeader>
+        <CardContent className={classes.historyContent}>
+          <HistoryContent />
+        </CardContent>
+        </Card>
+        </div>
+        );
+        
+        const EventsView = <SubscribedEvents {...props} />;
+  
+        return (
+    <>
+      <TabNav
+        tabList={[
+          { label: 'Overview', body: testBody(OverView) },
+          { label: 'Subscriptions', body: testBody(EventsView) },
+          { label: 'Manager', body: testBody('TODO') },
+        ]}
+        />
+    </>
+  );
+}
+
+// const classes = homeStyles();
 // const styles = {
 //   tabs: {
 //     background: '#fff',
@@ -80,143 +102,9 @@ const useStyles = makeStyles((theme: Theme) =>
 //     backgroundColor: '#6AC0FF',
 //   },
 // };
+// const theme = useTheme();
+// const [events, setEvents] = React.useState<any[]>([]);
+// const [hasInstitute, setHasInstitute] = React.useState<any>(false);
 
-export default function MobileHome(props: any) {
-  // const classes = homeStyles();
-  // const theme = useTheme();
-  // const [events, setEvents] = React.useState<any[]>([]);
-  // const [hasInstitute, setHasInstitute] = React.useState<any>(false);
-
-  // muda o valor da aba atual
-  // const [tabIndex, settabIndex] = React.useState<any>(0);
-
-  function testBody(str) {
-    return <div>{str}</div>;
-  }
-
-  const classes = useStyles();
-
-  const historyMocked = [
-    {
-      photo:
-        "https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png",
-      event_name: "Discover",
-      institute: "Institute",
-      podium: 0,
-    },
-    {
-      photo:
-        "https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png",
-      event_name: "Discover",
-      institute: "Institute",
-      podium: 1,
-    },
-    {
-      photo:
-        "https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png",
-      event_name: "Discover",
-      institute: "Institute",
-      podium: 2,
-    },
-    {
-      photo:
-        "https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png",
-      event_name: "Discover",
-      institute: "Institute",
-      podium: 3,
-    },
-  ];
-
-  const OverView = (
-    <div>
-      <Card className={classes.root}>
-        <CardContent className={classes.riderContent}>
-          <CardMedia
-            className={classes.riderImage}
-            image="https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png"
-            title="Contemplative Reptile"
-          />
-          <div className="ml-20">
-            <Typography gutterBottom variant="h5" component="h2">
-              Rider very big large name Rider very big large name
-            </Typography>
-          </div>
-        </CardContent>
-        <CardActions style={{ justifyContent: "space-between" }}>
-          <Button
-            className={classes.action}
-            size="small"
-            color="primary"
-            onClick={() => console.log()}
-          >
-            SETTINGS
-          </Button>
-          <Button
-            className={classes.action}
-            variant="contained"
-            size="small"
-            color="primary"
-            onClick={() => props.history.push("/beforePoints")}
-          >
-            SIGN TO EVENT
-          </Button>
-        </CardActions>
-      </Card>
-
-      <Card className={classes.root}>
-        <CardHeader>
-          <Typography gutterBottom variant="h5" component="h2">
-            History
-          </Typography>
-          <Divider />
-        </CardHeader>
-        <CardContent className={classes.historyContent}>
-          {historyMocked.map((history) => (
-            <div>
-              <HistoryInfoDiv>
-                <CardMedia
-                  className={classes.historyImg}
-                  image="https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png"
-                  title="Contemplative Reptile"
-                />
-                <DivDepoisPensoNome>
-                  <div>
-                    <Typography className="ml-20" variant="h5" component="h2">
-                      {history.event_name}
-                    </Typography>
-                    <Typography
-                      className="ml-20"
-                      color="textSecondary"
-                      variant="subtitle1"
-                      component="p"
-                    >
-                      {history.institute}
-                    </Typography>
-                  </div>
-                  <FirstMedal size="40" internalSize="5">
-                    {history.podium}
-                  </FirstMedal>
-                </DivDepoisPensoNome>
-              </HistoryInfoDiv>
-              <Divider />
-            </div>
-          ))}
-        </CardContent>
-      </Card>
-    </div>
-  );
-
-  const EventsView = <SubscribedEvents {...props} />;
-
-  return (
-    <>
-      <TabNav
-        tabList={[
-          { label: "Overview", body: testBody(OverView) },
-          { label: "Subscriptions", body: testBody(EventsView) },
-          { label: "Manager", body: testBody("TODO") },
-        ]}
-      />
-    </>
-  );
-}
+// muda o valor da aba atual
+// const [tabIndex, settabIndex] = React.useState<any>(0);

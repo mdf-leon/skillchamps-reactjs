@@ -115,7 +115,7 @@ ReactDOM.render(
         <ProtectedRoute exact path="/beforePoints" component={BeforePoints} />
         <ProtectedRoute exact path="/points" component={Points} />
         <ProtectedRoute exact path="/points" component={Points} />
-        <ProtectedRoute exact path="/FindEvents" component={FindEvents} />
+        <ProtectedRoute exact path="/dashboard/sign-to-event" component={FindEvents} />
         <ProtectedRoute
           exact
           path="/subscribeEvent/:id"
