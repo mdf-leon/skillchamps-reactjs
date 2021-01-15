@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   makeStyles,
   createStyles,
@@ -24,6 +24,8 @@ import DateFnsUtils from '@date-io/date-fns';
 import SearchIcon from '@material-ui/icons/Search';
 import AppBar from '../../../components/AppBar';
 import { MainDiv, CardsDiv } from './styles';
+
+import { base } from 'config/api';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,13 +60,24 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function FindEvents(props: any) {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState<any>(new Date());
 
-  const [selectInputValue, setselectInputValue] = useState<any>(0);
+  const [selectedDate, setSelectedDate] = React.useState<any>(new Date());
+  const [selectInputValue, setselectInputValue] = React.useState<any>(0);
+
+  const [events, setevents] = React.useState<any[]>([]);
 
   const handleSearch = (type) => (e) => {
-      console.log('sdasdadasdasd', type, e.target.value);
-  }
+    console.log('sdasdadasdasd', type, e.target.value);
+  };
+
+  React.useEffect(() => {
+    base
+      .get(`/events`)
+      .then((r) => {
+        setevents(r.data);
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <MainDiv>
@@ -96,7 +109,9 @@ export default function FindEvents(props: any) {
                   <MenuItem value={'event_name'}>Event name</MenuItem>
                   {/* <p>institute name por enquanto ta comentado pq precisa ser implementado</p> */}
                   <MenuItem value={'institute_id'}>Institute ID</MenuItem>
-                  <MenuItem value={'institute_name'} disabled>Institute name</MenuItem>
+                  <MenuItem value={'institute_name'} disabled>
+                    Institute name
+                  </MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -145,37 +160,40 @@ export default function FindEvents(props: any) {
         {/* <Grid container spacing={3}></Grid> */}
 
         <CardsDiv>
-          <Card className={classes.cardRoot}>
-            <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
-                title="Contemplative Reptile"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  ID. Event Name
-                </Typography>
-                <Typography
-                  gutterBottom
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                >
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
-                </Typography>
-                <div className="flex-space-between">
-                  <Typography variant="h5" component="h2">
-                    INSTITUTE
-                  </Typography>
-                  <Typography variant="h5" component="h2">
-                    2021-08-06
-                  </Typography>
-                </div>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+          {events.map((event, i) => {
+            return (
+              <Card key={`each-card-div-${i}`} className={classes.cardRoot}>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
+                    title="Contemplative Reptile"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {event.id}. {event.event_name}
+                    </Typography>
+                    <Typography
+                      gutterBottom
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {event.short_description}
+                    </Typography>
+                    <div className="flex-space-between">
+                      <Typography variant="h5" component="h2">
+                        {event.institute_name}
+                      </Typography>
+                      <Typography variant="h5" component="h2">
+                        {event.date_begin}
+                      </Typography>
+                    </div>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            );
+          })}
         </CardsDiv>
       </div>
     </MainDiv>
