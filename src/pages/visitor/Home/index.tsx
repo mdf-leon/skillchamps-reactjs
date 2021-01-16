@@ -1,229 +1,120 @@
 import React from "react";
 // import History from 'react-history';
-import VisitorTopBar from "components/VisitorTopBar";
-import { Link, CssBaseline } from "@material-ui/core";
 import {
+  makeStyles,
+  createStyles,
+  Theme,
+  Grid,
+  CssBaseline,
+} from "@material-ui/core";
+import { ReactComponent as ConeIcon } from "assets/svg/traffic-cone-svgrepo-com 1.svg";
+import {
+  Header,
   Typography,
-  FirstDiv,
-  SecondDiv,
-  ThirdDiv,
-  FourthDiv,
-  // LandPageButton,
-  // DivButtons,
+  Button,
+  FirstHeaderButtons,
+  ConeSvgDiv,
+  Body1,
+  FirstTextDiv,
 } from "./styles";
 // import DehazeIcon from "@material-ui/icons/Dehaze";
 
 // import ComponenteF from "./ComponentF"
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: "center",
+      color: theme.palette.text.secondary,
+    },
+  })
+);
+
 const Home = (props: any) => {
   return (
-    <div style={{ height: "100%", position: "relative" }}>
-      {/* <ComponenteF onClick={(e, a)=>{
-        console.log("abacate")
-        console.log(e.target.name, e.currentTarget.name, a)
-      }}/> */} 
-      <VisitorTopBar isTopBarButtonActive="home" {...props} />
+    <div style={{ margin: 0 }}>
       <CssBaseline />
-      <FirstDiv>
-        <Typography textcolor="white" variant="h5" gutterBottom component="h5">
-          Facilitated
-          <br />
-          Competitions.
-        </Typography>
-        <Typography textcolor="white" component={"span"} variant="body2">
-          Discover how easy it is to control
-          <br /> a competition
-        </Typography>
+      <div
+        style={{
+          height: "100%",
+          position: "relative",
+          background: "white",
+          // overflow: "hidden",
+        }}
+      >
+        <Header>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid container justify="center" item xs>
+              <FirstHeaderButtons>
+                <Button>Home</Button>
+                <Button>About</Button>
+                <Button>Contact</Button>
+              </FirstHeaderButtons>
+            </Grid>
+            <Grid container justify="center" item xs>
+              <Typography fontWeight="skTitle" variant="h5" component="h5">
+                Skillchamps
+              </Typography>
+            </Grid>
+            <Grid container justify="center" item xs>
+              <Button darkblue variant="contained">
+                My Account
+              </Button>
+            </Grid>
+          </Grid>
+        </Header>
+        <Body1>
+          <FirstTextDiv>
+            <Typography
+              fontWeight="MainBlue900"
+              textColor="MainBlue900"
+              variant="h3"
+              component="h3"
+              gutterBottom
+            >
+              It was never so easy to count cones
+            </Typography>
 
-        {/* <DivButtons>
-          <LandPageButton backcolor="red">DOWNLOAD NOW</LandPageButton>
-          <LandPageButton>FREE TRIAL</LandPageButton>
-        </DivButtons> */}
-      </FirstDiv>
-      <SecondDiv>
-        <Typography textcolor="blue" variant="h5" gutterBottom component="h5">
-          Make your own competition with different set of trials ans checkout of
-          them in the end
-        </Typography>
-
-        <Typography component={"span"} variant="body2">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries.
-        </Typography>
-        {/* <DivButtons>
-          <LandPageButton backcolor="red">TRY IT NOW</LandPageButton>
-        </DivButtons> */}
-      </SecondDiv>
-      <ThirdDiv>
-        <Typography textcolor="white" variant="h5" gutterBottom component="h5">
-          How it works
-        </Typography>
-        <div style={{ display: "flex" }}>
-          <Typography
-            style={{ color: "white", fontSize: "small", width: "100%" }}
-            component={"span"}
-            variant="body1"
-          >
-            Create a competition
-          </Typography>
-          <Typography
-            style={{ color: "white", fontSize: "small", width: "100%" }}
-            component={"span"}
-            variant="body1"
-          >
-            Record
-            <br /> the trials
-          </Typography>
-          <Typography
-            style={{ color: "white", fontSize: "small", width: "100%" }}
-            component={"span"}
-            variant="body1"
-          >
-            Record
-            <br /> the points
-          </Typography>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            marginTop: "10px",
-            justifyContent: "space-between",
-          }}
-        >
-          <Typography
-            style={{ color: "white", fontSize: "x-small" }}
-            component={"span"}
-            variant="body2"
-          >
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-          </Typography>
-          <Typography
-            style={{
-              color: "white",
-              fontSize: "x-small",
-              marginLeft: "10px",
-            }}
-            component={"span"}
-            variant="body2"
-          >
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-          </Typography>
-          <Typography
-            style={{
-              color: "white",
-              fontSize: "x-small",
-              marginLeft: "10px",
-            }}
-            component={"span"}
-            variant="body2"
-          >
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-          </Typography>
-        </div>
-      </ThirdDiv>
-      <FourthDiv>
-        <div>
-          <ul>
-            <li>
-              <Typography variant="body2">
-                <Link href="#" onClick={() => {}}>
-                  About
-                </Link>
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body2">
-                <Link href="#" onClick={() => {}}>
-                  Home
-                </Link>
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body2">
-                <Link href="#" onClick={() => {}}>
-                  Investors
-                </Link>
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body2">
-                <Link href="#" onClick={() => {}}>
-                  Account
-                </Link>
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body2">
-                <Link href="#" onClick={() => {}}>
-                  Login
-                </Link>
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body2">
-                <Link href="#" onClick={() => {}}>
-                  Register
-                </Link>
-              </Typography>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <ul>
-            <li>
-              <Typography variant="body2">
-                <Link href="#" onClick={() => {}}>
-                  About
-                </Link>
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body2">
-                <Link href="#" onClick={() => {}}>
-                  Privacy + Security
-                </Link>
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body2">
-                <Link href="#" onClick={() => {}}>
-                  Terms of Use
-                </Link>
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body2">
-                <Link href="#" onClick={() => {}}>
-                  Account
-                </Link>
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body2">
-                <Link href="#" onClick={() => {}}>
-                  Support
-                </Link>
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body2">
-                <Link href="#" onClick={() => {}}>
-                  Return Policy
-                </Link>
-              </Typography>
-            </li>
-          </ul>
-        </div>
-      </FourthDiv>
+            <Typography
+              variant="h6"
+              component="h6"
+              gutterBottom="40"
+              marginAll="0 0 20px 0"
+            >
+              We come to help you manage your competition and rider scores from
+              the moment they sign in, to a real time ranking page.
+              <br />
+              <br />
+              Organization is the keyword: no more pen and papers, the only
+              thing you need is a browser: Smartphones, Laptops or Tablets, we
+              got you covered.
+              <br />
+              <br />
+              And that is just the basics.
+            </Typography>
+            <div className="d-flex" style={{ width: "80%" }}>
+              <Button
+                darkblue
+                variant="contained"
+                width="100%"
+                marginAll="0 30px 0 0"
+              >
+                Sign in
+              </Button>
+              <Button darkblue variant="contained" width="100%">
+                Learn more
+              </Button>
+            </div>
+          </FirstTextDiv>
+        </Body1>
+        <ConeSvgDiv>
+          <ConeIcon />
+        </ConeSvgDiv>
+      </div>
     </div>
   );
 };
