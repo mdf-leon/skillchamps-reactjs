@@ -59,7 +59,7 @@ export default function TabNav(props: any) {
   };
 
   const renderTab = (label, index, rest = {}) => {
-    return <Tab label={label} {...a11yProps(index)} {...rest} />;
+    return <Tab label={label} key={`rendertab-${index}`}  {...a11yProps(index)} {...rest} />;
   };
 
   return (
@@ -83,7 +83,7 @@ export default function TabNav(props: any) {
       </AppBar>
       {tabList.map((tab, index) => {
         return (
-          <TabPanel value={in_tabIndex} index={index} dir={theme.direction}>
+          <TabPanel value={in_tabIndex} key={`tabList-${index}`}  index={index} dir={theme.direction}>
             {tab.body}
           </TabPanel>
         );

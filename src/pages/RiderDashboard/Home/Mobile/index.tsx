@@ -75,7 +75,7 @@ export default function MobileHome(props: any) {
         tabList={[
           { label: 'Overview', body: testBody(OverView) },
           { label: 'Subscriptions', body: testBody(EventsView) },
-          { label: 'Manager', body: testBody('TODO') },
+          { label: 'Notifications', body: testBody('TODO') },
         ]}
         />
     </>
