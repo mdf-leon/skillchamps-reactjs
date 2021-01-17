@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // import History from 'react-history';
 import {
-  makeStyles,
-  createStyles,
-  Theme,
+  // makeStyles,
+  // createStyles,
+  // Theme,
   Grid,
-  CssBaseline,
+  Hidden,
 } from "@material-ui/core";
 import { ReactComponent as ConeIcon } from "assets/svg/traffic-cone-svgrepo-com 1.svg";
 import {
@@ -16,87 +16,125 @@ import {
   ConeSvgDiv,
   Body1,
   FirstTextDiv,
+  MainDiv,
+  BurguerIcon,
+  Card,
 } from "./styles";
 // import DehazeIcon from "@material-ui/icons/Dehaze";
 
 // import ComponenteF from "./ComponentF"
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: "center",
-      color: theme.palette.text.secondary,
-    },
-  })
-);
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     root: {
+//       flexGrow: 1,
+//     },
+//     paper: {
+//       padding: theme.spacing(2),
+//       textAlign: "center",
+//       color: theme.palette.text.secondary,
+//     },
+//   })
+// );
 
 const Home = (props: any) => {
+  const [size, setSize] = useState<any>({
+    width: 0,
+    height: 0,
+  });
+  const setWidth = () =>
+    setSize({
+      ...size,
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  window.addEventListener("resize", setWidth);
+
   return (
-    <div style={{ margin: 0 }}>
-      <CssBaseline />
-      <div
-        style={{
-          height: "100%",
-          position: "relative",
-          background: "white",
-          // overflow: "hidden",
-        }}
-      >
-        <Header>
-          <Grid container direction="row" justify="center" alignItems="center">
+    <MainDiv>
+      <Header>
+        <Grid
+          container
+          direction={size < "959" && size !== 0 ? "row-reverse" : "row"}
+          justify="center"
+          alignItems="center"
+        >
+          <Hidden smDown>
             <Grid container justify="center" item xs>
               <FirstHeaderButtons>
-                <Button>Home</Button>
-                <Button>About</Button>
-                <Button>Contact</Button>
+                <Button topbutton>Home</Button>
+                <Button topbutton>About</Button>
+                <Button topbutton>Contact</Button>
               </FirstHeaderButtons>
             </Grid>
-            <Grid container justify="center" item xs>
-              <Typography fontWeight="skTitle" variant="h5" component="h5">
-                Skillchamps
-              </Typography>
-            </Grid>
-            <Grid container justify="center" item xs>
+          </Hidden>
+          <Grid container justify="center" item xs>
+            <Typography fontWeight="skTitle" variant="h5" component="h5">
+              Skillchamps
+            </Typography>
+          </Grid>
+          <Hidden smDown>
+            <Grid
+              container
+              justify={size < "959" && size !== 0 ? "flex-start" : "center"}
+              item
+              xs
+            >
               <Button darkblue variant="contained">
                 My Account
               </Button>
             </Grid>
-          </Grid>
-        </Header>
+          </Hidden>
+          <Hidden mdUp>
+            <Grid
+              container
+              justify={size < "959" ? "flex-start" : "center"}
+              item
+              xs
+              style={{
+                position: "absolute",
+                paddingLeft: "20px",
+              }}
+            >
+              <BurguerIcon />
+            </Grid>
+          </Hidden>
+        </Grid>
+      </Header>
+      <Card>
         <Body1>
           <FirstTextDiv>
-            <Typography
-              fontWeight="MainBlue900"
-              textColor="MainBlue900"
-              variant="h3"
-              component="h3"
-              gutterBottom
-            >
-              It was never so easy to count cones
-            </Typography>
+            <div>
+              <Typography
+                fontWeight="MainBlue900"
+                textColor="MainBlue900"
+                variant="h3"
+                component="h3"
+                gutterBottom
+              >
+                It was never so easy to count cones
+              </Typography>
 
-            <Typography
-              variant="h6"
-              component="h6"
-              gutterBottom="40"
-              marginAll="0 0 20px 0"
-            >
-              We come to help you manage your competition and rider scores from
-              the moment they sign in, to a real time ranking page.
-              <br />
-              <br />
-              Organization is the keyword: no more pen and papers, the only
-              thing you need is a browser: Smartphones, Laptops or Tablets, we
-              got you covered.
-              <br />
-              <br />
-              And that is just the basics.
-            </Typography>
-            <div className="d-flex" style={{ width: "80%" }}>
+              <Typography
+                variant="h6"
+                component="h6"
+                gutterBottom="40"
+                marginAll="0 0 20px 0"
+              >
+                We come to help you manage your competition and rider scores
+                from the moment they sign in, to a real time ranking page.
+                <br />
+                <br />
+                Organization is the keyword: no more pen and papers, the only
+                thing you need is a browser: Smartphones, Laptops or Tablets, we
+                got you covered.
+                <br />
+                <br />
+                And that is just the basics.
+              </Typography>
+            </div>
+
+            <div>
               <Button
                 darkblue
                 variant="contained"
@@ -105,17 +143,19 @@ const Home = (props: any) => {
               >
                 Sign in
               </Button>
-              <Button darkblue variant="contained" width="100%">
+              <Button variant="contained" width="100%">
                 Learn more
               </Button>
             </div>
           </FirstTextDiv>
         </Body1>
-        <ConeSvgDiv>
-          <ConeIcon />
-        </ConeSvgDiv>
-      </div>
-    </div>
+      </Card>
+      <Card>b</Card>
+      <Card>c</Card>
+      <ConeSvgDiv>
+        <ConeIcon />
+      </ConeSvgDiv>
+    </MainDiv>
   );
 };
 
