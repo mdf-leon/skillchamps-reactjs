@@ -61,13 +61,27 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function FindEvents(props: any) {
   const classes = useStyles();
 
-  const [selectedDate, setSelectedDate] = React.useState<any>(new Date());
-  const [selectInputValue, setselectInputValue] = React.useState<any>(0);
+  const [inputValue, setinputValue] = React.useState<any>();
+  const [selectInputType, setselectInputType] = React.useState<any>('');
 
   const [events, setevents] = React.useState<any[]>([]);
 
   const handleSearch = (type) => (e) => {
-    console.log('sdasdadasdasd', type, e.target.value);
+    const val = type === 'date' ? e : e.target.value;
+    setinputValue(val);
+    console.log('teste', selectInputType, val);
+    base
+      .get(`/events`, { params: { [selectInputType]: val } })
+      .then((r) => {
+        console.log(r.data);
+        
+        if (r.data[0]) {
+          setevents(r.data);
+        } else { 
+          setevents([{ ...r.data }]);
+        }
+      })
+      .catch(() => {});
   };
 
   React.useEffect(() => {
@@ -97,18 +111,20 @@ export default function FindEvents(props: any) {
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
-                  value={selectInputValue}
-                  onChange={(e) => setselectInputValue(e.target.value)}
+                  value={selectInputType}
+                  onChange={(e) => setselectInputType(e.target.value)}
                   label="Type"
                 >
                   {/* <MenuItem value="">
                 <em>None</em>
               </MenuItem> */}
-                  <MenuItem value={'date'}>Date</MenuItem>
+                  <MenuItem value={"date_begin"}>Date</MenuItem>
                   <MenuItem value={'event_id'}>Event ID</MenuItem>
-                  <MenuItem value={'event_name'}>Event name</MenuItem>
-                  {/* <p>institute name por enquanto ta comentado pq precisa ser implementado</p> */}
                   <MenuItem value={'institute_id'}>Institute ID</MenuItem>
+                  {/* <p>institute name por enquanto ta comentado pq precisa ser implementado</p> */}
+                  <MenuItem value={'event_name'} disabled>
+                    Event name
+                  </MenuItem>
                   <MenuItem value={'institute_name'} disabled>
                     Institute name
                   </MenuItem>
@@ -117,7 +133,7 @@ export default function FindEvents(props: any) {
             </Grid>
 
             <Grid item xs={12} sm={12} md={8}>
-              {selectInputValue === 'date' ? (
+              {selectInputType === 'date' ? (
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <Grid container justify="space-around">
                     <KeyboardDatePicker
@@ -127,8 +143,13 @@ export default function FindEvents(props: any) {
                       id="date-picker-dialog"
                       label="Date picker dialog"
                       format="MM/dd/yyyy"
-                      value={selectedDate}
-                      onChange={setSelectedDate}
+                      name="date_begin"
+                      value={
+                        new Date(inputValue).toString() === 'Invalid Date'
+                          ? new Date()
+                          : inputValue
+                      }
+                      onChange={handleSearch('date')}
                       KeyboardButtonProps={{
                         'aria-label': 'change date',
                       }}
