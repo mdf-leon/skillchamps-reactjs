@@ -74,10 +74,10 @@ export default function FindEvents(props: any) {
       .get(`/events`, { params: { [selectInputType]: val } })
       .then((r) => {
         console.log(r.data);
-        
+
         if (r.data[0]) {
           setevents(r.data);
-        } else { 
+        } else {
           setevents([{ ...r.data }]);
         }
       })
@@ -118,13 +118,11 @@ export default function FindEvents(props: any) {
                   {/* <MenuItem value="">
                 <em>None</em>
               </MenuItem> */}
-                  <MenuItem value={"date_begin"}>Date</MenuItem>
+                  <MenuItem value={'date_begin'}>Date</MenuItem>
                   <MenuItem value={'event_id'}>Event ID</MenuItem>
                   <MenuItem value={'institute_id'}>Institute ID</MenuItem>
                   {/* <p>institute name por enquanto ta comentado pq precisa ser implementado</p> */}
-                  <MenuItem value={'event_name'}>
-                    Event name
-                  </MenuItem>
+                  <MenuItem value={'event_name'}>Event name</MenuItem>
                   <MenuItem value={'institute_name'} disabled>
                     Institute name
                   </MenuItem>
@@ -183,7 +181,13 @@ export default function FindEvents(props: any) {
         <CardsDiv>
           {events.map((event, i) => {
             return (
-              <Card key={`each-card-div-${i}`} className={classes.cardRoot}>
+              <Card
+                key={`each-card-div-${i}`}
+                className={classes.cardRoot}
+                onClick={() => {
+                  props.history.push(`/dashboard/sign-to-event/${event.id}`);
+                }}
+              >
                 <CardActionArea>
                   <CardMedia
                     className={classes.media}

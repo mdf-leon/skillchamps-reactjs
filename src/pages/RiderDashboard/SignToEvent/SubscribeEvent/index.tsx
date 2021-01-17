@@ -14,8 +14,8 @@ import {
   Typography,
   Divider,
 } from '@material-ui/core';
-import AppBar from '../../../components/AppBar';
-import { CardHeader } from './styles';
+import AppBar from 'components/AppBar';
+import { CardHeader } from '../styles';
 import { base } from 'config/api';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -77,6 +77,7 @@ export default function SubscribeToEvent(props: any) {
       .catch((e) => {
         console.log(e);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubscribe = () => {
