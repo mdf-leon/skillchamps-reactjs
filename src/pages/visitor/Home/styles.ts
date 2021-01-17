@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from "styled-components";
 import {
   Grid as GridComponent,
@@ -13,10 +12,18 @@ export const BurguerIcon = styled(MenuIcon)`
   fill: #111b47 !important;
 `;
 
-export const MainDiv = styled.div<any>`
-  display: standalone; 
+export const MainDiv = styled.div`
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: -webkit-fill-available;
+  --android-status-bar-height: 48px;
+  --asset-x-offset-mobile: 0%;
+  --asset-y-offset-mobile: 0%;
+  --asset-x-offset-desktop: 0%;
+  --asset-y-offset-desktop: 0%;
+  display: standalone;
   font-size: 27px;
-  height: calc(var(${(props) => props.innerHeight}, 1vh) * 100)
+  height: 100vh;
   overflow-y: scroll;
   scroll-snap-points-y: repeat(320px);
   scroll-snap-destination: 0 0;
@@ -29,9 +36,12 @@ export const MainDiv = styled.div<any>`
 `;
 
 export const Card = styled.div`
-  margin-top: 66px;
-  height: calc(100vh - 66px);
+  padding-top: 66px;
+  height: 100vh;
   scroll-snap-align: end !important;
+  @media (max-width: 1000px) {
+    padding-bottom: 59px;
+  }
 `;
 
 export const Header = styled.div`
@@ -39,7 +49,7 @@ export const Header = styled.div`
   position: fixed;
   width: 100%;
   padding: 18px;
-  z-index: 2;
+  z-index: 3;
 `;
 
 export const Grid = styled(GridComponent)`
@@ -83,7 +93,8 @@ export const Body1 = styled.div`
   text-align: left;
   height: 100%;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
+  padding: 0 163px;
   @media (max-width: 999px) {
     padding: 0 100px;
     align-items: center;
@@ -93,9 +104,10 @@ export const Body1 = styled.div`
   }
 `;
 
-export const FirstTextDiv = styled.div`
+export const FirstTextDiv = styled.div<any>`
+  display: flex;
+  flex-direction: ${(props) => (props.direction === "row" ? "row" : "column")};
   @media (min-width: 1000px) {
-    margin-left: 163px;
     max-width: 540px;
   }
     div:not(:first-child) {
@@ -132,10 +144,66 @@ export const FirstTextDiv = styled.div`
   }
 `;
 
+export const SecondTextDiv = styled.div<any>`
+  display: flex;
+  flex-direction: ${(props) => (props.direction === "row" ? "row" : "column")};
+  @media (max-width: 1346px) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (max-width: 1000px) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+    justify-content: space-between;
+    h3 {
+      font-size: 27px;
+      line-height: 1.167 !important;
+    }
+    h6 {
+      font-size: 14px;
+      line-height: 1.6 !important;
+    }
+  }
+`;
+
+export const ThirdTextDiv = styled.div<any>`
+  max-width: 100%;
+  justify-content: space-between;
+  flex-direction: row;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    align-items: center;
+    svg {
+      max-heiht: 300px;
+      max-width: 300px;
+    }
+    div:first-child {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+`;
+
+export const DivORdown = styled.div<any>``;
+export const DivORside = styled.div<any>`
+  @media (max-width: 1341px) {
+    display: initial;
+  }
+  @media (max-width: 1000px) {
+    display: none;
+  }
+`;
+
+export const DivBlinder = styled.div``;
+
 export const ConeSvgDiv = styled.div`
   position: absolute;
   top: 18px;
-  z-index: 1;
+  z-index: 2;
   @media (min-width: 1581px) {
     right: 150px;
   }
@@ -192,7 +260,11 @@ export const Typography = styled(TypographyComponent)<any>`
       ? "#091133"
       : "#505F98"} !important;
   line-height: ${(props) =>
-    props.textColor === "MainBlue900" ? "66px" : "30px"} !important;
+    props.textColor === "MainBlue900" && props.lineHeightDefault === false
+      ? "66px"
+      : props.lineHeightDefault
+      ? "1.6"
+      : "initial"} !important;
   border-bottom: ${(props) =>
     props.topbartitleactive ? "1px solid #ee284b" : null};
 `;
@@ -299,4 +371,14 @@ export const SelectedTab = styled.h3`
   font-family: "Raleway", sans-serif;
   color: #3842a3;
   margin: 5px;
+`;
+
+export const Footer = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
 `;
