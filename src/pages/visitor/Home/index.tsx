@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 // import History from 'react-history';
 import {
   // makeStyles,
@@ -38,7 +38,7 @@ import {
 // );
 
 const Home = (props: any) => {
-  const [size, setSize] = useState<any>({
+  const [size, setSize] = React.useState<any>({
     width: 0,
     height: 0,
   });
