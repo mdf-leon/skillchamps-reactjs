@@ -1,15 +1,49 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from "styled-components";
 import {
+  Grid as GridComponent,
   Typography as TypographyComponent,
   Button as ButtonComponent,
 } from "@material-ui/core";
-import { ReactComponent as ConeIcon } from "assets/svg/traffic-cone-svgrepo-com 1.svg";
+import MenuIcon from "@material-ui/icons/Menu";
+
+export const BurguerIcon = styled(MenuIcon)`
+  min-height: 30px;
+  min-width: 30px;
+  fill: #111b47 !important;
+`;
+
+export const MainDiv = styled.div<any>`
+  display: standalone; 
+  font-size: 27px;
+  height: calc(var(${(props) => props.innerHeight}, 1vh) * 100)
+  overflow-y: scroll;
+  scroll-snap-points-y: repeat(320px);
+  scroll-snap-destination: 0 0;
+  scroll-snap-type: y mandatory;
+  scroll-snap-type: mandatory;
+  margin: 0;
+  position: relative;
+  background: white;
+  overflow-x: hidden;
+`;
+
+export const Card = styled.div`
+  margin-top: 66px;
+  height: calc(100vh - 66px);
+  scroll-snap-align: end !important;
+`;
+
 export const Header = styled.div`
   background: transparent;
-  position: relative;
+  position: fixed;
+  width: 100%;
   padding: 18px;
   z-index: 2;
+`;
+
+export const Grid = styled(GridComponent)`
+  direction: row-reverse;
 `;
 
 export const FirstHeaderButtons = styled.div`
@@ -19,12 +53,22 @@ export const FirstHeaderButtons = styled.div`
 
 export const Button = styled<any>(ButtonComponent)`
   border-radius: 2px !important;
+  border: ${(props) =>
+    props.darkblue
+      ? "none !important"
+      : props.topbutton
+      ? "none !important"
+      : "2px solid #091133 !important"};
   background-color: ${(props) =>
-    props.darkblue ? "#111b47 !important" : "initial"};
+    props.darkblue ? "#111b47 !important" : "transparent !important"};
   text-transform: none !important;
   box-shadow: none !important;
   color: ${(props) =>
-    props.darkblue ? "white !important" : "#505F98 !important"};
+    props.darkblue
+      ? "white !important"
+      : props.topbutton
+      ? "#505F98 !important"
+      : "#091133 !important"};
   padding: 4px 40px !important;
   margin: ${(props) => props.marginAll} !important;
   width: ${(props) => props.width} !important;
@@ -37,22 +81,54 @@ export const Body1 = styled.div`
   align-items: baseline;
   justify-content: center;
   text-align: left;
-  /* margin-left: 163px; */
   height: 100%;
   width: 100%;
   z-index: 2;
-  @media (max-width: 1000px) {
-    margin-right: 100px;
+  @media (max-width: 999px) {
+    padding: 0 100px;
     align-items: center;
+  }
+  @media (max-width: 589px) {
+    padding: 0 20px;
   }
 `;
 
 export const FirstTextDiv = styled.div`
-  @media (min-width: 1001px) {
+  @media (min-width: 1000px) {
+    margin-left: 163px;
     max-width: 540px;
   }
-  @media (max-width: 1000px) {
-    max-width: 100%;
+    div:not(:first-child) {
+      display: flex;
+      width: 80%;
+      @media (max-width: 999px) {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        button {
+          &:first-child {
+            margin-bottom: 16px !important;
+          }
+          margin-bottom: 40px !important;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 660px) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+    justify-content: space-between;
+    h3 {
+      font-size: 27px;
+      line-height: 1.167 !important;
+    }
+    h6 {
+      font-size: 14px;
+      line-height: 1.6 !important;
+    }
   }
 `;
 
@@ -73,7 +149,11 @@ export const ConeSvgDiv = styled.div`
     right: -100px;
   }
   @media (max-width: 1000px) {
-    right: -350px;
+    right: -400px;
+    top: 200px;
+    svg {
+      max-height: 500px;
+    }
   }
 `;
 
