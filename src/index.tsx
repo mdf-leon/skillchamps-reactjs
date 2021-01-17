@@ -118,7 +118,7 @@ ReactDOM.render(
         <ProtectedRoute exact path="/dashboard/sign-to-event" component={FindEvents} />
         <ProtectedRoute
           exact
-          path="/subscribeEvent/:id"
+          path="/dashboard/sign-to-event/:id"
           component={SubscribeEvent}
         />
         {/* <Route exact path="/portfolio/:id" component={App} />
