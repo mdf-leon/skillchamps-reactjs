@@ -1,31 +1,38 @@
-import React from "react";
+import React from 'react';
 import {
   fade,
   makeStyles,
   Theme,
   createStyles,
-} from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
+} from '@material-ui/core/styles';
 
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Badge,
+  MenuItem,
+  Menu,
+  Drawer,
+  Button,
+  List,
+  Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@material-ui/core';
+
+import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MailIcon from '@material-ui/icons/Mail';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+// import MoreIcon from '@material-ui/icons/More';
 
 // import Drawer from '../Drawer';
+
+import { useWindowSize } from 'hooks';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 250,
     },
     fullList: {
-      width: "auto",
+      width: 'auto',
     },
     grow: {
       flexGrow: 1,
@@ -42,58 +49,58 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(2),
     },
     title: {
-      display: "block",
+      display: 'block',
       // [theme.breakpoints.up('sm')]: {
       //   display: 'block',
       // },
     },
     search: {
-      position: "relative",
+      position: 'relative',
       borderRadius: theme.shape.borderRadius,
       backgroundColor: fade(theme.palette.common.white, 0.15),
-      "&:hover": {
+      '&:hover': {
         backgroundColor: fade(theme.palette.common.white, 0.25),
       },
       marginRight: theme.spacing(2),
       marginLeft: 0,
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(3),
-        width: "auto",
+        width: 'auto',
       },
     },
     searchIcon: {
       padding: theme.spacing(0, 2),
-      height: "100%",
-      position: "absolute",
-      pointerEvents: "none",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
+      height: '100%',
+      position: 'absolute',
+      pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     inputRoot: {
-      color: "inherit",
+      color: 'inherit',
     },
     inputInput: {
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("md")]: {
-        width: "20ch",
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('md')]: {
+        width: '20ch',
       },
     },
     sectionDesktop: {
-      display: "none",
-      [theme.breakpoints.up("md")]: {
-        display: "flex",
+      display: 'none',
+      [theme.breakpoints.up('md')]: {
+        display: 'flex',
       },
     },
     sectionMobile: {
-      display: "flex",
-      [theme.breakpoints.up("md")]: {
-        display: "none",
+      display: 'flex',
+      [theme.breakpoints.up('md')]: {
+        display: 'none',
       },
     },
   })
@@ -102,6 +109,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function AppBarComponent(props: any) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [width, height] = useWindowSize();
   const [
     mobileMoreAnchorEl,
     setMobileMoreAnchorEl,
@@ -123,14 +132,14 @@ export default function AppBarComponent(props: any) {
     handleMobileMenuClose();
   };
 
-  const menuId = "primary-search-account-menu";
+  const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id={menuId}
       keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
@@ -139,14 +148,14 @@ export default function AppBarComponent(props: any) {
     </Menu>
   );
 
-  const mobileMenuId = "primary-search-account-menu-mobile";
+  const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id={mobileMenuId}
       keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
@@ -186,9 +195,9 @@ export default function AppBarComponent(props: any) {
     event: React.KeyboardEvent | React.MouseEvent
   ) => {
     if (
-      event.type === "keydown" &&
-      ((event as React.KeyboardEvent).key === "Tab" ||
-        (event as React.KeyboardEvent).key === "Shift")
+      event.type === 'keydown' &&
+      ((event as React.KeyboardEvent).key === 'Tab' ||
+        (event as React.KeyboardEvent).key === 'Shift')
     ) {
       return;
     }
@@ -198,9 +207,9 @@ export default function AppBarComponent(props: any) {
 
   const DrawerComponent: any = () => (
     <div>
-      <React.Fragment key={"anchor"}>
+      <React.Fragment key={'anchor'}>
         {/* <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button> */}
-        <Drawer anchor={"left"} open={openState} onClose={toggleDrawer(false)}>
+        <Drawer anchor={'left'} open={openState} onClose={toggleDrawer(false)}>
           <div
             className={classes.list}
             role="presentation"
@@ -210,7 +219,7 @@ export default function AppBarComponent(props: any) {
             <List>
               <ListItem
                 button
-                key={"<MenuIcon />"}
+                key={'<MenuIcon />'}
                 onClick={toggleDrawer(false)}
               >
                 <ListItemIcon>
@@ -221,24 +230,24 @@ export default function AppBarComponent(props: any) {
                 button
                 key="appbar-menu-0"
                 onClick={() => {
-                  localStorage.removeItem("token");
+                  localStorage.removeItem('token');
                   window.location.reload();
                 }}
               >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Log off"} />
+                <ListItemText primary={'Log off'} />
               </ListItem>
               <ListItem // cada um desse é um link
                 button
                 key="appbar-menu-10"
-                onClick={() => props.history.push("/")}
+                onClick={() => props.history.push('/')}
               >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Landing page"} />
+                <ListItemText primary={'Landing page'} />
               </ListItem>
               {/* <ListItem // cada um desse é um link
                 button
@@ -253,34 +262,34 @@ export default function AppBarComponent(props: any) {
               <ListItem // cada um desse é um link
                 button
                 key="appbar-menu-20"
-                onClick={() => props.history.push("/eventOptions")}
+                onClick={() => props.history.push('/eventOptions')}
               >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Event Options"} />
+                <ListItemText primary={'Event Options'} />
               </ListItem>
               <ListItem // cada um desse é um link
                 button
                 key="appbar-menu-30"
-                onClick={() => props.history.push("/manageableEvents")}
+                onClick={() => props.history.push('/manageableEvents')}
               >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Event List"} />
+                <ListItemText primary={'Event List'} />
               </ListItem>
             </List>
             <Divider />
             <ListItem // cada um desse é um link
               button
               key="appbar-menu-40"
-              onClick={() => props.history.push("/beforeResult")}
+              onClick={() => props.history.push('/beforeResult')}
             >
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={"Final Results"} />
+              <ListItemText primary={'Final Results'} />
             </ListItem>
             {/* <List>
               {["All mail", "Trash", "Spam"].map((text, index) => (
@@ -298,10 +307,38 @@ export default function AppBarComponent(props: any) {
     </div>
   );
 
+  const topBarMenusDesktop = (
+    <div>
+      {props.hasManageableEvents && (
+        <div>
+          <Button variant="outlined">Manage</Button>
+        </div>
+      )}
+    </div>
+  );
+
+  const topBarMenusMobile = (
+    <div>
+      {props.hasManageableEvents && (
+        <div>
+          <Button
+            variant="outlined"
+            style={{ color: 'white', borderColor: 'white' }}
+          >
+            Manage
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <div className={classes.grow}>
       <DrawerComponent />
-      <AppBar position="static">
+      <AppBar
+        color={width >= 600 ? 'transparent' : undefined}
+        position="static"
+      >
         <Toolbar>
           <IconButton
             edge="start"
@@ -313,7 +350,7 @@ export default function AppBarComponent(props: any) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            {props.title || "no title"}
+            {props.title || 'no title'}
           </Typography>
           {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -362,6 +399,7 @@ export default function AppBarComponent(props: any) {
               <MoreIcon />
             </IconButton>
           </div> */}
+          {width >= 600 ? topBarMenusDesktop : topBarMenusMobile}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

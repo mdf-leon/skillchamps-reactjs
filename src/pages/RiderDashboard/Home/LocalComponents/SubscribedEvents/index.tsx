@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function ManageableEvents(props: any) {
+export default function SubscribedEventsComponent(props: any) {
   const classes = useStyles();
   const [events, setEvents] = React.useState<any[]>([]);
 
@@ -86,8 +86,8 @@ export default function ManageableEvents(props: any) {
 
   const todayEvent: any[] = events[0]
     ? events.filter((event) => {
-        console.log(event.date_begin);
-        console.log(getTodayWithoutTime());
+        //        // console.log(event.date_begin);
+        //        // console.log(getTodayWithoutTime());
 
         return event.date_begin === getTodayWithoutTime();
       })
