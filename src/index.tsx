@@ -20,7 +20,7 @@ import RegisterRider from "./pages/visitor/Register/Rider";
 import RegisterInstitute from "./pages/visitor/Register/Institute";
 import Dashboard from "./pages/InstituteDashboard/Dashboard";
 import FindEvents from "./pages/RiderDashboard/SignToEvent";
-import SubscribeEvent from "./pages/RiderDashboard/SignToEvent/subscribeEvent";
+import SubscribeEvent from "./pages/RiderDashboard/SignToEvent/SubscribeEvent";
 import TrialsChooseDashboard from "./pages/InstituteDashboard/Dashboard/trialsChooseDashboard";
 import BeforeResult from "./pages/InstituteDashboard/Result/beforeResults";
 import Result from "./pages/InstituteDashboard/Result";
@@ -30,7 +30,7 @@ import Rider from "./pages/InstituteDashboard/Rider";
 import NewRider from "./pages/InstituteDashboard/Rider/newRider";
 import Trials from "./pages/InstituteDashboard/Trials";
 import NewTrials from "./pages/InstituteDashboard/Trials/newTrials";
-// import Events from "./pages/signed/Events";
+// import Events from "./pages/signed/Events"; 
 // import Institute from "./pages/signed/Institute";
 import NewInstitute from "./pages/InstituteDashboard/Institute/newInstitute";
 // import CreateEvent from "./pages/signed/CreateEvent";
@@ -114,11 +114,11 @@ ReactDOM.render(
         <ProtectedRoute exact path="/newEvent" component={NewEvent} />
         <ProtectedRoute exact path="/beforePoints" component={BeforePoints} />
         <ProtectedRoute exact path="/points" component={Points} />
-        <ProtectedRoute exact path="/points" component={Points} />
+        {/* <ProtectedRoute exact path="/points" component={Points} /> */}
         <ProtectedRoute exact path="/dashboard/sign-to-event" component={FindEvents} />
         <ProtectedRoute
           exact
-          path="/subscribeEvent/:id"
+          path="/dashboard/sign-to-event/:event_id"
           component={SubscribeEvent}
         />
         {/* <Route exact path="/portfolio/:id" component={App} />

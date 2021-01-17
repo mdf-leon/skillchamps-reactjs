@@ -50,10 +50,6 @@ import {
 const Home = (props: any) => {
   const [width] = useWindowSize();
 
-  React.useEffect(() => {
-    console.log(width);
-  }, [width]);
-
   return (
     <MainDiv>
       <Header>
