@@ -26,7 +26,6 @@ import {
   BurguerIcon,
   Card,
   DivORside,
-  DivORdown,
   DivBlinder,
   Footer,
 } from "./styles";
@@ -48,7 +47,7 @@ import {
 // );
 
 const Home = (props: any) => {
-  const [width] = useWindowSize();
+  const [width, height] = useWindowSize();
 
   return (
     <MainDiv>
@@ -152,21 +151,32 @@ const Home = (props: any) => {
           <SecondTextDiv style={{ maxWidth: "100%" }}>
             <div>
               <div>
-                <Typography
-                  fontWeight="MainBlue900"
-                  textColor="MainBlue900"
-                  variant="h3"
-                  component="h3"
+                {height >= 640 ? (
+                  <Typography
+                    fontWeight="MainBlue900"
+                    textColor="MainBlue900"
+                    variant="h3"
+                    component="h3"
+                    gutterBottom="40"
+                  >
+                    Participant and viewer control
+                  </Typography>
+                ) : (
+                  <Typography
+                  variant="h6"
+                  component="h6"
                   gutterBottom="40"
-                >
-                  Participant and viewer control
-                </Typography>
+                  textColor="MainBlue900"
+                  lineHeightDefault
+                  >
+                    Participant and viewer control
+                  </Typography>
+                )}
 
                 <Typography variant="h6" component="h6" marginAll="0 0 20px 0">
                   Be it via e-mail or using our API in your web page, with us,
                   you can control and see how many tickets you have sold, manage
                   every entry and ajust as your please.
-                  <br />
                   <br />
                   Riders are also manageable, someone mispeled their license
                   plate? Easy. you can sign your riders via the control panel or
@@ -176,16 +186,19 @@ const Home = (props: any) => {
                 </Typography>
               </div>
               <div className="d-flex">
-                <DivORside showOffSide>
-                  <ONicon />
-                </DivORside>
+                {width <= 1438 && width > 1062 ? (
+                  <DivORside>
+                    <ONicon />
+                  </DivORside>
+                ) : null}
                 <Grid
                   container
                   justify="center"
                   style={{
-                    flexDirection: width < 1346 ? "column" : "initial",
-                    paddingLeft: width < 1346 ? "20px" : "initial",
-                    justifyContent: width < 1346 ? "center" : "initial",
+                    flexDirection:
+                      width < 1439 && width > 1062 ? "column" : "initial",
+                    paddingLeft:
+                      width < 1439 && width > 1062 ? "20px" : "initial",
                   }}
                 >
                   <Grid container justify="flex-start" item xs>
@@ -196,11 +209,13 @@ const Home = (props: any) => {
                       item
                       xs={12}
                       style={{
-                        display: width < 1346 ? "flex" : "initial",
-                        justifyContent: width < 1346 ? "center" : "initial",
+                        display:
+                          width < 1439 && width > 1062 ? "flex" : "initial",
+                        justifyContent:
+                          width < 1439 && width > 1062 ? "center" : "initial",
                       }}
                     >
-                      <HowToRegIcon />
+                      {width > 481 && height >= 850 ? <HowToRegIcon /> : null}
 
                       <Typography
                         variant="h6"
@@ -226,11 +241,14 @@ const Home = (props: any) => {
                       item
                       xs={12}
                       style={{
-                        display: width < 1346 ? "flex" : "initial",
-                        justifyContent: width < 1346 ? "center" : "initial",
+                        display:
+                          width < 1439 && width > 1062 ? "flex" : "initial",
+                        justifyContent:
+                          width < 1439 && width > 1062 ? "center" : "initial",
+                        marginLeft: width > 1438 || width < 1062 ? "20px" : "0",
                       }}
                     >
-                      <HowToRegIcon />
+                      {width > 481 && height >= 850 ? <HowToRegIcon /> : null}
 
                       <Typography
                         variant="h6"
@@ -251,9 +269,11 @@ const Home = (props: any) => {
                 </Grid>
               </div>
             </div>
-            <DivORdown>
-              <ONicon />
-            </DivORdown>
+            {width > 1438 || (width < 1063 && height >= 850 && width >= 405) ? (
+              <DivORside>
+                <ONicon />
+              </DivORside>
+            ) : null}
           </SecondTextDiv>
         </Body1>
       </Card>
@@ -265,9 +285,10 @@ const Home = (props: any) => {
             </DivBlinder>
             <div
               style={{
+                display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
-                paddingLeft: "186px",
+                paddingLeft: width < 1280 ? "0px" : "100px",
               }}
             >
               <Typography
@@ -298,7 +319,7 @@ const Home = (props: any) => {
           </ThirdTextDiv>
         </Body1>
       </Card>
-      <Footer>a</Footer>
+      {/* <Footer>a</Footer> */}
       <ConeSvgDiv>
         <ConeIcon />
       </ConeSvgDiv>

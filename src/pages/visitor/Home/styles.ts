@@ -121,7 +121,6 @@ export const FirstTextDiv = styled.div<any>`
           &:first-child {
             margin-bottom: 16px !important;
           }
-          margin-bottom: 40px !important;
         }
       }
     }
@@ -132,7 +131,7 @@ export const FirstTextDiv = styled.div<any>`
     flex-direction: column;
     height: 100%;
     text-align: center;
-    justify-content: space-between;
+    justify-content: space-around;
     h3 {
       font-size: 27px;
       line-height: 1.167 !important;
@@ -147,12 +146,13 @@ export const FirstTextDiv = styled.div<any>`
 export const SecondTextDiv = styled.div<any>`
   display: flex;
   flex-direction: ${(props) => (props.direction === "row" ? "row" : "column")};
-  @media (max-width: 1346px) {
+  flex-direction: row;
+  @media (max-width: 1439px) {
     display: flex;
     flex-direction: column;
   }
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1121px) {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -167,13 +167,32 @@ export const SecondTextDiv = styled.div<any>`
       line-height: 1.6 !important;
     }
   }
+  @media (max-width: 927px) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+    justify-content: space-between;
+    h3 {
+      font-size: 27px;
+      line-height: 1.167 !important;
+    }
+    h6 {
+      font-size: 14px;
+      line-height: 1.6 !important;
+    }
+  }
+  @media (max-width: 400px) {
+    margin-bottom: 10px;
+  }
 `;
 
 export const ThirdTextDiv = styled.div<any>`
+  display: flex;
   max-width: 100%;
   justify-content: space-between;
   flex-direction: row;
-  @media (max-width: 1000px) {
+  @media (max-width: 1280px) {
     flex-direction: column;
     align-items: center;
     svg {
@@ -185,16 +204,34 @@ export const ThirdTextDiv = styled.div<any>`
       align-items: center;
       justify-content: center;
     }
+    @media (max-width: 430px) {
+      svg {
+        margin-top 48px;
+        max-height: 200px;
+        max-width: 200px;
+        margin-bottom: 20px;
+      }
+    }
+    @media (max-width: 927px) {
+      h3 {
+        font-size: 27px;
+        line-height: 1.167 !important;
+      }
+      h6 {
+        font-size: 14px;
+        line-height: 1.6 !important;
+      }
+    }
   }
 `;
 
-export const DivORdown = styled.div<any>``;
 export const DivORside = styled.div<any>`
-  @media (max-width: 1341px) {
-    display: initial;
-  }
-  @media (max-width: 1000px) {
-    display: none;
+  height: 100%;
+  @media (max-width: 1063px) {
+    svg {
+      height: 300px;
+      width: 300px;
+    }
   }
 `;
 
