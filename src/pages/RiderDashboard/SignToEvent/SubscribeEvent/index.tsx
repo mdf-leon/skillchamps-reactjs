@@ -112,7 +112,7 @@ export default function SubscribeToEvent(props: any) {
 
   return (
     <div style={{ margin: 0, overflowX: 'hidden' }}>
-      <AppBar title="Find Events" {...props} />
+      <AppBar title="Subscribe to an Event" {...props} />
       <Grid
         container
         spacing={3}
