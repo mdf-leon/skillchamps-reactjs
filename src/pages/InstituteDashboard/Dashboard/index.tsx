@@ -122,7 +122,7 @@ function getComparator(order, orderBy) {
 
 export default function CustomizedTables(props: any) {
   const classes = useStyles();
-  const [category, setCategory] = useState<any>();
+  const [category, setCategory] = useState<any>('');
   const [data, setData] = useState<any>({});
   const [trialData, settrialData] = useState<any>({});
   const [penaltyConfs, setPenaltyConfs] = useState<any>([]);
@@ -149,6 +149,8 @@ export default function CustomizedTables(props: any) {
     base
       .get(`/fullRanking3`, { params })
       .then((r) => {
+        console.log(r.data);
+        
         setData(r.data);
       })
       .catch(() => {});
@@ -201,7 +203,7 @@ export default function CustomizedTables(props: any) {
   return (
     <>
       <AppBar title={trialData.name || 'TRIAL NAME'} {...props} />
-      {data?.riders && data?.riders[0]?.scores ? (
+      {data?.riders  ? (
         <Card className={classes.root}>
           <CardContent>
             <FormControl variant="outlined" className={classes.formControl}>
@@ -214,7 +216,7 @@ export default function CustomizedTables(props: any) {
                 label="Category"
               >
                 <MenuItem value="null">None</MenuItem>
-                <MenuItem value="beginner">Beginner</MenuItem>
+                <MenuItem value="beginners">Beginner</MenuItem>
                 <MenuItem value="advanced">Advanced</MenuItem>
                 <MenuItem value="expert">Expert</MenuItem>
               </Select>
@@ -434,7 +436,7 @@ export default function CustomizedTables(props: any) {
                     (row, i) => {
                       if (!row.scores) return null;
                       return (
-                        <StyledTableRow key={row.name}>
+                        <StyledTableRow key={row.name+i+'a'}>
                           <StyledTableCell
                             align="center"
                             component="th"
