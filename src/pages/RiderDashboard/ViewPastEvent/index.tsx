@@ -15,8 +15,8 @@ import {
   Divider,
 } from "@material-ui/core";
 import { AppBar, Modal } from "components";
-import { CardHeader } from "../styles";
 import { base } from "config/api";
+import { CardHeader } from "./styles";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function SubscribeToEvent(props: any) {
+export default function ViewPastEvent(props: any) {
   const classes = useStyles();
   const [modalRender, setModalRender] = React.useState<any>("");
   const riderCardRef = React.useRef<any>(null);
@@ -182,6 +182,11 @@ export default function SubscribeToEvent(props: any) {
                 <Typography gutterBottom variant="h5" component="h2">
                   {eventInfo.event_name}
                 </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {new Date(
+                    localStorage.getItem("temp_event_date_begin") || ""
+                  ).toLocaleDateString("en-US")}
+                </Typography>
               </div>
             </CardContent>
             <CardActions style={{ justifyContent: "flex-end" }}>
@@ -194,7 +199,18 @@ export default function SubscribeToEvent(props: any) {
                   handleSubscribe();
                 }}
               >
-                Subscribe
+                Total result
+              </Button>
+              <Button
+                className={classes.action}
+                variant="contained"
+                size="small"
+                color="primary"
+                onClick={() => {
+                  handleSubscribe();
+                }}
+              >
+                Partial result
               </Button>
             </CardActions>
           </Card>

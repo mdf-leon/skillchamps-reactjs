@@ -14,6 +14,8 @@ import { ThemeProvider } from "styled-components";
 // import App from "./App";
 import Home from "./pages/visitor/Home/index";
 import SharedHome from "./pages/RiderDashboard/Home/index";
+import SignedEvent from "./pages/RiderDashboard/SignedEvent";
+import ViewPastEvent from "./pages/RiderDashboard/ViewPastEvent";
 import Login from "./pages/visitor/Login";
 import Register from "./pages/visitor/Register";
 import RegisterRider from "./pages/visitor/Register/Rider";
@@ -30,7 +32,7 @@ import Rider from "./pages/InstituteDashboard/Rider";
 import NewRider from "./pages/InstituteDashboard/Rider/newRider";
 import Trials from "./pages/InstituteDashboard/Trials";
 import NewTrials from "./pages/InstituteDashboard/Trials/newTrials";
-// import Events from "./pages/signed/Events"; 
+// import Events from "./pages/signed/Events";
 // import Institute from "./pages/signed/Institute";
 import NewInstitute from "./pages/InstituteDashboard/Institute/newInstitute";
 // import CreateEvent from "./pages/signed/CreateEvent";
@@ -82,6 +84,16 @@ ReactDOM.render(
         />
 
         <ProtectedRoute exact path="/dashboard/home" component={SharedHome} />
+        <ProtectedRoute
+          exact
+          path="/dashboard/subscriptions/event/:event_id"
+          component={SignedEvent}
+        />
+        <ProtectedRoute
+          exact
+          path="/dashboard/history/event/:event_id"
+          component={ViewPastEvent}
+        />
 
         <ProtectedRoute exact path="/beforeResult" component={BeforeResult} />
         <Route exact path="/result" component={Result} />
@@ -115,7 +127,11 @@ ReactDOM.render(
         <ProtectedRoute exact path="/beforePoints" component={BeforePoints} />
         <ProtectedRoute exact path="/points" component={Points} />
         {/* <ProtectedRoute exact path="/points" component={Points} /> */}
-        <ProtectedRoute exact path="/dashboard/sign-to-event" component={FindEvents} />
+        <ProtectedRoute
+          exact
+          path="/dashboard/sign-to-event"
+          component={FindEvents}
+        />
         <ProtectedRoute
           exact
           path="/dashboard/sign-to-event/:event_id"

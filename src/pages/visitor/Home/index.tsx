@@ -74,7 +74,11 @@ const Home = (props: any) => {
           </Grid>
           <Hidden smDown>
             <Grid container justify="center" item xs>
-              <Button darkblue variant="contained">
+              <Button
+                darkblue
+                variant="contained"
+                onClick={() => props.history.push("/login")}
+              >
                 My Account
               </Button>
             </Grid>

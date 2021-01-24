@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 
-import { CardContent, CardMedia, Divider, Typography } from '@material-ui/core';
+import { CardContent, CardMedia, Divider, Typography } from "@material-ui/core";
 
 import {
   HistoryInfoDiv,
@@ -10,15 +10,15 @@ import {
   FirstMedal,
   SecondMedal,
   ThirdMedal,
-} from './styles';
+} from "./styles";
 
-import { base } from 'config/api';
+import { base } from "config/api";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     historyContent: {
-      position: 'relative',
-      overflowY: 'scroll',
+      position: "relative",
+      overflowY: "scroll",
     },
     historyImg: {
       height: 75,
@@ -60,10 +60,15 @@ export default function HistoryCardContent(props: any) {
       <CardContent
         className={classes.historyContent}
         id="boi1"
-        style={{ height: props.historyCardSize, minHeight: '100px' }}
+        style={{ height: props.historyCardSize, minHeight: "100px" }}
       >
         {historyList.map((history, i) => (
-          <div key={`HistoryInfoDiv-${i}`}>
+          <div
+            key={`HistoryInfoDiv-${i}`}
+            onClick={() =>
+              props.history.push(`/dashboard/history/event/${history.event_id}`)
+            }
+          >
             <HistoryInfoDiv>
               <CardMedia
                 className={classes.historyImg}

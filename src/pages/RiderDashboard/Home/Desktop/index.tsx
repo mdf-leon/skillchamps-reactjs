@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   makeStyles,
   createStyles,
@@ -8,26 +8,26 @@ import {
   CardContent,
   Typography,
   Divider,
-} from '@material-ui/core';
-import { CardHeader } from './styles';
-import SubscribedEvents from '../LocalComponents/SubscribedEvents';
-import RiderContent from '../LocalComponents/RiderContent';
-import HistoryContent from '../LocalComponents/HistoryContent';
+} from "@material-ui/core";
+import { CardHeader } from "./styles";
+import SubscribedEvents from "../LocalComponents/SubscribedEvents";
+import RiderContent from "../LocalComponents/RiderContent";
+import HistoryContent from "../LocalComponents/HistoryContent";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainDiv: {
-      maxHeight: '100%',
-      height: '100%',
+      maxHeight: "100%",
+      height: "100%",
       margin: 0,
-      marginBottom: '10px',
-      paddingBottom: '10px',
+      marginBottom: "10px",
+      paddingBottom: "10px",
     },
     root: {
       flexGrow: 1,
-      margin: '18px 8px 0 8px',
+      margin: "18px 8px 0 8px",
     },
     subscribedEventContent: {
-      overflowY: 'scroll',
+      overflowY: "scroll",
     },
   })
 );
@@ -53,9 +53,9 @@ export default function DesktopHome(props: any) {
         window.innerHeight - 120 - (props.appBarHeight || 0)
       );
     }
-    window.addEventListener('resize', updateSize);
+    window.addEventListener("resize", updateSize);
     updateSize();
-    return () => window.removeEventListener('resize', updateSize);
+    return () => window.removeEventListener("resize", updateSize);
     // eslint-disable-next-line
   }, []);
 
@@ -65,14 +65,14 @@ export default function DesktopHome(props: any) {
         <Card className={classes.root} ref={riderCardRef}>
           <RiderContent {...props} />
         </Card>
-        <Card className={classes.root} style={{ height: 'auto' }} id="paidoboi">
+        <Card className={classes.root} style={{ height: "auto" }} id="paidoboi">
           <CardHeader>
             <Typography gutterBottom variant="h5" component="h2">
               History
             </Typography>
             <Divider />
           </CardHeader>
-          <HistoryContent historyCardSize={historyCardSize} />
+          <HistoryContent {...props} historyCardSize={historyCardSize} />
         </Card>
       </Grid>
       <Grid item xs={6}>
@@ -85,9 +85,9 @@ export default function DesktopHome(props: any) {
           </CardHeader>
           <CardContent
             className={classes.subscribedEventContent}
-            style={{ height: subscribedEventCardSize, minHeight: '100px' }}
+            style={{ height: subscribedEventCardSize, minHeight: "100px" }}
           >
-            <SubscribedEvents />
+            <SubscribedEvents {...props} />
           </CardContent>
         </Card>
       </Grid>

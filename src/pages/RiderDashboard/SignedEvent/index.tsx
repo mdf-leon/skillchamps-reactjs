@@ -15,8 +15,8 @@ import {
   Divider,
 } from "@material-ui/core";
 import { AppBar, Modal } from "components";
-import { CardHeader } from "../styles";
 import { base } from "config/api";
+import { CardHeader } from "./styles";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function SubscribeToEvent(props: any) {
+export default function SignedEvent(props: any) {
   const classes = useStyles();
   const [modalRender, setModalRender] = React.useState<any>("");
   const riderCardRef = React.useRef<any>(null);
@@ -81,23 +81,25 @@ export default function SubscribeToEvent(props: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSubscribe = () => {
-    const { id: rider_id } = JSON.parse(
-      localStorage.getItem("rider_info") || ""
-    );
-    base
-      .post(`/signToEvent`, { rider_id, event_id: eventInfo.id })
-      .then((r) => {
-        setModalRender("Success");
-      })
-      .catch((e) => {
-        console.log(e.response.data);
-        // if (e.response.data.Error === "Ja existe") {
-        //   alert("You are already subscribed to this event.");
-        // }
-        // props.history.push("/dashboard/sign-to-event/7/success");
-        setModalRender("Error");
-      });
+  const handleUnsubscribe = () => {
+    setModalRender("Error");
+    console.log("não tem backend");
+    // const { id: rider_id } = JSON.parse(
+    //   localStorage.getItem("rider_info") || ""
+    // );
+    // base
+    //   .post(`/signToEvent`, { rider_id, event_id: eventInfo.id })
+    //   .then((r) => {
+    //     setModalRender("Success");
+    //   })
+    //   .catch((e) => {
+    //     console.log(e.response.data);
+    //     // if (e.response.data.Error === "Ja existe") {
+    //     //   alert("You are already subscribed to this event.");
+    //     // }
+    //     // props.history.push("/dashboard/sign-to-event/7/success");
+    //     setModalRender("Error");
+    //   });
   };
 
   React.useLayoutEffect(() => {
@@ -119,7 +121,15 @@ export default function SubscribeToEvent(props: any) {
     >
       <div>
         <Typography gutterBottom variant="h5" component="h2">
-          Congratulations you have been subscribed to this event.
+          You have been successfully unsubscribed from this event.
+        </Typography>
+        <Typography
+          gutterBottom
+          variant="h6"
+          color="textSecondary"
+          component="p"
+        >
+          We will miss you.
         </Typography>
         <Divider />
         <Button
@@ -142,7 +152,7 @@ export default function SubscribeToEvent(props: any) {
     >
       <div>
         <Typography gutterBottom variant="h5" component="h2">
-          Could not subscribed right now, try again later.
+          Could not unsubscribe right now, try again later.
         </Typography>
         <Divider />
         <Button
@@ -160,7 +170,7 @@ export default function SubscribeToEvent(props: any) {
 
   return (
     <div style={{ margin: 0, overflowX: "hidden" }}>
-      <AppBar title="Subscribe to an Event" {...props} />
+      <AppBar title="Event information" {...props} />
       <Grid
         container
         spacing={3}
@@ -182,6 +192,11 @@ export default function SubscribeToEvent(props: any) {
                 <Typography gutterBottom variant="h5" component="h2">
                   {eventInfo.event_name}
                 </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {new Date(
+                    localStorage.getItem("temp_event_date_begin") || ""
+                  ).toLocaleDateString("en-US")}
+                </Typography>
               </div>
             </CardContent>
             <CardActions style={{ justifyContent: "flex-end" }}>
@@ -191,10 +206,10 @@ export default function SubscribeToEvent(props: any) {
                 size="small"
                 color="primary"
                 onClick={() => {
-                  handleSubscribe();
+                  handleUnsubscribe();
                 }}
               >
-                Subscribe
+                Unsubscribe
               </Button>
             </CardActions>
           </Card>
