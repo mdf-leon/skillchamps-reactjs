@@ -49,7 +49,7 @@ export const Header = styled.div`
   position: fixed;
   width: 100%;
   padding: 18px;
-  z-index: 3;
+  z-index: 6;
 `;
 
 export const Grid = styled(GridComponent)`
@@ -416,6 +416,6 @@ export const Footer = styled.div`
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: #efefef;
+  background-color: #e7ecff;
   text-align: center;
 `;

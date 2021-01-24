@@ -148,30 +148,23 @@ const Home = (props: any) => {
         <Body1
         // style={{ position: width < 1000 }}
         >
-          <SecondTextDiv style={{ maxWidth: "100%" }}>
+          <SecondTextDiv
+            style={{
+              maxWidth: "100%",
+              justifyContent: width < 785 ? "center" : "inherit",
+            }}
+          >
             <div>
               <div>
-                {height >= 640 ? (
-                  <Typography
-                    fontWeight="MainBlue900"
-                    textColor="MainBlue900"
-                    variant="h3"
-                    component="h3"
-                    gutterBottom="40"
-                  >
-                    Participant and viewer control
-                  </Typography>
-                ) : (
-                  <Typography
-                  variant="h6"
-                  component="h6"
-                  gutterBottom="40"
+                <Typography
+                  fontWeight="MainBlue900"
                   textColor="MainBlue900"
-                  lineHeightDefault
-                  >
-                    Participant and viewer control
-                  </Typography>
-                )}
+                  variant="h3"
+                  component="h3"
+                  gutterBottom="40"
+                >
+                  Participant and viewer control
+                </Typography>
 
                 <Typography variant="h6" component="h6" marginAll="0 0 20px 0">
                   Be it via e-mail or using our API in your web page, with us,
@@ -185,98 +178,219 @@ const Home = (props: any) => {
                   event, we take care of it.
                 </Typography>
               </div>
-              <div className="d-flex">
-                {width <= 1438 && width > 1062 ? (
-                  <DivORside>
-                    <ONicon />
-                  </DivORside>
-                ) : null}
-                <Grid
-                  container
-                  justify="center"
-                  style={{
-                    flexDirection:
-                      width < 1439 && width > 1062 ? "column" : "initial",
-                    paddingLeft:
-                      width < 1439 && width > 1062 ? "20px" : "initial",
-                  }}
-                >
-                  <Grid container justify="flex-start" item xs>
-                    <Grid
-                      container
-                      justify="flex-start"
-                      direction="column"
-                      item
-                      xs={12}
-                      style={{
-                        display:
-                          width < 1439 && width > 1062 ? "flex" : "initial",
-                        justifyContent:
-                          width < 1439 && width > 1062 ? "center" : "initial",
-                      }}
-                    >
-                      {width > 481 && height >= 850 ? <HowToRegIcon /> : null}
-
-                      <Typography
-                        variant="h6"
-                        component="h6"
-                        gutterBottom="40"
-                        textColor="MainBlue900"
-                        lineHeightDefault
+              {width >= 785 ? (
+                <div className="d-flex">
+                  {width <= 1438 && width > 1062 ? (
+                    <DivORside>
+                      <ONicon />
+                    </DivORside>
+                  ) : null}
+                  <Grid
+                    container
+                    justify="center"
+                    style={{
+                      flexDirection:
+                        width < 1439 && width > 1062 ? "column" : "initial",
+                      paddingLeft:
+                        width < 1439 && width > 1062 ? "20px" : "initial",
+                    }}
+                  >
+                    <Grid container justify="flex-start" item xs>
+                      <Grid
+                        container
+                        justify="flex-start"
+                        direction="column"
+                        item
+                        xs={12}
+                        style={{
+                          display:
+                            width < 1439 && width > 1062 ? "flex" : "initial",
+                          justifyContent:
+                            width < 1439 && width > 1062 ? "center" : "initial",
+                        }}
                       >
-                        Effortless registration of a rider
-                      </Typography>
-                      <Typography variant="h6" component="h6" gutterBottom="40">
-                        The rider can create a user and sign in themselves on
-                        your event without you moving a finger. Focus on your
-                        event experience, let the boring part with us.
-                      </Typography>
+                        {width > 481 && height >= 850 ? <HowToRegIcon /> : null}
+
+                        <Typography
+                          variant="h6"
+                          component="h6"
+                          gutterBottom="40"
+                          textColor="MainBlue900"
+                          lineHeightDefault
+                        >
+                          Effortless registration of a rider
+                        </Typography>
+                        <Typography
+                          variant="h6"
+                          component="h6"
+                          gutterBottom="40"
+                        >
+                          The rider can create a user and sign in themselves on
+                          your event without you moving a finger. Focus on your
+                          event experience, let the boring part with us.
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid container justify="flex-start" item xs>
+                      <Grid
+                        container
+                        justify="flex-start"
+                        direction="column"
+                        item
+                        xs={12}
+                        style={{
+                          display:
+                            width < 1439 && width > 1062 ? "flex" : "initial",
+                          justifyContent:
+                            width < 1439 && width > 1062 ? "center" : "initial",
+                          marginLeft:
+                            width > 1438 || width < 1062 ? "20px" : "0",
+                        }}
+                      >
+                        {width > 481 && height >= 850 ? <HowToRegIcon /> : null}
+
+                        <Typography
+                          variant="h6"
+                          component="h6"
+                          gutterBottom="40"
+                          textColor="MainBlue900"
+                          lineHeightDefault
+                        >
+                          Online ticket purchasing
+                        </Typography>
+                        <Typography
+                          variant="h6"
+                          component="h6"
+                          gutterBottom="40"
+                        >
+                          We give you the option to have a custom page to share
+                          with the fans where they can buy tickets from the
+                          comfort of their home. Easy and secure.
+                        </Typography>
+                      </Grid>
                     </Grid>
                   </Grid>
-                  <Grid container justify="flex-start" item xs>
-                    <Grid
-                      container
-                      justify="flex-start"
-                      direction="column"
-                      item
-                      xs={12}
-                      style={{
-                        display:
-                          width < 1439 && width > 1062 ? "flex" : "initial",
-                        justifyContent:
-                          width < 1439 && width > 1062 ? "center" : "initial",
-                        marginLeft: width > 1438 || width < 1062 ? "20px" : "0",
-                      }}
-                    >
-                      {width > 481 && height >= 850 ? <HowToRegIcon /> : null}
-
-                      <Typography
-                        variant="h6"
-                        component="h6"
-                        gutterBottom="40"
-                        textColor="MainBlue900"
-                        lineHeightDefault
-                      >
-                        Online ticket purchasing
-                      </Typography>
-                      <Typography variant="h6" component="h6" gutterBottom="40">
-                        We give you the option to have a custom page to share
-                        with the fans where they can buy tickets from the
-                        comfort of their home. Easy and secure.
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </div>
+                </div>
+              ) : null}
             </div>
-            {width > 1438 || (width < 1063 && height >= 850 && width >= 405) ? (
-              <DivORside>
-                <ONicon />
-              </DivORside>
+            {width >= 785 ? (
+              width > 1438 ||
+              (width < 1063 && height >= 850 && width >= 405) ? (
+                <DivORside>
+                  <ONicon />
+                </DivORside>
+              ) : null
             ) : null}
           </SecondTextDiv>
         </Body1>
       </Card>
+      {width < 785 ? (
+        <Card>
+          <Body1
+          // style={{ position: width < 1000 }}
+          >
+            <SecondTextDiv
+              style={{
+                maxWidth: "100%",
+                justifyContent: width < 785 ? "center" : "inherit",
+              }}
+            >
+              <div>
+                <DivORside style={{ maxHeight: "250px" }}>
+                  <ONicon style={{ height: "250px", width: "250px" }} />
+                </DivORside>
+                <div className="d-flex mt-20">
+                  <Grid
+                    container
+                    justify="center"
+                    style={{
+                      flexDirection:
+                        width < 1439 && width > 1062 ? "column" : "initial",
+                      paddingLeft:
+                        width < 1439 && width > 1062 ? "20px" : "initial",
+                    }}
+                  >
+                    <Grid container justify="flex-start" item xs>
+                      <Grid
+                        container
+                        justify="flex-start"
+                        direction="column"
+                        item
+                        xs={12}
+                        style={{
+                          display:
+                            width < 1439 && width > 1062 ? "flex" : "initial",
+                          justifyContent:
+                            width < 1439 && width > 1062 ? "center" : "initial",
+                        }}
+                      >
+                        {width > 481 && height >= 850 ? <HowToRegIcon /> : null}
+
+                        <Typography
+                          fontWeight="MainBlue900"
+                          textColor="MainBlue900"
+                          variant="h6"
+                          component="h6"
+                          gutterBottom="40"
+                        >
+                          Effortless registration of a rider
+                        </Typography>
+                        <Typography
+                          variant="h6"
+                          component="h6"
+                          gutterBottom="40"
+                        >
+                          The rider can create a user and sign in themselves on
+                          your event without you moving a finger. Focus on your
+                          event experience, let the boring part with us.
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid container justify="flex-start" item xs>
+                      <Grid
+                        container
+                        justify="flex-start"
+                        direction="column"
+                        item
+                        xs={12}
+                        style={{
+                          display:
+                            width < 1439 && width > 1062 ? "flex" : "initial",
+                          justifyContent:
+                            width < 1439 && width > 1062 ? "center" : "initial",
+                          marginLeft:
+                            width > 1438 || width < 1062 ? "20px" : "0",
+                        }}
+                      >
+                        {width > 481 && height >= 850 ? <HowToRegIcon /> : null}
+
+                        <Typography
+                          fontWeight="MainBlue900"
+                          textColor="MainBlue900"
+                          variant="h6"
+                          component="h6"
+                          gutterBottom="40"
+                        >
+                          Online ticket purchasing
+                        </Typography>
+                        <Typography
+                          variant="h6"
+                          component="h6"
+                          gutterBottom="40"
+                        >
+                          We give you the option to have a custom page to share
+                          with the fans where they can buy tickets from the
+                          comfort of their home. Easy and secure.
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </div>
+              </div>
+            </SecondTextDiv>
+          </Body1>
+        </Card>
+      ) : null}
       <Card>
         <Body1>
           <ThirdTextDiv direction="row">
@@ -319,7 +433,104 @@ const Home = (props: any) => {
           </ThirdTextDiv>
         </Body1>
       </Card>
-      {/* <Footer>a</Footer> */}
+      <Card style={{ paddingBottom: 0 }}>
+        <Body1>
+          <ThirdTextDiv direction="row"></ThirdTextDiv>
+          {width < 960 ? (
+            <Footer>
+              <div
+                className="d-flex"
+                style={{
+                  justifyContent: "space-around",
+                  paddingBottom: "16px",
+                }}
+              >
+                <Typography variant="body2" component="p">
+                  Home
+                </Typography>
+                <Typography variant="body2" component="p">
+                  About
+                </Typography>
+                <Typography variant="body2" component="p">
+                  Contact
+                </Typography>
+              </div>
+              <div className="mb-10">
+                <Button darkblue variant="contained">
+                  Purchase now
+                </Button>
+              </div>
+              <div>
+                <Typography fontWeight="skTitle" variant="h5" component="h5">
+                  Skillchamps
+                </Typography>
+                <Typography variant="body2" component="p">
+                  @2020 Skillchamps
+                </Typography>
+              </div>
+            </Footer>
+          ) : null}
+
+          {width > 959 ? (
+            <Footer>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "100%",
+                  borderBottom: "1px solid #CDD1D4",
+                  paddingBottom: "10px",
+                }}
+              >
+                <div
+                  className="d-flex"
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                    width: "100%",
+                  }}
+                >
+                  <Typography variant="body2" component="p">
+                    Home
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    About
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    Contact
+                  </Typography>
+                </div>
+                <div style={{ width: "100%" }}>
+                  <Typography
+                    fontWeight="skTitle"
+                    variant="h5"
+                    component="h5"
+                    className="pb-10"
+                  >
+                    Skillchamps
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    @2020 Skillchamps
+                  </Typography>
+                </div>
+                <div
+                  // className="mb-10"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Button darkblue variant="contained">
+                    Purchase now
+                  </Button>
+                </div>
+              </div>
+            </Footer>
+          ) : null}
+        </Body1>
+      </Card>
       <ConeSvgDiv>
         <ConeIcon />
       </ConeSvgDiv>
