@@ -1,21 +1,8 @@
 import React from "react";
-import AppBar from "../../../components/AppBar";
-// import { Grid, Hidden } from "@material-ui/core";
-
-import MobileView from "./Mobile";
-import DesktopView from "./Desktop";
-import ContentPopover from "./LocalComponents/ManageContent";
 
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 
-import {
-  Grid,
-  Hidden,
-  CardContent,
-  CardMedia,
-  Divider,
-  Typography,
-} from "@material-ui/core";
+import { CardContent, CardMedia, Divider, Typography } from "@material-ui/core";
 
 import {
   HistoryInfoDiv,
@@ -23,7 +10,7 @@ import {
   FirstMedal,
   SecondMedal,
   ThirdMedal,
-} from "./LocalComponents/ManageContent/styles";
+} from "./styles";
 
 import { base } from "config/api";
 
@@ -39,9 +26,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-// import { base } from 'config/api';
 
-export default function SharedDashboardHome(props: any) {
+export default function ContentPopover(props: any) {
   const classes = useStyles();
 
   const [historyList, sethistoryList] = React.useState<any>([]);
@@ -68,10 +54,8 @@ export default function SharedDashboardHome(props: any) {
       })
       .catch(() => {});
   }, []);
-  // TODO: pegar se o usuario tem algum evento pra gerir de alguma forma
-  //  // const [hasManageableEvents, sethasmanageableEvents] = React.useState<any>(null)
 
-  const Aaaa = (
+  return (
     <div style={{ minWidth: "400px" }}>
       <CardContent
         className={classes.historyContent}
@@ -118,33 +102,4 @@ export default function SharedDashboardHome(props: any) {
       </CardContent>
     </div>
   );
-
-  return (
-    <div style={{ maxHeight: "100%", minHeight: "100%", overflowX: "hidden" }}>
-      <AppBar
-        title="Rider's Dashboard"
-        popoverTitle="Manage"
-        contentPopover={Aaaa}
-        {...props}
-      />
-      <Grid container style={{ height: "calc(100% - 64px)" }}>
-        <Hidden smUp>
-          {/* only shows on mobile (not-sm and above it)*/}
-          <MobileView {...props} />
-        </Hidden>
-        <Hidden xsDown>
-          {/* only shows on desktop (sm or bigger)*/}
-          <DesktopView appBarHeight={64} {...props} />
-        </Hidden>
-      </Grid>
-    </div>
-  );
 }
-
-// grid method
-// {/* <Grid xs={12} md={6}>
-//   <p>adsf</p>
-// </Grid>
-// <Grid xs={12} md={6}>
-//   <p>adsf</p>
-// </Grid> */}
