@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 import {
   fade,
   makeStyles,
   Theme,
   createStyles,
-} from "@material-ui/core/styles";
+} from '@material-ui/core/styles';
 
 import {
   AppBar,
   Toolbar,
   IconButton,
   Typography,
-  // Badge,
-  // MenuItem,
-  // Menu,
+  Badge,
+  MenuItem,
+  Menu,
   Drawer,
   Button,
   List,
@@ -22,18 +22,18 @@ import {
   ListItemIcon,
   ListItemText,
   Popover,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
-import MenuIcon from "@material-ui/icons/Menu";
+import MenuIcon from '@material-ui/icons/Menu';
 // import AccountCircle from "@material-ui/icons/AccountCircle";
 // import MailIcon from "@material-ui/icons/Mail";
-// import NotificationsIcon from "@material-ui/icons/Notifications";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
 // import MoreIcon from '@material-ui/icons/More';
 
 // import Drawer from '../Drawer';
 
-import { useWindowSize } from "hooks";
+import { useWindowSize } from 'hooks';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 250,
     },
     fullList: {
-      width: "auto",
+      width: 'auto',
     },
     grow: {
       flexGrow: 1,
@@ -50,58 +50,58 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(2),
     },
     title: {
-      display: "block",
+      display: 'block',
       // [theme.breakpoints.up('sm')]: {
       //   display: 'block',
       // },
     },
     search: {
-      position: "relative",
+      position: 'relative',
       borderRadius: theme.shape.borderRadius,
       backgroundColor: fade(theme.palette.common.white, 0.15),
-      "&:hover": {
+      '&:hover': {
         backgroundColor: fade(theme.palette.common.white, 0.25),
       },
       marginRight: theme.spacing(2),
       marginLeft: 0,
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(3),
-        width: "auto",
+        width: 'auto',
       },
     },
     searchIcon: {
       padding: theme.spacing(0, 2),
-      height: "100%",
-      position: "absolute",
-      pointerEvents: "none",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
+      height: '100%',
+      position: 'absolute',
+      pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     inputRoot: {
-      color: "inherit",
+      color: 'inherit',
     },
     inputInput: {
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("md")]: {
-        width: "20ch",
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('md')]: {
+        width: '20ch',
       },
     },
     sectionDesktop: {
-      display: "none",
-      [theme.breakpoints.up("md")]: {
-        display: "flex",
+      display: 'none',
+      [theme.breakpoints.up('md')]: {
+        display: 'flex',
       },
     },
     sectionMobile: {
-      display: "flex",
-      [theme.breakpoints.up("md")]: {
-        display: "none",
+      display: 'flex',
+      [theme.breakpoints.up('md')]: {
+        display: 'none',
       },
     },
     typography: {
@@ -124,7 +124,7 @@ export default function AppBarComponent(props: any) {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const id = open ? 'simple-popover' : undefined;
   // Popover
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -213,9 +213,9 @@ export default function AppBarComponent(props: any) {
     event: React.KeyboardEvent | React.MouseEvent
   ) => {
     if (
-      event.type === "keydown" &&
-      ((event as React.KeyboardEvent).key === "Tab" ||
-        (event as React.KeyboardEvent).key === "Shift")
+      event.type === 'keydown' &&
+      ((event as React.KeyboardEvent).key === 'Tab' ||
+        (event as React.KeyboardEvent).key === 'Shift')
     ) {
       return;
     }
@@ -225,9 +225,9 @@ export default function AppBarComponent(props: any) {
 
   const DrawerComponent: any = () => (
     <div>
-      <React.Fragment key={"anchor"}>
+      <React.Fragment key={'anchor'}>
         {/* <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button> */}
-        <Drawer anchor={"left"} open={openState} onClose={toggleDrawer(false)}>
+        <Drawer anchor={'left'} open={openState} onClose={toggleDrawer(false)}>
           <div
             className={classes.list}
             role="presentation"
@@ -237,7 +237,7 @@ export default function AppBarComponent(props: any) {
             <List>
               <ListItem
                 button
-                key={"<MenuIcon />"}
+                key={'<MenuIcon />'}
                 onClick={toggleDrawer(false)}
               >
                 <ListItemIcon>
@@ -248,24 +248,24 @@ export default function AppBarComponent(props: any) {
                 button
                 key="appbar-menu-0"
                 onClick={() => {
-                  localStorage.removeItem("token");
+                  localStorage.removeItem('token');
                   window.location.reload();
                 }}
               >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Log off"} />
+                <ListItemText primary={'Log off'} />
               </ListItem>
               <ListItem // cada um desse é um link
                 button
                 key="appbar-menu-10"
-                onClick={() => props.history.push("/")}
+                onClick={() => props.history.push('/')}
               >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Landing page"} />
+                <ListItemText primary={'Landing page'} />
               </ListItem>
               {/* <ListItem // cada um desse é um link
                 button
@@ -280,34 +280,34 @@ export default function AppBarComponent(props: any) {
               <ListItem // cada um desse é um link
                 button
                 key="appbar-menu-20"
-                onClick={() => props.history.push("/eventOptions")}
+                onClick={() => props.history.push('/eventOptions')}
               >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Event Options"} />
+                <ListItemText primary={'Event Options'} />
               </ListItem>
               <ListItem // cada um desse é um link
                 button
                 key="appbar-menu-30"
-                onClick={() => props.history.push("/manageableEvents")}
+                onClick={() => props.history.push('/manageableEvents')}
               >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Event List"} />
+                <ListItemText primary={'Event List'} />
               </ListItem>
             </List>
             <Divider />
             <ListItem // cada um desse é um link
               button
               key="appbar-menu-40"
-              onClick={() => props.history.push("/beforeResult")}
+              onClick={() => props.history.push('/beforeResult')}
             >
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={"Final Results"} />
+              <ListItemText primary={'Final Results'} />
             </ListItem>
             {/* <List>
               {["All mail", "Trash", "Spam"].map((text, index) => (
@@ -325,66 +325,67 @@ export default function AppBarComponent(props: any) {
     </div>
   );
 
+  const buttonManage = (
+    variant: 'text' | 'outlined' | 'contained' | undefined = 'outlined',
+    color:
+      | 'inherit'
+      | 'primary'
+      | 'secondary'
+      | 'default'
+      | undefined = 'default',
+    buttonStyleColor: string = ""
+  ) => {
+    return (
+      <div>
+        {props.contentPopover && (
+          <div>
+            <Button
+              style={{ color: buttonStyleColor, borderColor: buttonStyleColor }}
+              aria-describedby={id}
+              variant={variant}
+              color={color}
+              onClick={handleClick}
+            >
+              {props.popoverTitle}
+            </Button>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              {props.contentPopover}
+            </Popover>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   const topBarMenusDesktop = (
-    <div>
-      {props.hasManageableEvents && (
-        <div>
-          <Button
-            variant="outlined"
-            style={{ color: "white", borderColor: "white" }}
-          >
-            Manage
-          </Button>
-        </div>
-      )}
+    <div style={{ display: 'contents' }}>
+      {props.hasManageableEvents && buttonManage(undefined, 'secondary')} 
+      <MenuItem>
+        <IconButton aria-label="show 11 new notifications" color="primary">
+          <Badge badgeContent={11} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+      </MenuItem>
     </div>
   );
 
   const topBarMenusMobile = (
-    <div>
-      {props.hasManageableEvents && (
-        <div>
-          <Button
-            variant="outlined"
-            style={{ color: "white", borderColor: "white" }}
-          >
-            Manage
-          </Button>
-        </div>
-      )}
-    </div>
-  );
-
-  const menuDeskAndMobile = (
-    <div>
-      {props.contentPopover && (
-        <div>
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={handleClick}
-          >
-            {props.popoverTitle }
-          </Button>
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "center",
-            }}
-          >
-            {props.contentPopover}
-          </Popover>
-        </div>
-      )}
+    <div style={{ display: 'contents' }}>
+      {props.hasManageableEvents && buttonManage(undefined, undefined, 'white')}
     </div>
   );
 
@@ -392,7 +393,7 @@ export default function AppBarComponent(props: any) {
     <div className={classes.grow}>
       <DrawerComponent />
       <AppBar
-        color={width >= 600 ? "transparent" : undefined}
+        color={width >= 600 ? 'transparent' : undefined}
         position="static"
       >
         <Toolbar>
@@ -406,7 +407,7 @@ export default function AppBarComponent(props: any) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            {props.title || "no title"}
+            {props.title || 'no title'}
           </Typography>
           {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -456,7 +457,7 @@ export default function AppBarComponent(props: any) {
             </IconButton>
           </div> */}
           {width >= 600 ? topBarMenusDesktop : topBarMenusMobile}
-          {menuDeskAndMobile}
+          {/* {menuDeskAndMobile} */}
         </Toolbar>
       </AppBar>
       {/* {renderMobileMenu} */}

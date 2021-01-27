@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from "react";
-import { useParams } from "react-router-dom";
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import {
   makeStyles,
   createStyles,
@@ -13,32 +13,32 @@ import {
   Button,
   Typography,
   Divider,
-} from "@material-ui/core";
-import { AppBar, Modal } from "components";
-import { CardHeader } from "../styles";
-import { base } from "config/api";
+} from '@material-ui/core';
+import { AppBar, Modal } from 'components';
+import { CardHeader } from '../styles';
+import { base } from 'config/api';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainDiv: {
       // overflowX: 'hidden',
-      maxHeight: "100%",
-      height: "100%",
+      maxHeight: '100%',
+      height: '100%',
       margin: 0,
-      marginBottom: "10px",
-      paddingBottom: "10px",
+      marginBottom: '10px',
+      paddingBottom: '10px',
     },
     root: {
       flexGrow: 1,
-      margin: "18px 8px 0 8px",
+      margin: '18px 8px 0 8px',
       // overflow: "hidden",
     },
     riderContent: {
-      display: "flex",
-      justifyContent: "flex-start",
+      display: 'flex',
+      justifyContent: 'flex-start',
     },
     subscribedEventContent: {
-      overflowY: "scroll",
+      overflowY: 'scroll',
     },
     media: {
       height: 140,
@@ -50,14 +50,14 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 110,
     },
     action: {
-      position: "unset",
+      position: 'unset',
     },
   })
 );
 
 export default function SubscribeToEvent(props: any) {
   const classes = useStyles();
-  const [modalRender, setModalRender] = React.useState<any>("");
+  const [modalRender, setModalRender] = React.useState<any>('');
   const riderCardRef = React.useRef<any>(null);
   const { event_id } = useParams();
 
@@ -83,12 +83,12 @@ export default function SubscribeToEvent(props: any) {
 
   const handleSubscribe = () => {
     const { id: rider_id } = JSON.parse(
-      localStorage.getItem("rider_info") || ""
+      localStorage.getItem('rider_info') || ''
     );
     base
       .post(`/signToEvent`, { rider_id, event_id: eventInfo.id })
       .then((r) => {
-        setModalRender("Success");
+        setModalRender('Success');
       })
       .catch((e) => {
         console.log(e.response.data);
@@ -96,7 +96,7 @@ export default function SubscribeToEvent(props: any) {
         //   alert("You are already subscribed to this event.");
         // }
         // props.history.push("/dashboard/sign-to-event/7/success");
-        setModalRender("Error");
+        setModalRender('Error');
       });
   };
 
@@ -106,16 +106,16 @@ export default function SubscribeToEvent(props: any) {
         window.innerHeight - 140 - (props.appBarHeight || 0)
       );
     }
-    window.addEventListener("resize", updateSize);
+    window.addEventListener('resize', updateSize);
     updateSize();
-    return () => window.removeEventListener("resize", updateSize);
+    return () => window.removeEventListener('resize', updateSize);
     // eslint-disable-next-line
   }, []);
 
   const ModalSuccess = (
     <Modal
-      bodyStyle={{ padding: "20px", textAlign: "center", maxWidth: "400px" }}
-      show={modalRender === "Success"}
+      bodyStyle={{ padding: '20px', textAlign: 'center', maxWidth: '400px' }}
+      show={modalRender === 'Success'}
     >
       <div>
         <Typography gutterBottom variant="h5" component="h2">
@@ -127,7 +127,7 @@ export default function SubscribeToEvent(props: any) {
           fullWidth
           variant="contained"
           color="primary"
-          onClick={() => props.history.push("/dashboard/home")}
+          onClick={() => props.history.push('/dashboard/home')}
         >
           Ok
         </Button>
@@ -137,8 +137,8 @@ export default function SubscribeToEvent(props: any) {
 
   const ModalError = (
     <Modal
-      bodyStyle={{ padding: "20px", textAlign: "center", maxWidth: "400px" }}
-      show={modalRender === "Error"}
+      bodyStyle={{ padding: '20px', textAlign: 'center', maxWidth: '400px' }}
+      show={modalRender === 'Error'}
     >
       <div>
         <Typography gutterBottom variant="h5" component="h2">
@@ -150,7 +150,7 @@ export default function SubscribeToEvent(props: any) {
           fullWidth
           variant="contained"
           color="primary"
-          onClick={() => setModalRender("")}
+          onClick={() => setModalRender('')}
         >
           Ok
         </Button>
@@ -159,13 +159,13 @@ export default function SubscribeToEvent(props: any) {
   );
 
   return (
-    <div style={{ margin: 0, overflowX: "hidden" }}>
+    <div style={{ margin: 0, overflowX: 'hidden' }}>
       <AppBar title="Subscribe to an Event" {...props} />
       <Grid
         container
         spacing={3}
         className={classes.mainDiv}
-        style={{ width: "100%" }}
+        style={{ width: '100%' }}
       >
         <Grid item xs={12} sm={6}>
           <Card className={classes.root} ref={riderCardRef}>
@@ -174,7 +174,7 @@ export default function SubscribeToEvent(props: any) {
                 className={classes.riderImage}
                 image={
                   eventInfo.photo_event ||
-                  "https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png"
+                  'https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png'
                 }
                 title="Contemplative Reptile"
               />
@@ -184,7 +184,7 @@ export default function SubscribeToEvent(props: any) {
                 </Typography>
               </div>
             </CardContent>
-            <CardActions style={{ justifyContent: "flex-end" }}>
+            <CardActions style={{ justifyContent: 'flex-end' }}>
               <Button
                 className={classes.action}
                 variant="contained"
@@ -201,21 +201,21 @@ export default function SubscribeToEvent(props: any) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <div>
-            <div style={{ margin: "18px 8px 0 8px" }}>
+            <div style={{ margin: '18px 8px 0 8px' }}>
               <CardMedia
                 style={{
-                  borderTopLeftRadius: "4px",
-                  borderTopRightRadius: "4px",
+                  borderTopLeftRadius: '4px',
+                  borderTopRightRadius: '4px',
                 }}
                 className={classes.media}
                 image={
                   eventInfo.photo_folder ||
-                  "https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
+                  'https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg'
                 }
                 title="Contemplative Reptile"
               />
             </div>
-            <Card style={{ margin: "0px 8px 0 8px" }} className={classes.root}>
+            <Card style={{ margin: '0px 8px 0 8px' }} className={classes.root}>
               <CardHeader>
                 <Typography gutterBottom variant="h5" component="h2">
                   Lorem Ipsum
@@ -226,7 +226,7 @@ export default function SubscribeToEvent(props: any) {
                 className={classes.subscribedEventContent}
                 style={{
                   height: subscribedEventCardSize - 190,
-                  minHeight: "100px",
+                  minHeight: '100px',
                 }}
               >
                 {eventInfo.long_text ||

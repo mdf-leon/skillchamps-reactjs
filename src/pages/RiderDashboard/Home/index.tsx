@@ -108,6 +108,7 @@ export default function SharedDashboardHome(props: any) {
     <div style={{ maxHeight: "100%", minHeight: "100%", overflowX: "hidden" }}>
       <AppBar
         title="Rider's Dashboard"
+        hasManageableEvents
         popoverTitle="Manage"
         contentPopover={Aaaa}
         {...props}
