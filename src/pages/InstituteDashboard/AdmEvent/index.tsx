@@ -37,10 +37,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     card: {
       width: "100%",
-      padding: "20px",
+      padding: "10px",
     },
     date: {
       width: "100%",
+    },
+    root: {
+      flexGrow: 1,
     },
   })
 );
@@ -155,7 +158,13 @@ export default function ViewPastEvent(props: any) {
       <AppBar title="Subscribe to an Event" {...props} />
       <div className={classes.mainDiv}>
         <Card className={classes.card}>
-          <Grid container direction="row" spacing={3} style={{ width: "100%" }}>
+          <Grid
+            container
+            direction="row"
+            spacing={3}
+            className={classes.root}
+            style={{ width: "100%", margin: 0 }}
+          >
             <Grid item xs={12} md={6}>
               <Grid item xs={12}>
                 <TextField
