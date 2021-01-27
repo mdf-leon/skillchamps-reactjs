@@ -42,6 +42,7 @@ import NewEvent from "./pages/InstituteDashboard/ManageableEvents/newEvent";
 import BeforePoints from "./pages/InstituteDashboard/points/before";
 import Points from "./pages/InstituteDashboard/points";
 import EventOptions from "./pages/InstituteDashboard/EventOptions";
+import AdmEvent from "./pages/InstituteDashboard/AdmEvent";
 import GlobalStyles from "./global/global";
 import theme from "./styles/theme";
 
@@ -118,6 +119,11 @@ ReactDOM.render(
         {/* <ProtectedRoute exact path="/createEvent" component={CreateEvent} /> */}
         {/* <ProtectedRoute exact path="/manageEvent" component={ManageEvent} /> */}
         <ProtectedRoute exact path="/eventOptions" component={EventOptions} />
+        <ProtectedRoute
+          exact
+          path="/dashboard/event/:id/options/institute"
+          component={AdmEvent}
+        />
         <ProtectedRoute
           exact
           path="/manageableEvents"

@@ -365,7 +365,7 @@ export default function AppBarComponent(props: any) {
             color="primary"
             onClick={handleClick}
           >
-            {props.popoverTitle}
+            {props.popoverTitle }
           </Button>
           <Popover
             id={id}

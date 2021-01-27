@@ -1,50 +1,50 @@
-import React, { useState } from 'react';
-import Message from 'components/Message';
-import AppBar from '../../../components/AppBar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import 'date-fns';
-import DateFnsUtils from '@date-io/date-fns';
+import React, { useState } from "react";
+import Message from "components/Message";
+import AppBar from "../../../components/AppBar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import "date-fns";
+import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
-} from '@material-ui/pickers';
-import { base } from 'config/api';
+} from "@material-ui/pickers";
+import { base } from "config/api";
 // import { UploadInputDiv, UploadInputLabel } from './styles';
-import UploadFile from 'components/UploadFile';
+import UploadFile from "components/UploadFile";
 // import { FaceForm } from './Image';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
   root: {
-    '& .MuiTextField-root': {
+    "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: "25ch",
     },
   },
   date: {
-    width: '100%',
-    margin: '8px 9px',
+    width: "100%",
+    margin: "8px 9px",
   },
   category: {
-    width: '100%',
+    width: "100%",
   },
 }));
 
@@ -53,12 +53,12 @@ export default function NewRider(props: any) {
   const [selectedDate, setSelectedDate] = useState<any>(new Date());
   const [eventPhoto, seteventPhoto] = useState<any>(undefined);
   const [messageParams, setMessageParams] = useState<any>({
-    message: '',
-    severity: '',
+    message: "",
+    severity: "",
   });
   const [registerInfo, setRegisterInfo] = useState<any>({
-    event_name: '',
-    date_begin: selectedDate?.toISOString().split('T')[0],
+    event_name: "",
+    date_begin: selectedDate?.toISOString().split("T")[0],
   });
 
   React.useEffect(() => {
@@ -70,7 +70,7 @@ export default function NewRider(props: any) {
     console.log(eventPhoto);
     const body = {
       ...registerInfo,
-      date_begin: selectedDate?.toISOString().split('T')[0],
+      date_begin: selectedDate?.toISOString().split("T")[0],
     };
     const event = await base
       .post(`/createEvent`, body)
@@ -79,8 +79,8 @@ export default function NewRider(props: any) {
       })
       .catch(() => {
         setMessageParams({
-          message: 'Sorry, the Institute could not be created',
-          severity: 'error',
+          message: "Sorry, the Institute could not be created",
+          severity: "error",
         });
         return false;
       }); // alert rider coundt be created
@@ -88,27 +88,27 @@ export default function NewRider(props: any) {
     if (!event || !event.id) return false;
 
     const formData = new FormData();
-    formData.append('photo_event', eventPhoto);
+    formData.append("photo_event", eventPhoto);
     await base
       .put(`/uploadEventPhoto/${event.id}`, formData, {
         headers: {
-          'content-type': 'multipart/form-data',
+          "content-type": "multipart/form-data",
         },
       })
       .then((r) => {
         console.log(r.data);
-        props.history.push('/ManageableEvents', {
+        props.history.push("/ManageableEvents", {
           message_alert: {
-            message: 'Event created Successfully',
-            severity: 'success',
+            message: "Event created Successfully",
+            severity: "success",
           },
         });
       })
       .catch((e) => {
         console.log(e);
         setMessageParams({
-          message: 'Sorry, the Image was not uploaded',
-          severity: 'error',
+          message: "Sorry, the Image was not uploaded",
+          severity: "error",
         });
         return false;
       });
@@ -131,7 +131,7 @@ export default function NewRider(props: any) {
         trial success
       </Button> */}
       <AppBar title="Create a New Event" {...props} />
-      <div style={{ paddingTop: '1px', minHeight: '100%' }}>
+      <div style={{ paddingTop: "1px", minHeight: "100%" }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
@@ -169,7 +169,7 @@ export default function NewRider(props: any) {
                       value={selectedDate}
                       onChange={setSelectedDate}
                       KeyboardButtonProps={{
-                        'aria-label': 'change date',
+                        "aria-label": "change date",
                       }}
                     />
                   </Grid>
@@ -226,7 +226,7 @@ export default function NewRider(props: any) {
               </Grid> */}
               <Grid container>
                 <UploadFile
-                  style={{ marginTop: '16px' }}
+                  style={{ marginTop: "16px" }}
                   onChange={(e) => {
                     if (e && e.target && e.target.files)
                       seteventPhoto(e.target.files[0]);

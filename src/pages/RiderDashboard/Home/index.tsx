@@ -4,7 +4,6 @@ import AppBar from "../../../components/AppBar";
 
 import MobileView from "./Mobile";
 import DesktopView from "./Desktop";
-import ContentPopover from "./LocalComponents/ManageContent";
 
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 
@@ -45,20 +44,6 @@ export default function SharedDashboardHome(props: any) {
   const classes = useStyles();
 
   const [historyList, sethistoryList] = React.useState<any>([]);
-
-  const renderPodium = (podium) => {
-    if (podium === 0) return null;
-    const Medal = {
-      1: FirstMedal,
-      2: SecondMedal,
-      3: ThirdMedal,
-    }[podium];
-    return (
-      <Medal size="40" internalSize="5">
-        {podium}
-      </Medal>
-    );
-  };
 
   React.useEffect(() => {
     base
