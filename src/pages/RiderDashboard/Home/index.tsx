@@ -19,9 +19,6 @@ import {
 import {
   HistoryInfoDiv,
   DivDepoisPensoNome,
-  FirstMedal,
-  SecondMedal,
-  ThirdMedal,
 } from "./LocalComponents/ManageContent/styles";
 
 import { base } from "config/api";
@@ -43,20 +40,19 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function SharedDashboardHome(props: any) {
   const classes = useStyles();
 
-  const [historyList, sethistoryList] = React.useState<any>([]);
-
+  const events: any[] = JSON.parse(localStorage.getItem('events_on_management') || '[]') || [];
   React.useEffect(() => {
     base
-      .get(`/eventsHistory`)
+      .get(`/managedEventsList`)
       .then((r) => {
-        sethistoryList(r.data);
+        localStorage.setItem('events_on_management', JSON.stringify(r.data));
       })
       .catch(() => {});
   }, []);
   // TODO: pegar se o usuario tem algum evento pra gerir de alguma forma
   //  // const [hasManageableEvents, sethasmanageableEvents] = React.useState<any>(null)
 
-  const Aaaa = (
+  const Aaaa = ( // TODO: passar para um componente e importar direto na pasta do AppBar
     <div style={{ minWidth: "400px" }}>
       <CardContent
         className={classes.historyContent}
@@ -69,11 +65,11 @@ export default function SharedDashboardHome(props: any) {
           </Typography>
           <Divider />
         </div>
-        {historyList.map((history, i) => (
+        {events.map((event, i) => (
           <div
             key={`HistoryInfoDiv-${i}`}
             onClick={() =>
-              props.history.push(`/dashboard/history/event/${history.event_id}`)
+              props.history.push(`/eventOptions`) // deveria ser: /dashboard/manage/event/:event_id
             }
           >
             <HistoryInfoDiv>
@@ -85,14 +81,14 @@ export default function SharedDashboardHome(props: any) {
               <DivDepoisPensoNome className="ml-10">
                 <div>
                   <Typography variant="h5" component="h2">
-                    {history.event_name}
+                    {event.event_name}
                   </Typography>
                   <Typography
                     color="textSecondary"
                     variant="subtitle1"
                     component="p"
                   >
-                    {history.institute_name}
+                    {event.institute_name}
                   </Typography>
                 </div>
               </DivDepoisPensoNome>
@@ -110,7 +106,7 @@ export default function SharedDashboardHome(props: any) {
         title="Rider's Dashboard"
         hasManageableEvents
         popoverTitle="Manage"
-        contentPopover={Aaaa}
+        contentPopover={Aaaa} // TODO: Mudar para hasManageMenu
         {...props}
       />
       <Grid container style={{ height: "calc(100% - 64px)" }}>
