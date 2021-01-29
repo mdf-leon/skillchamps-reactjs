@@ -13,7 +13,8 @@ import { ThemeProvider } from "styled-components";
 
 // import App from "./App";
 import Home from "./pages/visitor/Home/index";
-import SharedHome from "./pages/RiderDashboard/Home/index";
+import RiderHome from "./pages/RiderDashboard/Home";
+import InstituteHome from "./pages/InstituteDashboard/Home";
 import SignedEvent from "./pages/RiderDashboard/SignedEvent";
 import ViewPastEvent from "./pages/RiderDashboard/ViewPastEvent";
 import Login from "./pages/visitor/Login";
@@ -84,7 +85,8 @@ ReactDOM.render(
           component={Dashboard}
         />
 
-        <ProtectedRoute exact path="/dashboard/home" component={SharedHome} />
+        <ProtectedRoute exact path="/dashboard/home" component={RiderHome} />
+        <ProtectedRoute exact path="/dashboard/institute/:institute_id" component={InstituteHome} />
         <ProtectedRoute
           exact
           path="/dashboard/subscriptions/event/:event_id"

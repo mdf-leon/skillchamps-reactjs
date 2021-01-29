@@ -34,6 +34,9 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 // import Drawer from '../Drawer';
 
 import { useWindowSize } from 'hooks';
+import { base } from 'config/api';
+
+import ManageButton from './manageButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -107,12 +110,32 @@ const useStyles = makeStyles((theme: Theme) =>
     typography: {
       padding: theme.spacing(2),
     },
+    customBadgeManager: {
+      backgroundColor: '#3f51b5',
+      color: 'white',
+    },
+    customBadgeRider: {
+      backgroundColor: '#f50057',
+      color: 'white',
+    },
   })
 );
 
 export default function AppBarComponent(props: any) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const events: any[] =
+    JSON.parse(localStorage.getItem('events_on_management') || '[]') || [];
+
+  React.useEffect(() => {
+    base
+      .get(`/managedEventsList`)
+      .then((r) => {
+        localStorage.setItem('events_on_management', JSON.stringify(r.data));
+      })
+      .catch(() => {});
+  }, []);
 
   // Popover
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -333,11 +356,11 @@ export default function AppBarComponent(props: any) {
       | 'secondary'
       | 'default'
       | undefined = 'default',
-    buttonStyleColor: string = ""
+    buttonStyleColor: string = ''
   ) => {
     return (
       <div>
-        {props.contentPopover && (
+        {events[0] && (
           <div>
             <Button
               style={{ color: buttonStyleColor, borderColor: buttonStyleColor }}
@@ -362,7 +385,7 @@ export default function AppBarComponent(props: any) {
                 horizontal: 'center',
               }}
             >
-              {props.contentPopover}
+              <ManageButton {...props} events={events} />
             </Popover>
           </div>
         )}
@@ -372,11 +395,24 @@ export default function AppBarComponent(props: any) {
 
   const topBarMenusDesktop = (
     <div style={{ display: 'contents' }}>
-      {props.hasManageableEvents && buttonManage(undefined, 'secondary')} 
+      {props.hasManageMenu && events[0] && buttonManage(undefined, 'secondary')}
       <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="primary">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
+        <IconButton
+          aria-label="show 11 new notifications"
+          // style={{ color: 'white', backgroundColor: 'white' }}
+        >
+          <Badge
+            badgeContent={11}
+            classes={{
+              badge: props.isManager
+                ? classes.customBadgeManager
+                : classes.customBadgeRider,
+            }}
+            // style={{ color: 'red', backgroundColor: 'white' }}
+          >
+            <NotificationsIcon
+              style={{ color: props.isManager ? 'white' : '#3f51b5' }} //color={'primary'}
+            />
           </Badge>
         </IconButton>
       </MenuItem>
@@ -385,7 +421,9 @@ export default function AppBarComponent(props: any) {
 
   const topBarMenusMobile = (
     <div style={{ display: 'contents' }}>
-      {props.hasManageableEvents && buttonManage(undefined, undefined, 'white')}
+      {props.hasManageMenu &&
+        events[0] &&
+        buttonManage(undefined, undefined, 'white')}
     </div>
   );
 
@@ -393,7 +431,18 @@ export default function AppBarComponent(props: any) {
     <div className={classes.grow}>
       <DrawerComponent />
       <AppBar
-        color={width >= 600 ? 'transparent' : undefined}
+        color={
+          props.isManager
+            ? 'secondary'
+            : width < 600
+            ? 'primary'
+            : 'transparent'
+          // : width < 600
+          // ? undefined
+          // : props.isManager
+          // ? 'secondary'
+          // : 'transparent'
+        }
         position="static"
       >
         <Toolbar>

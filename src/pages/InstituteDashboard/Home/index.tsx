@@ -10,13 +10,14 @@ import {
   Hidden,
 } from "@material-ui/core";
 
-export default function SharedDashboardHome(props: any) {
+export default function InstituteHome(props: any) {
+
   return (
     <div style={{ maxHeight: "100%", minHeight: "100%", overflowX: "hidden" }}>
       <AppBar
-        title="Rider's Dashboard"
-        hasManageMenu
-        popoverTitle="Manage"
+        title="Institute's Dashboard"
+        isManager
+        // hasManageMenu // TODO: Mudar para hasManageMenu
         {...props}
       />
       <Grid container style={{ height: "calc(100% - 64px)" }}>

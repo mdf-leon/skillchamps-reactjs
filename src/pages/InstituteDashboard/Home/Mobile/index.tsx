@@ -12,12 +12,13 @@ import {
   Divider,
 } from '@material-ui/core';
 
-import { CardHeader } from '../Desktop/styles';
+import {
+  CardHeader,
+} from '../Desktop/styles';
 
 import SubscribedEvents from '../LocalComponents/SubscribedEvents';
 import RiderContent from '../LocalComponents/RiderContent';
 import HistoryContent from '../LocalComponents/HistoryContent';
-import Notifications from '../../../SharedLocalComponents/Notifications';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,41 +35,49 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function MobileHome(props: any) {
-  const classes = useStyles();
 
+export default function MobileHome(props: any) {
+  
+  function testBody(str) {
+    return <div>{str}</div>;
+  }
+  
+  const classes = useStyles();
+  
   const OverView = (
     <div id="overview-main">
       <Card
         className={classes.root}
         style={{ margin: '0', paddingTop: '15px' }}
       >
-        <RiderContent {...props} />
+        <RiderContent {...props}/>
       </Card>
-
+      
       <Card className={classes.root} style={{ marginBottom: '15px' }}>
         <CardHeader>
           <Typography gutterBottom variant="h5" component="h2">
             History
           </Typography>
           <Divider />
-        </CardHeader>
+          </CardHeader>
         <CardContent className={classes.historyContent}>
           <HistoryContent />
         </CardContent>
-      </Card>
-    </div>
-  );
-
-  return (
+        </Card>
+        </div>
+        );
+        
+        const EventsView = <SubscribedEvents {...props} />;
+  
+        return (
     <>
       <TabNav
         tabList={[
-          { label: 'Overview', body: OverView },
-          { label: 'Subscriptions', body: <SubscribedEvents {...props} /> },
-          { label: 'Notifications', body: <Notifications/>},
+          { label: 'Overview', body: testBody(OverView) },
+          { label: 'Subscriptions', body: testBody(EventsView) },
+          { label: 'Notifications', body: testBody('TODO') },
         ]}
-      />
+        />
     </>
   );
 }
