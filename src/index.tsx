@@ -123,7 +123,7 @@ ReactDOM.render(
         <ProtectedRoute exact path="/eventOptions" component={EventOptions} />
         <ProtectedRoute
           exact
-          path="/dashboard/institute/:institute_id/update/event/:event_id" // TODO: mudar id para event_id
+          path="/dashboard/institute/:institute_id/update/event/:event_id" 
           component={UpdateEvent}
         />
         <ProtectedRoute
