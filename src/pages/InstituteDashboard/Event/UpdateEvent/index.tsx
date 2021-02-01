@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   makeStyles,
   createStyles,
@@ -14,33 +14,33 @@ import {
   Button,
   Typography,
   Divider,
-} from "@material-ui/core";
-import DateFnsUtils from "@date-io/date-fns";
+} from '@material-ui/core';
+import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
-} from "@material-ui/pickers";
-import { AppBar, Modal, UploadFile } from "components";
-import { base } from "config/api";
-import { TextArea } from "./styles";
+} from '@material-ui/pickers';
+import { AppBar, Modal, UploadFile } from 'components';
+import { base } from 'config/api';
+import { TextArea } from './styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainDiv: {
       // overflowX: 'hidden',
-      maxHeight: "100%",
-      height: "100%",
+      maxHeight: '100%',
+      height: '100%',
       margin: 0,
-      padding: "12px",
+      padding: '12px',
       // marginBottom: "10px",
       // paddingBottom: "10px",
     },
     card: {
-      width: "100%",
-      padding: "10px",
+      width: '100%',
+      padding: '10px',
     },
     date: {
-      width: "100%",
+      width: '100%',
     },
     root: {
       flexGrow: 1,
@@ -48,27 +48,34 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function EventOptions(props: any) {
+export default function UpdateEvent(props: any) {
   const classes = useStyles();
-  const [modalRender, setModalRender] = useState<any>("");
+  const [modalRender, setModalRender] = useState<any>('');
   const riderCardRef = React.useRef<any>(null);
   const { event_id } = useParams();
   const [eventPhoto, seteventPhoto] = useState<any>(undefined);
+  const [eventFolder, seteventFolder] = useState<any>(undefined);
   const [selectedDate, setSelectedDate] = useState<any>(new Date());
 
-  const [eventInfo, seteventInfo] = React.useState<any>({});
-  const [
-    subscribedEventCardSize,
-    setsubscribedEventCardSize,
-  ] = React.useState<number>(0);
+  const [eventInfo, seteventInfo] = React.useState<any>({
+    active: '',
+    date_begin: '',
+    date_end: '',
+    event_name: '',
+    id: '',
+    institute_id: '',
+    longtext: '',
+    photo_event: '',
+    photo_folder: '',
+  });
 
   React.useEffect(() => {
     base
       .get(`/events`, { params: { event_id } })
       .then((r) => {
         console.log(r.data);
-
         seteventInfo(r.data);
+        setSelectedDate(r.data.date_begin);
       })
       .catch((e) => {
         console.log(e);
@@ -76,29 +83,10 @@ export default function EventOptions(props: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSubscribe = () => {
-    const { id: rider_id } = JSON.parse(
-      localStorage.getItem("rider_info") || ""
-    );
-    base
-      .post(`/signToEvent`, { rider_id, event_id: eventInfo.id })
-      .then((r) => {
-        setModalRender("Success");
-      })
-      .catch((e) => {
-        console.log(e.response.data);
-        // if (e.response.data.Error === "Ja existe") {
-        //   alert("You are already subscribed to this event.");
-        // }
-        // props.history.push("/dashboard/sign-to-event/7/success");
-        setModalRender("Error");
-      });
-  };
-
   const ModalSuccess = (
     <Modal
-      bodyStyle={{ padding: "20px", textAlign: "center", maxWidth: "400px" }}
-      show={modalRender === "Success"}
+      bodyStyle={{ padding: '20px', textAlign: 'center', maxWidth: '400px' }}
+      show={modalRender === 'Success'}
     >
       <div>
         <Typography gutterBottom variant="h5" component="h2">
@@ -110,7 +98,7 @@ export default function EventOptions(props: any) {
           fullWidth
           variant="contained"
           color="primary"
-          onClick={() => props.history.push("/dashboard/home")}
+          onClick={() => props.history.push('/dashboard/home')}
         >
           Ok
         </Button>
@@ -120,8 +108,8 @@ export default function EventOptions(props: any) {
 
   const ModalError = (
     <Modal
-      bodyStyle={{ padding: "20px", textAlign: "center", maxWidth: "400px" }}
-      show={modalRender === "Error"}
+      bodyStyle={{ padding: '20px', textAlign: 'center', maxWidth: '400px' }}
+      show={modalRender === 'Error'}
     >
       <div>
         <Typography gutterBottom variant="h5" component="h2">
@@ -133,7 +121,7 @@ export default function EventOptions(props: any) {
           fullWidth
           variant="contained"
           color="primary"
-          onClick={() => setModalRender("")}
+          onClick={() => setModalRender('')}
         >
           Ok
         </Button>
@@ -141,17 +129,41 @@ export default function EventOptions(props: any) {
     </Modal>
   );
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let formData = new FormData(); //formdata object
+
+    formData.append('event_name', eventInfo.event_name); //append the values with key, value pair
+    // forma correta de enviar DATA pro backend
+    formData.append(
+      'date_begin',
+      new Date(selectedDate.setHours(0, 0, 0, 0)).toISOString()
+    );
+    formData.append('longtext', eventInfo.longtext);
+    formData.append('photo_event', eventPhoto);
+    formData.append('photo_folder', eventFolder);
+
+    base
+      .post(`/updateEvent/${event_id}`, formData)
+      .then((r) => {
+        console.log(r.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   return (
-    <div style={{ margin: 0, overflowX: "hidden" }}>
+    <div style={{ margin: 0, overflowX: 'hidden' }}>
       <AppBar title="Event options" {...props} />
-      <div className={classes.mainDiv}>
+      <form className={classes.mainDiv} onSubmit={handleSubmit}>
         <Card className={classes.card}>
           <Grid
             container
             direction="row"
             spacing={3}
             className={classes.root}
-            style={{ width: "100%", margin: 0 }}
+            style={{ width: '100%', margin: 0 }}
           >
             <Grid item xs={12} md={6}>
               <Grid item xs={12}>
@@ -160,6 +172,10 @@ export default function EventOptions(props: any) {
                   id="event-title"
                   label="Event title"
                   variant="outlined"
+                  value={eventInfo.event_name}
+                  onChange={(e) => {
+                    seteventInfo({ ...eventInfo, event_name: e.target.value });
+                  }}
                 />
               </Grid>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -169,19 +185,20 @@ export default function EventOptions(props: any) {
                     inputVariant="outlined"
                     margin="normal"
                     id="date-picker-dialog"
-                    label="Date picker dialog"
+                    label="Starting Date (MM/DD/YYYY)"
                     format="MM/dd/yyyy"
                     value={selectedDate}
                     onChange={setSelectedDate}
                     KeyboardButtonProps={{
-                      "aria-label": "change date",
+                      'aria-label': 'change date',
                     }}
                   />
                 </Grid>
               </MuiPickersUtilsProvider>
               <Grid container>
                 <UploadFile
-                  style={{ marginTop: "16px" }}
+                  labelTitle="Event Photo"
+                  style={{ marginTop: '16px' }}
                   onChange={(e) => {
                     if (e && e.target && e.target.files)
                       seteventPhoto(e.target.files[0]);
@@ -190,10 +207,11 @@ export default function EventOptions(props: any) {
               </Grid>
               <Grid container>
                 <UploadFile
-                  style={{ marginTop: "16px" }}
+                  labelTitle="Event Folder"
+                  style={{ marginTop: '16px' }}
                   onChange={(e) => {
                     if (e && e.target && e.target.files)
-                      seteventPhoto(e.target.files[0]);
+                      seteventFolder(e.target.files[0]);
                   }}
                 />
               </Grid>
@@ -203,7 +221,7 @@ export default function EventOptions(props: any) {
               <Grid
                 item
                 xs={12}
-                style={{ paddingBottom: "20px", paddingTop: "4px" }}
+                style={{ paddingBottom: '20px', paddingTop: '4px' }}
               >
                 <Typography gutterBottom variant="h5" component="h2">
                   Long description
@@ -212,28 +230,32 @@ export default function EventOptions(props: any) {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  style={{ height: "100%" }}
+                  style={{ height: '100%' }}
                   fullWidth
                   multiline
                   rows={10}
                   id="long-description"
                   variant="outlined"
+                  value={eventInfo.longtext || ''}
+                  onChange={(e) => {
+                    seteventInfo({ ...eventInfo, longtext: e.target.value });
+                  }}
                 />
               </Grid>
               <Grid
                 container
                 justify="flex-end"
                 sm={12}
-                style={{ marginTop: "16px" }}
+                style={{ marginTop: '16px' }}
               >
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" type="submit">
                   Save
                 </Button>
               </Grid>
             </Grid>
           </Grid>
         </Card>
-      </div>
+      </form>
       {ModalSuccess}
       {ModalError}
     </div>

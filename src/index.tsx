@@ -42,8 +42,8 @@ import ManageableEvents from "./pages/InstituteDashboard/ManageableEvents";
 import NewEvent from "./pages/InstituteDashboard/ManageableEvents/newEvent";
 import BeforePoints from "./pages/InstituteDashboard/points/before";
 import Points from "./pages/InstituteDashboard/points";
-import EventOptions from "./pages/InstituteDashboard/EventOptions";
-import AdmEvent from "./pages/InstituteDashboard/AdmEvent";
+import UpdateEvent from "./pages/InstituteDashboard/Event/UpdateEvent";
+import EventOptions from "./pages/InstituteDashboard/Event/EventOptions";
 import GlobalStyles from "./global/global";
 import theme from "./styles/theme";
 
@@ -123,8 +123,8 @@ ReactDOM.render(
         <ProtectedRoute exact path="/eventOptions" component={EventOptions} />
         <ProtectedRoute
           exact
-          path="/dashboard/event/:id/options/institute" // TODO: mudar id para event_id
-          component={AdmEvent}
+          path="/dashboard/institute/:institute_id/update/event/:event_id" 
+          component={UpdateEvent}
         />
         <ProtectedRoute
           exact
