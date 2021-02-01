@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AppBar from "../../../components/AppBar";
-import styles from "../EventOptions/useStyles";
+import styles from "./useStyles";
 import {
   Card,
   CardContent,

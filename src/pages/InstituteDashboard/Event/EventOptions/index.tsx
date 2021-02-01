@@ -1,5 +1,5 @@
 import React from "react";
-import AppBar from "../../../components/AppBar";
+import AppBar from "components/AppBar";
 import styles from "./styles";
 import {
   Card,
