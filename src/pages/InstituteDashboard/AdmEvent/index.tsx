@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function ViewPastEvent(props: any) {
+export default function EventOptions(props: any) {
   const classes = useStyles();
   const [modalRender, setModalRender] = useState<any>("");
   const riderCardRef = React.useRef<any>(null);
@@ -94,18 +94,6 @@ export default function ViewPastEvent(props: any) {
         setModalRender("Error");
       });
   };
-
-  React.useLayoutEffect(() => {
-    function updateSize() {
-      setsubscribedEventCardSize(
-        window.innerHeight - 140 - (props.appBarHeight || 0)
-      );
-    }
-    window.addEventListener("resize", updateSize);
-    updateSize();
-    return () => window.removeEventListener("resize", updateSize);
-    // eslint-disable-next-line
-  }, []);
 
   const ModalSuccess = (
     <Modal
@@ -155,7 +143,7 @@ export default function ViewPastEvent(props: any) {
 
   return (
     <div style={{ margin: 0, overflowX: "hidden" }}>
-      <AppBar title="Subscribe to an Event" {...props} />
+      <AppBar title="Event options" {...props} />
       <div className={classes.mainDiv}>
         <Card className={classes.card}>
           <Grid
