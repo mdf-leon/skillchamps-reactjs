@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function RiderCardContent(props: any) {
   const classes = useStyles();
 
-  const [riderInfo, setriderInfo] = React.useState<any>({});
+  const [instituteInfo, setinstituteInfo] = React.useState<any>({});
 
   React.useEffect(() => {
-    setriderInfo(JSON.parse(localStorage.getItem('rider_info') || ''));
+    setinstituteInfo(JSON.parse(localStorage.getItem('institute_info') || ''));
   }, []);
 
   return (
@@ -47,7 +47,12 @@ export default function RiderCardContent(props: any) {
         />
         <div className="ml-20">
           <Typography gutterBottom variant="h5" component="h2">
-            {riderInfo.name}
+            {instituteInfo.name}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {localStorage.getItem('institute_info')
+              ? 'Administration Privileges'
+              : 'Manager Privileges'}
           </Typography>
         </div>
       </CardContent>
@@ -65,9 +70,15 @@ export default function RiderCardContent(props: any) {
           variant="contained"
           size="small"
           color="primary"
-          onClick={() => props.history.push('/dashboard/sign-to-event')}
+          onClick={() =>
+            props.history.push(
+              `/dashboard/institute/${
+                JSON.parse(localStorage.getItem('institute_info') || '').id
+              }/create/event`
+            )
+          }
         >
-          SIGN TO EVENT
+          Create an EVENT
         </Button>
       </CardActions>
     </div>

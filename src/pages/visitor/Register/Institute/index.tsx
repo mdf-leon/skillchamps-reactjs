@@ -81,7 +81,8 @@ export default function SignUp(props: any) {
               })
               .then((r) => {
                 console.log(r);
-                window.location.reload();
+                localStorage.clear()
+                window.location.assign('/login');
               })
               .catch((e) => {
                 console.log(e.response);

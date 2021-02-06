@@ -12,7 +12,7 @@ import {
   IconButton,
   Typography,
   Badge,
-  MenuItem,
+  // MenuItem,
   // Menu,
   Drawer,
   Button,
@@ -289,7 +289,7 @@ export default function AppBarComponent(props: any) {
                 button
                 key="appbar-menu-0"
                 onClick={() => {
-                  localStorage.removeItem("token");
+                  localStorage.clear()
                   window.location.reload();
                 }}
               >
@@ -503,9 +503,9 @@ export default function AppBarComponent(props: any) {
               </Typography>
             </div>
             <Divider />
-            {arr.map((content) => {
+            {arr.map((content, i) => {
               return (
-                <>
+                <div key={`app-bar-arr-${i}`}>
                   <div className="d-flex" style={{ alignItems: "center" }}>
                     <div>
                       <MailOutlineIcon />
@@ -537,7 +537,7 @@ export default function AppBarComponent(props: any) {
                     </div>
                   </div>
                   <Divider />
-                </>
+                </div>
               );
             })}
           </div>

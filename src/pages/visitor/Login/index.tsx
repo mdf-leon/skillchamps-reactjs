@@ -58,7 +58,7 @@ export default function Login(props: any) {
           JSON.stringify(r.data.institute)
         ); // informacoes do institute direto do back salvo no LS
         if(r.data.institute){
-          return window.location.assign(`dashboard/institute/${r.data.institute.id}`)
+          return props.history.replace(`/dashboard/institute/${r.data.institute.id}`)
         }
         // setCookie("jwt", r.data.token);
         window.location.reload();
