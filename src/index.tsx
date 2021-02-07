@@ -62,7 +62,7 @@ function VisitorRoute(props) {
   if (token === null || token === undefined) {
     return <Route {...props} />;
   } else {
-    if (localStorage.getItem('institute_info')) {
+    if (localStorage.getItem('institute_info') !== null) {
       return (
         <Redirect
           to={`/dashboard/institute/${

@@ -53,7 +53,7 @@ export default function Login(props: any) {
         localStorage.setItem('token', r.data.token);
         localStorage.setItem('events_on_management', JSON.stringify(r.data.eventsOnManagement));
         localStorage.setItem('rider_info', JSON.stringify(r.data.rider)); // informacoes do rider direto do back salvo no LS
-        localStorage.setItem(
+        r.data.institute && localStorage.setItem(
           'institute_info',
           JSON.stringify(r.data.institute)
         ); // informacoes do institute direto do back salvo no LS

@@ -1,0 +1,44 @@
+[
+  {
+    "type": "created",
+    "subject": "event",
+    "title": "%%Admin created an event",
+    "message": "The event: \"%%Evento\" is now accessible to administration.",
+    "sent_at": "2021-01-24T21:43:46.233Z"
+  },
+  {
+    "type": "published",
+    "subject": "event",
+    "title": "%%Admin published %%Evento",
+    "message": "\"%%Evento\" was published! Any rider can now participate!",
+    "sent_at": "2021-01-24T21:49:50.211Z"
+  },
+  {
+    "type": "deleted",
+    "subject": "event",
+    "title": "%%Admin deleted %%Evento",
+    "message": "If this was unintentional, the Administrator can revert within 24h of the action.",
+    "sent_at": "2021-01-24T21:53:35.963Z"
+  },
+  {
+    "type": "subscription",
+    "subject": "rider",
+    "title": "%%Rider subscribed to an event",
+    "message": "%%Rider wishes to participate in %%Evento.",
+    "sent_at": "2021-01-24T21:53:35.963Z"
+  },
+  {
+    "type": "paid",
+    "subject": "rider",
+    "title": "%%Rider signed to an event",
+    "message": "%%Rider paid and is ready to participate in %%Evento.",
+    "sent_at": "2021-01-24T22:04:04.300Z"
+  },
+  {
+    "type": "accepted",
+    "subject": "rider",
+    "title": "%%Admin accepted %%Rider",
+    "message": "%%Rider is officially participating in %%Evento.",
+    "sent_at": "2021-01-24T22:06:03.416Z"
+  }
+]

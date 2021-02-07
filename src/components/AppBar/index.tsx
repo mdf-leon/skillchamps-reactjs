@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 import {
   fade,
   makeStyles,
   Theme,
   createStyles,
-} from "@material-ui/core/styles";
+} from '@material-ui/core/styles';
 
 import {
   AppBar,
@@ -22,22 +22,22 @@ import {
   ListItemIcon,
   ListItemText,
   Popover,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
-import MenuIcon from "@material-ui/icons/Menu";
+import MenuIcon from '@material-ui/icons/Menu';
 // import AccountCircle from "@material-ui/icons/AccountCircle";
 // import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
 // import MoreIcon from '@material-ui/icons/More';
 
 // import Drawer from '../Drawer';
 
-import { useWindowSize } from "hooks";
-import { base } from "config/api";
+import { useWindowSize } from 'hooks';
+import { base } from 'config/api';
 
-import ManageButton from "./manageButton";
+import ManageButton from './manageButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 250,
     },
     fullList: {
-      width: "auto",
+      width: 'auto',
     },
     grow: {
       flexGrow: 1,
@@ -54,70 +54,70 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(2),
     },
     title: {
-      display: "block",
+      display: 'block',
       // [theme.breakpoints.up('sm')]: {
       //   display: 'block',
       // },
     },
     search: {
-      position: "relative",
+      position: 'relative',
       borderRadius: theme.shape.borderRadius,
       backgroundColor: fade(theme.palette.common.white, 0.15),
-      "&:hover": {
+      '&:hover': {
         backgroundColor: fade(theme.palette.common.white, 0.25),
       },
       marginRight: theme.spacing(2),
       marginLeft: 0,
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(3),
-        width: "auto",
+        width: 'auto',
       },
     },
     searchIcon: {
       padding: theme.spacing(0, 2),
-      height: "100%",
-      position: "absolute",
-      pointerEvents: "none",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
+      height: '100%',
+      position: 'absolute',
+      pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     inputRoot: {
-      color: "inherit",
+      color: 'inherit',
     },
     inputInput: {
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("md")]: {
-        width: "20ch",
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('md')]: {
+        width: '20ch',
       },
     },
     sectionDesktop: {
-      display: "none",
-      [theme.breakpoints.up("md")]: {
-        display: "flex",
+      display: 'none',
+      [theme.breakpoints.up('md')]: {
+        display: 'flex',
       },
     },
     sectionMobile: {
-      display: "flex",
-      [theme.breakpoints.up("md")]: {
-        display: "none",
+      display: 'flex',
+      [theme.breakpoints.up('md')]: {
+        display: 'none',
       },
     },
     typography: {
       padding: theme.spacing(2),
     },
     customBadgeManager: {
-      backgroundColor: "#3f51b5",
-      color: "white",
+      backgroundColor: '#3f51b5',
+      color: 'white',
     },
     customBadgeRider: {
-      backgroundColor: "#f50057",
-      color: "white",
+      backgroundColor: '#f50057',
+      color: 'white',
     },
   })
 );
@@ -125,21 +125,51 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function AppBarComponent(props: any) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [notificationsList, setnotificationsList] = React.useState<any[]>([]);
   const [
     anchorNotification,
     setAnchorNotification,
   ] = React.useState<null | HTMLElement>(null);
 
   const events: any[] =
-    JSON.parse(localStorage.getItem("events_on_management") || "[]") || [];
+    JSON.parse(localStorage.getItem('events_on_management') || '[]') || [];
 
   React.useEffect(() => {
     base
       .get(`/managedEventsList`)
       .then((r) => {
-        localStorage.setItem("events_on_management", JSON.stringify(r.data));
+        localStorage.setItem('events_on_management', JSON.stringify(r.data));
       })
       .catch(() => {});
+
+    if (props.isManager && props.eventBeingManaged) {
+      if (props.eventBeingManaged) {
+        base
+          .get(`/notifications?event_id=${props.eventBeingManaged}`)
+          .then((r) => {
+            setnotificationsList(r.data);
+          })
+          .catch(() => {});
+      } else {
+        base
+          .get(
+            `/notifications?institute_id=${
+              JSON.parse(localStorage.getItem('institute_info') || '').id
+            }`
+          )
+          .then((r) => {
+            setnotificationsList(r.data);
+          })
+          .catch(() => {});
+      }
+    } else {
+      base
+        .get(`/notifications`)
+        .then((r) => {
+          setnotificationsList(r.data);
+        })
+        .catch(() => {});
+    }
   }, []);
 
   // Popover
@@ -162,10 +192,10 @@ export default function AppBarComponent(props: any) {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const id = open ? 'simple-popover' : undefined;
 
   const openNotification = Boolean(anchorNotification);
-  const idNotification = open ? "simple-popover" : undefined;
+  const idNotification = open ? 'simple-popover' : undefined;
   // Popover
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -254,9 +284,9 @@ export default function AppBarComponent(props: any) {
     event: React.KeyboardEvent | React.MouseEvent
   ) => {
     if (
-      event.type === "keydown" &&
-      ((event as React.KeyboardEvent).key === "Tab" ||
-        (event as React.KeyboardEvent).key === "Shift")
+      event.type === 'keydown' &&
+      ((event as React.KeyboardEvent).key === 'Tab' ||
+        (event as React.KeyboardEvent).key === 'Shift')
     ) {
       return;
     }
@@ -266,9 +296,9 @@ export default function AppBarComponent(props: any) {
 
   const DrawerComponent: any = () => (
     <div>
-      <React.Fragment key={"anchor"}>
+      <React.Fragment key={'anchor'}>
         {/* <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button> */}
-        <Drawer anchor={"left"} open={openState} onClose={toggleDrawer(false)}>
+        <Drawer anchor={'left'} open={openState} onClose={toggleDrawer(false)}>
           <div
             className={classes.list}
             role="presentation"
@@ -278,7 +308,7 @@ export default function AppBarComponent(props: any) {
             <List>
               <ListItem
                 button
-                key={"<MenuIcon />"}
+                key={'<MenuIcon />'}
                 onClick={toggleDrawer(false)}
               >
                 <ListItemIcon>
@@ -289,24 +319,24 @@ export default function AppBarComponent(props: any) {
                 button
                 key="appbar-menu-0"
                 onClick={() => {
-                  localStorage.clear()
+                  localStorage.clear();
                   window.location.reload();
                 }}
               >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Log off"} />
+                <ListItemText primary={'Log off'} />
               </ListItem>
               <ListItem // cada um desse é um link
                 button
                 key="appbar-menu-10"
-                onClick={() => props.history.push("/")}
+                onClick={() => props.history.push('/')}
               >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Landing page"} />
+                <ListItemText primary={'Landing page'} />
               </ListItem>
               {/* <ListItem // cada um desse é um link
                 button
@@ -321,34 +351,34 @@ export default function AppBarComponent(props: any) {
               <ListItem // cada um desse é um link
                 button
                 key="appbar-menu-20"
-                onClick={() => props.history.push("/eventOptions")}
+                onClick={() => props.history.push('/eventOptions')}
               >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Event Options"} />
+                <ListItemText primary={'Event Options'} />
               </ListItem>
               <ListItem // cada um desse é um link
                 button
                 key="appbar-menu-30"
-                onClick={() => props.history.push("/manageableEvents")}
+                onClick={() => props.history.push('/manageableEvents')}
               >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Event List"} />
+                <ListItemText primary={'Event List'} />
               </ListItem>
             </List>
             <Divider />
             <ListItem // cada um desse é um link
               button
               key="appbar-menu-40"
-              onClick={() => props.history.push("/beforeResult")}
+              onClick={() => props.history.push('/beforeResult')}
             >
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={"Final Results"} />
+              <ListItemText primary={'Final Results'} />
             </ListItem>
             {/* <List>
               {["All mail", "Trash", "Spam"].map((text, index) => (
@@ -367,14 +397,14 @@ export default function AppBarComponent(props: any) {
   );
 
   const buttonManage = (
-    variant: "text" | "outlined" | "contained" | undefined = "outlined",
+    variant: 'text' | 'outlined' | 'contained' | undefined = 'outlined',
     color:
-      | "inherit"
-      | "primary"
-      | "secondary"
-      | "default"
-      | undefined = "default",
-    buttonStyleColor: string = ""
+      | 'inherit'
+      | 'primary'
+      | 'secondary'
+      | 'default'
+      | undefined = 'default',
+    buttonStyleColor: string = ''
   ) => {
     return (
       <div>
@@ -395,12 +425,12 @@ export default function AppBarComponent(props: any) {
               anchorEl={anchorEl}
               onClose={handleClose}
               anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
+                vertical: 'bottom',
+                horizontal: 'center',
               }}
               transformOrigin={{
-                vertical: "top",
-                horizontal: "center",
+                vertical: 'top',
+                horizontal: 'center',
               }}
             >
               <ManageButton {...props} events={events} />
@@ -411,62 +441,16 @@ export default function AppBarComponent(props: any) {
     );
   };
 
-  const arr: any[] = [
-    {
-      type: "created",
-      subject: "event",
-      title: "%%Admin created an event",
-      message: 'The event: "%%Evento" is now accessible to administration.',
-      sent_at: "2021-01-24T21:43:46.233Z",
-    },
-    {
-      type: "published",
-      subject: "event",
-      title: "%%Admin published %%Evento",
-      message: '"%%Evento" was published! Any rider can now participate!',
-      sent_at: "2021-01-24T21:49:50.211Z",
-    },
-    {
-      type: "deleted",
-      subject: "event",
-      title: "%%Admin deleted %%Evento",
-      message:
-        "If this was unintentional, the Administrator can revert within 24h of the action.",
-      sent_at: "2021-01-24T21:53:35.963Z",
-    },
-    {
-      type: "subscription",
-      subject: "rider",
-      title: "%%Rider subscribed to an event",
-      message: "%%Rider wishes to participate in %%Evento.",
-      sent_at: "2021-01-24T21:53:35.963Z",
-    },
-    {
-      type: "paid",
-      subject: "rider",
-      title: "%%Rider signed to an event",
-      message: "%%Rider paid and is ready to participate in %%Evento.",
-      sent_at: "2021-01-24T22:04:04.300Z",
-    },
-    {
-      type: "accepted",
-      subject: "rider",
-      title: "%%Admin accepted %%Rider",
-      message: "%%Rider is officially participating in %%Evento.",
-      sent_at: "2021-01-24T22:06:03.416Z",
-    },
-  ];
-
   const buttonNotification = () => {
     return (
-      <div style={{ padding: "6px 16px" }}>
+      <div style={{ padding: '6px 16px' }}>
         <IconButton
           onClick={handleClickNotification}
           aria-label="show 11 new notifications"
           // style={{ color: 'white', backgroundColor: 'white' }}
         >
           <Badge
-            badgeContent={11}
+            // badgeContent={11}
             classes={{
               badge: props.isManager
                 ? classes.customBadgeManager
@@ -475,7 +459,7 @@ export default function AppBarComponent(props: any) {
             // style={{ color: 'red', backgroundColor: 'white' }}
           >
             <NotificationsIcon
-              style={{ color: props.isManager ? "white" : "#3f51b5" }} //color={'primary'}
+              style={{ color: props.isManager ? 'white' : '#3f51b5' }} //color={'primary'}
             />
           </Badge>
         </IconButton>
@@ -485,36 +469,36 @@ export default function AppBarComponent(props: any) {
           anchorEl={anchorNotification}
           onClose={handleCloseNotification}
           anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
+            vertical: 'bottom',
+            horizontal: 'center',
           }}
           transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
+            vertical: 'top',
+            horizontal: 'center',
           }}
         >
-          <div style={{ padding: "20px", minWidth: "350px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ padding: '20px', minWidth: '350px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <Typography variant="h6" component="h6">
                 Notifications
               </Typography>
               <Typography color="textSecondary" variant="h6" component="h6">
-                {props.ntfQuantity || "0"}
+                {notificationsList.length || '0'}
               </Typography>
             </div>
             <Divider />
-            {arr.map((content, i) => {
+            {notificationsList.map((content, i) => {
               return (
                 <div key={`app-bar-arr-${i}`}>
-                  <div className="d-flex" style={{ alignItems: "center" }}>
+                  <div className="d-flex" style={{ alignItems: 'center' }}>
                     <div>
                       <MailOutlineIcon />
                     </div>
                     <div
                       style={{
-                        margin: "10px",
-                        paddingLeft: "10px",
-                        borderLeft: "1px solid rgba(0, 0, 0, 0.12)",
+                        margin: '10px',
+                        paddingLeft: '10px',
+                        borderLeft: '1px solid rgba(0, 0, 0, 0.12)',
                       }}
                     >
                       <Typography variant="h6" component="h6">
@@ -547,8 +531,8 @@ export default function AppBarComponent(props: any) {
   };
 
   const topBarMenusDesktop = (
-    <div style={{ display: "contents" }}>
-      {props.hasManageMenu && events[0] && buttonManage(undefined, "secondary")}
+    <div style={{ display: 'contents' }}>
+      {props.hasManageMenu && events[0] && buttonManage(undefined, 'secondary')}
       {buttonNotification()}
       {/* <MenuItem>
         <IconButton
@@ -574,10 +558,10 @@ export default function AppBarComponent(props: any) {
   );
 
   const topBarMenusMobile = (
-    <div style={{ display: "contents" }}>
+    <div style={{ display: 'contents' }}>
       {props.hasManageMenu &&
         events[0] &&
-        buttonManage(undefined, undefined, "white")}
+        buttonManage(undefined, undefined, 'white')}
     </div>
   );
 
@@ -587,10 +571,10 @@ export default function AppBarComponent(props: any) {
       <AppBar
         color={
           props.isManager
-            ? "secondary"
+            ? 'secondary'
             : width < 600
-            ? "primary"
-            : "transparent"
+            ? 'primary'
+            : 'transparent'
           // : width < 600
           // ? undefined
           // : props.isManager
@@ -610,7 +594,7 @@ export default function AppBarComponent(props: any) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            {props.title || "no title"}
+            {props.title || 'no title'}
           </Typography>
           {/* <div className={classes.search}>
             <div className={classes.searchIcon}>

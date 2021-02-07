@@ -68,7 +68,7 @@ export default function DesktopHome(props: any) {
         <Card className={classes.root} style={{ height: "auto" }} id="paidoboi">
           <CardHeader>
             <Typography gutterBottom variant="h5" component="h2">
-              History
+              Past events
             </Typography>
             <Divider />
           </CardHeader>
@@ -79,7 +79,7 @@ export default function DesktopHome(props: any) {
         <Card className={classes.root}>
           <CardHeader>
             <Typography gutterBottom variant="h5" component="h2">
-              Subscribed Events
+              Ongoing events
             </Typography>
             <Divider />
           </CardHeader>
