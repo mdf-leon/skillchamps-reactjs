@@ -10,9 +10,9 @@ import {
   Divider,
 } from "@material-ui/core";
 import { CardHeader } from "./styles";
-import SubscribedEvents from "../LocalComponents/SubscribedEvents";
-import RiderContent from "../LocalComponents/RiderContent";
-import HistoryContent from "../LocalComponents/HistoryContent";
+import OngoingEvents from "../LocalComponents/OngoingEvents";
+import InstituteContent from "../LocalComponents/InstituteContent";
+import PastEventsContent from "../LocalComponents/PastEventsContent";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainDiv: {
@@ -63,7 +63,7 @@ export default function DesktopHome(props: any) {
     <Grid container spacing={3} className={classes.mainDiv}>
       <Grid item xs={6}>
         <Card className={classes.root} ref={riderCardRef}>
-          <RiderContent {...props} />
+          <InstituteContent {...props} />
         </Card>
         <Card className={classes.root} style={{ height: "auto" }} id="paidoboi">
           <CardHeader>
@@ -72,7 +72,7 @@ export default function DesktopHome(props: any) {
             </Typography>
             <Divider />
           </CardHeader>
-          <HistoryContent {...props} historyCardSize={historyCardSize} />
+          <PastEventsContent {...props} historyCardSize={historyCardSize} />
         </Card>
       </Grid>
       <Grid item xs={6}>
@@ -87,7 +87,7 @@ export default function DesktopHome(props: any) {
             className={classes.subscribedEventContent}
             style={{ height: subscribedEventCardSize, minHeight: "100px" }}
           >
-            <SubscribedEvents {...props} />
+            <OngoingEvents {...props} />
           </CardContent>
         </Card>
       </Grid>

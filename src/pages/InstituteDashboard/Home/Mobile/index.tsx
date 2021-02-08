@@ -16,9 +16,9 @@ import {
   CardHeader,
 } from '../Desktop/styles';
 
-import SubscribedEvents from '../LocalComponents/SubscribedEvents';
-import RiderContent from '../LocalComponents/RiderContent';
-import HistoryContent from '../LocalComponents/HistoryContent';
+import OngoingEvents from '../LocalComponents/OngoingEvents';
+import InstituteContent from '../LocalComponents/InstituteContent';
+import PastEventsContent from '../LocalComponents/PastEventsContent';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,7 +50,7 @@ export default function MobileHome(props: any) {
         className={classes.root}
         style={{ margin: '0', paddingTop: '15px' }}
       >
-        <RiderContent {...props}/>
+        <InstituteContent {...props}/>
       </Card>
       
       <Card className={classes.root} style={{ marginBottom: '15px' }}>
@@ -61,13 +61,13 @@ export default function MobileHome(props: any) {
           <Divider />
           </CardHeader>
         <CardContent className={classes.historyContent}>
-          <HistoryContent />
+          <PastEventsContent />
         </CardContent>
         </Card>
         </div>
         );
         
-        const EventsView = <SubscribedEvents {...props} />;
+        const EventsView = <OngoingEvents {...props} />;
   
         return (
     <>

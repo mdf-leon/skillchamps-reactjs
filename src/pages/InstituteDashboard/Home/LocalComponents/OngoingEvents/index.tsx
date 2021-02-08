@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function SubscribedEventsComponent(props: any) {
   const classes = useStyles();
-  const [events, setEvents] = React.useState<any[]>([]);
+  const [events, setEvents] = React.useState<any[]>();
 
   const renderIcons = (iconName) => {
     switch (iconName) {
@@ -71,7 +71,7 @@ export default function SubscribedEventsComponent(props: any) {
     base
       .get(`/managedEventsList`)
       .then((r) => {
-        console.log(r.data)
+        console.log(r.data);
         setEvents(r.data);
       })
       .catch((e) => {
@@ -87,14 +87,15 @@ export default function SubscribedEventsComponent(props: any) {
   //     )
   //   : [];
 
-  const todayEvent: any[] = events[0]
-    ? events.filter((event) => {
-        //        // console.log(event.date_begin);
-        //        // console.log(getTodayWithoutTime());
+  const todayEvent: any[] =
+    events && events[0]
+      ? events.filter((event) => {
+          //        // console.log(event.date_begin);
+          //        // console.log(getTodayWithoutTime());
 
-        return event.date_begin === getTodayWithoutTime();
-      })
-    : [];
+          return event.date_begin === getTodayWithoutTime();
+        })
+      : [];
 
   return (
     <>
@@ -180,14 +181,15 @@ export default function SubscribedEventsComponent(props: any) {
                     key={`events${event.id}`}
                     className={classes.root}
                     onClick={() => {
-                      localStorage.setItem('event_id', event.id);
-                      localStorage.setItem('temp_event_name', event.event_name);
-                      localStorage.setItem(
-                        'temp_event_date_begin',
-                        event.date_begin
-                      );
+                      // localStorage.setItem('event_id', event.id);
+                      // localStorage.setItem('temp_event_name', event.event_name);
+                      // localStorage.setItem(
+                      //   'temp_event_date_begin',
+                      //   event.date_begin
+                      // );
+
                       props.history.push(
-                        `/dashboard/subscriptions/event/${event.id}`
+                        `/dashboard/manage/event/${event.id}`
                       );
                     }}
                   >
@@ -232,6 +234,8 @@ export default function SubscribedEventsComponent(props: any) {
             </div>
           </div>
         </div>
+      ) : events ? (
+        <p>There are no events.</p>
       ) : (
         <p>loading</p>
       )}
