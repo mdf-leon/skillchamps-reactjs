@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function SubscribedEventsComponent(props: any) {
   const classes = useStyles();
   const [events, setEvents] = React.useState<any[]>();
+  const institute_info = JSON.parse(localStorage.getItem('institute_info') || '')
 
   const renderIcons = (iconName) => {
     switch (iconName) {
@@ -189,7 +190,7 @@ export default function SubscribedEventsComponent(props: any) {
                       // );
 
                       props.history.push(
-                        `/dashboard/manage/event/${event.id}`
+                        `/dashboard/institute/${institute_info.id}/manage/event/${event.id}`
                       );
                     }}
                   >

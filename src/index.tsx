@@ -155,7 +155,7 @@ ReactDOM.render(
         <ProtectedRoute exact path="/Trials" component={Trials} />
         <ProtectedRoute exact path="/newTrial" component={NewTrials} />
         <ProtectedRoute exact path="/newInstitute" component={NewInstitute} />
-        <ProtectedRoute exact path="/eventOptions" component={EventOptions} />
+        <ProtectedRoute exact path="/dashboard/institute/:institute_id/manage/event/:event_id" component={EventOptions} />
         <ProtectedRoute
           exact
           path="/manageableEvents"
