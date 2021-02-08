@@ -21,7 +21,7 @@ export default function EventOptions(props: any) {
     base
       .get(`/showEvent`, { params: { event_id } })
       .then((r) => {
-        console.log(r.data);
+        // console.log(r.data);
         setEvent(r.data);
       })
       .catch((e) => {
