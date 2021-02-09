@@ -133,6 +133,12 @@ ReactDOM.render(
           path="/dashboard/institute/:institute_id/manage/event/:event_id"
           component={EventOptions}
         />
+        <ProtectedRoute
+          exact
+          path="/dashboard/institute/:institute_id/manage/event/:event_id/trials"
+          component={Trials}
+        />
+        <ProtectedRoute exact path="/dashboard/institute/:institute_id/manage/event/:event_id/trials/new" component={NewTrials} />
 
         {/* {LEGACY ROUTES -- THEY SHOULD BE DESTROYED} */}
         {/* <Route path="/" component={App} /> */}
@@ -157,8 +163,6 @@ ReactDOM.render(
         <ProtectedRoute exact path="/beforeResult" component={BeforeResult} />
         <ProtectedRoute exact path="/riders" component={Rider} />
         <ProtectedRoute exact path="/newRider" component={NewRider} />
-        <ProtectedRoute exact path="/Trials" component={Trials} />
-        <ProtectedRoute exact path="/newTrial" component={NewTrials} />
         <ProtectedRoute exact path="/newInstitute" component={NewInstitute} />
         <ProtectedRoute
           exact

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import AppBar from 'components/AppBar';
 import styles from './styles';
@@ -14,7 +15,7 @@ import { useParams } from 'react-router-dom';
 
 export default function EventOptions(props: any) {
   const classes = styles();
-  const { event_id } = useParams();
+  const { institute_id, event_id } = useParams();
   const [event, setEvent] = React.useState<any>({});
 
   React.useEffect(() => {
@@ -116,7 +117,7 @@ export default function EventOptions(props: any) {
           </Typography>
           <Button
             className={classes.action}
-            onClick={() => props.history.push(`/trials`)}
+            onClick={() => props.history.push(`/dashboard/institute/${institute_id}/manage/event/${event_id}/trials`)}
             size="small"
             color="primary"
           >
