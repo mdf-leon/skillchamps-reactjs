@@ -135,7 +135,7 @@ export default function EventOptions(props: any) {
           </Typography>
           <Button
             className={classes.action}
-            onClick={() => props.history.push(`/riders`)}
+            onClick={() => props.history.push(`/dashboard/institute/${institute_id}/manage/event/${event_id}/riders`)}
             size="small"
             color="primary"
           >

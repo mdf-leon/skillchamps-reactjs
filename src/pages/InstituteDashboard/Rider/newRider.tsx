@@ -16,6 +16,7 @@ import {
 } from '@material-ui/pickers';
 import MenuItem from '@material-ui/core/MenuItem';
 import { base } from 'config/api';
+import { useParams } from 'react-router-dom';
 
 const currencies = [
   {
@@ -74,6 +75,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NewRider(props: any) {
   const classes = useStyles();
+  const { institute_id, event_id } = useParams();
   const [selectedDate, setSelectedDate] = useState<any>();
   const [messageParams, setMessageParams] = useState<any>({
     message: '',
@@ -90,7 +92,7 @@ export default function NewRider(props: any) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let parameters = { event_id: localStorage.getItem('event_id') };
+    let parameters = { event_id };
     const rdata = {
       ...registerInfo,
       category: registerInfo.category.toLowerCase(),
@@ -99,13 +101,16 @@ export default function NewRider(props: any) {
     base
       .post(`/uncontrolledRegister`, { parameters, rdata })
       .then(() => {
-        props.history.push(`/riders`, {
-          // riderName:
-          message_alert: {
-            message: `Rider created successfully`,
-            severity: 'success',
-          },
-        });
+        props.history.push(
+          `/dashboard/institute/${institute_id}/manage/event/${event_id}/riders`,
+          {
+            // riderName:
+            message_alert: {
+              message: `Rider created successfully`,
+              severity: 'success',
+            },
+          }
+        );
       })
       .catch(() =>
         setMessageParams({
@@ -122,7 +127,7 @@ export default function NewRider(props: any) {
         severity={messageParams.severity}
         {...props}
       />
-      <AppBar title="Create a new Rider" {...props} />
+      <AppBar title="Create a new Rider" isManager {...props} />
       <div style={{ paddingTop: '1px', minHeight: '100%' }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />

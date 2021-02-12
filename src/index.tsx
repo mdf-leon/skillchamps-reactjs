@@ -138,7 +138,22 @@ ReactDOM.render(
           path="/dashboard/institute/:institute_id/manage/event/:event_id/trials"
           component={Trials}
         />
-        <ProtectedRoute exact path="/dashboard/institute/:institute_id/manage/event/:event_id/trials/new" component={NewTrials} />
+        <ProtectedRoute
+          exact
+          path="/dashboard/institute/:institute_id/manage/event/:event_id/trials/new"
+          component={NewTrials}
+        />
+        <ProtectedRoute
+          exact
+          path="/dashboard/institute/:institute_id/manage/event/:event_id/riders"
+          component={Rider}
+        />
+        <ProtectedRoute
+          exact
+          path="/dashboard/institute/:institute_id/manage/event/:event_id/riders/new"
+          // this is an uncontrolled rider
+          component={NewRider}
+        />
 
         {/* {LEGACY ROUTES -- THEY SHOULD BE DESTROYED} */}
         {/* <Route path="/" component={App} /> */}
@@ -161,8 +176,6 @@ ReactDOM.render(
           component={Dashboard} // this is not dashboard
         />
         <ProtectedRoute exact path="/beforeResult" component={BeforeResult} />
-        <ProtectedRoute exact path="/riders" component={Rider} />
-        <ProtectedRoute exact path="/newRider" component={NewRider} />
         <ProtectedRoute exact path="/newInstitute" component={NewInstitute} />
         <ProtectedRoute
           exact
