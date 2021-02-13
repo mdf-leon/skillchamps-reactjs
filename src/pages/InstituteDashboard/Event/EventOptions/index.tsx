@@ -64,7 +64,7 @@ export default function EventOptions(props: any) {
               variant="contained"
               size="small"
               color="primary"
-              onClick={() => props.history.push('/beforePoints')}
+              onClick={() => props.history.push(`/dashboard/institute/${institute_id}/manage/event/${event_id}/score/select_trial_rider`)}
             >
               START TRIAL
             </Button>

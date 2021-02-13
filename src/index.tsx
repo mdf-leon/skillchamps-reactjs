@@ -154,6 +154,8 @@ ReactDOM.render(
           // this is an uncontrolled rider
           component={NewRider}
         />
+        <ProtectedRoute exact path="/dashboard/institute/:institute_id/manage/event/:event_id/score/select_trial_rider"
+         component={BeforePoints} />
 
         {/* {LEGACY ROUTES -- THEY SHOULD BE DESTROYED} */}
         {/* <Route path="/" component={App} /> */}
@@ -183,7 +185,6 @@ ReactDOM.render(
           component={ManageableEvents}
         />
         <ProtectedRoute exact path="/points" component={Points} />
-        <ProtectedRoute exact path="/beforePoints" component={BeforePoints} />
         <ProtectedRoute exact path="/newEvent" component={NewEvent} />
         {/* <ProtectedRoute exact path="/events" component={Events} /> */}
         {/* <ProtectedRoute exact path="/manageInstitute" component={Institute} /> */}
