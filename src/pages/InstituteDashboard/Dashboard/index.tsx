@@ -201,7 +201,7 @@ export default function CustomizedTables(props: any) {
   };
 
   return (
-    <>
+    <div>
       <AppBar title={trialData.name || 'TRIAL NAME'} {...props} />
       {data?.riders  ? (
         <Card className={classes.root}>
@@ -508,6 +508,6 @@ export default function CustomizedTables(props: any) {
           </Typography>
         </div>
       )}
-    </>
+    </div>
   );
 }

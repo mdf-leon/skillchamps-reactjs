@@ -164,6 +164,16 @@ ReactDOM.render(
           path="/dashboard/institute/:institute_id/manage/event/:event_id/score/new"
           component={Points}
         />
+        <ProtectedRoute
+          exact
+          path="/dashboard/institute/:institute_id/manage/event/:event_id/partial_result"
+          component={TrialsChooseDashboard}
+        />
+        <Route // public route
+          exact
+          path="/event/:event_id/partial_result/trial/:trial_id"
+          component={Dashboard} // this is not dashboard
+        />
 
         {/* {LEGACY ROUTES -- THEY SHOULD BE DESTROYED} */}
         {/* <Route path="/" component={App} /> */}
@@ -174,17 +184,7 @@ ReactDOM.render(
           path="/trialsAndRiderChoose"
           component={TrialsAndRiderChoose}
         />
-        <ProtectedRoute
-          exact
-          path="/trialsChooseDashboard"
-          component={TrialsChooseDashboard}
-        />
         <Route exact path="/result" component={Result} />
-        <Route
-          exact
-          path="/dashboard/event/:event_id/trial/:trial_id"
-          component={Dashboard} // this is not dashboard
-        />
         <ProtectedRoute exact path="/beforeResult" component={BeforeResult} />
         <ProtectedRoute exact path="/newInstitute" component={NewInstitute} />
         <ProtectedRoute
