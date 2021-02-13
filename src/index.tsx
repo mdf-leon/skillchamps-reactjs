@@ -21,10 +21,10 @@ import Login from './pages/visitor/Login';
 import Register from './pages/visitor/Register';
 import RegisterRider from './pages/visitor/Register/Rider';
 import RegisterInstitute from './pages/visitor/Register/Institute';
-import Dashboard from './pages/InstituteDashboard/Dashboard';
+import PartialResult from './pages/InstituteDashboard/PartialResult';
 import FindEvents from './pages/RiderDashboard/SignToEvent';
 import SubscribeEvent from './pages/RiderDashboard/SignToEvent/SubscribeEvent';
-import TrialsChooseDashboard from './pages/InstituteDashboard/Dashboard/trialsChooseDashboard';
+import TrialsChooseDashboard from './pages/InstituteDashboard/PartialResult/trialsChooseDashboard';
 import BeforeResult from './pages/InstituteDashboard/Result/beforeResults';
 import Result from './pages/InstituteDashboard/Result';
 import Scores from './pages/InstituteDashboard/score';
@@ -167,12 +167,12 @@ ReactDOM.render(
         <ProtectedRoute
           exact
           path="/dashboard/institute/:institute_id/manage/event/:event_id/partial_result"
-          component={TrialsChooseDashboard}
+          component={TrialsChooseDashboard} // chooses the partial result from the dashboard
         />
         <Route // public route
           exact
           path="/event/:event_id/partial_result/trial/:trial_id"
-          component={Dashboard} // this is not dashboard
+          component={PartialResult}
         />
 
         {/* {LEGACY ROUTES -- THEY SHOULD BE DESTROYED} */}
