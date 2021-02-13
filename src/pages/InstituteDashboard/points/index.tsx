@@ -21,6 +21,8 @@ import {
 import { base } from '../../../config/api';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Duration } from 'luxon';
+import { useParams, useLocation } from 'react-router-dom';
+import querySearch from "stringquery";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -41,8 +43,12 @@ const useStyles = makeStyles(() =>
   })
 );
 
+
 export default function AddScore(props) {
   const classes = useStyles();
+  const { institute_id, event_id } = useParams();
+  const { trial_id, rider_id } = querySearch(useLocation().search);
+  
   const [penaltiesConf, setPenaltiesConf] = useState<any[]>([]);
   const [bonusesConf, setBonusesConf] = useState<any[]>([]);
   const [activeModal, setactiveModal] = useState<any>('');
@@ -61,8 +67,8 @@ export default function AddScore(props) {
   });
 
   const [point, setpoint] = useState<any>({
-    rider_id: localStorage.getItem('ongoing_rider'),
-    trial_id: localStorage.getItem('ongoing_trial'),
+    rider_id: rider_id,
+    trial_id: trial_id,
     time: '0',
   });
 
@@ -129,7 +135,7 @@ export default function AddScore(props) {
 
   useEffect(() => {
     let params = {
-      event_id: localStorage.getItem('event_id'),
+      event_id: event_id,
       rider_id: point.rider_id,
       trial_id: point.trial_id,
     };
@@ -159,6 +165,8 @@ export default function AddScore(props) {
         setBonusesConf(r.data);
       })
       .catch(() => {});
+      console.log(trial_id, rider_id);
+      
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -177,7 +185,7 @@ export default function AddScore(props) {
     <div key={`${pen.name}-${pen.id}-${index}`}>
       <Typography variant="body2" component="p">
         <strong>
-          {pen.id}. {pen.name} 
+          {pen.id}. {pen.name}
         </strong>
       </Typography>
 
@@ -258,7 +266,7 @@ export default function AddScore(props) {
     <div key={`${bon.name}-${bon.id}-${index}`}>
       <Typography variant="body2" component="p">
         <strong>
-          {bon.id}. {bon.name} 
+          {bon.id}. {bon.name}
         </strong>
       </Typography>
 
@@ -573,7 +581,7 @@ export default function AddScore(props) {
     await base
       .post(`/addScore`, temp)
       .then(() => {
-        props.history.push(`/beforePoints`, {
+        props.history.push(`/dashboard/institute/${institute_id}/manage/event/${event_id}/score/select_trial_rider`, {
           // riderName:
           message_alert: {
             message: `Score for ${dataRider.name} created successfully`,
@@ -727,7 +735,6 @@ export default function AddScore(props) {
       <CardActions style={{ justifyContent: 'center' }}>
         <Button
           className={classes.action}
-          
           variant="contained"
           size="small"
           color="primary"
@@ -737,7 +744,6 @@ export default function AddScore(props) {
         </Button>
         <Button
           className={classes.action}
-          
           variant="contained"
           size="small"
           color="secondary"
@@ -760,7 +766,7 @@ export default function AddScore(props) {
   };
 
   return (
-    <>
+    <div>
       <Modal
         bodyStyle={{ margin: 'auto 20px', width: '100%' }}
         noPadding
@@ -774,7 +780,7 @@ export default function AddScore(props) {
         severity={messageParams.severity}
         {...props}
       />
-      <AppBar title="Scoring for a rider" {...props} />
+      <AppBar title="Scoring for a rider" isManager {...props} />
       <Card style={{ minHeight: '100%' }}>
         <MainDiv style={{ marginTop: '50px', minHeight: '100%' }}>
           <div
@@ -876,6 +882,6 @@ export default function AddScore(props) {
           </PenaltyDiv>
         </MainDiv>
       </Card>
-    </>
+    </div>
   );
 }

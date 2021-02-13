@@ -180,7 +180,7 @@ export default function BeforePoints(props) {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => history.push('/points')}
+                      onClick={() => history.push(`/dashboard/institute/${institute_id}/manage/event/${event_id}/score/new?trial_id=${localStorage.getItem('ongoing_trial')}&rider_id=${currentRiderInfo.id}`)}
                     >
                       START
                     </Button>
