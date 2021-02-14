@@ -1,23 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import AppBar from '../../../components/AppBar';
-import styles from './useStyles';
-import { Card, CardContent, Button, Typography } from '@material-ui/core';
-import { base } from '../../../config/api';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import AppBar from "../../../components/AppBar";
+import styles from "./useStyles";
+import { Card, CardContent, Button, Typography } from "@material-ui/core";
+import { base } from "../../../config/api";
+import { useParams } from "react-router-dom";
 
 export default function Trials(props: any) {
   const classes = styles();
-  const { institute_id, event_id } = useParams();
+  const {
+    // institute_id,
+    event_id,
+  } = useParams();
   const [dataTrial, setDataTrial] = useState<any>([]);
 
   useEffect(() => {
     let params = { event_id };
     base
-      .get('/managedTrialsList', { params })
+      .get("/managedTrialsList", { params })
       .then((r) => {
         setDataTrial(r.data);
       })
       .catch(() => {});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -27,7 +31,7 @@ export default function Trials(props: any) {
         <Card className={classes.root}>
           <CardContent className={classes.content}>
             <Typography
-              style={{ textAlign: 'center', width: '100%', margin: 0 }}
+              style={{ textAlign: "center", width: "100%", margin: 0 }}
               gutterBottom
               variant="h5"
               component="h2"
@@ -39,9 +43,9 @@ export default function Trials(props: any) {
         {dataTrial.map((content, i) => (
           <div key={`TrialList-${content.id}`} className={classes.options}>
             <div className={classes.row}>
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: "flex" }}>
                 <Typography
-                  component={'span'}
+                  component={"span"}
                   style={{ margin: 0 }}
                   gutterBottom
                   variant="h6"
@@ -50,7 +54,7 @@ export default function Trials(props: any) {
                   {content.id}.&nbsp;
                 </Typography>
                 <Typography
-                  component={'span'}
+                  component={"span"}
                   style={{ margin: 0 }}
                   gutterBottom
                   variant="h6"
@@ -64,7 +68,7 @@ export default function Trials(props: any) {
               size="small"
               color="primary"
               onClick={() => {
-                localStorage.setItem('trial_id', content.id);
+                localStorage.setItem("trial_id", content.id);
                 props.history.push(
                   `/event/${event_id}/partial_result/trial/${content.id}`
                 );

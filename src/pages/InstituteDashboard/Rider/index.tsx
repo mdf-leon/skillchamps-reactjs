@@ -1,33 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import Message from 'components/Message';
-import AppBar from 'components/AppBar';
-import styles from './useStyles';
-import { Modal } from 'components';
+import React, { useState, useEffect } from "react";
+import Message from "components/Message";
+import AppBar from "components/AppBar";
+import styles from "./useStyles";
+import { Modal } from "components";
 import {
   Card,
   CardContent,
   CardActions,
   Button,
   Typography,
-} from '@material-ui/core';
-import { base } from 'config/api';
-import { useParams } from 'react-router-dom';
+} from "@material-ui/core";
+import { base } from "config/api";
+import { useParams } from "react-router-dom";
 
 export default function Riders(props: any) {
   const classes = styles();
   const { institute_id, event_id } = useParams();
   const [dataRider, setDataRider] = useState<any[]>([]);
-  const [activeModal, setActiveModal] = useState<any>('');
-  const [currentId, setCurrentId] = useState<any>('');
+  const [activeModal, setActiveModal] = useState<any>("");
+  const [currentId, setCurrentId] = useState<any>("");
 
   const confirmDelete = (
     <Card>
       <CardContent className={classes.content}>
         <div
-          style={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+          style={{ display: "flex", flexDirection: "column", width: "100%" }}
         >
           <Typography
-            style={{ textAlign: 'center' }}
+            style={{ textAlign: "center" }}
             gutterBottom
             variant="h5"
             component="h2"
@@ -35,7 +35,7 @@ export default function Riders(props: any) {
             Are you sure?
           </Typography>
           <Typography
-            style={{ textAlign: 'center' }}
+            style={{ textAlign: "center" }}
             gutterBottom
             color="textSecondary"
             variant="body2"
@@ -46,13 +46,13 @@ export default function Riders(props: any) {
           </Typography>
         </div>
       </CardContent>
-      <CardActions style={{ justifyContent: 'center' }}>
+      <CardActions style={{ justifyContent: "center" }}>
         <Button
           className={classes.action}
           variant="contained"
           size="small"
           color="primary"
-          onClick={() => setActiveModal('')}
+          onClick={() => setActiveModal("")}
         >
           Cancel
         </Button>
@@ -78,7 +78,7 @@ export default function Riders(props: any) {
 
   const softRefresh = () => {
     base
-      .get('/managedRidersList', { params: { event_id } })
+      .get("/managedRidersList", { params: { event_id } })
       .then((r) => {
         setDataRider(r.data);
       })
@@ -87,13 +87,14 @@ export default function Riders(props: any) {
 
   useEffect(() => {
     softRefresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const deleteRider = (id: any) => {
     base
       .delete(`/deleteRider/${id}`)
       .then(() => {
-        setActiveModal('');
+        setActiveModal("");
         softRefresh();
       })
       .catch(() => {});
@@ -107,7 +108,7 @@ export default function Riders(props: any) {
         <Card className={classes.root}>
           <CardContent className={classes.content}>
             <Typography
-              style={{ textAlign: 'center', width: '100%', margin: 0 }}
+              style={{ textAlign: "center", width: "100%", margin: 0 }}
               gutterBottom
               variant="h5"
               component="h2"
@@ -130,7 +131,11 @@ export default function Riders(props: any) {
               variant="contained"
               size="small"
               color="primary"
-              onClick={() => props.history.push(`/dashboard/institute/${institute_id}/manage/event/${event_id}/riders/new`)}
+              onClick={() =>
+                props.history.push(
+                  `/dashboard/institute/${institute_id}/manage/event/${event_id}/riders/new`
+                )
+              }
             >
               ADD RIDER
             </Button>
@@ -139,9 +144,9 @@ export default function Riders(props: any) {
         {dataRider.map((content, i) => (
           <div key={`riderList${content.id}`} className={classes.options}>
             <div className={classes.row}>
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: "flex" }}>
                 <Typography
-                  component={'span'}
+                  component={"span"}
                   style={{ margin: 0 }}
                   gutterBottom
                   variant="h6"
@@ -150,7 +155,7 @@ export default function Riders(props: any) {
                   {content.id}.&nbsp;
                 </Typography>
                 <Typography
-                  component={'span'}
+                  component={"span"}
                   style={{ margin: 0 }}
                   gutterBottom
                   variant="h6"
@@ -159,7 +164,7 @@ export default function Riders(props: any) {
                 </Typography>
               </div>
               <Typography
-                component={'span'}
+                component={"span"}
                 style={{ margin: 0 }}
                 gutterBottom
                 variant="body2"
@@ -173,7 +178,7 @@ export default function Riders(props: any) {
               size="small"
               color="secondary"
               onClick={() => {
-                setActiveModal('confirmDelete');
+                setActiveModal("confirmDelete");
                 setCurrentId(content.id);
               }}
             >
@@ -183,10 +188,10 @@ export default function Riders(props: any) {
         ))}
       </div>
       <Modal
-        bodyStyle={{ margin: 'auto 20px', width: '100%' }}
+        bodyStyle={{ margin: "auto 20px", width: "100%" }}
         noPadding
-        show={activeModal !== ''}
-        onBackgroundClick={() => setActiveModal('')}
+        show={activeModal !== ""}
+        onBackgroundClick={() => setActiveModal("")}
       >
         {modalContent(activeModal)}
       </Modal>
