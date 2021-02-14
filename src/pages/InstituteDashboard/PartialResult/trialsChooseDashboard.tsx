@@ -20,16 +20,6 @@ export default function Trials(props: any) {
       .catch(() => {});
   }, []);
 
-  useEffect(() => {
-    let params = { event_id };
-    base
-      .get('/managedTrialsList', { params })
-      .then((r) => {
-        setDataTrial(r.data);
-      })
-      .catch(() => {});
-  }, []);
-
   return (
     <div>
       <AppBar title="Choose a Trial" isManager {...props} />
