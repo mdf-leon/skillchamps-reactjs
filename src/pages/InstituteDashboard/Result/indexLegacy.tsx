@@ -18,9 +18,23 @@ import {
   Card,
   CardContent,
 } from '@material-ui/core';
+import qs from 'query-string';
 import { base } from 'config/api';
 import { TableCell, TitleDiv, TheConeMasterDiv } from './styles';
-import { useParams } from 'react-router-dom';
+// import { Duration } from "luxon";
+
+//TableSortLabel
+// const StyledTableSortLabel = withStyles((theme: Theme) =>
+//   createStyles({
+//     head: {
+//       backgroundColor: theme.palette.common.black,
+//       color: theme.palette.common.white,
+//     },
+//     body: {
+//       fontSize: 14,
+//     },
+//   })
+// )(TableSortLabel);
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -83,27 +97,39 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FirstTable(props: any) {
   const classes = useStyles();
-  const { institute_id, event_id } = useParams();
   const [data, setData] = useState<any>({});
 
+  let parameters = qs.parse(props.location.search);
+
   useEffect(() => {
+    let tempParametersNameObject = {};
+
+    for (let key in parameters) {
+      let word = key.substring(0, key.length - 2);
+      let letter = key.substring(key.length - 1, key.length);
+
+      tempParametersNameObject[letter] = {
+        ...tempParametersNameObject[letter],
+        [word]: parameters[word + '_' + letter],
+      };
+    }
+
+    let tempParametersNameArray: any[] = [];
+    for (const key in tempParametersNameObject) {
+      tempParametersNameArray.push(tempParametersNameObject[key]);
+    }
+    console.log(tempParametersNameArray);
+
     base
-      .get(`/result/event/${event_id}`)
+      .post(`/allRanking`, { events_request: tempParametersNameArray })
       .then((r) => {
-        setData(r.data); 
+        setData(r.data);
       })
-      .catch((e) => {
-        props.history.push(`/event/${event_id}`, {
-          message_alert: {
-            message: "This event doesn't yet have a final result. Please wait for the administration to release it.",
-            severity: 'warning',
-          },
-        });
-      });
+      .catch(() => { });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const customTableConeMaster = (cone_master) => {
+  const customTableConeMaster = (coner_mater) => {
     return (
       <>
         <TitleDiv>
@@ -114,7 +140,7 @@ export default function FirstTable(props: any) {
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="customized table">
             <TableBody>
-              {cone_master?.map((row, i) => {
+              {coner_mater?.map((row, i) => {
                 return (
                   <StyledTableRow key={i + 1}>
                     <StyledTableCell align="center">
@@ -148,12 +174,12 @@ export default function FirstTable(props: any) {
           <Typography component="h5" variant="subtitle1">
             {event.trial_name}{' '}
             {event.category_chosen !== 'null' &&
-            event.category_chosen !== 'none'
+              event.category_chosen !== 'none'
               ? event.category_chosen
               : null}
             &nbsp;
             {event.category2_chosen !== 'null' &&
-            event.category2_chosen !== 'none'
+              event.category2_chosen !== 'none'
               ? event.category2_chosen
               : null}
           </Typography>
@@ -209,7 +235,7 @@ export default function FirstTable(props: any) {
         <CardContent>
           <Grid container spacing={3}>
             <Grid className={classes.gridConeMaster} item xs={12}>
-              <Grid item xl={12} sm={12} md={12} style={{ width: '100%' }}>
+              <Grid item xl={12} sm={12} md={12} style={{width: "100%"}}>
                 {data?.the_cone_master?.length === 1 ? (
                   <TheConeMasterDiv>
                     <Typography component="h5" variant="subtitle1">
@@ -222,8 +248,8 @@ export default function FirstTable(props: any) {
                     </div>
                   </TheConeMasterDiv>
                 ) : (
-                  customTableConeMaster(data?.the_cone_master)
-                )}
+                    customTableConeMaster(data?.the_cone_master)
+                  )}
               </Grid>
             </Grid>
 

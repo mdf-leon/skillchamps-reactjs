@@ -3,7 +3,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-// import Message from 'components/Message';
+import Message from 'components/Message';
 import AppBar from 'components/AppBar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -69,10 +69,11 @@ const useStyles = makeStyles((theme) => ({
 export default function NewTrials(props: any) {
   const classes = useStyles();
   const { institute_id, event_id } = useParams();
+  const [events, setEvents] = useState<any[]>([]);
   const [trials, setTrials] = useState<any[]>([]);
   const [data, setdata] = useState<any>([]);
   const [tempInfo, setTempInfo] = useState<any>({
-    event_id,
+    event_id: '',
     event_name: '',
     trial_id: '',
     trial_name: '',
@@ -80,22 +81,33 @@ export default function NewTrials(props: any) {
     category2: '',
   });
 
+  const [messageParams] = useState<any>({
+    message: '',
+    severity: '',
+  });
+
   useEffect(() => {
-    let params = { event_id };
+    base
+      .get(`/managedEventsList`)
+      .then((r) => {
+        setEvents(r.data);
+      })
+      .catch(() => {});
+
+    let params = { event_id: tempInfo.event_id };
     base
       .get(`/managedTrialsList`, { params })
       .then((r) => {
         setTrials(r.data);
       })
       .catch(() => {});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [tempInfo.event_id]);
 
   const handleAddUrlInfo = () => {
     const temp = [...data];
     temp.push(tempInfo);
     setTempInfo({
-      event_id,
+      event_id: '',
       event_name: '',
       trial_id: '',
       trial_name: '',
@@ -107,37 +119,30 @@ export default function NewTrials(props: any) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const toSend = {
-      events_request: data,
-    };
-
-    base
-      .post(`/allRanking`, toSend)
-      .then((r) => {
-        console.log(r.data);
-        props.history.push(
-          `/dashboard/institute/${institute_id}/manage/event/${event_id}`,
-          {
-            message_alert: {
-              message: `History configuration was created. Now you can see the cone master`,
-              severity: 'success',
-            },
-          }
-        );
-      })
-      .catch((e) => {
-        console.log(e.response.data);
-      });
+    const toSend: any = {};
+    for (let i = 0; i < data.length; i++) {
+      const letter = '_' + (i + 10).toString(36).toLowerCase();
+      if (data[i].event_id) toSend['event_id' + letter] = data[i].event_id;
+      if (data[i].trial_id) toSend['trial_id' + letter] = data[i].trial_id;
+      if (data[i].category) toSend['category' + letter] = data[i].category;
+      if (data[i].category2) toSend['category2' + letter] = data[i].category2;
+    }
+    let searchParams = new URLSearchParams(toSend);
+    console.log(searchParams.toString());
+    props.history.push({
+      pathname: '/result',
+      search: searchParams.toString(),
+    });
   };
 
   return (
     <>
-      {/* <Message
+      <Message
         message={messageParams.message}
         severity={messageParams.severity}
         {...props}
-      /> */}
-      <AppBar title="Building result tables" isManager {...props} />
+      />
+      <AppBar title="Building result tables" {...props} />
       <div style={{ paddingTop: '1px', minHeight: 'calc(100% - 56px)' }}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -151,6 +156,38 @@ export default function NewTrials(props: any) {
                 >
                   Choose trial to display
                 </Typography>
+                <FormControl
+                  variant="outlined"
+                  className={classes.formControl}
+                  fullWidth
+                >
+                  <InputLabel id="demo-simple-select-outlined-label">
+                    Event
+                  </InputLabel>
+                  <Select
+                    name="event_id"
+                    labelId="Event"
+                    id="Event"
+                    value={tempInfo.event_id}
+                    label="Event"
+                  >
+                    {events.map((event) => (
+                      <MenuItem
+                        key={`menuitem-${event.id}`}
+                        value={event.id}
+                        onClick={() => {
+                          setTempInfo({
+                            ...tempInfo,
+                            event_id: event.id,
+                            event_name: event.event_name,
+                          });
+                        }}
+                      >
+                        {event.event_name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
                 <FormControl
                   variant="outlined"
                   className={classes.formControl}
@@ -175,17 +212,15 @@ export default function NewTrials(props: any) {
                   >
                     {tempInfo.event_id ? (
                       trials.map((trial) => (
-                        <MenuItem
-                          key={`trial-id-${trial.id}`}
-                          onClick={() => {
-                            setTempInfo({
-                              ...tempInfo,
-                              trial_id: trial.id,
-                              trial_name: trial.name,
-                            });
-                          }}
-                          value={trial.id}
-                        >
+                        <MenuItem key={`trial-id-${trial.id}`} 
+                        onClick={() => {
+                          setTempInfo({
+                            ...tempInfo,
+                            trial_id: trial.id,
+                            trial_name: trial.name,
+                          });
+                        }}
+                        value={trial.id}>
                           {trial.name}
                         </MenuItem>
                       ))
@@ -326,6 +361,7 @@ export default function NewTrials(props: any) {
                       setdata(temp);
                     }}
                     className={classes.action}
+                    
                     size="small"
                     color="secondary"
                   >

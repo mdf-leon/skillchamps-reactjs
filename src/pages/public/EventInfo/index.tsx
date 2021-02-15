@@ -17,6 +17,7 @@ import {
 import { AppBar, Modal } from "components";
 import { base } from "config/api";
 import { CardHeader } from "./styles";
+import Message from 'components/Message';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -193,6 +194,7 @@ export default function EventInfo(props: any) {
 
   return (
     <div style={{ margin: 0, overflowX: "hidden" }}>
+      <Message {...props} />
       <AppBar title="Event information" {...props} />
       <Grid
         container
@@ -229,7 +231,9 @@ export default function EventInfo(props: any) {
                 size="small"
                 color="primary"
                 onClick={() => {
-                  handleUnsubscribe();
+                  props.history.push(
+                    `/event/${event_id}/result`
+                  );
                 }}
               >
                 final result

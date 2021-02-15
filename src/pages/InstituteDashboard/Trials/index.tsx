@@ -89,13 +89,6 @@ export default function Trials(props: any) {
   };
 
   useEffect(() => {
-    // let params = { event_id };
-    // base
-    //   .get('/managedTrialsList', { params })
-    //   .then((r) => {
-    //     setDataTrial(r.data);
-    //   })
-    //   .catch(() => {});
     softRefresh();
   }, []);
 

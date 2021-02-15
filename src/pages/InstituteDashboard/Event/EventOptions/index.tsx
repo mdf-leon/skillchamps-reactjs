@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import AppBar from 'components/AppBar';
+import Message from 'components/Message';
 import styles from './styles';
 import {
   Card,
@@ -32,6 +33,11 @@ export default function EventOptions(props: any) {
 
   return (
     <div>
+      <Message
+        // message={messageParams.message}
+        // severity={messageParams.severity}
+        {...props}
+      />
       <AppBar title="Event Options" isManager {...props} />
       <div className={classes.mainDiv}>
         <Card className={classes.root}>
@@ -54,17 +60,25 @@ export default function EventOptions(props: any) {
             <Button
               className={classes.action}
               size="small"
-              color="primary"
-              onClick={() => console.log('aqui vai levar para pagina de criaçao de history para dar o resultado final')} 
+              color="primary" // /dashboard/institute/:institute_id/manage/event/:event_id/full_result/edit
+              onClick={() =>
+                props.history.push(
+                  `/dashboard/institute/${institute_id}/manage/event/${event_id}/full_result/edit`
+                )
+              }
             >
-              SETTINGS
+              RESULT SETTINGS
             </Button>
             <Button
               className={classes.action}
               variant="contained"
               size="small"
               color="primary"
-              onClick={() => props.history.push(`/dashboard/institute/${institute_id}/manage/event/${event_id}/score/select_trial_rider`)}
+              onClick={() =>
+                props.history.push(
+                  `/dashboard/institute/${institute_id}/manage/event/${event_id}/score/select_trial_rider`
+                )
+              }
             >
               START TRIAL
             </Button>
@@ -81,7 +95,11 @@ export default function EventOptions(props: any) {
           </Typography>
           <Button
             className={classes.action}
-            onClick={() => props.history.push(`/dashboard/institute/${institute_id}/manage/event/${event_id}/partial_result`)}
+            onClick={() =>
+              props.history.push(
+                `/dashboard/institute/${institute_id}/manage/event/${event_id}/partial_result`
+              )
+            }
             size="small"
             color="primary"
           >
@@ -117,7 +135,11 @@ export default function EventOptions(props: any) {
           </Typography>
           <Button
             className={classes.action}
-            onClick={() => props.history.push(`/dashboard/institute/${institute_id}/manage/event/${event_id}/trials`)}
+            onClick={() =>
+              props.history.push(
+                `/dashboard/institute/${institute_id}/manage/event/${event_id}/trials`
+              )
+            }
             size="small"
             color="primary"
           >
@@ -135,7 +157,11 @@ export default function EventOptions(props: any) {
           </Typography>
           <Button
             className={classes.action}
-            onClick={() => props.history.push(`/dashboard/institute/${institute_id}/manage/event/${event_id}/riders`)}
+            onClick={() =>
+              props.history.push(
+                `/dashboard/institute/${institute_id}/manage/event/${event_id}/riders`
+              )
+            }
             size="small"
             color="primary"
           >

@@ -24,6 +24,7 @@ export default function Message(props: any) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
   return (
     <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
       <Alert
@@ -39,3 +40,5 @@ export default function Message(props: any) {
     </Snackbar>
   );
 }
+
+// DOCUMENTATION: https://material-ui.com/components/alert/
