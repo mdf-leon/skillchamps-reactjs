@@ -24,7 +24,7 @@ import {
 } from '@material-ui/core';
 import qs from 'query-string';
 import { TableCell, TableSortLabel } from './styles';
-import AppBar from '../../../components/AppBar';
+import PublicAppBar from 'components/PublicAppBar';
 import { base } from '../../../config/api';
 // import { Duration } from "luxon";
 
@@ -133,7 +133,8 @@ export default function CustomizedTables(props: any) {
 
   let parameters = qs.parse(props.location.search);
 
-  let { trial_id, event_id } = useParams();
+  const { trial_id, event_id } = useParams();
+
   useEffect(() => {
     let params: any = {
       event_id,
@@ -150,11 +151,11 @@ export default function CustomizedTables(props: any) {
       .get(`/fullRanking3`, { params })
       .then((r) => {
         console.log(r.data);
-        
+
         setData(r.data);
       })
       .catch(() => {});
-    base 
+    base
       .get(
         `/managedPenaltyConfsFromTrial2${
           parameters.user_id ? '/' + parameters.user_id : null
@@ -202,8 +203,13 @@ export default function CustomizedTables(props: any) {
 
   return (
     <div>
-      <AppBar title={trialData.name || 'TRIAL NAME'} {...props} />
-      {data?.riders  ? (
+      <PublicAppBar
+        title={trialData.name || 'TRIAL NAME'}
+        backButton={{ path: `/event/${event_id}`, title: 'Back to event' }}
+        rightButtons={[{ path: `/event/${event_id}`, title: 'Back to event' }]}
+        {...props}
+      />
+      {data?.riders ? (
         <Card className={classes.root}>
           <CardContent>
             <FormControl variant="outlined" className={classes.formControl}>
@@ -436,7 +442,7 @@ export default function CustomizedTables(props: any) {
                     (row, i) => {
                       if (!row.scores) return null;
                       return (
-                        <StyledTableRow key={row.name+i+'a'}>
+                        <StyledTableRow key={row.name + i + 'a'}>
                           <StyledTableCell
                             align="center"
                             component="th"

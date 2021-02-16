@@ -14,7 +14,7 @@ import {
   Typography,
   Divider,
 } from "@material-ui/core";
-import { AppBar, Modal } from "components";
+import { PublicAppBar, Modal } from "components";
 import { base } from "config/api";
 import { CardHeader } from "./styles";
 import Message from 'components/Message';
@@ -195,7 +195,7 @@ export default function EventInfo(props: any) {
   return (
     <div style={{ margin: 0, overflowX: "hidden" }}>
       <Message {...props} />
-      <AppBar title="Event information" {...props} />
+      <PublicAppBar title="Event information" {...props} />
       <Grid
         container
         spacing={3}
