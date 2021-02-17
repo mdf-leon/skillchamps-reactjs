@@ -28,8 +28,9 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 // import AccountCircle from "@material-ui/icons/AccountCircle";
 // import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
+// import NotificationsIcon from '@material-ui/icons/Notifications';
+// import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import HomeIcon from '@material-ui/icons/Home';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -378,7 +379,17 @@ export default function AppBarComponent(props: any) {
           </Typography>
           <div className={classes.grow} />
           {width >= 600 ? topBarMenusDesktop : topBarMenusMobile}
-          {/* {menuDeskAndMobile} */}
+          {localStorage.getItem('token') ? (
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Dashboard"
+              onClick={() => props.history.push('/login')}
+            >
+              <DashboardIcon />
+            </IconButton>
+          ) : null}
         </Toolbar>
       </AppBar>
       {/* {renderMobileMenu} */}

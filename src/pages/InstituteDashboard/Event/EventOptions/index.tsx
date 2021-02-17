@@ -91,13 +91,13 @@ export default function EventOptions(props: any) {
             variant="h6"
             component="h6"
           >
-            Partial Result
+            Result(public)
           </Typography>
           <Button
             className={classes.action}
             onClick={() =>
               props.history.push(
-                `/dashboard/institute/${institute_id}/manage/event/${event_id}/partial_result`
+                `/event/${event_id}`
               )
             }
             size="small"
