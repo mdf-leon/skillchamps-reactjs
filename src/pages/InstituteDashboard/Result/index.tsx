@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AppBar from '../../../components/AppBar';
+import PublicAppBar from 'components/PublicAppBar';
 import {
   withStyles,
   Theme,
@@ -204,7 +204,12 @@ export default function FirstTable(props: any) {
 
   return (
     <>
-      <AppBar title="Result" {...props} />
+            <PublicAppBar
+        title={'Result'}
+        backButton={{ path: `/event/${event_id}`, title: 'Back to event' }}
+        rightButtons={[{ path: `/event/${event_id}`, title: 'Back to event' }]}
+        {...props}
+      />
       <Card className={classes.root}>
         <CardContent>
           <Grid container spacing={3}>
