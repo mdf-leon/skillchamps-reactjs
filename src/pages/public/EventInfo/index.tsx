@@ -17,7 +17,7 @@ import {
 import { PublicAppBar, Modal } from "components";
 import { base } from "config/api";
 import { CardHeader } from "./styles";
-import Message from 'components/Message';
+import Message from "components/Message";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -82,6 +82,8 @@ export default function EventInfo(props: any) {
   ] = React.useState<number>(0);
 
   React.useEffect(() => {
+    localStorage.setItem("lastSeenEvent", event_id);
+
     base
       .get(`/trials/event/${event_id}`)
       .then((r) => {
@@ -231,9 +233,7 @@ export default function EventInfo(props: any) {
                 size="small"
                 color="primary"
                 onClick={() => {
-                  props.history.push(
-                    `/event/${event_id}/result`
-                  );
+                  props.history.push(`/event/${event_id}/result`);
                 }}
               >
                 final result

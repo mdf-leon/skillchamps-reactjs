@@ -49,6 +49,13 @@ import {
 const Home = (props: any) => {
   const [width, height] = useWindowSize();
 
+  React.useEffect(() => {
+    if (localStorage.getItem("lastSeenEvent")) {
+      props.history.push(`/event/${localStorage.getItem("lastSeenEvent")}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <MainDiv>
       <Header>
