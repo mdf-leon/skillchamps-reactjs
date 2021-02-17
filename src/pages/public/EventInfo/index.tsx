@@ -70,23 +70,19 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function EventInfo(props: any) {
   const classes = useStyles();
-  const [modalRender, setModalRender] = React.useState<any>('');
-  const riderCardRef = React.useRef<any>(null);
+  const eventCardref = React.useRef<any>(null);
   const { event_id } = useParams();
   const [dataTrial, setDataTrial] = React.useState<any>([]);
 
   const [eventInfo, seteventInfo] = React.useState<any>({});
-  const [
-    subscribedEventCardSize,
-    setsubscribedEventCardSize,
-  ] = React.useState<number>(0);
+  const [presultsCardSize, setpresultsCardSize] = React.useState<number>(0);
 
   const getImage = (image_id) => {
-    return base.get(`/image-b64/${image_id}`).then(r=>r.data) 
-  }
+    return base.get(`/image-b64/${image_id}`).then((r) => r.data);
+  };
 
   React.useEffect(() => {
-    localStorage.setItem("lastSeenEvent", event_id);
+    localStorage.setItem('lastSeenEvent', event_id);
 
     base
       .get(`/trials/event/${event_id}`)
@@ -102,7 +98,7 @@ export default function EventInfo(props: any) {
       .get(`/events`, { params: { event_id } })
       .then((r) => {
         seteventInfo(r.data);
-        console.log(getImage(r.data.photo_event));
+        console.log(r.data);
       })
       .catch((e) => {
         console.log(e);
@@ -112,8 +108,10 @@ export default function EventInfo(props: any) {
 
   React.useLayoutEffect(() => {
     function updateSize() {
-      setsubscribedEventCardSize(
-        window.innerHeight - 140 - (props.appBarHeight || 0)
+      const eventCardHeight =
+        eventCardref?.current?.getBoundingClientRect()?.height || 0;
+      setpresultsCardSize( // - valorMagico - appbarHeight
+        window.innerHeight - eventCardHeight - 138 - 64
       );
     }
     window.addEventListener('resize', updateSize);
@@ -123,7 +121,7 @@ export default function EventInfo(props: any) {
   }, []);
 
   return (
-    <div style={{ margin: 0, overflowX: 'hidden' }}>
+    <div style={{ margin: 0, }}>
       <Message {...props} />
       <PublicAppBar title="Event information" {...props} />
       <Grid
@@ -133,10 +131,11 @@ export default function EventInfo(props: any) {
         style={{ width: '100%' }}
       >
         <Grid item xs={12} sm={6}>
-          <Card className={classes.root} ref={riderCardRef}>
+          <Card className={classes.root} ref={eventCardref}>
             <CardContent className={classes.riderContent}>
               <CardMedia
                 className={classes.riderImage}
+                // exemplo de imagem src certo
                 image={`${baseUrl}/image/${eventInfo.photo_event}`}
                 title="Contemplative Reptile"
               />
@@ -145,9 +144,7 @@ export default function EventInfo(props: any) {
                   {eventInfo.event_name}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  {new Date(
-                    localStorage.getItem('temp_event_date_begin') || ''
-                  ).toLocaleDateString('en-US')}
+                  {new Date(eventInfo.date_begin).toLocaleDateString('en-US')}
                 </Typography>
               </div>
             </CardContent>
@@ -156,7 +153,7 @@ export default function EventInfo(props: any) {
                 className={classes.action}
                 variant="contained"
                 size="small"
-                color="primary"
+                color="primary" // arai
                 onClick={() => {
                   props.history.push(`/event/${event_id}/result`);
                 }}
@@ -173,130 +170,14 @@ export default function EventInfo(props: any) {
               </Typography>
               <Divider />
             </CardHeader>
-            <CardContent>
-              {dataTrial.map((content, i) => (
-                <div
-                  key={`TrialList-${content.id}`}
-                  className={classes.options}
-                >
-                  <div className={classes.row}>
-                    <div style={{ display: 'flex' }}>
-                      <Typography
-                        component={'span'}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="h6"
-                        color="textSecondary"
-                      >
-                        {content.id}.&nbsp;
-                      </Typography>
-                      <Typography
-                        component={'span'}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="h6"
-                      >
-                        {content.name}
-                      </Typography>
-                    </div>
-                  </div>
-                  <Button
-                    className={classes.action}
-                    size="small"
-                    color="primary"
-                    onClick={() => {
-                      localStorage.setItem('trial_id', content.id);
-                      props.history.push(
-                        `/event/${event_id}/partial_result/trial/${content.id}`
-                      );
-                    }}
-                  >
-                    View
-                  </Button>
-                </div>
-              ))}
-              {dataTrial.map((content, i) => (
-                <div
-                  key={`TrialList-${content.id}`}
-                  className={classes.options}
-                >
-                  <div className={classes.row}>
-                    <div style={{ display: 'flex' }}>
-                      <Typography
-                        component={'span'}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="h6"
-                        color="textSecondary"
-                      >
-                        {content.id}.&nbsp;
-                      </Typography>
-                      <Typography
-                        component={'span'}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="h6"
-                      >
-                        {content.name}
-                      </Typography>
-                    </div>
-                  </div>
-                  <Button
-                    className={classes.action}
-                    size="small"
-                    color="primary"
-                    onClick={() => {
-                      localStorage.setItem('trial_id', content.id);
-                      props.history.push(
-                        `/event/${event_id}/partial_result/trial/${content.id}`
-                      );
-                    }}
-                  >
-                    View
-                  </Button>
-                </div>
-              ))}
-              {dataTrial.map((content, i) => (
-                <div
-                  key={`TrialList-${content.id}`}
-                  className={classes.options}
-                >
-                  <div className={classes.row}>
-                    <div style={{ display: 'flex' }}>
-                      <Typography
-                        component={'span'}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="h6"
-                        color="textSecondary"
-                      >
-                        {content.id}.&nbsp;
-                      </Typography>
-                      <Typography
-                        component={'span'}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="h6"
-                      >
-                        {content.name}
-                      </Typography>
-                    </div>
-                  </div>
-                  <Button
-                    className={classes.action}
-                    size="small"
-                    color="primary"
-                    onClick={() => {
-                      localStorage.setItem('trial_id', content.id);
-                      props.history.push(
-                        `/event/${event_id}/partial_result/trial/${content.id}`
-                      );
-                    }}
-                  >
-                    View
-                  </Button>
-                </div>
-              ))}
+            <CardContent
+              style={{
+                position: "relative",
+                height: presultsCardSize,
+                overflowY: 'scroll',
+                minHeight: '100px',
+              }}
+            >
               {dataTrial.map((content, i) => (
                 <div
                   key={`TrialList-${content.id}`}
@@ -361,11 +242,11 @@ export default function EventInfo(props: any) {
             <Card style={{ margin: '0px 8px 0 8px' }} className={classes.root}>
               <CardHeader>
                 <Typography gutterBottom variant="h5" component="h2">
-                  Lorem Ipsum
+                  Description
                 </Typography>
                 <Divider />
               </CardHeader>
-              <CardContent>{eventInfo.long_text}</CardContent>
+              <CardContent>{eventInfo.longtext}</CardContent>
             </Card>
           </div>
         </Grid>

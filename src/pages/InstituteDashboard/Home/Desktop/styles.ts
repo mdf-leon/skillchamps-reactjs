@@ -45,6 +45,7 @@ export const FirstMedal = styled.div<any>`
   }
 `;
 
+/* styledComponent(<div />) */
 export const SecondMedal = styled.div<any>`
   /* border: 1px solid #ca5d3e; */
   display: flex;
