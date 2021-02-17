@@ -1,12 +1,18 @@
 import axios from "axios";
 
-let base = axios.create({
-  baseURL: `https://skillchamps.herokuapp.com`, // https://skillchamps.herokuapp.com
+
+const baseUrl = `https://skillchamps.herokuapp.com`; // https://skillchamps.herokuapp.com
+let base = axios.create({ // getImage
+  baseURL: baseUrl,
   headers: {
-    Authorization : `Bearer ${localStorage.getItem('token')}`
+    Authorization: `Bearer ${localStorage.getItem('token')}`
   }
 });
 
+
+
+
 export {
+  baseUrl,
   base
 };
