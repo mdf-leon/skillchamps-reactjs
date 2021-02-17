@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FirstTable(props: any) {
   const classes = useStyles();
-  const { institute_id, event_id } = useParams();
+  const {  event_id } = useParams();
   const [data, setData] = useState<any>({});
 
   useEffect(() => {
