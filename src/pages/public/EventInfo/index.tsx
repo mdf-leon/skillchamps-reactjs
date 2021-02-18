@@ -136,7 +136,7 @@ export default function EventInfo(props: any) {
               <CardMedia
                 className={classes.riderImage}
                 // exemplo de imagem src certo
-                image={`${baseUrl}/image/${eventInfo.photo_event}`}
+                image={`${baseUrl}/image/${eventInfo.photo_event}`} 
                 title="Contemplative Reptile"
               />
               <div className="ml-20">
