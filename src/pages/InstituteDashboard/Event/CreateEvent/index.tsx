@@ -82,7 +82,13 @@ export default function UpdateEvent(props: any) {
           fullWidth
           variant="contained"
           color="primary"
-          onClick={() => props.history.replace(`/dashboard/institute/${JSON.parse(localStorage.getItem('institute_info') || '').id}`)}
+          onClick={() =>
+            props.history.replace(
+              `/dashboard/institute/${
+                JSON.parse(localStorage.getItem('institute_info') || '').id
+              }`
+            )
+          }
         >
           Ok
         </Button>
@@ -126,12 +132,13 @@ export default function UpdateEvent(props: any) {
     formData.append('longtext', eventInfo.longtext);
     formData.append('photo_event', eventPhoto);
     formData.append('photo_folder', eventFolder);
+    // console.log(localStorage.getItem('token'));
 
     base
       .post(`/createEvent2`, formData)
       .then((r) => {
         console.log(r.data);
-        setModalRender('Success')
+        setModalRender('Success');
       })
       .catch((e) => {
         console.log(e);
