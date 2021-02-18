@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 // import History from 'react-history';
-import { useWindowSize } from "hooks";
+import { useWindowSize } from 'hooks';
 import {
   // makeStyles,
   // createStyles,
   // Theme,
   Grid,
   Hidden,
-} from "@material-ui/core";
-import { ReactComponent as ConeIcon } from "assets/svg/traffic-cone-svgrepo-com 1.svg";
-import { ReactComponent as ONicon } from "assets/svg/494642-PHES02-42 1.svg";
-import { ReactComponent as BlinderSvg } from "assets/svg/binder 1.svg";
-import HowToRegIcon from "@material-ui/icons/HowToReg";
+} from '@material-ui/core';
+import { ReactComponent as ConeIcon } from 'assets/svg/traffic-cone-svgrepo-com 1.svg';
+import { ReactComponent as ONicon } from 'assets/svg/494642-PHES02-42 1.svg';
+import { ReactComponent as BlinderSvg } from 'assets/svg/binder 1.svg';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
 import {
   Header,
   Typography,
@@ -28,7 +28,7 @@ import {
   DivORside,
   DivBlinder,
   Footer,
-} from "./styles";
+} from './styles';
 // import DehazeIcon from "@material-ui/icons/Dehaze";
 
 // import ComponenteF from "./ComponentF"
@@ -50,8 +50,8 @@ const Home = (props: any) => {
   const [width, height] = useWindowSize();
 
   React.useEffect(() => {
-    if (localStorage.getItem("lastSeenEvent")) {
-      props.history.push(`/event/${localStorage.getItem("lastSeenEvent")}`);
+    if (localStorage.getItem('lastSeenEvent')) {
+      props.history.push(`/event/${localStorage.getItem('lastSeenEvent')}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -61,7 +61,7 @@ const Home = (props: any) => {
       <Header>
         <Grid
           container
-          direction={width < 959 && width !== 0 ? "row-reverse" : "row"}
+          direction={width < 959 && width !== 0 ? 'row-reverse' : 'row'}
           justify="center"
           alignItems="center"
         >
@@ -84,7 +84,7 @@ const Home = (props: any) => {
               <Button
                 darkblue
                 variant="contained"
-                onClick={() => props.history.push("/login")}
+                onClick={() => props.history.push('/login')}
               >
                 My Account
               </Button>
@@ -97,8 +97,8 @@ const Home = (props: any) => {
               item
               xs
               style={{
-                position: "absolute",
-                paddingLeft: "20px",
+                position: 'absolute',
+                paddingLeft: '20px',
               }}
             >
               <BurguerIcon />
@@ -145,8 +145,9 @@ const Home = (props: any) => {
                 variant="contained"
                 width="100%"
                 marginAll="0 30px 0 0"
+                onClick={() => props.history.push('/register/institute')}
               >
-                Sign in
+                Sign up
               </Button>
               <Button variant="contained" width="100%">
                 Learn more
@@ -161,12 +162,17 @@ const Home = (props: any) => {
         >
           <SecondTextDiv
             style={{
-              maxWidth: "100%",
-              justifyContent: width < 785 ? "center" : "inherit",
+              maxWidth: '100%',
+              justifyContent: width < 785 ? 'center' : 'inherit',
             }}
           >
             <div>
-              <div>
+              <div
+                style={{
+                  backgroundColor: '#ffffffc7',
+                  boxShadow: '0px 0px 20px 10px #ffffff',
+                }}
+              >
                 <Typography
                   fontWeight="MainBlue900"
                   textColor="MainBlue900"
@@ -175,6 +181,15 @@ const Home = (props: any) => {
                   gutterBottom="40"
                 >
                   Participant and viewer control
+                </Typography>
+
+                <Typography
+                  textColor="MainBlue900"
+                  variant="h6"
+                  component="h6"
+                  // gutterBottom="40"
+                >
+                  (rider registration is still in development)
                 </Typography>
 
                 <Typography variant="h6" component="h6" marginAll="0 0 20px 0">
@@ -201,9 +216,9 @@ const Home = (props: any) => {
                     justify="center"
                     style={{
                       flexDirection:
-                        width < 1439 && width > 1062 ? "column" : "initial",
+                        width < 1439 && width > 1062 ? 'column' : 'initial',
                       paddingLeft:
-                        width < 1439 && width > 1062 ? "20px" : "initial",
+                        width < 1439 && width > 1062 ? '20px' : 'initial',
                     }}
                   >
                     <Grid container justify="flex-start" item xs>
@@ -215,9 +230,9 @@ const Home = (props: any) => {
                         xs={12}
                         style={{
                           display:
-                            width < 1439 && width > 1062 ? "flex" : "initial",
+                            width < 1439 && width > 1062 ? 'flex' : 'initial',
                           justifyContent:
-                            width < 1439 && width > 1062 ? "center" : "initial",
+                            width < 1439 && width > 1062 ? 'center' : 'initial',
                         }}
                       >
                         {width > 481 && height >= 850 ? <HowToRegIcon /> : null}
@@ -236,7 +251,7 @@ const Home = (props: any) => {
                           component="h6"
                           gutterBottom="40"
                         >
-                          The rider can create a user and sign in themselves on
+                          The rider can create an user and sign in themselves on
                           your event without you moving a finger. Focus on your
                           event experience, let the boring part with us.
                         </Typography>
@@ -251,11 +266,11 @@ const Home = (props: any) => {
                         xs={12}
                         style={{
                           display:
-                            width < 1439 && width > 1062 ? "flex" : "initial",
+                            width < 1439 && width > 1062 ? 'flex' : 'initial',
                           justifyContent:
-                            width < 1439 && width > 1062 ? "center" : "initial",
+                            width < 1439 && width > 1062 ? 'center' : 'initial',
                           marginLeft:
-                            width > 1438 || width < 1062 ? "20px" : "0",
+                            width > 1438 || width < 1062 ? '20px' : '0',
                         }}
                       >
                         {width > 481 && height >= 850 ? <HowToRegIcon /> : null}
@@ -302,13 +317,13 @@ const Home = (props: any) => {
           >
             <SecondTextDiv
               style={{
-                maxWidth: "100%",
-                justifyContent: width < 785 ? "center" : "inherit",
+                maxWidth: '100%',
+                justifyContent: width < 785 ? 'center' : 'inherit',
               }}
             >
               <div>
-                <DivORside style={{ maxHeight: "250px" }}>
-                  <ONicon style={{ height: "250px", width: "250px" }} />
+                <DivORside style={{ maxHeight: '250px' }}>
+                  <ONicon style={{ height: '250px', width: '250px' }} />
                 </DivORside>
                 <div className="d-flex mt-20">
                   <Grid
@@ -316,9 +331,9 @@ const Home = (props: any) => {
                     justify="center"
                     style={{
                       flexDirection:
-                        width < 1439 && width > 1062 ? "column" : "initial",
+                        width < 1439 && width > 1062 ? 'column' : 'initial',
                       paddingLeft:
-                        width < 1439 && width > 1062 ? "20px" : "initial",
+                        width < 1439 && width > 1062 ? '20px' : 'initial',
                     }}
                   >
                     <Grid container justify="flex-start" item xs>
@@ -330,9 +345,9 @@ const Home = (props: any) => {
                         xs={12}
                         style={{
                           display:
-                            width < 1439 && width > 1062 ? "flex" : "initial",
+                            width < 1439 && width > 1062 ? 'flex' : 'initial',
                           justifyContent:
-                            width < 1439 && width > 1062 ? "center" : "initial",
+                            width < 1439 && width > 1062 ? 'center' : 'initial',
                         }}
                       >
                         {width > 481 && height >= 850 ? <HowToRegIcon /> : null}
@@ -346,6 +361,7 @@ const Home = (props: any) => {
                         >
                           Effortless registration of a rider
                         </Typography>
+
                         <Typography
                           variant="h6"
                           component="h6"
@@ -366,11 +382,11 @@ const Home = (props: any) => {
                         xs={12}
                         style={{
                           display:
-                            width < 1439 && width > 1062 ? "flex" : "initial",
+                            width < 1439 && width > 1062 ? 'flex' : 'initial',
                           justifyContent:
-                            width < 1439 && width > 1062 ? "center" : "initial",
+                            width < 1439 && width > 1062 ? 'center' : 'initial',
                           marginLeft:
-                            width > 1438 || width < 1062 ? "20px" : "0",
+                            width > 1438 || width < 1062 ? '20px' : '0',
                         }}
                       >
                         {width > 481 && height >= 850 ? <HowToRegIcon /> : null}
@@ -410,10 +426,10 @@ const Home = (props: any) => {
             </DivBlinder>
             <div
               style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                paddingLeft: width < 1280 ? "0px" : "100px",
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                paddingLeft: width < 1280 ? '0px' : '100px',
               }}
             >
               <Typography
@@ -425,19 +441,25 @@ const Home = (props: any) => {
               >
                 Keep track, not folders
               </Typography>
-
+              <Typography
+                textColor="MainBlue900"
+                variant="h6"
+                component="h6"
+                // gutterBottom="40"
+              >
+                (public history and tracking will be accessible with rider registration complete)
+              </Typography>
               <Typography variant="h6" component="h6" marginAll="0 0 20px 0">
-                talk about keeping track and history of events and scores and
-                being able to compare with other events
+                {/* talk about keeping track and history of events and scores and
+                being able to compare with other events */}
+                Compare everything you did in your last event with the next one, set milestones
+                and keep track of your students performance at the millisecond.
                 <br />
+                Keep track of your event, see how many are racing, how many are watching and even
+                see in real time the leaderboard of trials individually or for the final score.
                 <br />
-                sociis natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus
-                <br />
-                <br />
-                mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                quis, sem. Nulla consequat massa quis enim.
-                <br />
+                You can even publicly share the link to the leaderboard so everyone can see how 
+                their competitor is doing in real time!
                 <br />
               </Typography>
             </div>
@@ -452,8 +474,8 @@ const Home = (props: any) => {
               <div
                 className="d-flex"
                 style={{
-                  justifyContent: "space-around",
-                  paddingBottom: "16px",
+                  justifyContent: 'space-around',
+                  paddingBottom: '16px',
                 }}
               >
                 <Typography variant="body2" component="p">
@@ -486,19 +508,19 @@ const Home = (props: any) => {
             <Footer>
               <div
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  width: "100%",
-                  borderBottom: "1px solid #CDD1D4",
-                  paddingBottom: "10px",
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '100%',
+                  borderBottom: '1px solid #CDD1D4',
+                  paddingBottom: '10px',
                 }}
               >
                 <div
                   className="d-flex"
                   style={{
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                    width: "100%",
+                    alignItems: 'center',
+                    justifyContent: 'space-around',
+                    width: '100%',
                   }}
                 >
                   <Typography variant="body2" component="p">
@@ -511,7 +533,7 @@ const Home = (props: any) => {
                     Contact
                   </Typography>
                 </div>
-                <div style={{ width: "100%" }}>
+                <div style={{ width: '100%' }}>
                   <Typography
                     fontWeight="skTitle"
                     variant="h5"
@@ -527,10 +549,10 @@ const Home = (props: any) => {
                 <div
                   // className="mb-10"
                   style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    width: "100%",
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: '100%',
                   }}
                 >
                   <Button darkblue variant="contained">

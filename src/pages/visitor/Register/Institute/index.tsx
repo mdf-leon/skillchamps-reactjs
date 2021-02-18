@@ -180,7 +180,10 @@ export default function SignUp(props: any) {
           <CssBaseline />
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
-              Sign up
+              Sign up as an institute
+            </Typography>
+            <Typography component="h1" variant="body2">
+              Are you a rider? <br></br>We are sorry but the rider registration is not open yet! <br></br>But don't worry, the development ends soon!
             </Typography>
             <form onSubmit={handleSubmit} className={classes.form} noValidate>
               {instituteForm}
