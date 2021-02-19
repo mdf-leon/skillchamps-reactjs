@@ -46,7 +46,7 @@ export default function ManageButton(props: any) {
           <div
             key={`HistoryInfoDiv-${i}`}
             onClick={
-              () => props.history.push(`/dashboard/manage/event/${event.id}`) // deveria ser: /dashboard/manage/event/:event_id
+              () => props.history.push(`/dashboard/institute/${event.institute_id}/manage/event/${event.id}`) // deveria ser: /dashboard/manage/event/:event_id
             }
           >
             <HistoryInfoDiv>
