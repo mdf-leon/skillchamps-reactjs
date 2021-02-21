@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import VisitorTopBar from 'components/VisitorTopBar';
+import React, { useState } from "react";
+import VisitorAppBar from "../../../SharedLocalComponents/VisitorAppBar";
 import {
   Container,
   Typography,
@@ -12,18 +12,18 @@ import {
   CssBaseline,
   Button,
   makeStyles,
-} from '@material-ui/core';
-import { base } from 'config/api';
+} from "@material-ui/core";
+import { base } from "config/api";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="#">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -31,12 +31,12 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -47,16 +47,16 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp(props: any) {
   const classes = useStyles();
   const [registerInfo, setRegisterInfo] = useState<any>({
-    email: '',
-    password: '',
-    r_password: '',
+    email: "",
+    password: "",
+    r_password: "",
   });
 
   const [instituteInfo, setinstituteInfo] = useState<any>({
-    name: '',
-    fed_tax_ido: '',
-    subd_tax_ido: '',
-    city_tax_ido: '',
+    name: "",
+    fed_tax_ido: "",
+    subd_tax_ido: "",
+    city_tax_ido: "",
   });
 
   const handleSubmit = (e) => {
@@ -69,20 +69,20 @@ export default function SignUp(props: any) {
           password: registerInfo.password,
         };
         base
-          .post('/authenticate', fData)
+          .post("/authenticate", fData)
           .then((r) => {
             console.log(r);
-            localStorage.setItem('token', r.data.token);
+            localStorage.setItem("token", r.data.token);
             base
-              .post('/makeInstitute', instituteInfo, {
+              .post("/makeInstitute", instituteInfo, {
                 headers: {
-                  Authorization: `Bearer ${localStorage.getItem('token')}`,
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
               })
               .then((r) => {
                 console.log(r);
-                localStorage.clear()
-                window.location.assign('/login');
+                localStorage.clear();
+                window.location.assign("/login");
               })
               .catch((e) => {
                 console.log(e.response);
@@ -174,8 +174,15 @@ export default function SignUp(props: any) {
 
   return (
     <>
-      <VisitorTopBar isTopBarButtonActive="register" {...props} />
-      <div style={{ paddingTop: '1px', minHeight: '100%' }}>
+      <VisitorAppBar buttonName="Log in" buttonHref="/login" {...props} />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          paddingTop: "1px",
+          minHeight: "100%",
+        }}
+      >
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
@@ -183,7 +190,9 @@ export default function SignUp(props: any) {
               Sign up as an institute
             </Typography>
             <Typography component="h1" variant="body2">
-              Are you a rider? <br></br>We are sorry but the rider registration is not open yet! <br></br>But don't worry, the development ends soon!
+              Are you a rider? <br></br>We are sorry but the rider registration
+              is not open yet! <br></br>But don't worry, the development ends
+              soon!
             </Typography>
             <form onSubmit={handleSubmit} className={classes.form} noValidate>
               {instituteForm}

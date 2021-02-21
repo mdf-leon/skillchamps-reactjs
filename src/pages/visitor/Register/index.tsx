@@ -1,5 +1,5 @@
-import React from 'react';
-import VisitorTopBar from 'components/VisitorTopBar';
+import React from "react";
+import VisitorAppBar from "../../SharedLocalComponents/VisitorAppBar";
 import {
   Container,
   Typography,
@@ -8,18 +8,18 @@ import {
   CssBaseline,
   Button,
   makeStyles,
-} from '@material-ui/core';
+} from "@material-ui/core";
 // import { base } from 'config/api';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="#">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -27,12 +27,12 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -45,8 +45,15 @@ export default function SignUp(props: any) {
 
   return (
     <>
-      <VisitorTopBar isTopBarButtonActive="register" {...props} />
-      <div style={{ paddingTop: '1px', minHeight: '100%' }}>
+      <VisitorAppBar buttonName="Log in" buttonHref="/login" {...props} />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          paddingTop: "1px",
+          minHeight: "100%",
+        }}
+      >
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
