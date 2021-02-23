@@ -61,6 +61,7 @@ export default function SignUp(props: any) {
               Sign up
             </Typography>
             <Button
+              disabled
               variant="contained"
               color="primary"
               style={{ marginTop: 10 }}
@@ -70,6 +71,10 @@ export default function SignUp(props: any) {
             >
               I am a RIDER
             </Button>
+            <Typography variant="body2" color="textSecondary" align="center">
+              (this version of the beta is not for riders. Contact the manager
+              of your favorite event to help us develop)
+            </Typography>
             <Button
               variant="contained"
               color="secondary"
