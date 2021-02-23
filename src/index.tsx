@@ -45,6 +45,7 @@ import Points from "./pages/InstituteDashboard/points";
 import UpdateEvent from "./pages/InstituteDashboard/Event/UpdateEvent";
 import CreateEvent from "./pages/InstituteDashboard/Event/CreateEvent";
 import EventOptions from "./pages/InstituteDashboard/Event/EventOptions";
+import AddManager from "./pages/InstituteDashboard/AddManager";
 import GlobalStyles from "./global/global";
 import theme from "./styles/theme";
 
@@ -82,6 +83,7 @@ ReactDOM.render(
     <Router>
       <Switch>
         <Route exact path="/" component={Home} />
+
         <VisitorRoute exact path="/login" component={Login} />
         <VisitorRoute exact path="/register" component={Register} />
         <VisitorRoute exact path="/register/Rider" component={RegisterRider} />
@@ -187,6 +189,11 @@ ReactDOM.render(
           component={BeforeResult}
         />
         <Route exact path="/event/:event_id/result" component={Result} />
+        <ProtectedRoute
+          exact
+          path="/dashboard/institute/:institute_id/manage/event/:event_id/manager/add"
+          component={AddManager}
+        />
 
         {/* {LEGACY ROUTES -- THEY SHOULD BE DESTROYED} */}
         {/* <Route path="/" component={App} /> */}
