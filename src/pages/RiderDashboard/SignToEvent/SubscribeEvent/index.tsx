@@ -16,7 +16,7 @@ import {
 } from '@material-ui/core';
 import { AppBar, Modal } from 'components';
 import { CardHeader } from '../styles';
-import { base } from 'config/api';
+import { base, baseUrl } from 'config/api';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -172,9 +172,7 @@ export default function SubscribeToEvent(props: any) {
             <CardContent className={classes.riderContent}>
               <CardMedia
                 className={classes.riderImage}
-                image={
-                  eventInfo.photo_event ||
-                  'https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png'
+                image={`${baseUrl}/image/${eventInfo.photo_event}`
                 }
                 title="Contemplative Reptile"
               />
@@ -208,10 +206,7 @@ export default function SubscribeToEvent(props: any) {
                   borderTopRightRadius: '4px',
                 }}
                 className={classes.media}
-                image={
-                  eventInfo.photo_folder ||
-                  'https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg'
-                }
+                image={`${baseUrl}/image/${eventInfo.photo_event}`}
                 title="Contemplative Reptile"
               />
             </div>

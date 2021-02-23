@@ -125,7 +125,7 @@ export default function ManageableEvents(props: any) {
                         className={classes.cover}
                         image={
                           event.photo_event
-                            ? `data:image/png;base64, ${event.photo_event}`
+                            ? `${baseUrl}/image/${event.photo_event}`
                             : ConeSVG
                         }
                         title="Live from space album cover"
@@ -188,7 +188,7 @@ export default function ManageableEvents(props: any) {
                         className={classes.cover}
                         image={
                           event.photo_event
-                            ? `data:image/png;base64, ${event.photo_event}`
+                            ? `${baseUrl}/image/${event.photo_event}`
                             : ConeSVG
                         }
                         title="Live from space album cover"

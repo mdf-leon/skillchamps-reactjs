@@ -11,7 +11,7 @@ import {
   Button,
   Typography,
 } from '@material-ui/core';
-import { base } from 'config/api';
+import { base, baseUrl } from 'config/api';
 import { useParams } from 'react-router-dom';
 
 export default function EventOptions(props: any) {
@@ -52,7 +52,7 @@ export default function EventOptions(props: any) {
             </div>
             <CardMedia
               className={classes.cover}
-              image="https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png"
+              image={`${baseUrl}/image/${event.photo_event}`} 
               title="Contemplative Reptile"
             />
           </CardContent>

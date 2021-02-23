@@ -42,7 +42,7 @@ export default function RiderCardContent(props: any) {
       <CardContent className={classes.riderContent}>
         <CardMedia
           className={classes.riderImage}
-          image="https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png"
+          image={`${baseUrl}/image/${eventInfo.photo_event}`}
           title="Contemplative Reptile"
         />
         <div className="ml-20">

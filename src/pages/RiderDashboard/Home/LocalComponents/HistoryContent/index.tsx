@@ -12,7 +12,7 @@ import {
   ThirdMedal,
 } from "./styles";
 
-import { base } from "config/api";
+import { base , baseUrl } from "config/api";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,7 +72,7 @@ export default function HistoryCardContent(props: any) {
             <HistoryInfoDiv>
               <CardMedia
                 className={classes.historyImg}
-                image="https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png"
+                image={`${baseUrl}/image/${history.photo_event}`} 
                 title="Contemplative Reptile"
               />
               <DivDepoisPensoNome className="ml-10">

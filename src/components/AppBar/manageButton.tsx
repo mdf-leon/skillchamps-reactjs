@@ -1,24 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import { baseUrl } from "config/api";
 
-import {
-  CardContent,
-  CardMedia,
-  Divider,
-  Typography,
-} from '@material-ui/core';
+import { CardContent, CardMedia, Divider, Typography } from "@material-ui/core";
 
-import {
-  HistoryInfoDiv,
-  DivDepoisPensoNome,
-} from './styles';
+import { HistoryInfoDiv, DivDepoisPensoNome } from "./styles";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     historyContent: {
-      position: 'relative', 
-      overflowY: 'scroll',
+      position: "relative",
+      overflowY: "scroll",
     },
     historyImg: {
       height: 75,
@@ -30,11 +23,11 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ManageButton(props: any) {
   const classes = useStyles();
   return (
-    <div style={{ minWidth: '400px' }}>
+    <div style={{ minWidth: "400px" }}>
       <CardContent
         className={classes.historyContent}
         id="boi1"
-        style={{ height: props.historyCardSize, minHeight: '100px' }}
+        style={{ height: props.historyCardSize, minHeight: "100px" }}
       >
         <div>
           <Typography gutterBottom variant="h5" component="h2">
@@ -46,13 +39,16 @@ export default function ManageButton(props: any) {
           <div
             key={`HistoryInfoDiv-${i}`}
             onClick={
-              () => props.history.push(`/dashboard/institute/${event.institute_id}/manage/event/${event.id}`) // deveria ser: /dashboard/manage/event/:event_id
+              () =>
+                props.history.push(
+                  `/dashboard/institute/${event.institute_id}/manage/event/${event.id}`
+                ) // deveria ser: /dashboard/manage/event/:event_id
             }
           >
             <HistoryInfoDiv>
               <CardMedia
                 className={classes.historyImg}
-                image={event.photo_event}
+                image={`${baseUrl}/image/${event.photo_event}`}
                 title="Contemplative Reptile"
               />
               <DivDepoisPensoNome className="ml-10">

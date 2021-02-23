@@ -25,7 +25,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import AppBar from '../../../components/AppBar';
 import { MainDiv, CardsDiv } from './styles';
 
-import { base } from 'config/api';
+import { base, baseUrl } from 'config/api';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -191,7 +191,7 @@ export default function FindEvents(props: any) {
                 <CardActionArea>
                   <CardMedia
                     className={classes.media}
-                    image="https://i.pinimg.com/736x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
+                    image={`${baseUrl}/image/${event.photo_event}`}
                     title="Contemplative Reptile"
                   />
                   <CardContent>

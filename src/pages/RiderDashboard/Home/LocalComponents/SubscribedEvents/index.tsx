@@ -6,7 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { CheckCircle, VisibilityOff, Cancel } from "@material-ui/icons";
-import { base } from "config/api";
+import { base, baseUrl } from "config/api";
 import ConeSVG from "assets/svg/traffic-cone-svgrepo-com 1.svg";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -128,7 +128,7 @@ export default function SubscribedEventsComponent(props: any) {
                         className={classes.cover}
                         image={
                           event.photo_event
-                            ? `data:image/png;base64, ${event.photo_event}`
+                            ? `${baseUrl}/image/${event.photo_event}`
                             : ConeSVG
                         }
                         title="Live from space album cover"
@@ -193,7 +193,7 @@ export default function SubscribedEventsComponent(props: any) {
                         className={classes.cover}
                         image={
                           event.photo_event
-                            ? `data:image/png;base64, ${event.photo_event}`
+                            ? `${baseUrl}/image/${event.photo_event}`
                             : ConeSVG
                         }
                         title="Live from space album cover"

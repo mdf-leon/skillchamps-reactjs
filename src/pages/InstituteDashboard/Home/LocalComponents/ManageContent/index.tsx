@@ -1,18 +1,18 @@
-import React from 'react';
+import React from "react";
 
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 
-import { CardContent, CardMedia, Divider, Typography } from '@material-ui/core';
+import { CardContent, CardMedia, Divider, Typography } from "@material-ui/core";
 
-import { HistoryInfoDiv, DivDepoisPensoNome } from './styles';
+import { HistoryInfoDiv, DivDepoisPensoNome } from "./styles";
 
-import { base } from 'config/api';
+import { base, baseUrl } from "config/api";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     historyContent: {
-      position: 'relative',
-      overflowY: 'scroll',
+      position: "relative",
+      overflowY: "scroll",
     },
     historyImg: {
       height: 75,
@@ -24,22 +24,23 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ContentPopover(props: any) {
   const classes = useStyles();
 
-  const historyList: any[] = JSON.parse(localStorage.getItem('events_on_management') || '[]') || [];
+  const historyList: any[] =
+    JSON.parse(localStorage.getItem("events_on_management") || "[]") || [];
   React.useEffect(() => {
     base
       .get(`/managedEventsList`)
       .then((r) => {
-        localStorage.setItem('events_on_management', JSON.stringify(r.data));
+        localStorage.setItem("events_on_management", JSON.stringify(r.data));
       })
       .catch(() => {});
   }, []);
 
   return (
-    <div style={{ minWidth: '400px' }}>
+    <div style={{ minWidth: "400px" }}>
       <CardContent
         className={classes.historyContent}
         id="boi1"
-        style={{ height: props.historyCardSize, minHeight: '100px' }}
+        style={{ height: props.historyCardSize, minHeight: "100px" }}
       >
         <div>
           <Typography gutterBottom variant="h5" component="h2">
@@ -57,7 +58,7 @@ export default function ContentPopover(props: any) {
             <HistoryInfoDiv>
               <CardMedia
                 className={classes.historyImg}
-                image="https://www.pngkey.com/png/detail/128-1287904_cropped-coyote-banner-new-vector-new-1-california.png"
+                image={`${baseUrl}/image/${history.photo_event}`}
                 title="Contemplative Reptile"
               />
               <DivDepoisPensoNome className="ml-10">
