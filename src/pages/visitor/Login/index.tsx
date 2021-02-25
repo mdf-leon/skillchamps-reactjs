@@ -42,7 +42,7 @@ export default function Login(props: any) {
   });
   const [, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     base
@@ -50,6 +50,7 @@ export default function Login(props: any) {
       .then((r) => {
         console.log(r);
         localStorage.setItem("token", r.data.token);
+        
         localStorage.setItem(
           "events_on_management",
           JSON.stringify(r.data.eventsOnManagement)
