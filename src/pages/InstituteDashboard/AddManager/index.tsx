@@ -8,16 +8,18 @@ import { useParams } from "react-router-dom";
 import { base } from "config/api";
 
 export default function NewTrials(props: any) {
-  let { institute_id, event_id } = useParams();
+  let {
+    // institute_id,
+    event_id,
+  } = useParams();
   const [paramsInfo, setParamsInfo] = React.useState<any>({
     email: "",
     event_id,
   });
   const addManager = () => {
-    base
-      .post("/addManagerByEmail", paramsInfo)
-      // .then((e) => console.log(e))
-      // .catch((er) => console.log(er));
+    base.post("/addManagerByEmail", paramsInfo);
+    // .then((e) => console.log(e))
+    // .catch((er) => console.log(er));
   };
 
   return (
