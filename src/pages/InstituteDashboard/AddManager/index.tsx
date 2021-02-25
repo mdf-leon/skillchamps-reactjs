@@ -4,8 +4,22 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import { useParams } from "react-router-dom";
+import { base } from "config/api";
 
 export default function NewTrials(props: any) {
+  let { institute_id, event_id } = useParams();
+  const [paramsInfo, setParamsInfo] = React.useState<any>({
+    email: "",
+    event_id,
+  });
+  const addManager = () => {
+    base
+      .post("/addManagerByEmail", paramsInfo)
+      // .then((e) => console.log(e))
+      // .catch((er) => console.log(er));
+  };
+
   return (
     <>
       <AppBar title="Add Manager" isManager {...props} />
@@ -27,7 +41,9 @@ export default function NewTrials(props: any) {
           </Typography>
           <TextField
             className="mt-20"
-            onChange={(e) => {}}
+            onChange={(e) => {
+              setParamsInfo({ ...paramsInfo, email: e.target.value });
+            }}
             autoComplete="email"
             name="Email"
             variant="outlined"
@@ -45,6 +61,7 @@ export default function NewTrials(props: any) {
             fullWidth
             variant="contained"
             color="primary"
+            onClick={() => addManager()}
           >
             Add Manager
           </Button>
