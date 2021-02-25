@@ -134,7 +134,7 @@ export default function UpdateEvent(props: any) {
     // console.log(localStorage.getItem('token'));
 
     base
-      .post(`/createEvent2`, formData)
+      .post(`/createEvent2`, formData, {headers: {'Content-Type': 'multipart/form-data'}})
       .then((r) => {
         console.log(r.data);
         setModalRender("Success");
@@ -188,19 +188,24 @@ export default function UpdateEvent(props: any) {
               </MuiPickersUtilsProvider>
               <Grid container>
                 <UploadFile
-                  labelTitle="Event Photo"
+                  labelTitle="Event Photo"                  
+                  iid="event_photo"
                   style={{ marginTop: "16px" }}
                   onChange={(e) => {
+                    console.log('primeiro');
                     if (e && e.target && e.target.files)
                       seteventPhoto(e.target.files[0]);
                   }}
                 />
               </Grid>
+              <div>a</div>
               <Grid container>
                 <UploadFile
-                  labelTitle="Event Folder"
+                  labelTitle="Event Folder"                  
+                  iid="event_folder"
                   style={{ marginTop: "16px" }}
                   onChange={(e) => {
+                    console.log('segundo');
                     if (e && e.target && e.target.files)
                       seteventFolder(e.target.files[0]);
                   }}
@@ -234,8 +239,7 @@ export default function UpdateEvent(props: any) {
                 />
               </Grid>
               <Grid
-                container
-                justify="flex-end"
+                item
                 sm={12}
                 style={{ marginTop: "16px" }}
               >

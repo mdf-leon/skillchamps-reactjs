@@ -31,7 +31,7 @@ export default function UploadFileComponent(props: any) {
 
   return (
     <UploadInputDiv {...props}>
-      <UploadInputLabel htmlFor="input-file-id">
+      <UploadInputLabel htmlFor={`input-file-id-${props.iid}`}>
         <Button
           variant="contained"
           component="label"
@@ -40,7 +40,7 @@ export default function UploadFileComponent(props: any) {
         >
           {props.uploadButtonText || 'Browse'}
         </Button>
-        <input hidden id="input-file-id" type="file" onChange={handleChange} />
+        <input hidden id={`input-file-id-${props.iid}`} type="file" onChange={handleChange} />
         {file.message}
       </UploadInputLabel>
       <UploadInputLabelText>
