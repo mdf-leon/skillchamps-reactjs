@@ -120,11 +120,7 @@ export default function SubscribedEventsComponent(props: any) {
                     onClick={() => {
                       localStorage.setItem('event_id', event.id);
                       props.history.push(
-                        `/dashboard/subscriptions/event/${event.id}`,
-                        {
-                          event_name: event.event_name,
-                          event_date: event.date_begin,
-                        }
+                        `/dashboard/institute/${institute_info.id}/manage/event/${event.id}`
                       );
                     }}
                   >

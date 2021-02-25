@@ -198,7 +198,6 @@ export default function UpdateEvent(props: any) {
                   }}
                 />
               </Grid>
-              <div>a</div>
               <Grid container>
                 <UploadFile
                   labelTitle="Event Folder"                  

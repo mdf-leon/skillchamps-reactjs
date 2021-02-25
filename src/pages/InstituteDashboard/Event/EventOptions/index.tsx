@@ -121,7 +121,7 @@ export default function EventOptions(props: any) {
             size="small"
             color="primary"
           >
-            Settings
+            update
           </Button>
         </div>
         <div className={classes.options}>
@@ -143,7 +143,7 @@ export default function EventOptions(props: any) {
             size="small"
             color="primary"
           >
-            Settings
+            options
           </Button>
         </div>
         <div className={classes.options}>
@@ -165,7 +165,29 @@ export default function EventOptions(props: any) {
             size="small"
             color="primary"
           >
-            Settings
+            options
+          </Button>
+        </div>
+        <div className={classes.options}>
+          <Typography
+            style={{ margin: 0 }}
+            gutterBottom
+            variant="h6"
+            component="h6"
+          >
+            Admins and Managers
+          </Typography>
+          <Button
+            className={classes.action}
+            onClick={() =>
+              props.history.push(
+                `/dashboard/institute/${institute_id}/manage/event/${event_id}/manager/add`
+              )
+            }
+            size="small"
+            color="primary"
+          >
+            Add
           </Button>
         </div>
         {/* <div className={classes.options}>
