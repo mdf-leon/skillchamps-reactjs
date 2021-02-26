@@ -61,7 +61,7 @@ export default function MobileHome(props: any) {
           <Divider />
           </CardHeader>
         <CardContent className={classes.historyContent}>
-          <PastEventsContent />
+          <PastEventsContent {...props} />
         </CardContent>
         </Card>
         </div>

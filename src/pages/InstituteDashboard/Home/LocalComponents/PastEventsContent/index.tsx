@@ -1,24 +1,19 @@
-import React from "react";
+import React from 'react';
 
-import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 
-import { CardContent, CardMedia, Divider, Typography } from "@material-ui/core";
+import { CardContent, CardMedia, Divider, Typography } from '@material-ui/core';
 
-import {
-  HistoryInfoDiv,
-  DivDepoisPensoNome,
-  FirstMedal,
-  SecondMedal,
-  ThirdMedal,
-} from "./styles";
+import { HistoryInfoDiv, DivDepoisPensoNome } from './styles';
 
-import { base, baseUrl } from "config/api";
+import { base, baseUrl } from 'config/api';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     historyContent: {
-      position: "relative",
-      overflowY: "scroll",
+      position: 'relative',
+      overflowY: 'scroll',
     },
     historyImg: {
       height: 75,
@@ -27,30 +22,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function HistoryCardContent(props: any) {
+export default function PastEventsCardContent(props: any) {
   const classes = useStyles();
-
-  const [historyList, sethistoryList] = React.useState<any>([]);
-
-  const renderPodium = (podium) => {
-    if (podium === 0) return null;
-    const Medal = {
-      1: FirstMedal,
-      2: SecondMedal,
-      3: ThirdMedal,
-    }[podium];
-    return (
-      <Medal size="40" internalSize="5">
-        {podium}
-      </Medal>
-    );
-  };
+  const { institute_id } = useParams();
+  const [pastEventsList, setpastEventsList] = React.useState<any>([]);
 
   React.useEffect(() => {
     base
-      .get(`/eventsHistory`)
+      .get(`/managedHistoryList`)
       .then((r) => {
-        sethistoryList(r.data);
+        setpastEventsList(r.data);
       })
       .catch(() => {});
   }, []);
@@ -60,35 +41,36 @@ export default function HistoryCardContent(props: any) {
       <CardContent
         className={classes.historyContent}
         id="boi1"
-        style={{ height: props.historyCardSize, minHeight: "100px" }}
+        style={{ height: props.historyCardSize, minHeight: '100px' }}
       >
-        {historyList.map((history, i) => (
+        {pastEventsList.map((event, i) => (
           <div
             key={`HistoryInfoDiv-${i}`}
             onClick={() =>
-              props.history.push(`/dashboard/history/event/${history.event_id}`)
+              props.history.push(
+                `/dashboard/institute/${institute_id}/manage/event/${event.id}`
+              )
             }
           >
             <HistoryInfoDiv>
               <CardMedia
                 className={classes.historyImg}
-                image={`${baseUrl}/image/${history.photo_event}`} 
+                image={`${baseUrl}/image/${event.photo_event}`}
                 title="Contemplative Reptile"
               />
               <DivDepoisPensoNome className="ml-10">
                 <div>
                   <Typography variant="h5" component="h2">
-                    {history.event_name}
+                    {event.event_name}
                   </Typography>
                   <Typography
                     color="textSecondary"
                     variant="subtitle1"
                     component="p"
                   >
-                    {history.institute_name}
+                    {event.institute_name}
                   </Typography>
                 </div>
-                {renderPodium(history.podium_placement.podium)}
               </DivDepoisPensoNome>
             </HistoryInfoDiv>
             <Divider />
