@@ -159,7 +159,7 @@ export default function SubscribedEventsComponent(props: any) {
                   variant="h6"
                   style={{ textAlign: 'center', marginTop: '22px' }}
                 >
-                  No events
+                  There are no events happening today.
                 </Typography>
               )}
             </div>
@@ -170,7 +170,7 @@ export default function SubscribedEventsComponent(props: any) {
                 variant="h6"
                 style={{ textAlign: 'center', marginTop: '22px' }}
               >
-                All Events
+                Future Events
               </Typography>
               {events[0] ? (
                 events.map((event) => (
