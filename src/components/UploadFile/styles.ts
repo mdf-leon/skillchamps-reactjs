@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const UploadInputDiv = styled.div`
   border: 1px solid #c7c7c7;
@@ -20,6 +20,7 @@ export const UploadInputLabel = styled.label`
   width: 100%;
   margin: 0;
   height: 100%;
+  cursor: pointer;
 `;
 
 export const UploadInputLabelText = styled.div`
@@ -29,7 +30,7 @@ export const UploadInputLabelText = styled.div`
   font-size: 12px;
   position: absolute;
   margin-top: -64px;
-  margin-left: 12px; 
+  margin-left: 12px;
   padding-left: 5px;
   padding-right: 5px;
 `;

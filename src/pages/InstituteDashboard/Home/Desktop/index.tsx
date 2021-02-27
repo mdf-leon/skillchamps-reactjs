@@ -1,4 +1,5 @@
 import React from "react";
+import Message from "components/Message";
 import {
   makeStyles,
   createStyles,
@@ -60,38 +61,45 @@ export default function DesktopHome(props: any) {
   }, []);
 
   return (
-    <Grid container spacing={3} className={classes.mainDiv}>
-      <Grid item xs={6}>
-        <Card className={classes.root} ref={riderCardRef}>
-          <InstituteContent {...props} />
-        </Card>
-        <Card className={classes.root} style={{ height: "auto" }} id="paidoboi">
-          <CardHeader>
-            <Typography gutterBottom variant="h5" component="h2">
-              Past events
-            </Typography>
-            <Divider />
-          </CardHeader>
-          <PastEventsContent {...props} historyCardSize={historyCardSize} />
-        </Card>
-      </Grid>
-      <Grid item xs={6}>
-        <Card className={classes.root}>
-          <CardHeader>
-            <Typography gutterBottom variant="h5" component="h2">
-              Ongoing events
-            </Typography>
-            <Divider />
-          </CardHeader>
-          <CardContent
-            className={classes.subscribedEventContent}
-            style={{ height: subscribedEventCardSize, minHeight: "100px" }}
+    <>
+      <Message {...props} />
+      <Grid container spacing={3} className={classes.mainDiv}>
+        <Grid item xs={6}>
+          <Card className={classes.root} ref={riderCardRef}>
+            <InstituteContent {...props} />
+          </Card>
+          <Card
+            className={classes.root}
+            style={{ height: "auto" }}
+            id="paidoboi"
           >
-            <OngoingEvents {...props} />
-          </CardContent>
-        </Card>
+            <CardHeader>
+              <Typography gutterBottom variant="h5" component="h2">
+                Past events
+              </Typography>
+              <Divider />
+            </CardHeader>
+            <PastEventsContent {...props} historyCardSize={historyCardSize} />
+          </Card>
+        </Grid>
+        <Grid item xs={6}>
+          <Card className={classes.root}>
+            <CardHeader>
+              <Typography gutterBottom variant="h5" component="h2">
+                Ongoing events
+              </Typography>
+              <Divider />
+            </CardHeader>
+            <CardContent
+              className={classes.subscribedEventContent}
+              style={{ height: subscribedEventCardSize, minHeight: "100px" }}
+            >
+              <OngoingEvents {...props} />
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 }
 

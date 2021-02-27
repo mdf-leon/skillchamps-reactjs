@@ -8,6 +8,10 @@ export const CardHeader = styled.div`
 export const HistoryInfoDiv = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
+  :hover {
+    background-color: #00000012;
+  }
 `;
 
 export const DivDepoisPensoNome = styled.div`

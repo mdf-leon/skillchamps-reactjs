@@ -1,19 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 
-import { CardContent, CardMedia, Divider, Typography } from '@material-ui/core';
+import { CardContent, CardMedia, Divider, Typography } from "@material-ui/core";
 
-import { HistoryInfoDiv, DivDepoisPensoNome } from './styles';
+import { HistoryInfoDiv, DivDepoisPensoNome } from "./styles";
 
-import { base, baseUrl } from 'config/api';
-import { useParams } from 'react-router-dom';
+import { base, baseUrl } from "config/api";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     historyContent: {
-      position: 'relative',
-      overflowY: 'scroll',
+      position: "relative",
+      overflowY: "scroll",
     },
     historyImg: {
       height: 75,
@@ -41,7 +41,7 @@ export default function PastEventsCardContent(props: any) {
       <CardContent
         className={classes.historyContent}
         id="boi1"
-        style={{ height: props.historyCardSize, minHeight: '100px' }}
+        style={{ height: props.historyCardSize, minHeight: "100px" }}
       >
         {pastEventsList.map((event, i) => (
           <div

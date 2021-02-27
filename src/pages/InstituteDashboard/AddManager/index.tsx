@@ -8,18 +8,29 @@ import { useParams } from "react-router-dom";
 import { base } from "config/api";
 
 export default function NewTrials(props: any) {
-  let {
-    // institute_id,
-    event_id,
-  } = useParams();
+  let { institute_id, event_id } = useParams();
+  const [messageParams, setMessageParams] = React.useState<any>({
+    message: "",
+    severity: "",
+  });
   const [paramsInfo, setParamsInfo] = React.useState<any>({
     email: "",
     event_id,
   });
   const addManager = () => {
-    base.post("/addManagerByEmail", paramsInfo);
-    // .then((e) => console.log(e))
-    // .catch((er) => console.log(er));
+    base
+      .post("/addManagerByEmail", paramsInfo)
+      .then(() => {
+        props.history.push(`/dashboard/institute/${institute_id}`, {
+          message_alert: {
+            message: "Manager successfully added.",
+            severity: "success",
+          },
+        });
+      })
+      .catch((er) => {
+        console.log(er)
+      });
   };
 
   return (
@@ -55,8 +66,8 @@ export default function NewTrials(props: any) {
             autoFocus
           />
           <Typography variant="body2" color="textSecondary" align="center">
-            'Warning: a manager can do anything with your event in this beta, in
-            the future, there will be: Administrators, Managers and Judges.'
+            Warning: a manager can do anything with your event in this beta, in
+            the future, there will be: Administrators, Managers and Judges.
           </Typography>
           <Button
             className="mt-20"
