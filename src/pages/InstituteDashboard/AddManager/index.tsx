@@ -29,7 +29,7 @@ export default function NewTrials(props: any) {
         });
       })
       .catch((er) => {
-        console.log(er)
+        console.log(er);
       });
   };
 

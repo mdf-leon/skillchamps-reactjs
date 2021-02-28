@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import Message from 'components/Message';
-import AppBar from 'components/AppBar';
-import { Modal } from 'components';
+import React, { useState, useEffect } from "react";
+import Message from "components/Message";
+import AppBar from "components/AppBar";
+import { Modal } from "components";
 import {
   Card,
   CardContent,
   CardActions,
   Button,
   Typography,
-} from '@material-ui/core';
+} from "@material-ui/core";
 import {
+  YesNoDiv,
   TimeDiv,
   RoundButton,
   NumberBox,
@@ -17,41 +18,40 @@ import {
   PenaltyDiv,
   MainDiv,
   ShowTimeInput,
-} from './styles';
-import { base } from '../../../config/api';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Duration } from 'luxon';
-import { useParams, useLocation } from 'react-router-dom';
+} from "./styles";
+import { base } from "../../../config/api";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
+import { Duration } from "luxon";
+import { useParams, useLocation } from "react-router-dom";
 import querySearch from "stringquery";
 
 const useStyles = makeStyles(() =>
   createStyles({
     mainCardText: {
-      color: 'white',
+      color: "white",
     },
     numberText: {
       fontWeight: 300,
     },
     content: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      paddingBottom: '0px',
+      display: "flex",
+      justifyContent: "space-between",
+      paddingBottom: "0px",
     },
     action: {
-      position: 'unset',
+      position: "unset",
     },
   })
 );
-
 
 export default function AddScore(props) {
   const classes = useStyles();
   const { institute_id, event_id } = useParams();
   const { trial_id, rider_id } = querySearch(useLocation().search);
-  
+
   const [penaltiesConf, setPenaltiesConf] = useState<any[]>([]);
   const [bonusesConf, setBonusesConf] = useState<any[]>([]);
-  const [activeModal, setactiveModal] = useState<any>('');
+  const [activeModal, setactiveModal] = useState<any>("");
   const [dataTrial, setDataTrial] = useState<any>({});
   const [dataRider, setDataRider] = useState<any>({});
   const [baseTime, setbaseTime] = useState<any>();
@@ -62,14 +62,14 @@ export default function AddScore(props) {
   );
 
   const [messageParams, setMessageParams] = useState<any>({
-    message: '',
-    severity: '',
+    message: "",
+    severity: "",
   });
 
   const [point, setpoint] = useState<any>({
     rider_id: rider_id,
     trial_id: trial_id,
-    time: '0',
+    time: "0",
   });
 
   const [pens, setpens] = useState<any[]>([]);
@@ -95,13 +95,13 @@ export default function AddScore(props) {
     // return tm[1].replace('.', '')
     return Duration.fromObject({
       minutes: tm[0],
-      milliseconds: tm[1].replace('.', ''),
-    }).as('milliseconds');
+      milliseconds: tm[1].replace(".", ""),
+    }).as("milliseconds");
     // return new Date(ms).toISOString().slice(14, -1);
   }
 
   const updateFinalTime = () => {
-    const msBase = baseTime ? Number(stringToMS(baseTime.split(':'))) : 0;
+    const msBase = baseTime ? Number(stringToMS(baseTime.split(":"))) : 0;
     // console.log(base);
     setpoint({ ...point, time: msBase });
 
@@ -120,15 +120,15 @@ export default function AddScore(props) {
     let unformatedFinalTime: string = Duration.fromObject({
       milliseconds: tempTime,
     }).toFormat("mm':'S"); // .splice(4, 0, ":")
-    let milis = unformatedFinalTime.split(':')[1];
+    let milis = unformatedFinalTime.split(":")[1];
     unformatedFinalTime =
       unformatedFinalTime.substring(0, 3) +
-      '0'.repeat(5 - milis.length) +
+      "0".repeat(5 - milis.length) +
       milis;
 
     const formatedFinalTime =
       unformatedFinalTime.substring(0, 5) +
-      '.' + // '0'.repeat(5 - milis.length) +
+      "." + // '0'.repeat(5 - milis.length) +
       unformatedFinalTime.substring(5, unformatedFinalTime.length);
     setfinalTime(formatedFinalTime);
   };
@@ -140,13 +140,13 @@ export default function AddScore(props) {
       trial_id: point.trial_id,
     };
     base
-      .get('/managedTrialsList', { params })
+      .get("/managedTrialsList", { params })
       .then((r) => {
         setDataTrial(r.data);
       })
       .catch(() => {});
     base
-      .get('/managedRidersList', { params })
+      .get("/managedRidersList", { params })
       .then((r) => {
         console.log(r.data);
 
@@ -165,8 +165,8 @@ export default function AddScore(props) {
         setBonusesConf(r.data);
       })
       .catch(() => {});
-      console.log(trial_id, rider_id);
-      
+    console.log(trial_id, rider_id);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -191,21 +191,21 @@ export default function AddScore(props) {
 
       <div
         style={{
-          display: 'flex',
-          marginTop: '10px',
-          width: '100%',
-          justifyContent: 'center',
-          minHeight: '58px',
+          display: "flex",
+          marginTop: "10px",
+          width: "100%",
+          justifyContent: "center",
+          minHeight: "58px",
         }}
       >
         <NumberBox>
           <div
             style={{
-              background: '#1976d3',
-              display: 'flex',
-              alignItems: 'center',
-              width: '50px',
-              justifyContent: 'center',
+              background: "#1976d3",
+              display: "flex",
+              alignItems: "center",
+              width: "50px",
+              justifyContent: "center",
             }}
           >
             <RoundButton
@@ -223,10 +223,10 @@ export default function AddScore(props) {
 
           <div
             style={{
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <Typography
@@ -234,17 +234,17 @@ export default function AddScore(props) {
               component="p"
               className={classes.numberText}
             >
-              {pens[index] || 'none'}
+              {pens[index] || "none"}
             </Typography>
           </div>
 
           <div
             style={{
-              background: '#1976d3',
-              display: 'flex',
-              alignItems: 'center',
-              width: '50px',
-              justifyContent: 'center',
+              background: "#1976d3",
+              display: "flex",
+              alignItems: "center",
+              width: "50px",
+              justifyContent: "center",
             }}
           >
             <RoundButton
@@ -272,21 +272,21 @@ export default function AddScore(props) {
 
       <div
         style={{
-          display: 'flex',
-          marginTop: '10px',
-          width: '100%',
-          justifyContent: 'center',
-          minHeight: '58px',
+          display: "flex",
+          marginTop: "10px",
+          width: "100%",
+          justifyContent: "center",
+          minHeight: "58px",
         }}
       >
         <NumberBox>
           <div
             style={{
-              background: '#1976d3',
-              display: 'flex',
-              alignItems: 'center',
-              width: '50px',
-              justifyContent: 'center',
+              background: "#1976d3",
+              display: "flex",
+              alignItems: "center",
+              width: "50px",
+              justifyContent: "center",
             }}
           >
             <RoundButton
@@ -304,10 +304,10 @@ export default function AddScore(props) {
 
           <div
             style={{
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <Typography
@@ -315,28 +315,28 @@ export default function AddScore(props) {
               component="p"
               className={classes.numberText}
             >
-              {bons[index] || 'none'}
+              {bons[index] || "none"}
             </Typography>
           </div>
 
           <div
             style={{
-              background: '#1976d3',
-              display: 'flex',
-              alignItems: 'center',
-              width: '50px',
-              justifyContent: 'center',
+              background: "#1976d3",
+              display: "flex",
+              alignItems: "center",
+              width: "50px",
+              justifyContent: "center",
             }}
           >
             <RoundButton
               onClick={() => {
                 const temp: any[] = [...bons];
                 // se o tempo total for maior que o tempo do bonus, permite clicar no botao
-                const minutes = finalTime.split(':')[0];
-                const milliseconds = finalTime.split(':')[1].replace('.', '');
+                const minutes = finalTime.split(":")[0];
+                const milliseconds = finalTime.split(":")[1].replace(".", "");
                 const dur = Duration.fromObject({ minutes, milliseconds })
                   .normalize()
-                  .shiftTo('milliseconds')
+                  .shiftTo("milliseconds")
                   .toObject().milliseconds;
                 if (dur >= bonusesConf[index].time_bonus) {
                   temp[index] = (temp[index] || 0) + 1;
@@ -465,9 +465,9 @@ export default function AddScore(props) {
   // );
 
   const confirm = (
-    <div style={{ textAlign: 'left' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div style={{ marginRight: '59px' }}>
+    <div style={{ textAlign: "left" }}>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ marginRight: "59px" }}>
           <p>
             Name: NAME
             <br />
@@ -478,8 +478,8 @@ export default function AddScore(props) {
           </p>
         </div>
         <div>
-          <h3 style={{ margin: '0' }}>Realized Time</h3>
-          <h1 style={{ margin: '0' }}>00:00.000</h1>
+          <h3 style={{ margin: "0" }}>Realized Time</h3>
+          <h1 style={{ margin: "0" }}>00:00.000</h1>
         </div>
       </div>
 
@@ -492,7 +492,7 @@ export default function AddScore(props) {
                     penaltiesConf.find(
                       (e) => e.id === parseInt(penalty.penalty_conf_id)
                     ).name
-                  }{' '}
+                  }{" "}
                   --- {penalty.quantity}
                 </p>
               );
@@ -502,18 +502,18 @@ export default function AddScore(props) {
 
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginTop: '20px',
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "20px",
         }}
       >
         <Button
-          style={{ color: 'red', border: '1px solid red', marginRight: '10px' }}
-          onClick={() => setactiveModal('')}
+          style={{ color: "red", border: "1px solid red", marginRight: "10px" }}
+          onClick={() => setactiveModal("")}
         >
           Cancel
         </Button>
-        <Button onClick={() => setactiveModal('')}>Continue scoring</Button>
+        <Button onClick={() => setactiveModal("")}>Continue scoring</Button>
       </div>
     </div>
   );
@@ -559,7 +559,7 @@ export default function AddScore(props) {
   const setTimer = () => {
     setbaseTime(tempTime);
     // setpoint({ ...point, time: tempTime.replace(':', '').replace('.', '') });
-    setactiveModal('');
+    setactiveModal("");
     // updateFinalTime()
   };
 
@@ -581,26 +581,29 @@ export default function AddScore(props) {
     await base
       .post(`/addScore`, temp)
       .then(() => {
-        props.history.push(`/dashboard/institute/${institute_id}/manage/event/${event_id}/score/select_trial_rider`, {
-          // riderName:
-          message_alert: {
-            message: `Score for ${dataRider.name} created successfully`,
-            severity: 'success',
-          },
-        });
+        props.history.push(
+          `/dashboard/institute/${institute_id}/manage/event/${event_id}/score/select_trial_rider`,
+          {
+            // riderName:
+            message_alert: {
+              message: `Score for ${dataRider.name} created successfully`,
+              severity: "success",
+            },
+          }
+        );
       })
       .catch((er) => {
         setMessageParams({
           message:
-            'Error on trying to post the score, check your internet connection',
-          severity: 'error',
+            "Error on trying to post the score, check your internet connection",
+          severity: "error",
         });
         console.log(er);
       });
   };
 
   const customTempDefine = (
-    <div style={{ padding: '25px 14px' }}>
+    <div style={{ padding: "25px 14px" }}>
       <Typography gutterBottom variant="h5" component="h2">
         Please set the runner time
       </Typography>
@@ -613,7 +616,7 @@ export default function AddScore(props) {
 
       {tempTime && tempTime.length < 9 ? (
         <Typography
-          style={{ position: 'absolute' }}
+          style={{ position: "absolute" }}
           color="error"
           variant="body2"
           component="p"
@@ -624,16 +627,16 @@ export default function AddScore(props) {
 
       <div
         style={{
-          display: 'flex',
-          marginTop: '20px',
-          justifyContent: 'space-between',
+          display: "flex",
+          marginTop: "20px",
+          justifyContent: "space-between",
         }}
       >
         <Button
           variant="outlined"
           color="secondary"
           onClick={() => {
-            setactiveModal('');
+            setactiveModal("");
             setTempTime(0);
           }}
         >
@@ -655,19 +658,19 @@ export default function AddScore(props) {
     <Card>
       <CardContent className={classes.content}>
         <div
-          style={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+          style={{ display: "flex", flexDirection: "column", width: "100%" }}
         >
           <Typography
-            style={{ textAlign: 'center' }}
+            style={{ textAlign: "center" }}
             gutterBottom
             variant="h5"
             component="h2"
           >
             Do you really want to finish scoring for the rider {dataRider.name}?
           </Typography>
-          <div style={{ margin: 'auto' }}>
+          <div style={{ margin: "auto" }}>
             <Typography
-              style={{ textAlign: 'center' }}
+              style={{ textAlign: "center" }}
               gutterBottom
               color="textSecondary"
               variant="body2"
@@ -676,16 +679,16 @@ export default function AddScore(props) {
               BASE TIME: &nbsp; TOTAL TIME:
             </Typography>
             <Typography
-              style={{ textAlign: 'center' }}
+              style={{ textAlign: "center" }}
               gutterBottom
               color="textSecondary"
               variant="body2"
               component="p"
             >
-              {baseTime || '00:00.000'} &nbsp;&nbsp;&nbsp; {finalTime}
+              {baseTime || "00:00.000"} &nbsp;&nbsp;&nbsp; {finalTime}
             </Typography>
 
-            <div style={{ marginTop: '20px' }}>
+            <div style={{ marginTop: "20px" }}>
               <div>
                 <Typography
                   gutterBottom
@@ -703,11 +706,11 @@ export default function AddScore(props) {
                     variant="body2"
                     component="p"
                   >
-                    {content.name}: {pens[i] || '0'}
+                    {content.name}: {pens[i] || "0"}
                   </Typography>
                 ))}
               </div>
-              <div style={{ marginTop: '20px' }}>
+              <div style={{ marginTop: "20px" }}>
                 <Typography
                   gutterBottom
                   color="textSecondary"
@@ -724,7 +727,7 @@ export default function AddScore(props) {
                     variant="body2"
                     component="p"
                   >
-                    {content.name}: {bons[i] || '0'}
+                    {content.name}: {bons[i] || "0"}
                   </Typography>
                 ))}
               </div>
@@ -732,13 +735,13 @@ export default function AddScore(props) {
           </div>
         </div>
       </CardContent>
-      <CardActions style={{ justifyContent: 'center' }}>
+      <CardActions style={{ justifyContent: "center" }}>
         <Button
           className={classes.action}
           variant="contained"
           size="small"
           color="primary"
-          onClick={() => setactiveModal('')}
+          onClick={() => setactiveModal("")}
         >
           Cancel
         </Button>
@@ -768,10 +771,10 @@ export default function AddScore(props) {
   return (
     <div>
       <Modal
-        bodyStyle={{ margin: 'auto 20px', width: '100%' }}
+        bodyStyle={{ margin: "auto 20px", width: "100%" }}
         noPadding
-        show={activeModal !== ''}
-        onBackgroundClick={() => setactiveModal('')}
+        show={activeModal !== ""}
+        onBackgroundClick={() => setactiveModal("")}
       >
         {modalContent(activeModal)}
       </Modal>
@@ -781,14 +784,21 @@ export default function AddScore(props) {
         {...props}
       />
       <AppBar title="Scoring for a rider" isManager {...props} />
-      <Card style={{ minHeight: '100%' }}>
-        <MainDiv style={{ marginTop: '50px', minHeight: '100%' }}>
+      {dataTrial?.boolean ? (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <div
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              backgroundColor: '#6202EE',
-              padding: '14px 16px',
+              display: "flex",
+              justifyContent: "space-between",
+              backgroundColor: "#6202EE",
+              padding: "14px 16px",
+              width: "100%",
             }}
           >
             <div>
@@ -822,66 +832,131 @@ export default function AddScore(props) {
                 {dataRider.motorcycle_plate}
               </Typography>
             </div>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'flex-end',
-              }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => setactiveModal('finishConfirm')}
-              >
-                FINISH
-              </Button>
-            </div>
           </div>
 
-          <TimeDiv>
+          <YesNoDiv>
+            <Button
+              style={{ fontSize: "30px" }}
+              fullWidth
+              variant="contained"
+              color="secondary"
+            >
+              No
+            </Button>
+            <Button
+              style={{ fontSize: "30px" }}
+              fullWidth
+              variant="contained"
+              color="primary"
+              className="buttonRight"
+            >
+              Yes
+            </Button>
+          </YesNoDiv>
+        </div>
+      ) : (
+        <Card style={{ minHeight: "100%" }}>
+          <MainDiv style={{ minHeight: "100%" }}>
             <div
               style={{
-                width: '100%',
-                cursor: 'pointer',
-                border: '1px solid',
-                borderRadius: '4px',
+                display: "flex",
+                justifyContent: "space-between",
+                backgroundColor: "#6202EE",
+                padding: "14px 16px",
               }}
-              onClick={() => setactiveModal('customTempDefine')}
             >
-              <Typography gutterBottom variant="h5" component="h2">
-                Base Time
-              </Typography>
-              <ShowTimeInput
-                readOnly
-                style={{ cursor: 'pointer', color: 'black' }}
-                placeholder="00:00.000"
-                value={baseTime || '00:00.000'}
-              />
+              <div>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h2"
+                  className={classes.mainCardText}
+                >
+                  {dataTrial.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="p"
+                  className={classes.mainCardText}
+                >
+                  {dataRider.id}. {dataRider.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="p"
+                  className={classes.mainCardText}
+                >
+                  {dataRider.category} - {dataRider.category2}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="p"
+                  className={classes.mainCardText}
+                >
+                  {dataRider.motorcycle_plate}
+                </Typography>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "flex-end",
+                }}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setactiveModal("finishConfirm")}
+                >
+                  FINISH
+                </Button>
+              </div>
             </div>
 
-            <div style={{ width: '100%', cursor: 'context-menu' }}>
-              <Typography gutterBottom variant="h5" component="h2">
-                Total Time
-              </Typography>
-              <Typography variant="h5" component="h2">
-                {finalTime || '00:00.000'}
-              </Typography>
-            </div>
-          </TimeDiv>
+            <TimeDiv>
+              <div
+                style={{
+                  width: "100%",
+                  cursor: "pointer",
+                  border: "1px solid",
+                  borderRadius: "4px",
+                }}
+                onClick={() => setactiveModal("customTempDefine")}
+              >
+                <Typography gutterBottom variant="h5" component="h2">
+                  Base Time
+                </Typography>
+                <ShowTimeInput
+                  readOnly
+                  style={{ cursor: "pointer", color: "black" }}
+                  placeholder="00:00.000"
+                  value={baseTime || "00:00.000"}
+                />
+              </div>
 
-          <PenaltyDiv>
-            {penaltiesConf.map((p, i) => {
-              return penalty(p, i);
-            })}
-          </PenaltyDiv>
+              <div style={{ width: "100%", cursor: "context-menu" }}>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Total Time
+                </Typography>
+                <Typography variant="h5" component="h2">
+                  {finalTime || "00:00.000"}
+                </Typography>
+              </div>
+            </TimeDiv>
 
-          <PenaltyDiv>
-            {bonusesConf.map((p, i) => {
-              return bonus(p, i);
-            })}
-          </PenaltyDiv>
-        </MainDiv>
-      </Card>
+            <PenaltyDiv>
+              {penaltiesConf.map((p, i) => {
+                return penalty(p, i);
+              })}
+            </PenaltyDiv>
+
+            <PenaltyDiv>
+              {bonusesConf.map((p, i) => {
+                return bonus(p, i);
+              })}
+            </PenaltyDiv>
+          </MainDiv>
+        </Card>
+      )}
     </div>
   );
 }

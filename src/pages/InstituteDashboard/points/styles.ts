@@ -1,6 +1,28 @@
-import styled from 'styled-components'
-import { TextInput } from 'components';
+import styled from "styled-components";
+import { TextInput } from "components";
 
+export const YesNoDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+  width: 70%;
+  .buttonRight {
+    margin-left: 20px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    width: 100%;
+    padding: 0 20px;
+  .buttonRight {
+    margin-top: 20px;
+    margin-left: 0;
+  }
+  }
+`;
+
+// -------------------------- //
 export const SideBarDiv = styled.div`
   @media (max-width: 768px) {
     display: none;
@@ -9,10 +31,10 @@ export const SideBarDiv = styled.div`
 
 // ------BeforePoinst------ //
 
-
 export const ChangeButton = styled.button<any>`
   padding: 20px;
-  background-color: ${(props) => (props.isSelected === true ? "rgb(239, 239, 239)" : "white")};
+  background-color: ${(props) =>
+    props.isSelected === true ? "rgb(239, 239, 239)" : "white"};
   height: 100%;
   width: 100%;
   border: none;
@@ -22,20 +44,20 @@ export const ChangeButton = styled.button<any>`
 export const DivRT = styled.div`
   width: 100%;
 
-button{
-  padding: 10px;
-  text-align: left;
-  width: 100%;
-  border: 1px solid rgb(232, 232, 232);
-  background-color: transparent;
-  :nth-child(odd) {
-    background: rgb(239,239,239);
+  button {
+    padding: 10px;
+    text-align: left;
+    width: 100%;
+    border: 1px solid rgb(232, 232, 232);
+    background-color: transparent;
+    :nth-child(odd) {
+      background: rgb(239, 239, 239);
+    }
+    :not(:first-child) {
+      margin-top: 20px;
+    }
+    text-transform: capitalize;
   }
-  :not(:first-child){
-    margin-top: 20px;
-  }
-  text-transform: capitalize;
-}
 `;
 
 // ------BeforePoinst------ //
@@ -47,7 +69,7 @@ export const MainDiv = styled.div`
 `;
 
 export const TimeDiv = styled.div`
-  background: #EDEDED;
+  background: #ededed;
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
@@ -61,16 +83,16 @@ export const TimeDiv = styled.div`
 `;
 
 export const PenaltyDiv = styled.div`
-display: flex;
-flex-direction: column;
-height: 100%;
-padding:  12px 8px;
-div{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 12px 8px;
+  div {
     margin-top: 20px;
-    div{
+    div {
       margin-top: 0px;
     }
-}
+  }
 `;
 
 export const RoundButton = styled.button`
@@ -85,46 +107,46 @@ export const RoundButton = styled.button`
 `;
 
 export const NumberBox = styled.div`
- display: flex;
- justify-content: space-between;
- text-align: center; 
- border: 1px solid #e8e8e8; 
- border-radius: 4px;
- background: white;
- width: 100%; 
- border: 1px solid #1976d3;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  background: white;
+  width: 100%;
+  border: 1px solid #1976d3;
 `;
 
 export const TimeInput = styled(TextInput)`
- input{
-  width: 100%;
-  border: none;
-  border-radius: 0;
-  border-bottom: 1px solid #98AFBC;
-  font-size: 1.5em;
-  text-align: center;
- }
+  input {
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #98afbc;
+    font-size: 1.5em;
+    text-align: center;
+  }
 `;
 
 export const ShowTimeInput = styled(TextInput)`
- input{
-  margin: 0;
-  border: none;
-  border-radius: 0;
-  text-align: center;
-  background: none;
-  font-size: 1.5rem;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 400;
-  line-height: 1.334;
-  letter-spacing: 0em;
-  width: 100%;
-  cursor: context-menu;
- }
- input::placeholder {
-  color: black;
-  opacity: 1;
- }
+  input {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    text-align: center;
+    background: none;
+    font-size: 1.5rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.334;
+    letter-spacing: 0em;
+    width: 100%;
+    cursor: context-menu;
+  }
+  input::placeholder {
+    color: black;
+    opacity: 1;
+  }
 `;
 
 export const Blackground = styled.div`
@@ -145,7 +167,7 @@ export const Options = styled.div`
   padding: 0px 16px 16px 16px;
   align-items: center;
   background: transparent;
-  border-bottom: 1px solid #D5D5D5;
+  border-bottom: 1px solid #d5d5d5;
   &:not(:first-child) {
     padding-top: 16px;
   }
