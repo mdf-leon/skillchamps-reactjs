@@ -45,9 +45,23 @@ const useStyles = makeStyles(() =>
 );
 
 export default function AddScore(props) {
-  const classes = useStyles();
   const { institute_id, event_id } = useParams();
   const { trial_id, rider_id } = querySearch(useLocation().search);
+  const submitBool = (time) => {
+    const body = {
+      rider_id,
+      trial_id,
+      time,
+    };
+    base
+      .post(`/addBoolScore`, body)
+      .then(() => {})
+      .catch((er) => console.log(er));
+  };
+
+  // boolean code ^^^^
+
+  const classes = useStyles();
 
   const [penaltiesConf, setPenaltiesConf] = useState<any[]>([]);
   const [bonusesConf, setBonusesConf] = useState<any[]>([]);
@@ -840,6 +854,7 @@ export default function AddScore(props) {
               fullWidth
               variant="contained"
               color="secondary"
+              onClick={() => submitBool(0)}
             >
               No
             </Button>
@@ -849,6 +864,7 @@ export default function AddScore(props) {
               variant="contained"
               color="primary"
               className="buttonRight"
+              onClick={() => submitBool(1)}
             >
               Yes
             </Button>

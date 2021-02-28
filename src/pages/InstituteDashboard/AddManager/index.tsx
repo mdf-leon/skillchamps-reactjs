@@ -9,10 +9,6 @@ import { base } from "config/api";
 
 export default function NewTrials(props: any) {
   let { institute_id, event_id } = useParams();
-  const [messageParams, setMessageParams] = React.useState<any>({
-    message: "",
-    severity: "",
-  });
   const [paramsInfo, setParamsInfo] = React.useState<any>({
     email: "",
     event_id,
