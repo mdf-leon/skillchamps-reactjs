@@ -45,24 +45,7 @@ const useStyles = makeStyles(() =>
 );
 
 export default function AddScore(props) {
-  const { institute_id, event_id } = useParams();
-  const { trial_id, rider_id } = querySearch(useLocation().search);
-  const submitBool = (time) => {
-    const body = {
-      rider_id,
-      trial_id,
-      time,
-    };
-    base
-      .post(`/addBoolScore`, body)
-      .then(() => {})
-      .catch((er) => console.log(er));
-  };
-
-  // boolean code ^^^^
-
   const classes = useStyles();
-
   const [penaltiesConf, setPenaltiesConf] = useState<any[]>([]);
   const [bonusesConf, setBonusesConf] = useState<any[]>([]);
   const [activeModal, setactiveModal] = useState<any>("");
@@ -74,6 +57,32 @@ export default function AddScore(props) {
   const [isButtonTimerDisabled, setIsButtonTimerDisabled] = useState<boolean>(
     true
   );
+
+  const { institute_id, event_id } = useParams();
+  const { trial_id, rider_id } = querySearch(useLocation().search);
+  const submitBool = (time) => {
+    const body = {
+      rider_id,
+      trial_id,
+      time,
+    };
+    base
+      .post(`/addBoolScore`, body)
+      .then(() => {
+        props.history.push(
+          `/dashboard/institute/${institute_id}/manage/event/${event_id}/score/select_trial_rider`,
+          {
+            message_alert: {
+              message: `Score for ${dataRider.name} created successfully`,
+              severity: "success",
+            },
+          }
+        );
+      })
+      .catch((er) => console.log(er));
+  };
+
+  // boolean code ^^^^
 
   const [messageParams, setMessageParams] = useState<any>({
     message: "",
