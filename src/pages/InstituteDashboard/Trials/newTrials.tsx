@@ -430,11 +430,11 @@ export default function NewTrials(props: any) {
                           className={classes.formControl}
                         >
                           <InputLabel id="demo-simple-select-outlined-label">
-                            Automated Bonus?
+                            Trials
                           </InputLabel>
                           <Select
                             name="condition_trial_id"
-                            label="Automated Bonus?"
+                            label="Trials"
                             labelId="condition_trial_id"
                             id="condition_trial_id"
                             placeholder="Choose a trial"
