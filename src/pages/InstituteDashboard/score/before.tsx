@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import AppBar from "components/AppBar";
-import Message from "components/Message";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import AppBar from 'components/AppBar';
+import Message from 'components/Message';
+import { useHistory } from 'react-router-dom';
 // import { Redirect } from 'react-router-dom'
-import { Col, Row, Grid } from "styles/global";
-import { useParams } from "react-router-dom";
-import { Options } from "./styles";
+import { Col, Row, Grid } from 'styles/global';
+import { useParams } from 'react-router-dom';
+import { Options } from './styles';
 
-import { base } from "../../../config/api";
+import { base } from '../../../config/api';
 
 import {
   Card,
@@ -15,13 +15,13 @@ import {
   Button,
   Typography,
   Avatar,
-} from "@material-ui/core";
+} from '@material-ui/core';
 // abas
-import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
-import AppBarTab from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Box from "@material-ui/core/Box";
+import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
+import AppBarTab from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -43,7 +43,7 @@ function TabPanel(props: any) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography component={"span"}>{children}</Typography>
+          <Typography component={'span'}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -53,25 +53,25 @@ function TabPanel(props: any) {
 function a11yProps(index: any) {
   return {
     id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
+    'aria-controls': `full-width-tabpanel-${index}`,
   };
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: "100%",
+    width: '100%',
   },
   mainDiv: {},
   card: {
-    margin: "18px 8px 18px 8px",
+    margin: '18px 8px 18px 8px',
   },
   options: {
-    cursor: "pointer",
+    cursor: 'pointer',
   },
   avatar: {
-    display: "flex",
-    "& > *": {
+    display: 'flex',
+    '& > *': {
       margin: theme.spacing(1),
     },
   },
@@ -83,7 +83,7 @@ export default function BeforePoints(props) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const history = useHistory();
-  const [currentTitle, setCurrentTitle] = useState("");
+  const [currentTitle, setCurrentTitle] = useState('');
   const [dataTrial, setDataTrial] = useState<any[]>([]);
   const [dataRider, setDataRider] = useState<any[]>([]);
   const [currentRiderInfo, setCurrentRiderInfo] = useState<any>({});
@@ -98,7 +98,7 @@ export default function BeforePoints(props) {
 
     let params = { event_id };
     base
-      .get("/managedTrialsList", { params })
+      .get('/managedTrialsList', { params })
       .then((r) => {
         setDataTrial(r.data);
       })
@@ -106,8 +106,8 @@ export default function BeforePoints(props) {
         console.log(er);
       });
     base
-      .get("/managedRidersList3", {
-        params: { ...params, trial_id: localStorage.getItem("ongoing_trial") },
+      .get('/managedRidersList3', {
+        params: { ...params, trial_id: localStorage.getItem('ongoing_trial') },
       })
       .then((r) => {
         setDataRider(r.data);
@@ -116,11 +116,11 @@ export default function BeforePoints(props) {
         console.log(er);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localStorage.getItem("ongoing_trial")]);
+  }, [localStorage.getItem('ongoing_trial')]);
 
   useEffect(() => {
-    localStorage.removeItem("ongoing_trial");
-    console.log(localStorage.getItem("ongoing_trial"));
+    localStorage.removeItem('ongoing_trial');
+    console.log(localStorage.getItem('ongoing_trial'));
   }, []);
 
   return (
@@ -134,46 +134,46 @@ export default function BeforePoints(props) {
               <Card className={classes.card}>
                 <CardContent>
                   <div>
-                    <Typography component={"span"} gutterBottom variant="h5">
+                    <Typography component={'span'} gutterBottom variant="h5">
                       {currentTitle
                         ? `Trial chosen: ${currentTitle}`
-                        : "Trial chosen: None"}
+                        : 'Trial chosen: None'}
                     </Typography>
                   </div>
 
                   <div
                     style={{
-                      display: "flex",
-                      alignItems: "flex-end",
-                      justifyContent: "space-between",
-                      minHeight: "75px",
+                      display: 'flex',
+                      alignItems: 'flex-end',
+                      justifyContent: 'space-between',
+                      minHeight: '75px',
                     }}
                   >
                     {currentRiderInfo ? (
-                      <div style={{ display: "flex", flexDirection: "column" }}>
+                      <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <Typography
-                          component={"span"}
+                          component={'span'}
                           gutterBottom
                           variant="body2"
                           color="primary"
                         >
-                          {currentRiderInfo.name || "-"}
+                          {currentRiderInfo.name || '-'}
                         </Typography>
                         <Typography
-                          component={"span"}
+                          component={'span'}
                           gutterBottom
                           variant="body2"
                           color="textSecondary"
                         >
-                          {currentRiderInfo.category || "-"}
+                          {currentRiderInfo.category || '-'}
                         </Typography>
                         <Typography
-                          component={"span"}
+                          component={'span'}
                           gutterBottom
                           variant="body2"
                           color="textSecondary"
                         >
-                          {currentRiderInfo.motorcycle || "-"}
+                          {currentRiderInfo.motorcycle || '-'}
                         </Typography>
                       </div>
                     ) : null}
@@ -182,7 +182,7 @@ export default function BeforePoints(props) {
                       color="primary"
                       onClick={() =>
                         history.push(
-                          `/editScores/${currentRiderInfo?.scores?.id}`
+                          `/dashboard/institute/${institute_id}/manage/event/${event_id}/update/score/${currentRiderInfo?.scores?.id}`
                         )
                       }
                     >
@@ -213,14 +213,14 @@ export default function BeforePoints(props) {
                       key={`trials-${i}-${content.id}`}
                       className={classes.options}
                       onClick={() => {
-                        localStorage.removeItem("ongoing_rider");
+                        localStorage.removeItem('ongoing_rider');
                         setCurrentRiderInfo({});
                         setCurrentTitle(content.name);
-                        localStorage.setItem("ongoing_trial", content.id);
+                        localStorage.setItem('ongoing_trial', content.id);
                       }}
                     >
                       <Typography
-                        component={"span"}
+                        component={'span'}
                         style={{ margin: 0 }}
                         gutterBottom
                         variant="h6"
@@ -231,7 +231,7 @@ export default function BeforePoints(props) {
                   ))
                 ) : (
                   <Typography
-                    component={"span"}
+                    component={'span'}
                     style={{ margin: 0 }}
                     gutterBottom
                     variant="h6"
@@ -241,7 +241,7 @@ export default function BeforePoints(props) {
                 )}
               </TabPanel>
               <TabPanel value={value} index={1} dir={theme.direction}>
-                {localStorage.getItem("ongoing_trial") ? (
+                {localStorage.getItem('ongoing_trial') ? (
                   dataRider[0] ? (
                     dataRider.map((content, i) =>
                       content.scores ? (
@@ -249,12 +249,12 @@ export default function BeforePoints(props) {
                           key={`riders-${i}-${content.id}`}
                           className={classes.options}
                           style={{
-                            justifyContent: "flex-start",
-                            alignItems: "end",
+                            justifyContent: 'flex-start',
+                            alignItems: 'end',
                           }}
                           onClick={() => {
                             setCurrentRiderInfo({ ...content });
-                            localStorage.setItem("ongoing_rider", content.id);
+                            localStorage.setItem('ongoing_rider', content.id);
                           }}
                         >
                           <Avatar
@@ -263,15 +263,15 @@ export default function BeforePoints(props) {
                           />
                           <div
                             style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              alignItems: "flex-start",
-                              marginLeft: "16px",
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'flex-start',
+                              marginLeft: '16px',
                             }}
                           >
-                            <div style={{ display: "flex" }}>
+                            <div style={{ display: 'flex' }}>
                               <Typography
-                                component={"span"}
+                                component={'span'}
                                 style={{ margin: 0 }}
                                 gutterBottom
                                 variant="h6"
@@ -280,10 +280,10 @@ export default function BeforePoints(props) {
                                 {content.id}.&nbsp;
                               </Typography>
                               <Typography
-                                component={"span"}
+                                component={'span'}
                                 style={{
                                   margin: 0,
-                                  color: content.scores ? "#2ECC40" : "unset",
+                                  color: content.scores ? '#2ECC40' : 'unset',
                                 }}
                                 gutterBottom
                                 variant="h6"
@@ -293,7 +293,7 @@ export default function BeforePoints(props) {
                             </div>
 
                             <Typography
-                              component={"span"}
+                              component={'span'}
                               style={{ margin: 0 }}
                               gutterBottom
                               variant="body2"
@@ -302,7 +302,7 @@ export default function BeforePoints(props) {
                               {content.category}
                             </Typography>
                             <Typography
-                              component={"span"}
+                              component={'span'}
                               style={{ margin: 0 }}
                               gutterBottom
                               variant="body2"
@@ -316,7 +316,7 @@ export default function BeforePoints(props) {
                     )
                   ) : (
                     <Typography
-                      component={"span"}
+                      component={'span'}
                       style={{ margin: 0 }}
                       gutterBottom
                       variant="h6"
@@ -326,7 +326,7 @@ export default function BeforePoints(props) {
                   )
                 ) : (
                   <Typography
-                    component={"span"}
+                    component={'span'}
                     style={{ margin: 0 }}
                     gutterBottom
                     variant="h6"

@@ -117,7 +117,7 @@ export default function EventOptions(props: any) {
           </Typography>
           <Button
             className={classes.action}
-            onClick={() => props.history.push(`/dashboard/institute/1/manage/event/43/score/trials_and_raider_choose`)}
+            onClick={() => props.history.push(`/dashboard/institute/${institute_id}/manage/event/${event_id}/update/score`)}
             size="small"
             color="primary"
           >

@@ -1,58 +1,58 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import * as serviceWorker from "./serviceWorker";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import * as serviceWorker from './serviceWorker';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
-} from "react-router-dom";
+} from 'react-router-dom';
 
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from 'styled-components';
 
 // import App from "./App";
-import Home from "./pages/visitor/Home/index";
-import RiderHome from "./pages/RiderDashboard/Home";
-import InstituteHome from "./pages/InstituteDashboard/Home";
-import SignedEvent from "./pages/RiderDashboard/SignedEvent";
-import ViewPastEvent from "./pages/RiderDashboard/ViewPastEvent";
-import Login from "./pages/visitor/Login";
-import Register from "./pages/visitor/Register";
-import RegisterRider from "./pages/visitor/Register/Rider";
-import RegisterInstitute from "./pages/visitor/Register/Institute";
-import PartialResult from "./pages/InstituteDashboard/PartialResult";
-import FindEvents from "./pages/RiderDashboard/SignToEvent";
-import SubscribeEvent from "./pages/RiderDashboard/SignToEvent/SubscribeEvent";
-import TrialsChooseDashboard from "./pages/InstituteDashboard/PartialResult/trialsChooseDashboard";
-import BeforeResult from "./pages/InstituteDashboard/Result/beforeResults";
-import Result from "./pages/InstituteDashboard/Result";
-import Scores from "./pages/InstituteDashboard/score";
-import TrialsAndRiderChoose from "./pages/InstituteDashboard/score/before";
-import Rider from "./pages/InstituteDashboard/Rider";
-import NewRider from "./pages/InstituteDashboard/Rider/newRider";
-import Trials from "./pages/InstituteDashboard/Trials";
-import NewTrials from "./pages/InstituteDashboard/Trials/newTrials";
+import Home from './pages/visitor/Home/index';
+import RiderHome from './pages/RiderDashboard/Home';
+import InstituteHome from './pages/InstituteDashboard/Home';
+import SignedEvent from './pages/RiderDashboard/SignedEvent';
+import ViewPastEvent from './pages/RiderDashboard/ViewPastEvent';
+import Login from './pages/visitor/Login';
+import Register from './pages/visitor/Register';
+import RegisterRider from './pages/visitor/Register/Rider';
+import RegisterInstitute from './pages/visitor/Register/Institute';
+import PartialResult from './pages/InstituteDashboard/PartialResult';
+import FindEvents from './pages/RiderDashboard/SignToEvent';
+import SubscribeEvent from './pages/RiderDashboard/SignToEvent/SubscribeEvent';
+import TrialsChooseDashboard from './pages/InstituteDashboard/PartialResult/trialsChooseDashboard';
+import BeforeResult from './pages/InstituteDashboard/Result/beforeResults';
+import Result from './pages/InstituteDashboard/Result';
+import Scores from './pages/InstituteDashboard/score';
+import TrialsAndRiderChoose from './pages/InstituteDashboard/score/before';
+import Rider from './pages/InstituteDashboard/Rider';
+import NewRider from './pages/InstituteDashboard/Rider/newRider';
+import Trials from './pages/InstituteDashboard/Trials';
+import NewTrials from './pages/InstituteDashboard/Trials/newTrials';
 // import Events from "./pages/signed/Events";
 // import Institute from "./pages/signed/Institute";
-import NewInstitute from "./pages/InstituteDashboard/Institute/newInstitute";
+import NewInstitute from './pages/InstituteDashboard/Institute/newInstitute';
 // import CreateEvent from "./pages/signed/CreateEvent";
 // import ManageEvent from "./pages/signed/ManageEvent";
-import ManageableEvents from "./pages/InstituteDashboard/ManageableEvents";
-import NewEvent from "./pages/InstituteDashboard/ManageableEvents/newEvent";
-import BeforePoints from "./pages/InstituteDashboard/points/before";
-import Points from "./pages/InstituteDashboard/points";
-import UpdateEvent from "./pages/InstituteDashboard/Event/UpdateEvent";
-import CreateEvent from "./pages/InstituteDashboard/Event/CreateEvent";
-import EventOptions from "./pages/InstituteDashboard/Event/EventOptions";
-import AddManager from "./pages/InstituteDashboard/AddManager";
-import GlobalStyles from "./global/global";
-import theme from "./styles/theme";
+import ManageableEvents from './pages/InstituteDashboard/ManageableEvents';
+import NewEvent from './pages/InstituteDashboard/ManageableEvents/newEvent';
+import BeforePoints from './pages/InstituteDashboard/points/before';
+import Points from './pages/InstituteDashboard/points';
+import UpdateEvent from './pages/InstituteDashboard/Event/UpdateEvent';
+import CreateEvent from './pages/InstituteDashboard/Event/CreateEvent';
+import EventOptions from './pages/InstituteDashboard/Event/EventOptions';
+import AddManager from './pages/InstituteDashboard/AddManager';
+import GlobalStyles from './global/global';
+import theme from './styles/theme';
 
-import EventInfo from "./pages/public/EventInfo";
+import EventInfo from './pages/public/EventInfo';
 
 function ProtectedRoute(props) {
-  let token = localStorage.getItem("token");
+  let token = localStorage.getItem('token');
   if (token === null || token === undefined) {
     return <Redirect to="/login" />;
   } else {
@@ -61,15 +61,15 @@ function ProtectedRoute(props) {
 }
 
 function VisitorRoute(props) {
-  let token = localStorage.getItem("token");
+  let token = localStorage.getItem('token');
   if (token === null || token === undefined) {
     return <Route {...props} />;
   } else {
-    if (localStorage.getItem("institute_info") !== null) {
+    if (localStorage.getItem('institute_info') !== null) {
       return (
         <Redirect
           to={`/dashboard/institute/${
-            JSON.parse(localStorage.getItem("institute_info") || "").id
+            JSON.parse(localStorage.getItem('institute_info') || '').id
           }`}
         />
       );
@@ -194,16 +194,20 @@ ReactDOM.render(
           path="/dashboard/institute/:institute_id/manage/event/:event_id/manager/add"
           component={AddManager}
         />
+        <ProtectedRoute
+          exact
+          path="/dashboard/institute/:institute_id/manage/event/:event_id/update/score"
+          component={TrialsAndRiderChoose}
+        />
+        <ProtectedRoute
+          exact
+          path="/dashboard/institute/:institute_id/manage/event/:event_id/update/score/:score_id"
+          component={Scores}
+        />
 
         {/* {LEGACY ROUTES -- THEY SHOULD BE DESTROYED} */}
         {/* <Route path="/" component={App} /> */}
 
-        <ProtectedRoute exact path="/editScores/:score_id" component={Scores} />
-        <ProtectedRoute
-          exact
-          path="/dashboard/institute/:institute_id/manage/event/:event_id/score/trials_and_raider_choose"
-          component={TrialsAndRiderChoose}
-        />
         <ProtectedRoute exact path="/newInstitute" component={NewInstitute} />
         <ProtectedRoute
           exact
@@ -222,7 +226,7 @@ ReactDOM.render(
     </Router>
     <GlobalStyles />
   </ThemeProvider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
