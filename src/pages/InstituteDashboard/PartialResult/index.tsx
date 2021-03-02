@@ -306,8 +306,8 @@ export default function CustomizedTables(props: any) {
                         ) : null}
                       </TableSortLabel>
                     </TableCell>
-                    {data.riders && data.riders[0]
-                      ? data.riders[0].scores.penalties.map((pen) => {
+                    {/* {data.riders && data.riders[0]
+                      ? data.riders[0].scores?.penalties?.map((pen) => {
                           return (
                             <StyledTableCell
                               key={'pen-conf-id-' + pen.penalty_conf_id}
@@ -321,7 +321,17 @@ export default function CustomizedTables(props: any) {
                             </StyledTableCell>
                           );
                         })
-                      : null}
+                      : null} */}
+                      {penaltyConfs?.map((conf, i) => {
+                      return (
+                        <StyledTableCell
+                          key={'pen-conf-id-' + conf.id}
+                          align="center"
+                        >
+                          {conf.name}
+                        </StyledTableCell>
+                      );
+                    })}
 
                     <TableCell
                       key="penalty_time"
@@ -351,8 +361,8 @@ export default function CustomizedTables(props: any) {
                       </TableSortLabel>
                     </TableCell>
 
-                    {data.riders && data.riders[0]
-                      ? data.riders[0].scores.bonuses?.map((bonus) => {
+                    {/* {data.riders && data.riders[0]
+                      ? data.riders[0].scores?.bonuses?.map((bonus) => {
                           return (
                             <StyledTableCell
                               key={'bon-conf-id-' + bonus?.bonus_conf_id}
@@ -366,7 +376,17 @@ export default function CustomizedTables(props: any) {
                             </StyledTableCell>
                           );
                         })
-                      : null}
+                      : null} */}
+                    {bonusesConfs?.map((conf, i) => {
+                      return (
+                        <StyledTableCell
+                          key={'bon-conf-id-' + conf.id}
+                          align="center"
+                        >
+                          {conf.name}
+                        </StyledTableCell>
+                      );
+                    })}
                     <TableCell
                       key="bonus_time"
                       align="center"
@@ -459,7 +479,18 @@ export default function CustomizedTables(props: any) {
                           <StyledTableCell align="center">
                             {row.treated_time}
                           </StyledTableCell>
-                          {row.scores?.penalties?.map((pen) => {
+                          {penaltyConfs?.map((conf, i) => {
+                            const penalty = row.scores?.penalties?.find((penalty) => penalty.penaltyConf.id === conf.id)
+                            return (
+                              <StyledTableCell
+                                key={i + '-pen-quantity'}
+                                align="center"
+                              >
+                                {penalty?.quantity || 0}
+                              </StyledTableCell>
+                            );
+                          })}
+                          {/* {row.scores?.penalties?.map((pen) => {
                             return (
                               <StyledTableCell
                                 key={pen.id + '-pen-quantity'}
@@ -468,11 +499,22 @@ export default function CustomizedTables(props: any) {
                                 {pen.quantity}
                               </StyledTableCell>
                             );
-                          })}
+                          })} */}
                           <StyledTableCell align="center">
                             {row.penalty_time}
                           </StyledTableCell>
-                          {row.scores?.bonuses?.map((bonus) => {
+                          {bonusesConfs?.map((conf, i) => {
+                            const bonus = row.scores?.bonuses?.find((bonus) => bonus.bonusConf.id === conf.id)
+                            return (
+                              <StyledTableCell
+                                key={i + '-bon-quantity'}
+                                align="center"
+                              >
+                                {bonus?.quantity || 0}
+                              </StyledTableCell>
+                            );
+                          })}
+                          {/* {row.scores?.bonuses?.map((bonus) => {
                             return (
                               <StyledTableCell
                                 key={bonus.id + '-bon-quantity'}
@@ -481,7 +523,7 @@ export default function CustomizedTables(props: any) {
                                 {bonus.quantity}
                               </StyledTableCell>
                             );
-                          })}
+                          })} */}
                           <StyledTableCell align="center">
                             {row.bonus_time}
                           </StyledTableCell>
