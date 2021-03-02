@@ -612,7 +612,7 @@ export default function AddScore(props: any) {
     await base
       .put(`/score/${score_id}`, temp)
       .then(() => {
-        props.history.push(`/trialsAndRiderChoose`, {
+        props.history.push(`/dashboard/institute/1/manage/event/43/score/trials_and_raider_choose`, {
           // riderName:
           message_alert: {
             message: `Score for ${dataRider.name} updated successfully`,
@@ -633,7 +633,7 @@ export default function AddScore(props: any) {
     await base
       .delete(`/scoree/${score_id}`)
       .then(() => {
-        props.history.push(`/trialsAndRiderChoose`, {
+        props.history.push(`/dashboard/institute/1/manage/event/43/score/trials_and_raider_choose`, {
           message_alert: {
             message: `Score for ${dataRider.name} deleted successfully`,
             severity: "success",
@@ -895,9 +895,9 @@ export default function AddScore(props: any) {
       >
         {modalContent(activeModal)}
       </Modal>
-      <AppBar title="Update score" {...props} />
+      <AppBar isManager title="Update score" {...props} />
       <Card style={{ minHeight: "100%" }}>
-        <MainDiv style={{ marginTop: "50px", minHeight: "100%" }}>
+        <MainDiv style={{ minHeight: "100%" }}>
           <div
             style={{
               display: "flex",

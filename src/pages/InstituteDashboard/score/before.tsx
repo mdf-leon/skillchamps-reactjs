@@ -4,6 +4,7 @@ import Message from "components/Message";
 import { useHistory } from "react-router-dom";
 // import { Redirect } from 'react-router-dom'
 import { Col, Row, Grid } from "styles/global";
+import { useParams } from "react-router-dom";
 import { Options } from "./styles";
 
 import { base } from "../../../config/api";
@@ -61,8 +62,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: theme.palette.background.paper,
     width: "100%",
   },
-  mainDiv: {
-  },
+  mainDiv: {},
   card: {
     margin: "18px 8px 18px 8px",
   },
@@ -78,6 +78,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default function BeforePoints(props) {
+  const { institute_id, event_id } = useParams();
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -95,7 +96,7 @@ export default function BeforePoints(props) {
   useEffect(() => {
     // console.log(props.location.state.a);
 
-    let params = { event_id: localStorage.getItem("event_id") };
+    let params = { event_id };
     base
       .get("/managedTrialsList", { params })
       .then((r) => {
@@ -114,7 +115,7 @@ export default function BeforePoints(props) {
       .catch((er) => {
         console.log(er);
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localStorage.getItem("ongoing_trial")]);
 
   useEffect(() => {
@@ -125,7 +126,7 @@ export default function BeforePoints(props) {
   return (
     <>
       <Message {...props} />
-      <AppBar title="Choose score to update" {...props} />
+      <AppBar isManager title="Choose score to update" {...props} />
       <div className={classes.mainDiv}>
         <Grid>
           <Row>

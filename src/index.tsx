@@ -201,7 +201,7 @@ ReactDOM.render(
         <ProtectedRoute exact path="/editScores/:score_id" component={Scores} />
         <ProtectedRoute
           exact
-          path="/trialsAndRiderChoose"
+          path="/dashboard/institute/:institute_id/manage/event/:event_id/score/trials_and_raider_choose"
           component={TrialsAndRiderChoose}
         />
         <ProtectedRoute exact path="/newInstitute" component={NewInstitute} />
