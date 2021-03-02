@@ -306,7 +306,7 @@ export default function CustomizedTables(props: any) {
                         ) : null}
                       </TableSortLabel>
                     </TableCell>
-                    {data.riders && data.riders[0]
+                    {/* {data.riders && data.riders[0]
                       ? data.riders[0].scores?.penalties?.map((pen) => {
                           return (
                             <StyledTableCell
@@ -321,7 +321,17 @@ export default function CustomizedTables(props: any) {
                             </StyledTableCell>
                           );
                         })
-                      : null}
+                      : null} */}
+                      {penaltyConfs?.map((conf, i) => {
+                      return (
+                        <StyledTableCell
+                          key={'pen-conf-id-' + conf.id}
+                          align="center"
+                        >
+                          {conf.name}
+                        </StyledTableCell>
+                      );
+                    })}
 
                     <TableCell
                       key="penalty_time"
