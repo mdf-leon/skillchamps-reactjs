@@ -307,7 +307,7 @@ export default function CustomizedTables(props: any) {
                       </TableSortLabel>
                     </TableCell>
                     {data.riders && data.riders[0]
-                      ? data.riders[0].scores.penalties.map((pen) => {
+                      ? data.riders[0].scores?.penalties?.map((pen) => {
                           return (
                             <StyledTableCell
                               key={'pen-conf-id-' + pen.penalty_conf_id}
@@ -352,7 +352,7 @@ export default function CustomizedTables(props: any) {
                     </TableCell>
 
                     {data.riders && data.riders[0]
-                      ? data.riders[0].scores.bonuses?.map((bonus) => {
+                      ? data.riders[0].scores?.bonuses?.map((bonus) => {
                           return (
                             <StyledTableCell
                               key={'bon-conf-id-' + bonus?.bonus_conf_id}
