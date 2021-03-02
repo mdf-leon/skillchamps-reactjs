@@ -156,23 +156,13 @@ export default function CustomizedTables(props: any) {
       })
       .catch(() => {});
     base
-      .get(
-        `/managedPenaltyConfsFromTrial2${
-          parameters.user_id ? '/' + parameters.user_id : null
-        }`,
-        { params }
-      )
+      .get(`/managedPenaltyConfsFromTrial3`, { params })
       .then((r) => {
         setPenaltyConfs(r.data);
       })
       .catch(() => {});
     base
-      .get(
-        `/managedBonusConfsFromTrial2${
-          parameters.user_id ? '/' + parameters.user_id : null
-        }`,
-        { params }
-      )
+      .get(`/managedBonusConfsFromTrial3`, { params })
       .then((r) => {
         setBonusesConfs(r.data);
       })
