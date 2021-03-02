@@ -38,6 +38,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import { useWindowSize } from 'hooks';
 import { base } from 'config/api';
 
+import { useParams } from 'react-router-dom';
 import ManageButton from './manageButton';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -125,6 +126,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function AppBarComponent(props: any) {
   const classes = useStyles();
+  const { institute_id, event_id } = useParams();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [notificationsList, setnotificationsList] = React.useState<any[]>([]);
   const [
@@ -316,28 +318,18 @@ export default function AppBarComponent(props: any) {
                   <MenuIcon />
                 </ListItemIcon>
               </ListItem>
-              <ListItem // cada um desse é um link
-                button
-                key="appbar-menu-0"
-                onClick={() => {
-                  localStorage.clear();
-                  window.location.reload();
-                }}
-              >
-                <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={'Log off'} />
-              </ListItem>
+
               <ListItem // cada um desse é um link
                 button
                 key="appbar-menu-10"
-                onClick={() => props.history.push('/')}
+                onClick={() =>
+                  props.history.push(`/dashboard/institute/${institute_id}`)
+                }
               >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={'Landing page'} />
+                <ListItemText primary={'Dashboard'} />
               </ListItem>
               {/* <ListItem // cada um desse é um link
                 button
@@ -349,29 +341,37 @@ export default function AppBarComponent(props: any) {
                 </ListItemIcon>
                 <ListItemText primary={"New Institute"} />
               </ListItem> */}
-              <ListItem // cada um desse é um link
-                button
-                key="appbar-menu-20"
-                onClick={() => props.history.push('/eventOptions')}
-              >
-                <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={'Event Options'} />
-              </ListItem>
-              <ListItem // cada um desse é um link
-                button
-                key="appbar-menu-30"
-                onClick={() => props.history.push('/manageableEvents')}
-              >
-                <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={'Event List'} />
-              </ListItem>
+              {event_id ? (
+                <div>
+                  <ListItem // cada um desse é um link
+                    button
+                    key="appbar-menu-20"
+                    onClick={() =>
+                      props.history.push(
+                        `/dashboard/institute/${institute_id}/manage/event/${event_id}`
+                      )
+                    }
+                  >
+                    <ListItemIcon>
+                      <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={'Event Options'} />
+                  </ListItem>
+                  {/* <ListItem // cada um desse é um link
+                    button
+                    key="appbar-menu-30"
+                    onClick={() => props.history.push('/manageableEvents')}
+                  >
+                    <ListItemIcon>
+                      <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={'Event List'} />
+                  </ListItem> */}
+                </div>
+              ) : null}
             </List>
             <Divider />
-            <ListItem // cada um desse é um link
+            {/* <ListItem // cada um desse é um link
               button
               key="appbar-menu-40"
               onClick={() => props.history.push('/beforeResult')}
@@ -380,6 +380,19 @@ export default function AppBarComponent(props: any) {
                 <InboxIcon />
               </ListItemIcon>
               <ListItemText primary={'Final Results'} />
+            </ListItem> */}
+            <ListItem // cada um desse é um link
+              button
+              key="appbar-menu-0"
+              onClick={() => {
+                localStorage.clear();
+                window.location.reload();
+              }}
+            >
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Log off'} />
             </ListItem>
             {/* <List>
               {["All mail", "Trash", "Spam"].map((text, index) => (
