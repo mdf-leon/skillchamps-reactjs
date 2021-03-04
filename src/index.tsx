@@ -74,7 +74,7 @@ function VisitorRoute(props) {
         />
       );
     }
-    return <Redirect to="/dashboard/home" />;
+    return <Redirect to="/" />;
   }
 }
 

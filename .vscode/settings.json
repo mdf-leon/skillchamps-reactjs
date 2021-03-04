@@ -8,7 +8,6 @@
     ".gitattributes": true,
     "src\\App.js": true,
     "src\\App.css": true,
-    "src\\index.css": true,
     "src\\App.test.js": true,
     "src\\styles": true,
     "src\\react-app-env.d.ts": true,
