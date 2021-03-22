@@ -96,7 +96,7 @@ const Home = (props: any) => {
 
             <div>
               <Button
-                darkblue
+                $darkBlue
                 variant="contained"
                 width="100%"
                 marginAll="0 30px 0 0"
@@ -447,7 +447,7 @@ const Home = (props: any) => {
                 </Typography>
               </div>
               <div className="mb-10">
-                <Button darkblue variant="contained">
+                <Button $darkBlue variant="contained">
                   Purchase now
                 </Button>
               </div>
@@ -513,7 +513,7 @@ const Home = (props: any) => {
                     width: "100%",
                   }}
                 >
-                  <Button darkblue variant="contained">
+                  <Button $darkBlue variant="contained">
                     Purchase now
                   </Button>
                 </div>

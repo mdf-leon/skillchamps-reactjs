@@ -143,23 +143,28 @@ export const Typography = styled(TypographyComponent)<any>`
   border-bottom: ${(props) =>
     props.topbartitleactive ? "1px solid #ee284b" : null};
 `;
-
-export const Button = styled<any>(ButtonComponent)`
+interface IButton { 
+  $darkBlue?: boolean;
+  $topButton?: boolean;
+  marginAll?: string;
+  width?: string;
+}
+export const Button = styled(ButtonComponent)<IButton>`
   border-radius: 2px !important;
   border: ${(props) =>
-    props.darkblue
+    props.$darkBlue
       ? "none !important"
-      : props.topbutton
+      : props.$topButton
       ? "none !important"
       : "2px solid #091133 !important"};
   background-color: ${(props) =>
-    props.darkblue ? "#111b47 !important" : "transparent !important"};
+    props.$darkBlue ? "#111b47 !important" : "transparent !important"};
   text-transform: none !important;
   box-shadow: none !important;
   color: ${(props) =>
-    props.darkblue
+    props.$darkBlue
       ? "white !important"
-      : props.topbutton
+      : props.$topButton
       ? "#505F98 !important"
       : "#091133 !important"};
   padding: 4px 40px !important;

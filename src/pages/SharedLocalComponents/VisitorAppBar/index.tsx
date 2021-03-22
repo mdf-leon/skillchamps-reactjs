@@ -26,11 +26,11 @@ export default function VisitorAppBar(props: any) {
         <Hidden smDown>
           <Grid container justify="center" item xs>
             <FirstHeaderButtons>
-              <Button topbutton onClick={() => props.history.push("/")}>
+              <Button $topButton onClick={() => props.history.push("/")}>
                 Home
               </Button>
-              <Button topbutton>About</Button>
-              <Button topbutton>Contact</Button>
+              <Button $topButton>About</Button>
+              <Button $topButton>Contact</Button>
             </FirstHeaderButtons>
           </Grid>
         </Hidden>
@@ -48,7 +48,7 @@ export default function VisitorAppBar(props: any) {
         <Hidden smDown>
           <Grid container justify="center" item xs>
             <Button
-              darkblue
+              $darkBlue
               variant="contained"
               onClick={() => props.history.push(buttonHref)}
             >
@@ -77,20 +77,20 @@ export default function VisitorAppBar(props: any) {
                 </div>
                 <div className="nav">
                   <div className="nav-div">
-                    <Button topbutton onClick={() => props.history.push("/")}>
+                    <Button $topButton onClick={() => props.history.push("/")}>
                       Home
                     </Button>
-                    <Button topbutton>About</Button>
-                    <Button topbutton>Contact</Button>
+                    <Button $topButton>About</Button>
+                    <Button $topButton>Contact</Button>
                     <Button
                       style={{ marginTop: "80px" }}
-                      topbutton
+                      $topButton
                       onClick={() => props.history.push("/login")}
                     >
                       Login
                     </Button>
                     <Button
-                      topbutton
+                      $topButton
                       onClick={() => props.history.push("/register")}
                     >
                       Register
