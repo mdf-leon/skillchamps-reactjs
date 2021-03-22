@@ -76,7 +76,7 @@ export default function Login(props: any) {
       })
       .catch((e) => {
         setMessageParams({
-          message: 'Sorry, the Institute could not be created',
+          message: 'SPlease check your login information.',
           severity: 'error',
         });
         setLoading(false);
