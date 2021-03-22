@@ -12,7 +12,7 @@ export const TopBar = styled.div`
 `;
 
 export const Typography = styled(LandTypography)<any>`
-  color: ${(props) => (props.textcolor === 'blue' ? "#0043c8" : props.textcolor === 'red' ? "#ee284b" : props.textcolor === 'white' ? 'white' : null )};
+  color: ${(props) => (props.textColor === 'blue' ? "#0043c8" : props.textColor === 'red' ? "#ee284b" : props.textColor === 'white' ? 'white' : null )};
   border-bottom: ${(props) => (props.topbartitleactive ? '1px solid #ee284b' : null)};
 `;
 

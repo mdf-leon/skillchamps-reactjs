@@ -73,6 +73,8 @@ function VisitorRoute(props) {
           }`}
         />
       );
+    } else if (localStorage.getItem('rider_info') !== null) {
+      return <Redirect to={`/dashboard/home`} />;
     }
     return <Redirect to="/" />;
   }
