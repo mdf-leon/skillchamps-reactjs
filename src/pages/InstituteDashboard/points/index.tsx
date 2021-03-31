@@ -981,6 +981,7 @@ export default function AddScore(props) {
               bonus
               {bonusesConf.map((p, i) => {
                 if (p.condition === "unconditioned") return bonus(p, i);
+                return null;
               })}
             </PenaltyDiv>
           </MainDiv>

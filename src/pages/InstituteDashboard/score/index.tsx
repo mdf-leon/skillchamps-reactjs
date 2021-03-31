@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import Message from 'components/Message';
-import AppBar from 'components/AppBar';
-import { Modal } from 'components';
+import React, { useState, useEffect } from "react";
+import Message from "components/Message";
+import AppBar from "components/AppBar";
+import { Modal } from "components";
 import {
   Card,
   CardContent,
   CardActions,
   Button,
   Typography,
-} from '@material-ui/core';
-import { useParams } from 'react-router-dom';
+} from "@material-ui/core";
+import { useParams } from "react-router-dom";
 import {
   TimeDiv,
   RoundButton,
@@ -18,26 +18,26 @@ import {
   PenaltyDiv,
   MainDiv,
   ShowTimeInput,
-} from './styles';
-import { base } from '../../../config/api';
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import { Duration } from 'luxon';
+} from "./styles";
+import { base } from "../../../config/api";
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import { Duration } from "luxon";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainCardText: {
-      color: 'white',
+      color: "white",
     },
     numberText: {
       fontWeight: 300,
     },
     content: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      paddingBottom: '0px',
+      display: "flex",
+      justifyContent: "space-between",
+      paddingBottom: "0px",
     },
     action: {
-      position: 'unset',
+      position: "unset",
     },
   })
 );
@@ -48,7 +48,7 @@ export default function AddScore(props: any) {
   // const [scoreInfo, setScoreInfo] = useState<any>({});
   const [penaltiesConf, setPenaltiesConf] = useState<any[]>([]);
   const [bonusesConf, setBonusesConf] = useState<any[]>([]);
-  const [activeModal, setactiveModal] = useState<any>('');
+  const [activeModal, setactiveModal] = useState<any>("");
   const [dataTrial, setDataTrial] = useState<any>({});
   const [dataRider, setDataRider] = useState<any>({});
   const [baseTime, setbaseTime] = useState<any>();
@@ -59,14 +59,14 @@ export default function AddScore(props: any) {
   );
 
   const [messageParams, setMessageParams] = useState<any>({
-    message: '',
-    severity: '',
+    message: "",
+    severity: "",
   });
 
   const [point, setpoint] = useState<any>({
-    rider_id: localStorage.getItem('ongoing_rider'),
-    trial_id: localStorage.getItem('ongoing_trial'),
-    time: '0',
+    rider_id: localStorage.getItem("ongoing_rider"),
+    trial_id: localStorage.getItem("ongoing_trial"),
+    time: "0",
   });
 
   const [pens, setpens] = useState<any[]>([]);
@@ -91,13 +91,13 @@ export default function AddScore(props: any) {
     // return tm[1].replace('.', '')
     return Duration.fromObject({
       minutes: tm[0],
-      milliseconds: tm[1].replace('.', ''),
-    }).as('milliseconds');
+      milliseconds: tm[1].replace(".", ""),
+    }).as("milliseconds");
     // return new Date(ms).toISOString().slice(14, -1);
   }
 
   const updateFinalTime = () => {
-    const msBase = baseTime ? Number(stringToMS(baseTime.split(':'))) : 0;
+    const msBase = baseTime ? Number(stringToMS(baseTime.split(":"))) : 0;
     setpoint({ ...point, time: msBase });
 
     let tempTime = msBase;
@@ -115,15 +115,15 @@ export default function AddScore(props: any) {
     let unformatedFinalTime: string = Duration.fromObject({
       milliseconds: tempTime,
     }).toFormat("mm':'S"); // .splice(4, 0, ":")
-    let milis = unformatedFinalTime.split(':')[1];
+    let milis = unformatedFinalTime.split(":")[1];
     unformatedFinalTime =
       unformatedFinalTime.substring(0, 3) +
-      '0'.repeat(5 - milis.length) +
+      "0".repeat(5 - milis.length) +
       milis;
 
     const formatedFinalTime =
       unformatedFinalTime.substring(0, 5) +
-      '.' + // '0'.repeat(5 - milis.length) +
+      "." + // '0'.repeat(5 - milis.length) +
       unformatedFinalTime.substring(5, unformatedFinalTime.length);
     setfinalTime(formatedFinalTime);
   };
@@ -136,14 +136,14 @@ export default function AddScore(props: any) {
       trial_id: point.trial_id,
     };
     base
-      .get('/managedTrialsList', { params })
+      .get("/managedTrialsList", { params })
       .then((r) => {
         setDataTrial(r.data);
       })
       .catch(() => {});
 
     base
-      .get('/managedRidersList', { params })
+      .get("/managedRidersList", { params })
       .then((r) => {
         setDataRider(r.data);
       })
@@ -177,11 +177,11 @@ export default function AddScore(props: any) {
         // setbons(r.data.bonuses);
         const duration = Duration.fromObject({ milliseconds: r.data.time })
           .normalize()
-          .shiftTo('minutes', 'seconds', 'milliseconds')
+          .shiftTo("minutes", "seconds", "milliseconds")
           .toObject();
-        const minutesT = `${duration.minutes}`.padStart(2, '0');
-        const secondsT = `${duration.seconds}`.padStart(2, '0');
-        const millisecondsT = `${duration.milliseconds}`.padEnd(3, '0');
+        const minutesT = `${duration.minutes}`.padStart(2, "0");
+        const secondsT = `${duration.seconds}`.padStart(2, "0");
+        const millisecondsT = `${duration.milliseconds}`.padEnd(3, "0");
         const timeT = `${minutesT}:${secondsT}.${millisecondsT}`;
         setbaseTime(timeT);
 
@@ -189,11 +189,11 @@ export default function AddScore(props: any) {
           milliseconds: r.data.time_total,
         })
           .normalize()
-          .shiftTo('minutes', 'seconds', 'milliseconds')
+          .shiftTo("minutes", "seconds", "milliseconds")
           .toObject();
-        const minutesTF = `${durationF.minutes}`.padStart(2, '0');
-        const secondsTF = `${durationF.seconds}`.padStart(2, '0');
-        const millisecondsTF = `${durationF.milliseconds}`.padEnd(3, '0');
+        const minutesTF = `${durationF.minutes}`.padStart(2, "0");
+        const secondsTF = `${durationF.seconds}`.padStart(2, "0");
+        const millisecondsTF = `${durationF.milliseconds}`.padEnd(3, "0");
         const timeTF = `${minutesTF}:${secondsTF}.${millisecondsTF}`;
 
         setTimeout(function () {
@@ -224,21 +224,21 @@ export default function AddScore(props: any) {
 
       <div
         style={{
-          display: 'flex',
-          marginTop: '10px',
-          width: '100%',
-          justifyContent: 'center',
-          minHeight: '58px',
+          display: "flex",
+          marginTop: "10px",
+          width: "100%",
+          justifyContent: "center",
+          minHeight: "58px",
         }}
       >
         <NumberBox>
           <div
             style={{
-              background: '#1976d3',
-              display: 'flex',
-              alignItems: 'center',
-              width: '50px',
-              justifyContent: 'center',
+              background: "#1976d3",
+              display: "flex",
+              alignItems: "center",
+              width: "50px",
+              justifyContent: "center",
             }}
           >
             <RoundButton
@@ -256,10 +256,10 @@ export default function AddScore(props: any) {
 
           <div
             style={{
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <Typography
@@ -267,17 +267,17 @@ export default function AddScore(props: any) {
               component="p"
               className={classes.numberText}
             >
-              {pens[index] || 'none'}
+              {pens[index] || "none"}
             </Typography>
           </div>
 
           <div
             style={{
-              background: '#1976d3',
-              display: 'flex',
-              alignItems: 'center',
-              width: '50px',
-              justifyContent: 'center',
+              background: "#1976d3",
+              display: "flex",
+              alignItems: "center",
+              width: "50px",
+              justifyContent: "center",
             }}
           >
             <RoundButton
@@ -305,21 +305,21 @@ export default function AddScore(props: any) {
 
       <div
         style={{
-          display: 'flex',
-          marginTop: '10px',
-          width: '100%',
-          justifyContent: 'center',
-          minHeight: '58px',
+          display: "flex",
+          marginTop: "10px",
+          width: "100%",
+          justifyContent: "center",
+          minHeight: "58px",
         }}
       >
         <NumberBox>
           <div
             style={{
-              background: '#1976d3',
-              display: 'flex',
-              alignItems: 'center',
-              width: '50px',
-              justifyContent: 'center',
+              background: "#1976d3",
+              display: "flex",
+              alignItems: "center",
+              width: "50px",
+              justifyContent: "center",
             }}
           >
             <RoundButton
@@ -337,10 +337,10 @@ export default function AddScore(props: any) {
 
           <div
             style={{
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <Typography
@@ -348,28 +348,28 @@ export default function AddScore(props: any) {
               component="p"
               className={classes.numberText}
             >
-              {bons[index] || 'none'}
+              {bons[index] || "none"}
             </Typography>
           </div>
 
           <div
             style={{
-              background: '#1976d3',
-              display: 'flex',
-              alignItems: 'center',
-              width: '50px',
-              justifyContent: 'center',
+              background: "#1976d3",
+              display: "flex",
+              alignItems: "center",
+              width: "50px",
+              justifyContent: "center",
             }}
           >
             <RoundButton
               onClick={(e) => {
                 const temp: any[] = [...bons];
                 // se o tempo total for maior que o tempo do bonus, permite clicar no botao
-                const minutes = finalTime.split(':')[0];
-                const milliseconds = finalTime.split(':')[1].replace('.', '');
+                const minutes = finalTime.split(":")[0];
+                const milliseconds = finalTime.split(":")[1].replace(".", "");
                 const dur = Duration.fromObject({ minutes, milliseconds })
                   .normalize()
-                  .shiftTo('milliseconds')
+                  .shiftTo("milliseconds")
                   .toObject().milliseconds;
                 if (dur >= bonusesConf[index].time_bonus) {
                   temp[index] = (temp[index] || 0) + 1;
@@ -592,7 +592,7 @@ export default function AddScore(props: any) {
   const setTimer = () => {
     setbaseTime(tempTime);
     // setpoint({ ...point, time: tempTime.replace(':', '').replace('.', '') });
-    setactiveModal('');
+    setactiveModal("");
     // updateFinalTime()
   };
 
@@ -619,7 +619,7 @@ export default function AddScore(props: any) {
             // riderName:
             message_alert: {
               message: `Score for ${dataRider.name} updated successfully`,
-              severity: 'success',
+              severity: "success",
             },
           }
         );
@@ -627,8 +627,8 @@ export default function AddScore(props: any) {
       .catch((er) => {
         setMessageParams({
           message:
-            'Error on trying to post the score, check your internet connection',
-          severity: 'error',
+            "Error on trying to post the score, check your internet connection",
+          severity: "error",
         });
       });
   };
@@ -642,25 +642,25 @@ export default function AddScore(props: any) {
           {
             message_alert: {
               message: `Score for ${dataRider.name} deleted successfully`,
-              severity: 'success',
+              severity: "success",
             },
           }
         );
       })
       .catch(() => {
-        console.log('oi eu errwei');
+        console.log("oi eu errwei");
         setMessageParams({
           message:
-            'Error on trying to delete the score, check your internet connection',
-          severity: 'error',
+            "Error on trying to delete the score, check your internet connection",
+          severity: "error",
         });
         console.log(messageParams);
       });
-    setactiveModal('');
+    setactiveModal("");
   };
 
   const customTempDefine = (
-    <div style={{ padding: '25px 14px' }}>
+    <div style={{ padding: "25px 14px" }}>
       <Typography gutterBottom variant="h5" component="h2">
         Please set the runner time
       </Typography>
@@ -673,7 +673,7 @@ export default function AddScore(props: any) {
 
       {tempTime && tempTime.length < 9 ? (
         <Typography
-          style={{ position: 'absolute' }}
+          style={{ position: "absolute" }}
           color="error"
           variant="body2"
           component="p"
@@ -684,16 +684,16 @@ export default function AddScore(props: any) {
 
       <div
         style={{
-          display: 'flex',
-          marginTop: '20px',
-          justifyContent: 'space-between',
+          display: "flex",
+          marginTop: "20px",
+          justifyContent: "space-between",
         }}
       >
         <Button
           variant="outlined"
           color="secondary"
           onClick={() => {
-            setactiveModal('');
+            setactiveModal("");
             setTempTime(0);
           }}
         >
@@ -715,10 +715,10 @@ export default function AddScore(props: any) {
     <Card>
       <CardContent className={classes.content}>
         <div
-          style={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+          style={{ display: "flex", flexDirection: "column", width: "100%" }}
         >
           <Typography
-            style={{ textAlign: 'center' }}
+            style={{ textAlign: "center" }}
             gutterBottom
             variant="h5"
             component="h2"
@@ -728,13 +728,13 @@ export default function AddScore(props: any) {
           </Typography>
         </div>
       </CardContent>
-      <CardActions style={{ justifyContent: 'center' }}>
+      <CardActions style={{ justifyContent: "center" }}>
         <Button
           className={classes.action}
           variant="contained"
           size="small"
           color="primary"
-          onClick={() => setactiveModal('')}
+          onClick={() => setactiveModal("")}
         >
           CANCEL
         </Button>
@@ -755,20 +755,20 @@ export default function AddScore(props: any) {
     <Card>
       <CardContent className={classes.content}>
         <div
-          style={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+          style={{ display: "flex", flexDirection: "column", width: "100%" }}
         >
           <Typography
-            style={{ textAlign: 'center' }}
+            style={{ textAlign: "center" }}
             gutterBottom
             variant="h5"
             component="h2"
           >
-            Do you really want to finish update the score for the rider{' '}
+            Do you really want to finish update the score for the rider{" "}
             {dataRider.name}?
           </Typography>
-          <div style={{ margin: 'auto' }}>
+          <div style={{ margin: "auto" }}>
             <Typography
-              style={{ textAlign: 'center' }}
+              style={{ textAlign: "center" }}
               gutterBottom
               color="textSecondary"
               variant="body2"
@@ -777,16 +777,16 @@ export default function AddScore(props: any) {
               BASE TIME: &nbsp; TOTAL TIME:
             </Typography>
             <Typography
-              style={{ textAlign: 'center' }}
+              style={{ textAlign: "center" }}
               gutterBottom
               color="textSecondary"
               variant="body2"
               component="p"
             >
-              {baseTime || '00:00.000'} &nbsp;&nbsp;&nbsp; {finalTime}
+              {baseTime || "00:00.000"} &nbsp;&nbsp;&nbsp; {finalTime}
             </Typography>
 
-            <div style={{ marginTop: '20px' }}>
+            <div style={{ marginTop: "20px" }}>
               <div>
                 <Typography
                   gutterBottom
@@ -804,11 +804,11 @@ export default function AddScore(props: any) {
                     variant="body2"
                     component="p"
                   >
-                    {content.name}: {pens[i] || '0'}
+                    {content.name}: {pens[i] || "0"}
                   </Typography>
                 ))}
               </div>
-              <div style={{ marginTop: '20px' }}>
+              <div style={{ marginTop: "20px" }}>
                 <Typography
                   gutterBottom
                   color="textSecondary"
@@ -825,7 +825,7 @@ export default function AddScore(props: any) {
                     variant="body2"
                     component="p"
                   >
-                    {content.name}: {bons[i] || '0'}
+                    {content.name}: {bons[i] || "0"}
                   </Typography>
                 ))}
               </div>
@@ -833,13 +833,13 @@ export default function AddScore(props: any) {
           </div>
         </div>
       </CardContent>
-      <CardActions style={{ justifyContent: 'center' }}>
+      <CardActions style={{ justifyContent: "center" }}>
         <Button
           className={classes.action}
           variant="contained"
           size="small"
           color="primary"
-          onClick={() => setactiveModal('')}
+          onClick={() => setactiveModal("")}
         >
           Cancel
         </Button>
@@ -891,22 +891,22 @@ export default function AddScore(props: any) {
         {...props}
       />
       <Modal
-        bodyStyle={{ margin: 'auto 20px', width: '100%' }}
+        bodyStyle={{ margin: "auto 20px", width: "100%" }}
         noPadding
-        show={activeModal !== ''}
-        onBackgroundClick={() => setactiveModal('')}
+        show={activeModal !== ""}
+        onBackgroundClick={() => setactiveModal("")}
       >
         {modalContent(activeModal)}
       </Modal>
       <AppBar isManager title="Update score" {...props} />
-      <Card style={{ minHeight: '100%' }}>
-        <MainDiv style={{ minHeight: '100%' }}>
+      <Card style={{ minHeight: "100%" }}>
+        <MainDiv style={{ minHeight: "100%" }}>
           <div
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              backgroundColor: '#6202EE',
-              padding: '14px 16px',
+              display: "flex",
+              justifyContent: "space-between",
+              backgroundColor: "#6202EE",
+              padding: "14px 16px",
             }}
           >
             <div>
@@ -942,23 +942,23 @@ export default function AddScore(props: any) {
             </div>
             <div
               style={{
-                display: 'flex',
-                alignItems: 'flex-end',
+                display: "flex",
+                alignItems: "flex-end",
               }}
             >
               <Button
-                style={{ width: '100%' }}
+                style={{ width: "100%" }}
                 variant="contained"
                 color="secondary"
-                onClick={() => setactiveModal('deleteConfirm')}
+                onClick={() => setactiveModal("deleteConfirm")}
               >
                 DELETE
               </Button>
               <Button
-                style={{ width: '100%', marginLeft: '10px' }}
+                style={{ width: "100%", marginLeft: "10px" }}
                 variant="contained"
                 color="primary"
-                onClick={() => setactiveModal('finishConfirm')}
+                onClick={() => setactiveModal("finishConfirm")}
               >
                 EDIT
               </Button>
@@ -968,30 +968,30 @@ export default function AddScore(props: any) {
           <TimeDiv>
             <div
               style={{
-                width: '100%',
-                cursor: 'pointer',
-                border: '1px solid',
-                borderRadius: '4px',
+                width: "100%",
+                cursor: "pointer",
+                border: "1px solid",
+                borderRadius: "4px",
               }}
-              onClick={() => setactiveModal('customTempDefine')}
+              onClick={() => setactiveModal("customTempDefine")}
             >
               <Typography gutterBottom variant="h5" component="h2">
                 Base Time
               </Typography>
               <ShowTimeInput
                 readOnly
-                style={{ cursor: 'pointer', color: 'black' }}
+                style={{ cursor: "pointer", color: "black" }}
                 placeholder="00:00.000"
-                value={baseTime || '00:00.000'}
+                value={baseTime || "00:00.000"}
               />
             </div>
 
-            <div style={{ width: '100%', cursor: 'context-menu' }}>
+            <div style={{ width: "100%", cursor: "context-menu" }}>
               <Typography gutterBottom variant="h5" component="h2">
                 Total Time
               </Typography>
               <Typography variant="h5" component="h2">
-                {finalTime || '00:00.000'}
+                {finalTime || "00:00.000"}
               </Typography>
             </div>
           </TimeDiv>
@@ -1004,7 +1004,8 @@ export default function AddScore(props: any) {
 
           <PenaltyDiv>
             {bonusesConf.map((p, i) => {
-              if (p.condition === 'unconditioned') return bonus(p, i);
+              if (p.condition === "unconditioned") return bonus(p, i);
+              return null;
             })}
           </PenaltyDiv>
         </MainDiv>

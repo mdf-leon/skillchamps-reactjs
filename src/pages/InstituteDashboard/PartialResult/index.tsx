@@ -22,7 +22,6 @@ import {
   InputLabel,
   FormControl,
 } from '@material-ui/core';
-import qs from 'query-string';
 import { TableCell, TableSortLabel } from './styles';
 import PublicAppBar from 'components/PublicAppBar';
 import { base } from '../../../config/api';
@@ -131,7 +130,7 @@ export default function CustomizedTables(props: any) {
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState('position');
 
-  let parameters = qs.parse(props.location.search);
+  // let parameters = qs.parse(props.location.search);
 
   const { trial_id, event_id } = useParams();
 

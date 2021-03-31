@@ -67,7 +67,7 @@ export default function NewTrials(props: any) {
   const { institute_id, event_id } = useParams();
   const [trialsList, settrialsList] = useState<any[]>([]);
   const [isBooleanTrial, setIsBooleanTrial] = useState<any>(false);
-  const [isAutoBonus, setisAutoBonus] = useState<any>('');
+  // const [isAutoBonus, setisAutoBonus] = useState<any>('');
   const [dataPenalties, setdataPenalties] = useState<any>([]);
   const [tempPenalties, setTempPenalties] = useState<any>({
     name: '',
@@ -122,6 +122,7 @@ export default function NewTrials(props: any) {
         settrialsList(r.data);
       })
       .catch(() => {});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = (e) => {
@@ -453,6 +454,7 @@ export default function NewTrials(props: any) {
                                     {content.name}
                                   </MenuItem>
                                 );
+                                return null;
                             })}
                             <MenuItem value="full_bonus">Super Bonus</MenuItem>
                           </Select>
