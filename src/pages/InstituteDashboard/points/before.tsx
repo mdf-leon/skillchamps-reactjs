@@ -14,6 +14,10 @@ import {
   Button,
   Typography,
   Avatar,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 // abas
 import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
@@ -62,6 +66,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: theme.palette.background.paper,
     width: "100%",
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
   mainDiv: {},
   card: {
     margin: "18px 8px 18px 8px",
@@ -79,6 +87,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function BeforePoints(props) {
   const classes = useStyles();
+
+  const [isBracket, setIsBracket] = useState<any>(false);
+  const [bracketData, setBrecketData] = useState<any>();
+
   const { institute_id, event_id } = useParams();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -91,6 +103,13 @@ export default function BeforePoints(props) {
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
+  };
+
+  const handleBracket = (trial_id) => {
+    base.get(`/trial/${trial_id}/getBrackets`).then((res) => {
+      setBrecketData(res.data);
+      console.log(res.data);
+    });
   };
 
   useEffect(() => {
@@ -219,6 +238,10 @@ export default function BeforePoints(props) {
                         setCurrentRiderInfo({});
                         setCurrentTitle(content.name);
                         localStorage.setItem("ongoing_trial", content.id);
+                        if (content.type === "bracket") {
+                          handleBracket(content.id);
+                          setIsBracket(true);
+                        }
                       }}
                     >
                       <Typography
@@ -243,7 +266,95 @@ export default function BeforePoints(props) {
                 )}
               </TabPanel>
               <TabPanel value={value} index={1} dir={theme.direction}>
-                {localStorage.getItem("ongoing_trial") ? (
+                {isBracket ? (
+                  <div>
+                    
+                    <FormControl
+                      variant="outlined"
+                      className={classes.formControl}
+                    >
+                      <InputLabel id="demo-simple-select-outlined-label">
+                        Colocar algum nome
+                      </InputLabel>
+                      <Select
+                        name="trial_id"
+                        label="Trial"
+                        labelId="Trial"
+                        id="Trial"
+                        // onChange={(e) =>
+                        //   setTempInfo({
+                        //     ...tempInfo,
+                        //     trial_id: e.target.value,
+                        //     trial_name: event.name,
+                        //   })
+                        // }
+                      >
+                        <MenuItem value="">Choose a event first</MenuItem>
+                      </Select>
+                    </FormControl>
+
+                    <div
+                      className="mt-20"
+                      style={{ height: "100%", width: "100%" }}
+                    >
+                      {bracketData &&
+                        Object.keys(bracketData?.tournament["0"]).map(
+                          (content) => (
+                            <div style={{ height: "100%", width: "100%" }}>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  height: "100%",
+                                }}
+                              >
+                                <div style={{ height: "100%" }}>
+                                  <div style={{ border: "1px solid black" }}>
+                                    <p>
+                                      1{" "}
+                                      {
+                                        bracketData?.tournament["0"][content]
+                                          .rider1.name
+                                      }
+                                    </p>
+                                  </div>
+                                  <div style={{ border: "1px solid black" }}>
+                                    <p>
+                                      2{" "}
+                                      {
+                                        bracketData?.tournament["0"][content]
+                                          .rider2.name
+                                      }
+                                    </p>
+                                  </div>
+                                </div>
+                                <div
+                                  style={{
+                                    height: "100%",
+                                    borderTop: "1px solid black",
+                                    borderBottom: "1px solid black",
+                                    borderRight: "1px solid black",
+                                  }}
+                                >
+                                  a
+                                </div>
+                                <div style={{ border: "1px solid black" }}>
+                                  <p>
+                                    w{" "}
+                                    {
+                                      bracketData?.tournament["0"][content]
+                                        .winner.name
+                                    }
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          )
+                        )}
+                    </div>
+
+                  </div>
+                ) : localStorage.getItem("ongoing_trial") ? (
                   dataRider[0] ? (
                     dataRider.map((content, i) => (
                       <Options
