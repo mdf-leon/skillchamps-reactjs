@@ -1,6 +1,70 @@
 import styled from "styled-components";
 import { TextInput } from "components";
 
+export const SelectBracketDiv = styled.div`
+  max-width: 200px;
+
+  @media (max-width: 780px) {
+    max-width: 100%;
+  }
+`;
+
+export const BracketsDiv = styled.div<any>`
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px dashed #bbbbbb;
+
+  padding-bottom: 20px;
+  height: 100%;
+  width: 100%;
+
+  :hover {
+    background: #0000000d;
+  }
+
+  .riders {
+    width: 100%;
+    padding: 20px;
+    & > :first-child {
+      margin-bottom: 20px;
+    }
+  }
+
+  .bracket {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 10px 0 10px 20px;
+    border: 1px solid black;
+    width: 100%;
+  }
+
+  .winner {
+    width: 100%;
+  }
+
+  @media (max-width: 780px) {
+    .winner {
+      position: absolute;
+      display: ${(props) => (props.win === 0 ? "none" : "flex")};
+      align-items: center;
+      justify-content: flex-end;
+
+      height: 100%;
+      width: 100%;
+      backdrop-filter: blur(3px);
+
+      .bracket {
+        width: 70%;
+        background: white;
+      }
+    }
+  }
+`;
+
 export const YesNoDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -15,10 +79,10 @@ export const YesNoDiv = styled.div`
 
     width: 100%;
     padding: 0 20px;
-  .buttonRight {
-    margin-top: 20px;
-    margin-left: 0;
-  }
+    .buttonRight {
+      margin-top: 20px;
+      margin-left: 0;
+    }
   }
 `;
 

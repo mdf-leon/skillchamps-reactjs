@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import ImportExportIcon from '@material-ui/icons/ImportExport';
+import React, { useState, useEffect } from "react";
+import ImportExportIcon from "@material-ui/icons/ImportExport";
 import {
   withStyles,
   Theme,
   createStyles,
   makeStyles,
-} from '@material-ui/core/styles';
-import { useParams } from 'react-router-dom';
+} from "@material-ui/core/styles";
+import { useParams } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -21,10 +21,10 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-} from '@material-ui/core';
-import { TableCell, TableSortLabel } from './styles';
-import PublicAppBar from 'components/PublicAppBar';
-import { base } from '../../../config/api';
+} from "@material-ui/core";
+import { TableCell, TableSortLabel } from "./styles";
+import PublicAppBar from "components/PublicAppBar";
+import { base } from "../../../config/api";
 // import { Duration } from "luxon";
 
 //TableSortLabel
@@ -52,7 +52,7 @@ const StyledTableCell = withStyles((theme: Theme) =>
 const StyledTableRow = withStyles((theme: Theme) =>
   createStyles({
     root: {
-      '&:nth-of-type(odd)': {
+      "&:nth-of-type(odd)": {
         backgroundColor: theme.palette.action.hover,
       },
     },
@@ -63,22 +63,22 @@ const useStyles = makeStyles((theme) => ({
   table: {},
   root: {
     minWidth: 275,
-    width: '100%',
+    width: "100%",
   },
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   visuallyHidden: {
     border: 0,
-    clip: 'rect(0 0 0 0)',
+    clip: "rect(0 0 0 0)",
     height: 1,
     margin: -1,
-    overflow: 'hidden',
+    overflow: "hidden",
     padding: 0,
-    position: 'absolute',
+    position: "absolute",
     top: 20,
     width: 1,
   },
@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-type Order = 'asc' | 'desc';
+type Order = "asc" | "desc";
 
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
@@ -114,21 +114,21 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === 'desc'
+  return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
 export default function CustomizedTables(props: any) {
   const classes = useStyles();
-  const [category, setCategory] = useState<any>('');
+  const [category, setCategory] = useState<any>("");
   const [data, setData] = useState<any>({});
   const [trialData, settrialData] = useState<any>({});
   const [penaltyConfs, setPenaltyConfs] = useState<any>([]);
   const [bonusesConfs, setBonusesConfs] = useState<any>([]);
 
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState('position');
+  const [order, setOrder] = React.useState<Order>("asc");
+  const [orderBy, setOrderBy] = React.useState("position");
 
   // let parameters = qs.parse(props.location.search);
 
@@ -182,8 +182,8 @@ export default function CustomizedTables(props: any) {
   // };
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
   const createSortHandler = (property) => (event) => {
@@ -193,9 +193,9 @@ export default function CustomizedTables(props: any) {
   return (
     <div>
       <PublicAppBar
-        title={trialData.name || 'TRIAL NAME'}
-        backButton={{ path: `/event/${event_id}`, title: 'Back to event' }}
-        rightButtons={[{ path: `/event/${event_id}`, title: 'Back to event' }]}
+        title={trialData.name || "TRIAL NAME"}
+        backButton={{ path: `/event/${event_id}`, title: "Back to event" }}
+        rightButtons={[{ path: `/event/${event_id}`, title: "Back to event" }]}
         {...props}
       />
       {data?.riders ? (
@@ -222,28 +222,28 @@ export default function CustomizedTables(props: any) {
                   <TableRow>
                     <TableCell
                       key="position"
-                      style={{ overflow: 'hidden' }}
+                      style={{ overflow: "hidden" }}
                       align="center"
-                      padding={false ? 'none' : 'default'}
-                      sortDirection={orderBy === 'position' ? order : false}
+                      padding={false ? "none" : "default"}
+                      sortDirection={orderBy === "position" ? order : false}
                     >
                       <TableSortLabel
                         hideSortIcon={true}
-                        active={orderBy === 'position'}
-                        direction={orderBy === 'position' ? order : 'asc'}
-                        onClick={createSortHandler('position')}
+                        active={orderBy === "position"}
+                        direction={orderBy === "position" ? order : "asc"}
+                        onClick={createSortHandler("position")}
                       >
                         POSITION
-                        {orderBy !== 'position' ? (
+                        {orderBy !== "position" ? (
                           <ImportExportIcon
-                            style={{ color: 'rgb(0 0 0 / 20%)' }}
+                            style={{ color: "rgb(0 0 0 / 20%)" }}
                           />
                         ) : null}
-                        {orderBy === 'position' ? (
+                        {orderBy === "position" ? (
                           <span className={classes.visuallyHidden}>
-                            {order === 'desc'
-                              ? 'sorted descending'
-                              : 'sorted ascending'}
+                            {order === "desc"
+                              ? "sorted descending"
+                              : "sorted ascending"}
                           </span>
                         ) : null}
                       </TableSortLabel>
@@ -251,26 +251,26 @@ export default function CustomizedTables(props: any) {
                     <TableCell
                       key="name"
                       align="center"
-                      padding={false ? 'none' : 'default'}
-                      sortDirection={orderBy === 'name' ? order : false}
+                      padding={false ? "none" : "default"}
+                      sortDirection={orderBy === "name" ? order : false}
                     >
                       <TableSortLabel
                         hideSortIcon={true}
-                        active={orderBy === 'name'}
-                        direction={orderBy === 'name' ? order : 'asc'}
-                        onClick={createSortHandler('name')}
+                        active={orderBy === "name"}
+                        direction={orderBy === "name" ? order : "asc"}
+                        onClick={createSortHandler("name")}
                       >
                         NAME
-                        {orderBy !== 'name' ? (
+                        {orderBy !== "name" ? (
                           <ImportExportIcon
-                            style={{ color: 'rgb(0 0 0 / 20%)' }}
+                            style={{ color: "rgb(0 0 0 / 20%)" }}
                           />
                         ) : null}
-                        {orderBy === 'name' ? (
+                        {orderBy === "name" ? (
                           <span className={classes.visuallyHidden}>
-                            {order === 'desc'
-                              ? 'sorted descending'
-                              : 'sorted ascending'}
+                            {order === "desc"
+                              ? "sorted descending"
+                              : "sorted ascending"}
                           </span>
                         ) : null}
                       </TableSortLabel>
@@ -281,26 +281,26 @@ export default function CustomizedTables(props: any) {
                     <TableCell
                       key="treated_time"
                       align="center"
-                      padding={false ? 'none' : 'default'}
-                      sortDirection={orderBy === 'treated_time' ? order : false}
+                      padding={false ? "none" : "default"}
+                      sortDirection={orderBy === "treated_time" ? order : false}
                     >
                       <TableSortLabel
                         hideSortIcon={true}
-                        active={orderBy === 'treated_time'}
-                        direction={orderBy === 'treated_time' ? order : 'asc'}
-                        onClick={createSortHandler('treated_time')}
+                        active={orderBy === "treated_time"}
+                        direction={orderBy === "treated_time" ? order : "asc"}
+                        onClick={createSortHandler("treated_time")}
                       >
                         BASE TIME
-                        {orderBy !== 'treated_time' ? (
+                        {orderBy !== "treated_time" ? (
                           <ImportExportIcon
-                            style={{ color: 'rgb(0 0 0 / 20%)' }}
+                            style={{ color: "rgb(0 0 0 / 20%)" }}
                           />
                         ) : null}
-                        {orderBy === 'treated_time' ? (
+                        {orderBy === "treated_time" ? (
                           <span className={classes.visuallyHidden}>
-                            {order === 'desc'
-                              ? 'sorted descending'
-                              : 'sorted ascending'}
+                            {order === "desc"
+                              ? "sorted descending"
+                              : "sorted ascending"}
                           </span>
                         ) : null}
                       </TableSortLabel>
@@ -321,10 +321,10 @@ export default function CustomizedTables(props: any) {
                           );
                         })
                       : null} */}
-                      {penaltyConfs?.map((conf, i) => {
+                    {penaltyConfs?.map((conf, i) => {
                       return (
                         <StyledTableCell
-                          key={'pen-conf-id-' + conf.id}
+                          key={"pen-conf-id-" + conf.id}
                           align="center"
                         >
                           {conf.name}
@@ -335,26 +335,26 @@ export default function CustomizedTables(props: any) {
                     <TableCell
                       key="penalty_time"
                       align="center"
-                      padding={false ? 'none' : 'default'}
-                      sortDirection={orderBy === 'penalty_time' ? order : false}
+                      padding={false ? "none" : "default"}
+                      sortDirection={orderBy === "penalty_time" ? order : false}
                     >
                       <TableSortLabel
                         hideSortIcon={true}
-                        active={orderBy === 'penalty_time'}
-                        direction={orderBy === 'penalty_time' ? order : 'asc'}
-                        onClick={createSortHandler('penalty_time')}
+                        active={orderBy === "penalty_time"}
+                        direction={orderBy === "penalty_time" ? order : "asc"}
+                        onClick={createSortHandler("penalty_time")}
                       >
                         PENALTIES TOTAL
-                        {orderBy !== 'penalty_time' ? (
+                        {orderBy !== "penalty_time" ? (
                           <ImportExportIcon
-                            style={{ color: 'rgb(0 0 0 / 20%)' }}
+                            style={{ color: "rgb(0 0 0 / 20%)" }}
                           />
                         ) : null}
-                        {orderBy === 'penalty_time' ? (
+                        {orderBy === "penalty_time" ? (
                           <span className={classes.visuallyHidden}>
-                            {order === 'desc'
-                              ? 'sorted descending'
-                              : 'sorted ascending'}
+                            {order === "desc"
+                              ? "sorted descending"
+                              : "sorted ascending"}
                           </span>
                         ) : null}
                       </TableSortLabel>
@@ -379,7 +379,7 @@ export default function CustomizedTables(props: any) {
                     {bonusesConfs?.map((conf, i) => {
                       return (
                         <StyledTableCell
-                          key={'bon-conf-id-' + conf.id}
+                          key={"bon-conf-id-" + conf.id}
                           align="center"
                         >
                           {conf.name}
@@ -389,26 +389,26 @@ export default function CustomizedTables(props: any) {
                     <TableCell
                       key="bonus_time"
                       align="center"
-                      padding={false ? 'none' : 'default'}
-                      sortDirection={orderBy === 'bonus_time' ? order : false}
+                      padding={false ? "none" : "default"}
+                      sortDirection={orderBy === "bonus_time" ? order : false}
                     >
                       <TableSortLabel
                         hideSortIcon={true}
-                        active={orderBy === 'bonus_time'}
-                        direction={orderBy === 'bonus_time' ? order : 'asc'}
-                        onClick={createSortHandler('bonus_time')}
+                        active={orderBy === "bonus_time"}
+                        direction={orderBy === "bonus_time" ? order : "asc"}
+                        onClick={createSortHandler("bonus_time")}
                       >
                         BONUSES TOTAL
-                        {orderBy !== 'bonus_time' ? (
+                        {orderBy !== "bonus_time" ? (
                           <ImportExportIcon
-                            style={{ color: 'rgb(0 0 0 / 20%)' }}
+                            style={{ color: "rgb(0 0 0 / 20%)" }}
                           />
                         ) : null}
-                        {orderBy === 'bonus_time' ? (
+                        {orderBy === "bonus_time" ? (
                           <span className={classes.visuallyHidden}>
-                            {order === 'desc'
-                              ? 'sorted descending'
-                              : 'sorted ascending'}
+                            {order === "desc"
+                              ? "sorted descending"
+                              : "sorted ascending"}
                           </span>
                         ) : null}
                       </TableSortLabel>
@@ -416,30 +416,30 @@ export default function CustomizedTables(props: any) {
                     <TableCell
                       key="treated_time_total"
                       align="center"
-                      padding={false ? 'none' : 'default'}
+                      padding={false ? "none" : "default"}
                       sortDirection={
-                        orderBy === 'treated_time_total' ? order : false
+                        orderBy === "treated_time_total" ? order : false
                       }
                     >
                       <TableSortLabel
                         hideSortIcon={true}
-                        active={orderBy === 'treated_time_total'}
+                        active={orderBy === "treated_time_total"}
                         direction={
-                          orderBy === 'treated_time_total' ? order : 'asc'
+                          orderBy === "treated_time_total" ? order : "asc"
                         }
-                        onClick={createSortHandler('treated_time_total')}
+                        onClick={createSortHandler("treated_time_total")}
                       >
                         TOTAL TIME
-                        {orderBy !== 'treated_time_total' ? (
+                        {orderBy !== "treated_time_total" ? (
                           <ImportExportIcon
-                            style={{ color: 'rgb(0 0 0 / 20%)' }}
+                            style={{ color: "rgb(0 0 0 / 20%)" }}
                           />
                         ) : null}
-                        {orderBy === 'treated_time_total' ? (
+                        {orderBy === "treated_time_total" ? (
                           <span className={classes.visuallyHidden}>
-                            {order === 'desc'
-                              ? 'sorted descending'
-                              : 'sorted ascending'}
+                            {order === "desc"
+                              ? "sorted descending"
+                              : "sorted ascending"}
                           </span>
                         ) : null}
                       </TableSortLabel>
@@ -451,7 +451,7 @@ export default function CustomizedTables(props: any) {
                     (row, i) => {
                       if (!row.scores) return null;
                       return (
-                        <StyledTableRow key={row.name + i + 'a'}>
+                        <StyledTableRow key={row.name + i + "a"}>
                           <StyledTableCell
                             align="center"
                             component="th"
@@ -479,10 +479,12 @@ export default function CustomizedTables(props: any) {
                             {row.treated_time}
                           </StyledTableCell>
                           {penaltyConfs?.map((conf, i) => {
-                            const penalty = row.scores?.penalties?.find((penalty) => penalty.penaltyConf.id === conf.id)
+                            const penalty = row.scores?.penalties?.find(
+                              (penalty) => penalty.penaltyConf.id === conf.id
+                            );
                             return (
                               <StyledTableCell
-                                key={i + '-pen-quantity'}
+                                key={i + "-pen-quantity"}
                                 align="center"
                               >
                                 {penalty?.quantity || 0}
@@ -503,10 +505,12 @@ export default function CustomizedTables(props: any) {
                             {row.penalty_time}
                           </StyledTableCell>
                           {bonusesConfs?.map((conf, i) => {
-                            const bonus = row.scores?.bonuses?.find((bonus) => bonus.bonusConf.id === conf.id)
+                            const bonus = row.scores?.bonuses?.find(
+                              (bonus) => bonus.bonusConf.id === conf.id
+                            );
                             return (
                               <StyledTableCell
-                                key={i + '-bon-quantity'}
+                                key={i + "-bon-quantity"}
                                 align="center"
                               >
                                 {bonus?.quantity || 0}
@@ -539,7 +543,7 @@ export default function CustomizedTables(props: any) {
           </CardContent>
         </Card>
       ) : (
-        <div style={{ paddingTop: '60px', textAlign: 'center' }}>
+        <div style={{ paddingTop: "60px", textAlign: "center" }}>
           <Typography component="h1" variant="h5">
             You don't have any scores yet
           </Typography>

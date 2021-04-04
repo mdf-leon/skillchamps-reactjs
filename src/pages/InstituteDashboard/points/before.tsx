@@ -4,7 +4,7 @@ import Message from "components/Message";
 import { useHistory } from "react-router-dom";
 // import { Redirect } from 'react-router-dom'
 import { Col, Row, Grid } from "styles/global";
-import { Options } from "./styles";
+import { Options, BracketsDiv, SelectBracketDiv } from "./styles";
 
 import { base } from "../../../config/api";
 
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: "100%",
   },
   mainDiv: {},
   card: {
@@ -88,6 +88,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function BeforePoints(props) {
   const classes = useStyles();
 
+  const [bracketPosition, setBracketPosition] = useState<any>();
+  const [selectBracket, setSelectBracket] = useState<any>("0");
   const [isBracket, setIsBracket] = useState<any>(false);
   const [bracketData, setBrecketData] = useState<any>();
 
@@ -168,7 +170,26 @@ export default function BeforePoints(props) {
                       minHeight: "75px",
                     }}
                   >
-                    {currentRiderInfo ? (
+                    {isBracket ? (
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <Typography
+                          component={"span"}
+                          gutterBottom
+                          variant="body2"
+                          color="primary"
+                        >
+                          Group: {Number(selectBracket) + 1}
+                        </Typography>
+                        <Typography
+                          component={"span"}
+                          gutterBottom
+                          variant="body2"
+                          color="textSecondary"
+                        >
+                          Position: {Number(bracketPosition) + 1 || "Pending"}
+                        </Typography>
+                      </div>
+                    ) : currentRiderInfo ? (
                       <div style={{ display: "flex", flexDirection: "column" }}>
                         <Typography
                           component={"span"}
@@ -201,9 +222,17 @@ export default function BeforePoints(props) {
                       color="primary"
                       onClick={() =>
                         history.push(
-                          `/dashboard/institute/${institute_id}/manage/event/${event_id}/score/new?trial_id=${localStorage.getItem(
+                          `/dashboard/institute/${institute_id}/manage/event/${event_id}/score${
+                            isBracket
+                              ? `/bracket/group/${selectBracket}/position/${bracketPosition}`
+                              : null
+                          }/new?trial_id=${localStorage.getItem(
                             "ongoing_trial"
-                          )}&rider_id=${currentRiderInfo.id}`
+                          )}${
+                            isBracket
+                              ? ""
+                              : `&rider_id=${currentRiderInfo.id}`
+                          }`
                         )
                       }
                     >
@@ -241,7 +270,7 @@ export default function BeforePoints(props) {
                         if (content.type === "bracket") {
                           handleBracket(content.id);
                           setIsBracket(true);
-                        }
+                        } else setIsBracket(false);
                       }}
                     >
                       <Typography
@@ -268,91 +297,201 @@ export default function BeforePoints(props) {
               <TabPanel value={value} index={1} dir={theme.direction}>
                 {isBracket ? (
                   <div>
-                    
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
-                      <InputLabel id="demo-simple-select-outlined-label">
-                        Colocar algum nome
-                      </InputLabel>
-                      <Select
-                        name="trial_id"
-                        label="Trial"
-                        labelId="Trial"
-                        id="Trial"
-                        // onChange={(e) =>
-                        //   setTempInfo({
-                        //     ...tempInfo,
-                        //     trial_id: e.target.value,
-                        //     trial_name: event.name,
-                        //   })
-                        // }
+                    <SelectBracketDiv>
+                      <FormControl
+                        variant="outlined"
+                        className={classes.formControl}
                       >
-                        <MenuItem value="">Choose a event first</MenuItem>
-                      </Select>
-                    </FormControl>
+                        <InputLabel id="demo-simple-select-outlined-label">
+                          Colocar algum nome
+                        </InputLabel>
+                        <Select
+                          name="trial_id"
+                          label="Trial"
+                          labelId="Trial"
+                          id="Trial"
+                          value={selectBracket}
+                          onChange={(e) => setSelectBracket(e.target.value)}
+                        >
+                          {Object.keys(
+                            bracketData?.tournament || {}
+                          ).map((content) => (
+                            <MenuItem value={content}>
+                              Group {Number(content) + 1}
+                            </MenuItem>
+                          )) || <MenuItem value="0">0</MenuItem>}
+                        </Select>
+                      </FormControl>
+                    </SelectBracketDiv>
 
                     <div
                       className="mt-20"
-                      style={{ height: "100%", width: "100%" }}
+                      style={{
+                        width: "100%",
+                      }}
                     >
                       {bracketData &&
-                        Object.keys(bracketData?.tournament["0"]).map(
+                        Object.keys(bracketData?.tournament[selectBracket]).map(
                           (content) => (
-                            <div style={{ height: "100%", width: "100%" }}>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  height: "100%",
-                                }}
-                              >
-                                <div style={{ height: "100%" }}>
-                                  <div style={{ border: "1px solid black" }}>
-                                    <p>
-                                      1{" "}
+                            <BracketsDiv
+                              win={
+                                bracketData?.tournament[selectBracket][content]
+                                  .winner
+                              }
+                              key={`position-${content}`}
+                              onClick={() => setBracketPosition(content)}
+                            >
+                              <div className="riders">
+                                <div className="bracket">
+                                  <div className="d-flex">
+                                    <Typography
+                                      component={"span"}
+                                      style={{ margin: 0 }}
+                                      gutterBottom
+                                      variant="h6"
+                                      color="textSecondary"
+                                    >
                                       {
-                                        bracketData?.tournament["0"][content]
-                                          .rider1.name
+                                        bracketData?.tournament[selectBracket][
+                                          content
+                                        ].rider1.id
                                       }
-                                    </p>
-                                  </div>
-                                  <div style={{ border: "1px solid black" }}>
-                                    <p>
-                                      2{" "}
+                                      .&nbsp;
+                                    </Typography>
+                                    <Typography
+                                      component={"span"}
+                                      gutterBottom
+                                      variant="h6"
+                                    >
                                       {
-                                        bracketData?.tournament["0"][content]
-                                          .rider2.name
+                                        bracketData?.tournament[selectBracket][
+                                          content
+                                        ].rider1.name
                                       }
-                                    </p>
+                                    </Typography>
                                   </div>
-                                </div>
-                                <div
-                                  style={{
-                                    height: "100%",
-                                    borderTop: "1px solid black",
-                                    borderBottom: "1px solid black",
-                                    borderRight: "1px solid black",
-                                  }}
-                                >
-                                  a
-                                </div>
-                                <div style={{ border: "1px solid black" }}>
-                                  <p>
-                                    w{" "}
+                                  <Typography
+                                    component={"span"}
+                                    style={{ margin: 0 }}
+                                    gutterBottom
+                                    variant="body2"
+                                    color="textSecondary"
+                                  >
+                                    Bike:{" "}
                                     {
-                                      bracketData?.tournament["0"][content]
-                                        .winner.name
+                                      bracketData?.tournament[selectBracket][
+                                        content
+                                      ].rider1.motorcycle
                                     }
-                                  </p>
+                                  </Typography>
+                                </div>
+                                <div className="bracket">
+                                  <div className="d-flex">
+                                    <Typography
+                                      component={"span"}
+                                      style={{ margin: 0 }}
+                                      gutterBottom
+                                      variant="h6"
+                                      color="textSecondary"
+                                    >
+                                      {
+                                        bracketData?.tournament[selectBracket][
+                                          content
+                                        ].rider2.id
+                                      }
+                                      .&nbsp;
+                                    </Typography>
+                                    <Typography
+                                      component={"span"}
+                                      gutterBottom
+                                      variant="h6"
+                                    >
+                                      {
+                                        bracketData?.tournament[selectBracket][
+                                          content
+                                        ].rider2.name
+                                      }
+                                    </Typography>
+                                  </div>
+                                  <Typography
+                                    component={"span"}
+                                    style={{ margin: 0 }}
+                                    gutterBottom
+                                    variant="body2"
+                                    color="textSecondary"
+                                  >
+                                    Bike:{" "}
+                                    {
+                                      bracketData?.tournament[selectBracket][
+                                        content
+                                      ].rider2.motorcycle
+                                    }
+                                  </Typography>
                                 </div>
                               </div>
-                            </div>
+                              <div className="winner">
+                                <div className="bracket">
+                                  {bracketData?.tournament[selectBracket][
+                                    content
+                                  ].winner === 0 ? (
+                                    <Typography
+                                      component={"span"}
+                                      gutterBottom
+                                      variant="h6"
+                                    >
+                                      There is no winner yet
+                                    </Typography>
+                                  ) : (
+                                    <div>
+                                      <div className="d-flex ">
+                                        <Typography
+                                          component={"span"}
+                                          style={{ margin: 0 }}
+                                          gutterBottom
+                                          variant="h6"
+                                          color="textSecondary"
+                                        >
+                                          {
+                                            bracketData?.tournament[
+                                              selectBracket
+                                            ][content].winner.id
+                                          }
+                                          .&nbsp;
+                                        </Typography>
+                                        <Typography
+                                          component={"span"}
+                                          gutterBottom
+                                          variant="h6"
+                                        >
+                                          {
+                                            bracketData?.tournament[
+                                              selectBracket
+                                            ][content].winner.name
+                                          }
+                                        </Typography>
+                                      </div>
+                                      <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                        Bike:{" "}
+                                        {
+                                          bracketData?.tournament[
+                                            selectBracket
+                                          ][content].winner.motorcycle
+                                        }
+                                      </Typography>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </BracketsDiv>
                           )
                         )}
                     </div>
-
                   </div>
                 ) : localStorage.getItem("ongoing_trial") ? (
                   dataRider[0] ? (
