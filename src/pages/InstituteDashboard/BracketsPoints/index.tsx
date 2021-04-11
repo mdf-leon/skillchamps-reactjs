@@ -44,10 +44,6 @@ export default function AddScore(props) {
   console.log(riderSelected);
 
   const handleFinish = () => {
-    console.log({
-      winner: bracketData && bracketData[`rider${riderSelected}`]?.id,
-    });
-
     base
       .put(
         `/bracketScore/${qparams.get('trial_id')}/${group_id}/${position_id}`,
@@ -56,10 +52,15 @@ export default function AddScore(props) {
         }
       )
       .then((res) => {
-        // props.history.push(
-        //   `/dashboard/institute/${institute_id}/manage/event/${event_id}/score/select_trial_rider`
+        props.history.push(
+          `/dashboard/institute/${institute_id}/manage/event/${event_id}/score/select_trial_rider`
+        );
+        // console.log(
+        //   `/bracketScore/${qparams.get('trial_id')}/${group_id}/${position_id}`,
+        //   {
+        //     winner: bracketData && bracketData[`rider${riderSelected}`]?.id.toString(),
+        //   }
         // );
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
   };
