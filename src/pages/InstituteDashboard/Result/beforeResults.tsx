@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NewTrials(props: any) {
+export default function BeforeResult(props: any) {
   const classes = useStyles();
   const { institute_id, event_id } = useParams();
   const [trials, setTrials] = useState<any[]>([]);
@@ -110,7 +110,8 @@ export default function NewTrials(props: any) {
     const toSend = {
       events_request: data,
     };
-
+    console.log(toSend);
+    
     base
       .post(`/allRanking`, toSend)
       .then((r) => {
