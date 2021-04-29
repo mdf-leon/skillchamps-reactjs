@@ -19,6 +19,10 @@ export const Connector = styled.div<any>`
     display: inline-block;
     border-bottom: 1px solid black;
   }
+
+  @media (max-width: 780px) {
+    display: none;
+  }
 `;
 
 export const Divider = styled.div`
