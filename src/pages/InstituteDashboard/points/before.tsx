@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import AppBar from 'components/AppBar';
-import Message from 'components/Message';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import AppBar from "components/AppBar";
+import Message from "components/Message";
+import { useHistory } from "react-router-dom";
 // import { Redirect } from 'react-router-dom'
-import { Col, Row, Grid } from 'styles/global';
-import { Options, BracketsDiv, SelectBracketDiv } from './styles';
+import { Col, Row, Grid } from "styles/global";
+import { Options, BracketsDiv, SelectBracketDiv } from "./styles";
 
-import { base } from '../../../config/api';
+import { base } from "../../../config/api";
 
 import {
   Card,
@@ -18,14 +18,14 @@ import {
   InputLabel,
   Select,
   MenuItem,
-} from '@material-ui/core';
+} from "@material-ui/core";
 // abas
-import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
-import AppBarTab from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
-import { useParams } from 'react-router-dom';
+import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
+import AppBarTab from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Box from "@material-ui/core/Box";
+import { useParams } from "react-router-dom";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -47,7 +47,7 @@ function TabPanel(props: any) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography component={'span'}>{children}</Typography>
+          <Typography component={"span"}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -57,29 +57,29 @@ function TabPanel(props: any) {
 function a11yProps(index: any) {
   return {
     id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`,
   };
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: '100%',
+    width: "100%",
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: '100%',
+    minWidth: "100%",
   },
   mainDiv: {},
   card: {
-    margin: '18px 8px 18px 8px',
+    margin: "18px 8px 18px 8px",
   },
   options: {
-    cursor: 'pointer',
+    cursor: "pointer",
   },
   avatar: {
-    display: 'flex',
-    '& > *': {
+    display: "flex",
+    "& > *": {
       margin: theme.spacing(1),
     },
   },
@@ -89,7 +89,7 @@ export default function BeforePoints(props) {
   const classes = useStyles();
 
   const [bracketPosition, setBracketPosition] = useState<any>();
-  const [selectBracket, setSelectBracket] = useState<any>('0');
+  const [selectBracket, setSelectBracket] = useState<any>("0");
   const [isBracket, setIsBracket] = useState<any>(false);
   const [bracketData, setBrecketData] = useState<any>();
 
@@ -97,7 +97,7 @@ export default function BeforePoints(props) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const history = useHistory();
-  const [currentTitle, setCurrentTitle] = useState('');
+  const [currentTitle, setCurrentTitle] = useState("");
   const [dataTrial, setDataTrial] = useState<any[]>([]);
   const [dataRider, setDataRider] = useState<any[]>([]);
   const [currentRiderInfo, setCurrentRiderInfo] = useState<any>({});
@@ -119,7 +119,7 @@ export default function BeforePoints(props) {
 
     let params = { event_id };
     base
-      .get('/managedTrialsList', { params })
+      .get("/managedTrialsList", { params })
       .then((r) => {
         setDataTrial(r.data);
       })
@@ -127,8 +127,8 @@ export default function BeforePoints(props) {
         console.log(er);
       });
     base
-      .get('/managedRidersList3', {
-        params: { ...params, trial_id: localStorage.getItem('ongoing_trial') },
+      .get("/managedRidersList3", {
+        params: { ...params, trial_id: localStorage.getItem("ongoing_trial") },
       })
       .then((r) => {
         setDataRider(r.data);
@@ -137,11 +137,11 @@ export default function BeforePoints(props) {
         console.log(er);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localStorage.getItem('ongoing_trial')]);
+  }, [localStorage.getItem("ongoing_trial")]);
 
   useEffect(() => {
-    localStorage.removeItem('ongoing_trial');
-    console.log(localStorage.getItem('ongoing_trial'));
+    localStorage.removeItem("ongoing_trial");
+    console.log(localStorage.getItem("ongoing_trial"));
   }, []);
 
   return (
@@ -155,25 +155,25 @@ export default function BeforePoints(props) {
               <Card className={classes.card}>
                 <CardContent>
                   <div>
-                    <Typography component={'span'} gutterBottom variant="h5">
+                    <Typography component={"span"} gutterBottom variant="h5">
                       {currentTitle
                         ? `Trial chosen: ${currentTitle}`
-                        : 'Trial chosen: None'}
+                        : "Trial chosen: None"}
                     </Typography>
                   </div>
 
                   <div
                     style={{
-                      display: 'flex',
-                      alignItems: 'flex-end',
-                      justifyContent: 'space-between',
-                      minHeight: '75px',
+                      display: "flex",
+                      alignItems: "flex-end",
+                      justifyContent: "space-between",
+                      minHeight: "75px",
                     }}
                   >
                     {isBracket ? (
-                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
                         <Typography
-                          component={'span'}
+                          component={"span"}
                           gutterBottom
                           variant="body2"
                           color="primary"
@@ -181,39 +181,39 @@ export default function BeforePoints(props) {
                           Round: {Number(selectBracket) + 1}
                         </Typography>
                         <Typography
-                          component={'span'}
+                          component={"span"}
                           gutterBottom
                           variant="body2"
                           color="textSecondary"
                         >
-                          Position: {Number(bracketPosition) + 1 || 'Pending'}
+                          Position: {Number(bracketPosition) + 1 || "Pending"}
                         </Typography>
                       </div>
                     ) : currentRiderInfo ? (
-                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
                         <Typography
-                          component={'span'}
+                          component={"span"}
                           gutterBottom
                           variant="body2"
                           color="primary"
                         >
-                          {currentRiderInfo.name || 'name'}
+                          {currentRiderInfo.name || "name"}
                         </Typography>
                         <Typography
-                          component={'span'}
+                          component={"span"}
                           gutterBottom
                           variant="body2"
                           color="textSecondary"
                         >
-                          {currentRiderInfo.category || 'category'}
+                          {currentRiderInfo.category || "category"}
                         </Typography>
                         <Typography
-                          component={'span'}
+                          component={"span"}
                           gutterBottom
                           variant="body2"
                           color="textSecondary"
                         >
-                          {currentRiderInfo.motorcycle || 'motorcycle'}
+                          {currentRiderInfo.motorcycle || "motorcycle"}
                         </Typography>
                       </div>
                     ) : null}
@@ -225,11 +225,11 @@ export default function BeforePoints(props) {
                           `/dashboard/institute/${institute_id}/manage/event/${event_id}/score${
                             isBracket
                               ? `/bracket/group/${selectBracket}/position/${bracketPosition}`
-                              : null
+                              : ''
                           }/new?trial_id=${localStorage.getItem(
-                            'ongoing_trial'
+                            "ongoing_trial"
                           )}${
-                            isBracket ? '' : `&rider_id=${currentRiderInfo.id}`
+                            isBracket ? "" : `&rider_id=${currentRiderInfo.id}`
                           }`
                         )
                       }
@@ -261,18 +261,18 @@ export default function BeforePoints(props) {
                       key={`trials-${i}-${content.id}`}
                       className={classes.options}
                       onClick={() => {
-                        localStorage.removeItem('ongoing_rider');
+                        localStorage.removeItem("ongoing_rider");
                         setCurrentRiderInfo({});
                         setCurrentTitle(content.name);
-                        localStorage.setItem('ongoing_trial', content.id);
-                        if (content.type === 'bracket') {
+                        localStorage.setItem("ongoing_trial", content.id);
+                        if (content.type === "bracket") {
                           handleBracket(content.id);
                           setIsBracket(true);
                         } else setIsBracket(false);
                       }}
                     >
                       <Typography
-                        component={'span'}
+                        component={"span"}
                         style={{ margin: 0 }}
                         gutterBottom
                         variant="h6"
@@ -283,7 +283,7 @@ export default function BeforePoints(props) {
                   ))
                 ) : (
                   <Typography
-                    component={'span'}
+                    component={"span"}
                     style={{ margin: 0 }}
                     gutterBottom
                     variant="h6"
@@ -325,7 +325,7 @@ export default function BeforePoints(props) {
                     <div
                       className="mt-20"
                       style={{
-                        width: '100%',
+                        width: "100%",
                       }}
                     >
                       {bracketData &&
@@ -346,7 +346,7 @@ export default function BeforePoints(props) {
                                   <div className="bracket">
                                     <div className="d-flex">
                                       <Typography
-                                        component={'span'}
+                                        component={"span"}
                                         style={{ margin: 0 }}
                                         gutterBottom
                                         variant="h6"
@@ -360,7 +360,7 @@ export default function BeforePoints(props) {
                                         .&nbsp;
                                       </Typography>
                                       <Typography
-                                        component={'span'}
+                                        component={"span"}
                                         gutterBottom
                                         variant="h6"
                                       >
@@ -371,25 +371,51 @@ export default function BeforePoints(props) {
                                         }
                                       </Typography>
                                     </div>
-                                    <Typography
-                                      component={'span'}
-                                      style={{ margin: 0 }}
-                                      gutterBottom
-                                      variant="body2"
-                                      color="textSecondary"
+                                    <div
+                                      className="d-flex"
+                                      style={{ alignItems: "center" }}
                                     >
-                                      Bike:{' '}
-                                      {
-                                        bracketData?.tournament[selectBracket][
-                                          content
-                                        ].rider1.motorcycle
-                                      }
-                                    </Typography>
+                                      <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                        {
+                                          bracketData?.tournament[
+                                            selectBracket
+                                          ][content].rider2.category
+                                        }
+                                      </Typography>
+                                      <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                      &nbsp;-&nbsp;
+                                      </Typography>
+                                      <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                        {
+                                          bracketData?.tournament[
+                                            selectBracket
+                                          ][content].rider2.category2
+                                        }
+                                      </Typography>
+                                    </div>
                                   </div>
                                   <div className="bracket">
                                     <div className="d-flex">
                                       <Typography
-                                        component={'span'}
+                                        component={"span"}
                                         style={{ margin: 0 }}
                                         gutterBottom
                                         variant="h6"
@@ -403,7 +429,7 @@ export default function BeforePoints(props) {
                                         .&nbsp;
                                       </Typography>
                                       <Typography
-                                        component={'span'}
+                                        component={"span"}
                                         gutterBottom
                                         variant="h6"
                                       >
@@ -414,20 +440,43 @@ export default function BeforePoints(props) {
                                         }
                                       </Typography>
                                     </div>
-                                    <Typography
-                                      component={'span'}
-                                      style={{ margin: 0 }}
-                                      gutterBottom
-                                      variant="body2"
-                                      color="textSecondary"
-                                    >
-                                      Bike:{' '}
-                                      {
-                                        bracketData?.tournament[selectBracket][
-                                          content
-                                        ].rider2.motorcycle
-                                      }
-                                    </Typography>
+                                    <div className="d-flex" style={{ alignItems: "center" }}>
+                                      <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                        {
+                                          bracketData?.tournament[
+                                            selectBracket
+                                          ][content].rider2.category
+                                        }
+                                      </Typography>
+                                      <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                      &nbsp;-&nbsp;
+                                      </Typography>
+                                      <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                        {
+                                          bracketData?.tournament[
+                                            selectBracket
+                                          ][content].rider2.category2
+                                        }
+                                      </Typography>
+                                    </div>
                                   </div>
                                 </div>
                                 <div className="winner">
@@ -436,7 +485,7 @@ export default function BeforePoints(props) {
                                       content
                                     ].winner === 0 ? (
                                       <Typography
-                                        component={'span'}
+                                        component={"span"}
                                         gutterBottom
                                         variant="h6"
                                       >
@@ -446,7 +495,7 @@ export default function BeforePoints(props) {
                                       <div>
                                         <div className="d-flex ">
                                           <Typography
-                                            component={'span'}
+                                            component={"span"}
                                             style={{ margin: 0 }}
                                             gutterBottom
                                             variant="h6"
@@ -460,7 +509,7 @@ export default function BeforePoints(props) {
                                             .&nbsp;
                                           </Typography>
                                           <Typography
-                                            component={'span'}
+                                            component={"span"}
                                             gutterBottom
                                             variant="h6"
                                           >
@@ -471,20 +520,43 @@ export default function BeforePoints(props) {
                                             }
                                           </Typography>
                                         </div>
-                                        <Typography
-                                          component={'span'}
-                                          style={{ margin: 0 }}
-                                          gutterBottom
-                                          variant="body2"
-                                          color="textSecondary"
-                                        >
-                                          Bike:{' '}
-                                          {
-                                            bracketData?.tournament[
-                                              selectBracket
-                                            ][content].winner.motorcycle
-                                          }
-                                        </Typography>
+                                        <div className="d-flex" style={{ alignItems: "center" }}>
+                                          <Typography
+                                            component={"span"}
+                                            style={{ margin: 0 }}
+                                            gutterBottom
+                                            variant="body2"
+                                            color="textSecondary"
+                                          >
+                                            {
+                                              bracketData?.tournament[
+                                                selectBracket
+                                              ][content].rider2.category
+                                            }
+                                          </Typography>
+                                          <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                      &nbsp;-&nbsp;
+                                      </Typography>
+                                          <Typography
+                                            component={"span"}
+                                            style={{ margin: 0 }}
+                                            gutterBottom
+                                            variant="body2"
+                                            color="textSecondary"
+                                          >
+                                            {
+                                              bracketData?.tournament[
+                                                selectBracket
+                                              ][content].rider2.category2
+                                            }
+                                          </Typography>
+                                        </div>
                                       </div>
                                     )}
                                   </div>
@@ -511,7 +583,7 @@ export default function BeforePoints(props) {
                                   <div className="bracket">
                                     <div className="d-flex">
                                       <Typography
-                                        component={'span'}
+                                        component={"span"}
                                         style={{ margin: 0 }}
                                         gutterBottom
                                         variant="h6"
@@ -525,7 +597,7 @@ export default function BeforePoints(props) {
                                         .&nbsp;
                                       </Typography>
                                       <Typography
-                                        component={'span'}
+                                        component={"span"}
                                         gutterBottom
                                         variant="h6"
                                       >
@@ -536,25 +608,48 @@ export default function BeforePoints(props) {
                                         }
                                       </Typography>
                                     </div>
-                                    <Typography
-                                      component={'span'}
-                                      style={{ margin: 0 }}
-                                      gutterBottom
-                                      variant="body2"
-                                      color="textSecondary"
-                                    >
-                                      Bike:{' '}
-                                      {
-                                        bracketData?.tournament[selectBracket][
-                                          content
-                                        ].rider1.motorcycle
-                                      }
-                                    </Typography>
+                                    <div className="d-flex" style={{ alignItems: "center" }}>
+                                      <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                        {
+                                          bracketData?.tournament[
+                                            selectBracket
+                                          ][content].rider2.category
+                                        }
+                                      </Typography>
+                                      <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                      &nbsp;-&nbsp;
+                                      </Typography>
+                                      <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                        {
+                                          bracketData?.tournament[
+                                            selectBracket
+                                          ][content].rider2.category2
+                                        }
+                                      </Typography>
+                                    </div>
                                   </div>
                                   <div className="bracket">
                                     <div className="d-flex">
                                       <Typography
-                                        component={'span'}
+                                        component={"span"}
                                         style={{ margin: 0 }}
                                         gutterBottom
                                         variant="h6"
@@ -568,7 +663,7 @@ export default function BeforePoints(props) {
                                         .&nbsp;
                                       </Typography>
                                       <Typography
-                                        component={'span'}
+                                        component={"span"}
                                         gutterBottom
                                         variant="h6"
                                       >
@@ -579,20 +674,51 @@ export default function BeforePoints(props) {
                                         }
                                       </Typography>
                                     </div>
-                                    <Typography
-                                      component={'span'}
-                                      style={{ margin: 0 }}
-                                      gutterBottom
-                                      variant="body2"
-                                      color="textSecondary"
-                                    >
-                                      Bike:{' '}
-                                      {
-                                        bracketData?.tournament[selectBracket][
-                                          content
-                                        ].rider2.motorcycle
-                                      }
-                                    </Typography>
+                                    <div className="d-flex" style={{ alignItems: "center" }}>
+                                      <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                        {
+                                          bracketData?.tournament[
+                                            selectBracket
+                                          ][content].rider2.category
+                                        }
+                                      </Typography>
+                                      <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                            <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                      &nbsp;-&nbsp;
+                                      </Typography>
+                                      </Typography>
+                                      <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                        {
+                                          bracketData?.tournament[
+                                            selectBracket
+                                          ][content].rider2.category2
+                                        }
+                                      </Typography>
+                                    </div>
                                   </div>
                                 </div>
                                 <div className="winner">
@@ -601,7 +727,7 @@ export default function BeforePoints(props) {
                                       content
                                     ].winner === 0 ? (
                                       <Typography
-                                        component={'span'}
+                                        component={"span"}
                                         gutterBottom
                                         variant="h6"
                                       >
@@ -611,7 +737,7 @@ export default function BeforePoints(props) {
                                       <div>
                                         <div className="d-flex ">
                                           <Typography
-                                            component={'span'}
+                                            component={"span"}
                                             style={{ margin: 0 }}
                                             gutterBottom
                                             variant="h6"
@@ -625,7 +751,7 @@ export default function BeforePoints(props) {
                                             .&nbsp;
                                           </Typography>
                                           <Typography
-                                            component={'span'}
+                                            component={"span"}
                                             gutterBottom
                                             variant="h6"
                                           >
@@ -636,20 +762,51 @@ export default function BeforePoints(props) {
                                             }
                                           </Typography>
                                         </div>
-                                        <Typography
-                                          component={'span'}
-                                          style={{ margin: 0 }}
-                                          gutterBottom
-                                          variant="body2"
-                                          color="textSecondary"
-                                        >
-                                          Bike:{' '}
-                                          {
-                                            bracketData?.tournament[
-                                              selectBracket
-                                            ][content].winner.motorcycle
-                                          }
-                                        </Typography>
+                                        <div className="d-flex" style={{ alignItems: "center" }}>
+                                          <Typography
+                                            component={"span"}
+                                            style={{ margin: 0 }}
+                                            gutterBottom
+                                            variant="body2"
+                                            color="textSecondary"
+                                          >
+                                            {
+                                              bracketData?.tournament[
+                                                selectBracket
+                                              ][content].rider2.category
+                                            }
+                                          </Typography>
+                                          <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                            <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                      &nbsp;-&nbsp;
+                                      </Typography>
+                                      </Typography>
+                                          <Typography
+                                            component={"span"}
+                                            style={{ margin: 0 }}
+                                            gutterBottom
+                                            variant="body2"
+                                            color="textSecondary"
+                                          >
+                                            {
+                                              bracketData?.tournament[
+                                                selectBracket
+                                              ][content].rider2.category2
+                                            }
+                                          </Typography>
+                                        </div>
                                       </div>
                                     )}
                                   </div>
@@ -659,20 +816,20 @@ export default function BeforePoints(props) {
                         )}
                     </div>
                   </div>
-                ) : localStorage.getItem('ongoing_trial') ? (
+                ) : localStorage.getItem("ongoing_trial") ? (
                   dataRider[0] ? (
                     dataRider.map((content, i) => (
                       <Options
                         key={`riders-${i}-${content.id}`}
                         className={classes.options}
                         style={{
-                          justifyContent: 'flex-start',
-                          alignItems: 'end',
+                          justifyContent: "flex-start",
+                          alignItems: "end",
                         }}
                         onClick={() => {
                           if (!content.scores) {
                             setCurrentRiderInfo({ ...content });
-                            localStorage.setItem('ongoing_rider', content.id);
+                            localStorage.setItem("ongoing_rider", content.id);
                           }
                           return;
                         }}
@@ -683,15 +840,15 @@ export default function BeforePoints(props) {
                         />
                         <div
                           style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'flex-start',
-                            marginLeft: '16px',
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            marginLeft: "16px",
                           }}
                         >
-                          <div style={{ display: 'flex' }}>
+                          <div style={{ display: "flex" }}>
                             <Typography
-                              component={'span'}
+                              component={"span"}
                               style={{ margin: 0 }}
                               gutterBottom
                               variant="h6"
@@ -700,10 +857,10 @@ export default function BeforePoints(props) {
                               {content.id}.&nbsp;
                             </Typography>
                             <Typography
-                              component={'span'}
+                              component={"span"}
                               style={{
                                 margin: 0,
-                                color: content.scores ? '#2ECC40' : 'unset',
+                                color: content.scores ? "#2ECC40" : "unset",
                               }}
                               gutterBottom
                               variant="h6"
@@ -711,31 +868,41 @@ export default function BeforePoints(props) {
                               {content.name}
                             </Typography>
                           </div>
-
-                          <Typography
-                            component={'span'}
-                            style={{ margin: 0 }}
-                            gutterBottom
-                            variant="body2"
-                            color="textSecondary"
-                          >
-                            {content.category}
-                          </Typography>
-                          <Typography
-                            component={'span'}
-                            style={{ margin: 0 }}
-                            gutterBottom
-                            variant="body2"
-                            color="textSecondary"
-                          >
-                            Bike: {content.motorcycle}
-                          </Typography>
+                          <div className="d-flex" style={{ alignItems: "center"}}>
+                            <Typography
+                              component={"span"}
+                              style={{ margin: 0 }}
+                              gutterBottom
+                              variant="body2"
+                              color="textSecondary"
+                            >
+                              {content.category}
+                            </Typography>
+                            <Typography
+                                        component={"span"}
+                                        style={{ margin: 0 }}
+                                        gutterBottom
+                                        variant="body2"
+                                        color="textSecondary"
+                                      >
+                                      &nbsp;-&nbsp;
+                                      </Typography>
+                            <Typography
+                              component={"span"}
+                              style={{ margin: 0 }}
+                              gutterBottom
+                              variant="body2"
+                              color="textSecondary"
+                            >
+                              {content.category2}
+                            </Typography>
+                          </div>
                         </div>
                       </Options>
                     ))
                   ) : (
                     <Typography
-                      component={'span'}
+                      component={"span"}
                       style={{ margin: 0 }}
                       gutterBottom
                       variant="h6"
@@ -745,7 +912,7 @@ export default function BeforePoints(props) {
                   )
                 ) : (
                   <Typography
-                    component={'span'}
+                    component={"span"}
                     style={{ margin: 0 }}
                     gutterBottom
                     variant="h6"

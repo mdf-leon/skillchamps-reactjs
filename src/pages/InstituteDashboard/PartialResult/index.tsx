@@ -166,6 +166,9 @@ export default function CustomizedTables(props: any) {
         setBonusesConfs(r.data);
       })
       .catch(() => {});
+
+      
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 

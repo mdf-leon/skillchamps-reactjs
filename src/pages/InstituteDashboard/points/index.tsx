@@ -809,7 +809,7 @@ export default function AddScore(props) {
         {...props}
       />
       <AppBar title="Scoring for a rider" isManager {...props} />
-      {dataTrial?.boolean ? (
+      {dataTrial?.type === "boolean" ? (
         <div
           style={{
             display: "flex",
