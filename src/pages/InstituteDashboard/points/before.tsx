@@ -4,7 +4,13 @@ import Message from "components/Message";
 import { useHistory } from "react-router-dom";
 // import { Redirect } from 'react-router-dom'
 import { Col, Row, Grid } from "styles/global";
-import { Options, BracketsDiv, SelectBracketDiv } from "./styles";
+import {
+  Options,
+  BracketsDiv,
+  SelectBracketDiv,
+  Divider,
+  Connector,
+} from "./styles";
 
 import { base } from "../../../config/api";
 
@@ -225,7 +231,7 @@ export default function BeforePoints(props) {
                           `/dashboard/institute/${institute_id}/manage/event/${event_id}/score${
                             isBracket
                               ? `/bracket/group/${selectBracket}/position/${bracketPosition}`
-                              : ''
+                              : ""
                           }/new?trial_id=${localStorage.getItem(
                             "ongoing_trial"
                           )}${
@@ -363,6 +369,7 @@ export default function BeforePoints(props) {
                                         component={"span"}
                                         gutterBottom
                                         variant="h6"
+                                        style={{ margin: 0 }}
                                       >
                                         {
                                           bracketData?.tournament[
@@ -395,7 +402,7 @@ export default function BeforePoints(props) {
                                         variant="body2"
                                         color="textSecondary"
                                       >
-                                      &nbsp;-&nbsp;
+                                        &nbsp;-&nbsp;
                                       </Typography>
                                       <Typography
                                         component={"span"}
@@ -440,7 +447,10 @@ export default function BeforePoints(props) {
                                         }
                                       </Typography>
                                     </div>
-                                    <div className="d-flex" style={{ alignItems: "center" }}>
+                                    <div
+                                      className="d-flex"
+                                      style={{ alignItems: "center" }}
+                                    >
                                       <Typography
                                         component={"span"}
                                         style={{ margin: 0 }}
@@ -461,7 +471,7 @@ export default function BeforePoints(props) {
                                         variant="body2"
                                         color="textSecondary"
                                       >
-                                      &nbsp;-&nbsp;
+                                        &nbsp;-&nbsp;
                                       </Typography>
                                       <Typography
                                         component={"span"}
@@ -479,6 +489,10 @@ export default function BeforePoints(props) {
                                     </div>
                                   </div>
                                 </div>
+                                <Connector>
+                                  <div />
+                                  <div />
+                                </Connector>
                                 <div className="winner">
                                   <div className="bracket">
                                     {bracketData?.tournament[selectBracket][
@@ -520,7 +534,10 @@ export default function BeforePoints(props) {
                                             }
                                           </Typography>
                                         </div>
-                                        <div className="d-flex" style={{ alignItems: "center" }}>
+                                        <div
+                                          className="d-flex"
+                                          style={{ alignItems: "center" }}
+                                        >
                                           <Typography
                                             component={"span"}
                                             style={{ margin: 0 }}
@@ -535,14 +552,14 @@ export default function BeforePoints(props) {
                                             }
                                           </Typography>
                                           <Typography
-                                        component={"span"}
-                                        style={{ margin: 0 }}
-                                        gutterBottom
-                                        variant="body2"
-                                        color="textSecondary"
-                                      >
-                                      &nbsp;-&nbsp;
-                                      </Typography>
+                                            component={"span"}
+                                            style={{ margin: 0 }}
+                                            gutterBottom
+                                            variant="body2"
+                                            color="textSecondary"
+                                          >
+                                            &nbsp;-&nbsp;
+                                          </Typography>
                                           <Typography
                                             component={"span"}
                                             style={{ margin: 0 }}
@@ -564,13 +581,21 @@ export default function BeforePoints(props) {
                               </BracketsDiv>
                             )
                         )}
-                      <p>-- already played --</p>
+                      <Divider>
+                        <div className="titleDiv">
+                          <i>&#10038;</i>
+                          <h1>Already played</h1>
+                          <i>&#10038;</i>
+                        </div>
+                        <div className="divider" />
+                      </Divider>
                       {bracketData &&
                         Object.keys(bracketData?.tournament[selectBracket]).map(
                           (content) =>
                             bracketData?.tournament[selectBracket][content]
                               .winner ? (
                               <BracketsDiv
+                                winner
                                 win={
                                   bracketData?.tournament[selectBracket][
                                     content
@@ -580,7 +605,20 @@ export default function BeforePoints(props) {
                                 onClick={() => setBracketPosition(content)}
                               >
                                 <div className="riders">
-                                  <div className="bracket">
+                                  <div
+                                    className="bracket"
+                                    style={{
+                                      borderLeft:
+                                        bracketData?.tournament[selectBracket][
+                                          content
+                                        ].winner.id ===
+                                        bracketData?.tournament[selectBracket][
+                                          content
+                                        ].rider1.id
+                                          ? "5px solid #2ECC40"
+                                          : "5px solid #0000006e",
+                                    }}
+                                  >
                                     <div className="d-flex">
                                       <Typography
                                         component={"span"}
@@ -598,6 +636,9 @@ export default function BeforePoints(props) {
                                       </Typography>
                                       <Typography
                                         component={"span"}
+                                        style={{
+                                          margin: 0,
+                                        }}
                                         gutterBottom
                                         variant="h6"
                                       >
@@ -608,7 +649,10 @@ export default function BeforePoints(props) {
                                         }
                                       </Typography>
                                     </div>
-                                    <div className="d-flex" style={{ alignItems: "center" }}>
+                                    <div
+                                      className="d-flex"
+                                      style={{ alignItems: "center" }}
+                                    >
                                       <Typography
                                         component={"span"}
                                         style={{ margin: 0 }}
@@ -629,7 +673,7 @@ export default function BeforePoints(props) {
                                         variant="body2"
                                         color="textSecondary"
                                       >
-                                      &nbsp;-&nbsp;
+                                        &nbsp;-&nbsp;
                                       </Typography>
                                       <Typography
                                         component={"span"}
@@ -646,7 +690,20 @@ export default function BeforePoints(props) {
                                       </Typography>
                                     </div>
                                   </div>
-                                  <div className="bracket">
+                                  <div
+                                    className="bracket"
+                                    style={{
+                                      borderLeft:
+                                        bracketData?.tournament[selectBracket][
+                                          content
+                                        ].winner.id ===
+                                        bracketData?.tournament[selectBracket][
+                                          content
+                                        ].rider2.id
+                                          ? "5px solid #2ECC40"
+                                          : "5px solid #0000006e",
+                                    }}
+                                  >
                                     <div className="d-flex">
                                       <Typography
                                         component={"span"}
@@ -664,6 +721,9 @@ export default function BeforePoints(props) {
                                       </Typography>
                                       <Typography
                                         component={"span"}
+                                        style={{
+                                          margin: 0,
+                                        }}
                                         gutterBottom
                                         variant="h6"
                                       >
@@ -674,7 +734,10 @@ export default function BeforePoints(props) {
                                         }
                                       </Typography>
                                     </div>
-                                    <div className="d-flex" style={{ alignItems: "center" }}>
+                                    <div
+                                      className="d-flex"
+                                      style={{ alignItems: "center" }}
+                                    >
                                       <Typography
                                         component={"span"}
                                         style={{ margin: 0 }}
@@ -695,15 +758,15 @@ export default function BeforePoints(props) {
                                         variant="body2"
                                         color="textSecondary"
                                       >
-                                            <Typography
-                                        component={"span"}
-                                        style={{ margin: 0 }}
-                                        gutterBottom
-                                        variant="body2"
-                                        color="textSecondary"
-                                      >
-                                      &nbsp;-&nbsp;
-                                      </Typography>
+                                        <Typography
+                                          component={"span"}
+                                          style={{ margin: 0 }}
+                                          gutterBottom
+                                          variant="body2"
+                                          color="textSecondary"
+                                        >
+                                          &nbsp;-&nbsp;
+                                        </Typography>
                                       </Typography>
                                       <Typography
                                         component={"span"}
@@ -721,8 +784,22 @@ export default function BeforePoints(props) {
                                     </div>
                                   </div>
                                 </div>
+                                <Connector winner>
+                                  <div />
+                                  <div />
+                                </Connector>
                                 <div className="winner">
-                                  <div className="bracket">
+                                  <div
+                                    className="bracket"
+                                    style={{
+                                      borderLeft:
+                                        bracketData?.tournament[selectBracket][
+                                          content
+                                        ].winner !== 0
+                                          ? "5px solid #2ECC40"
+                                          : "5px solid #0000006e",
+                                    }}
+                                  >
                                     {bracketData?.tournament[selectBracket][
                                       content
                                     ].winner === 0 ? (
@@ -752,6 +829,9 @@ export default function BeforePoints(props) {
                                           </Typography>
                                           <Typography
                                             component={"span"}
+                                            style={{
+                                              margin: 0,
+                                            }}
                                             gutterBottom
                                             variant="h6"
                                           >
@@ -762,7 +842,10 @@ export default function BeforePoints(props) {
                                             }
                                           </Typography>
                                         </div>
-                                        <div className="d-flex" style={{ alignItems: "center" }}>
+                                        <div
+                                          className="d-flex"
+                                          style={{ alignItems: "center" }}
+                                        >
                                           <Typography
                                             component={"span"}
                                             style={{ margin: 0 }}
@@ -777,22 +860,22 @@ export default function BeforePoints(props) {
                                             }
                                           </Typography>
                                           <Typography
-                                        component={"span"}
-                                        style={{ margin: 0 }}
-                                        gutterBottom
-                                        variant="body2"
-                                        color="textSecondary"
-                                      >
+                                            component={"span"}
+                                            style={{ margin: 0 }}
+                                            gutterBottom
+                                            variant="body2"
+                                            color="textSecondary"
+                                          >
                                             <Typography
-                                        component={"span"}
-                                        style={{ margin: 0 }}
-                                        gutterBottom
-                                        variant="body2"
-                                        color="textSecondary"
-                                      >
-                                      &nbsp;-&nbsp;
-                                      </Typography>
-                                      </Typography>
+                                              component={"span"}
+                                              style={{ margin: 0 }}
+                                              gutterBottom
+                                              variant="body2"
+                                              color="textSecondary"
+                                            >
+                                              &nbsp;-&nbsp;
+                                            </Typography>
+                                          </Typography>
                                           <Typography
                                             component={"span"}
                                             style={{ margin: 0 }}
@@ -868,7 +951,10 @@ export default function BeforePoints(props) {
                               {content.name}
                             </Typography>
                           </div>
-                          <div className="d-flex" style={{ alignItems: "center"}}>
+                          <div
+                            className="d-flex"
+                            style={{ alignItems: "center" }}
+                          >
                             <Typography
                               component={"span"}
                               style={{ margin: 0 }}
@@ -879,14 +965,14 @@ export default function BeforePoints(props) {
                               {content.category}
                             </Typography>
                             <Typography
-                                        component={"span"}
-                                        style={{ margin: 0 }}
-                                        gutterBottom
-                                        variant="body2"
-                                        color="textSecondary"
-                                      >
-                                      &nbsp;-&nbsp;
-                                      </Typography>
+                              component={"span"}
+                              style={{ margin: 0 }}
+                              gutterBottom
+                              variant="body2"
+                              color="textSecondary"
+                            >
+                              &nbsp;-&nbsp;
+                            </Typography>
                             <Typography
                               component={"span"}
                               style={{ margin: 0 }}
