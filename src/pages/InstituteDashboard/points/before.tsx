@@ -602,7 +602,6 @@ export default function BeforePoints(props) {
                                   ].winner
                                 }
                                 key={`position-${content}`}
-                                onClick={() => setBracketPosition(content)}
                               >
                                 <div className="riders">
                                   <div

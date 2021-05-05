@@ -43,6 +43,7 @@ import NewEvent from "./pages/InstituteDashboard/ManageableEvents/newEvent";
 import BeforePoints from "./pages/InstituteDashboard/points/before";
 import Points from "./pages/InstituteDashboard/points";
 import BracketsPoints from "./pages/InstituteDashboard/BracketsPoints";
+import BracketsPointsUpdate from "./pages/InstituteDashboard/BracketsPoints/editBracket";
 import UpdateEvent from "./pages/InstituteDashboard/Event/UpdateEvent";
 import CreateEvent from "./pages/InstituteDashboard/Event/CreateEvent";
 import EventOptions from "./pages/InstituteDashboard/Event/EventOptions";
@@ -175,6 +176,11 @@ ReactDOM.render(
           exact
           path="/dashboard/institute/:institute_id/manage/event/:event_id/score/bracket/group/:group_id/position/:position_id/new"
           component={BracketsPoints}
+        />
+        <ProtectedRoute
+          exact
+          path="/dashboard/institute/:institute_id/manage/event/:event_id/update/score/bracket/group/:group_id/position/:position_id/new"
+          component={BracketsPointsUpdate}
         />
         <ProtectedRoute
           exact

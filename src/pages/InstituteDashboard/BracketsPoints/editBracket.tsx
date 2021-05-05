@@ -140,7 +140,7 @@ export default function AddScore(props) {
         severity={messageParams.severity}
         {...props}
       /> */}
-      <AppBar title="Scoring for a rider" isManager {...props} />
+      <AppBar title="Updating score for a rider" isManager {...props} />
       <MainPage>
         <div>
           <div className="mb-20">
