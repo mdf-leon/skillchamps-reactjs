@@ -45,8 +45,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function Brackets(props) {
   const classes = useStyles();
   const [selectBracket, setSelectBracket] = useState<any>("0");
-  const [dataTrial, setDataTrial] = useState<any[]>([]);
-  const [bracketPosition, setBracketPosition] = useState<any>();
+  // const [dataTrial, setDataTrial] = useState<any[]>([]);
   const [bracketData, setBrecketData] = useState<any>();
 
   const { trial_id } = useParams();
@@ -56,7 +55,7 @@ export default function Brackets(props) {
       setBrecketData(res.data);
       console.log(res.data);
     });
-  }, []);
+  }, [trial_id]);
 
   return (
     <div style={{ height: "100%" }}>
@@ -89,7 +88,6 @@ export default function Brackets(props) {
                 <BracketsDiv
                   win={bracketData?.tournament[selectBracket][content].winner}
                   key={`position-${content}`}
-                  onClick={() => setBracketPosition(content)}
                 >
                   <div className="riders">
                     <div className="bracket">
