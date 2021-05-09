@@ -70,11 +70,14 @@ export const SelectBracketDiv = styled.div`
   }
 `;
 
-export const BracketsDiv = styled.div<any>`
+export const BracketsDiv = styled.button<any>`
+  outline: none;
   cursor: ${(props) => (props.winner ? "context-menu" : "pointer")};
   position: relative;
   display: flex;
   align-items: center;
+  border: 0;
+  background: transparent;
   border-bottom: 1px dashed #bbbbbb;
 
   padding: 20px;
@@ -82,6 +85,20 @@ export const BracketsDiv = styled.div<any>`
   width: 100%;
 
   :hover {
+    background: ${(props) => (props.winner ? "inherit" : "#e0e0e0")}
+      radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+  }
+
+  :active {
+    background: ${(props) => (props.winner ? "inherit" : "#d1d1d1")} !important;
+  }
+
+  /* Button style */
+  font-size: 16px;
+  text-transform: capitalize;
+  outline: none;
+
+  :focus {
     background: ${(props) => (props.winner ? "inherit" : "#0000000d")};
   }
 
