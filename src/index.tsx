@@ -42,7 +42,9 @@ import ManageableEvents from "./pages/InstituteDashboard/ManageableEvents";
 import NewEvent from "./pages/InstituteDashboard/ManageableEvents/newEvent";
 import BeforePoints from "./pages/InstituteDashboard/points/before";
 import Points from "./pages/InstituteDashboard/points";
+import Bracket from "./pages/InstituteDashboard/Bracket";
 import BracketsPoints from "./pages/InstituteDashboard/BracketsPoints";
+import BracketsPointsUpdate from "./pages/InstituteDashboard/BracketsPoints/editBracket";
 import UpdateEvent from "./pages/InstituteDashboard/Event/UpdateEvent";
 import CreateEvent from "./pages/InstituteDashboard/Event/CreateEvent";
 import EventOptions from "./pages/InstituteDashboard/Event/EventOptions";
@@ -178,6 +180,11 @@ ReactDOM.render(
         />
         <ProtectedRoute
           exact
+          path="/dashboard/institute/:institute_id/manage/event/:event_id/update/score/bracket/group/:group_id/position/:position_id/new"
+          component={BracketsPointsUpdate}
+        />
+        <ProtectedRoute
+          exact
           path="/dashboard/institute/:institute_id/manage/event/:event_id/partial_result"
           component={TrialsChooseDashboard} // chooses the partial result from the dashboard
         />
@@ -211,6 +218,11 @@ ReactDOM.render(
           exact
           path="/dashboard/institute/:institute_id/manage/event/:event_id/update/score/:score_id"
           component={Scores}
+        />
+        <ProtectedRoute
+          exact
+          path="/event/:event_id/partial_result/bracket/trial/:trial_id"
+          component={Bracket}
         />
 
         {/* {LEGACY ROUTES -- THEY SHOULD BE DESTROYED} */}

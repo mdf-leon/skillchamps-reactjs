@@ -9,8 +9,10 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
-import { useParams } from "react-router-dom";
+import querySearch from "stringquery";
+import { useParams, useLocation } from "react-router-dom";
 import {
+  YesNoDiv,
   TimeDiv,
   RoundButton,
   NumberBox,
@@ -68,6 +70,30 @@ export default function AddScore(props: any) {
     trial_id: localStorage.getItem("ongoing_trial"),
     time: "0",
   });
+
+  const { trial_id, rider_id } = querySearch(useLocation().search);
+
+  const submitBool = (time) => {
+    const body = {
+      rider_id,
+      trial_id,
+      time,
+    };
+    base
+      .post(`/addBoolScore`, body)
+      .then(() => {
+        props.history.push(
+          `/dashboard/institute/${institute_id}/manage/event/${event_id}/score/select_trial_rider`,
+          {
+            message_alert: {
+              message: `Score for ${dataRider.name} created successfully`,
+              severity: "success",
+            },
+          }
+        );
+      })
+      .catch((er) => console.log(er));
+  };
 
   const [pens, setpens] = useState<any[]>([]);
   const [bons, setbons] = useState<any[]>([]);
@@ -884,7 +910,7 @@ export default function AddScore(props: any) {
   // };
 
   return (
-    <>
+    <div>
       <Message
         message={messageParams.message}
         severity={messageParams.severity}
@@ -899,14 +925,21 @@ export default function AddScore(props: any) {
         {modalContent(activeModal)}
       </Modal>
       <AppBar isManager title="Update score" {...props} />
-      <Card style={{ minHeight: "100%" }}>
-        <MainDiv style={{ minHeight: "100%" }}>
+      {dataTrial?.type === "boolean" ? (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               backgroundColor: "#6202EE",
               padding: "14px 16px",
+              width: "100%",
             }}
           >
             <div>
@@ -923,14 +956,14 @@ export default function AddScore(props: any) {
                 component="p"
                 className={classes.mainCardText}
               >
-                {dataRider.name}
+                {dataRider.id}. {dataRider.name}
               </Typography>
               <Typography
                 variant="body2"
                 component="p"
                 className={classes.mainCardText}
               >
-                Advanced
+                {dataRider.category} - {dataRider.category2}
               </Typography>
               <Typography
                 variant="body2"
@@ -940,76 +973,143 @@ export default function AddScore(props: any) {
                 {dataRider.motorcycle_plate}
               </Typography>
             </div>
+          </div>
+
+          <YesNoDiv>
+            <Button
+              style={{ fontSize: "30px" }}
+              fullWidth
+              variant="contained"
+              color="secondary"
+              onClick={() => submitBool(0)}
+            >
+              No
+            </Button>
+            <Button
+              style={{ fontSize: "30px" }}
+              fullWidth
+              variant="contained"
+              color="primary"
+              className="buttonRight"
+              onClick={() => submitBool(1)}
+            >
+              Yes
+            </Button>
+          </YesNoDiv>
+        </div>
+      ) : (
+        <Card style={{ minHeight: "100%" }}>
+          <MainDiv style={{ minHeight: "100%" }}>
             <div
               style={{
                 display: "flex",
-                alignItems: "flex-end",
+                justifyContent: "space-between",
+                backgroundColor: "#6202EE",
+                padding: "14px 16px",
               }}
             >
-              <Button
-                style={{ width: "100%" }}
-                variant="contained"
-                color="secondary"
-                onClick={() => setactiveModal("deleteConfirm")}
+              <div>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h2"
+                  className={classes.mainCardText}
+                >
+                  {dataTrial.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="p"
+                  className={classes.mainCardText}
+                >
+                  {dataRider.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="p"
+                  className={classes.mainCardText}
+                >
+                  Advanced
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="p"
+                  className={classes.mainCardText}
+                >
+                  {dataRider.motorcycle_plate}
+                </Typography>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "flex-end",
+                }}
               >
-                DELETE
-              </Button>
-              <Button
-                style={{ width: "100%", marginLeft: "10px" }}
-                variant="contained"
-                color="primary"
-                onClick={() => setactiveModal("finishConfirm")}
+                <Button
+                  style={{ width: "100%" }}
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => setactiveModal("deleteConfirm")}
+                >
+                  DELETE
+                </Button>
+                <Button
+                  style={{ width: "100%", marginLeft: "10px" }}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setactiveModal("finishConfirm")}
+                >
+                  EDIT
+                </Button>
+              </div>
+            </div>
+
+            <TimeDiv>
+              <div
+                style={{
+                  width: "100%",
+                  cursor: "pointer",
+                  border: "1px solid",
+                  borderRadius: "4px",
+                }}
+                onClick={() => setactiveModal("customTempDefine")}
               >
-                EDIT
-              </Button>
-            </div>
-          </div>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Base Time
+                </Typography>
+                <ShowTimeInput
+                  readOnly
+                  style={{ cursor: "pointer", color: "black" }}
+                  placeholder="00:00.000"
+                  value={baseTime || "00:00.000"}
+                />
+              </div>
 
-          <TimeDiv>
-            <div
-              style={{
-                width: "100%",
-                cursor: "pointer",
-                border: "1px solid",
-                borderRadius: "4px",
-              }}
-              onClick={() => setactiveModal("customTempDefine")}
-            >
-              <Typography gutterBottom variant="h5" component="h2">
-                Base Time
-              </Typography>
-              <ShowTimeInput
-                readOnly
-                style={{ cursor: "pointer", color: "black" }}
-                placeholder="00:00.000"
-                value={baseTime || "00:00.000"}
-              />
-            </div>
+              <div style={{ width: "100%", cursor: "context-menu" }}>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Total Time
+                </Typography>
+                <Typography variant="h5" component="h2">
+                  {finalTime || "00:00.000"}
+                </Typography>
+              </div>
+            </TimeDiv>
 
-            <div style={{ width: "100%", cursor: "context-menu" }}>
-              <Typography gutterBottom variant="h5" component="h2">
-                Total Time
-              </Typography>
-              <Typography variant="h5" component="h2">
-                {finalTime || "00:00.000"}
-              </Typography>
-            </div>
-          </TimeDiv>
+            <PenaltyDiv>
+              {penaltiesConf.map((p, i) => {
+                return penalty(p, i);
+              })}
+            </PenaltyDiv>
 
-          <PenaltyDiv>
-            {penaltiesConf.map((p, i) => {
-              return penalty(p, i);
-            })}
-          </PenaltyDiv>
-
-          <PenaltyDiv>
-            {bonusesConf.map((p, i) => {
-              if (p.condition === "unconditioned") return bonus(p, i);
-              return null;
-            })}
-          </PenaltyDiv>
-        </MainDiv>
-      </Card>
-    </>
+            <PenaltyDiv>
+              {bonusesConf.map((p, i) => {
+                if (p.condition === "unconditioned") return bonus(p, i);
+                return null;
+              })}
+            </PenaltyDiv>
+          </MainDiv>
+        </Card>
+      )}
+    </div>
   );
 }
