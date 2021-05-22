@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FirstTable(props: any) {
+export default function Result(props: any) {
   const classes = useStyles();
   const {  event_id } = useParams();
   const [data, setData] = useState<any>({});

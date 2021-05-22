@@ -4,6 +4,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 // import Message from 'components/Message';
+import Message from 'components/Message';
 import AppBar from 'components/AppBar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -68,6 +69,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BeforeResult(props: any) {
   const classes = useStyles();
+  const [messageParams, setMessageParams] = useState<any>({
+    message: "",
+    severity: "",
+  });
   const { institute_id, event_id } = useParams();
   const [trials, setTrials] = useState<any[]>([]);
   const [data, setdata] = useState<any>([]);
@@ -127,17 +132,23 @@ export default function BeforeResult(props: any) {
         );
       })
       .catch((e) => {
+        setMessageParams({
+          message:
+            "Error on trying to configure the results table. Check if there is a boolean trial between one of them.",
+          severity: "error",
+        });
         console.log(e.response.data);
       });
   };
 
   return (
     <>
-      {/* <Message
+      <Message
         message={messageParams.message}
         severity={messageParams.severity}
+        onClose={() => setMessageParams({})}
         {...props}
-      /> */}
+      />
       <AppBar title="Building result tables" isManager {...props} />
       <div style={{ paddingTop: '1px', minHeight: 'calc(100% - 56px)' }}>
         <Container component="main" maxWidth="xs">
