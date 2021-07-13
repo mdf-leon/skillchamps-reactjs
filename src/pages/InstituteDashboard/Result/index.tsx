@@ -83,19 +83,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Result(props: any) {
   const classes = useStyles();
-  const {  event_id } = useParams();
+  const { event_id } = useParams();
   const [data, setData] = useState<any>({});
 
   useEffect(() => {
     base
       .get(`/result/event/${event_id}`)
       .then((r) => {
-        setData(r.data); 
+        setData(r.data);
       })
       .catch((e) => {
         props.history.push(`/event/${event_id}`, {
           message_alert: {
-            message: "This event doesn't yet have a final result. Please wait for the administration to release it.",
+            message:
+              "This event doesn't yet have a final result. Please wait for the administration to release it.",
             severity: 'warning',
           },
         });
@@ -204,7 +205,7 @@ export default function Result(props: any) {
 
   return (
     <>
-            <PublicAppBar
+      <PublicAppBar
         title={'Result'}
         backButton={{ path: `/event/${event_id}`, title: 'Back to event' }}
         rightButtons={[{ path: `/event/${event_id}`, title: 'Back to event' }]}
