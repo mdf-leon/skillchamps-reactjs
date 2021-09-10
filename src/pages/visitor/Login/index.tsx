@@ -79,8 +79,8 @@ export default function Login(props: any) {
                 </Typography>
               </div>
               <div style={{ textAlign: "center", margin: "5px 0 0 0" }}>
-                <GoogleLoginButton onClick={()=>window.location.href = 'https://backend.skillchamps.net/login/google'}></GoogleLoginButton>
-                <FacebookLoginButton onClick={()=>window.location.href = 'https://backend.skillchamps.net/login/facebook'}></FacebookLoginButton>
+                <GoogleLoginButton onClick={()=>window.location.href = 'http://backend.skillchamps.net/login/google'}></GoogleLoginButton>
+                <FacebookLoginButton onClick={()=>window.location.href = 'http://backend.skillchamps.net/login/facebook'}></FacebookLoginButton>
               </div>
             </Center>
           </div>

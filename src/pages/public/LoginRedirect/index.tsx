@@ -34,6 +34,7 @@ export default function LoginRedirect(props: any) {
         }
         // setCookie("jwt", r.data.token);
         // window.location.reload();
+        window.location.href = "/dashboard/home"
       })
       .catch((e) => {
         // setMessageParams({
