@@ -14,6 +14,7 @@ import { ThemeProvider } from "styled-components";
 // import App from "./App";
 import Home from "./pages/visitor/Home/index";
 import RiderHome from "./pages/RiderDashboard/Home";
+import FinishRegistering from "./pages/RiderDashboard/FinishRegistering"; 
 import InstituteHome from "./pages/InstituteDashboard/Home";
 import SignedEvent from "./pages/RiderDashboard/SignedEvent";
 import ViewPastEvent from "./pages/RiderDashboard/ViewPastEvent";
@@ -53,6 +54,7 @@ import GlobalStyles from "./global/global";
 import theme from "./styles/theme";
 
 import EventInfo from "./pages/public/EventInfo";
+import LoginRedirect from "./pages/public/LoginRedirect";
 
 function ProtectedRoute(props) {
   let token = localStorage.getItem("token");
@@ -97,9 +99,11 @@ ReactDOM.render(
           path="/register/Institute"
           component={RegisterInstitute}
         />
+        <Route exact path="/LoginRedirect" component={LoginRedirect} /> 
 
         {/* {NEW RIDER DASHBOARD ROUTES} */}
         <ProtectedRoute exact path="/dashboard/home" component={RiderHome} />
+        <ProtectedRoute exact path="/finish_rider" component={FinishRegistering} />
         <ProtectedRoute
           exact
           path="/dashboard/subscriptions/event/:event_id"
