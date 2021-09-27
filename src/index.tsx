@@ -92,8 +92,8 @@ ReactDOM.render(
         <Route exact path="/" component={Home} />
 
         <VisitorRoute exact path="/login" component={Login} />
-        <VisitorRoute exact path="/register" component={Register} />
-        <VisitorRoute exact path="/register/Rider" component={RegisterRider} />
+        {/* <VisitorRoute exact path="/register" component={Register} /> */}
+        {/* <VisitorRoute exact path="/register/Rider" component={RegisterRider} /> */}
         <VisitorRoute
           exact
           path="/register/Institute"

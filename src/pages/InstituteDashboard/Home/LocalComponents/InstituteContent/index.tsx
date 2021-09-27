@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 
 import {
   CardContent,
@@ -8,13 +8,13 @@ import {
   CardActions,
   Typography,
   Button,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     riderContent: {
-      display: 'flex',
-      justifyContent: 'flex-start',
+      display: "flex",
+      justifyContent: "flex-start",
     },
     riderImage: {
       minHeight: 110,
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 110,
     },
     action: {
-      position: 'unset',
+      position: "unset",
     },
   })
 );
@@ -34,7 +34,7 @@ export default function RiderCardContent(props: any) {
   const [instituteInfo, setinstituteInfo] = React.useState<any>({});
 
   React.useEffect(() => {
-    setinstituteInfo(JSON.parse(localStorage.getItem('institute_info') || ''));
+    setinstituteInfo(JSON.parse(localStorage.getItem("institute_info") || ""));
   }, []);
 
   return (
@@ -50,18 +50,24 @@ export default function RiderCardContent(props: any) {
             {instituteInfo.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {localStorage.getItem('institute_info')
-              ? 'Administration Privileges'
-              : 'Manager Privileges'}
+            {localStorage.getItem("institute_info")
+              ? "Administration Privileges"
+              : "Manager Privileges"}
           </Typography>
         </div>
       </CardContent>
-      <CardActions style={{ justifyContent: 'space-between' }}>
+      <CardActions style={{ justifyContent: "space-between" }}>
         <Button
           className={classes.action}
           size="small"
           color="primary"
-          onClick={() => console.log()}
+          onClick={() =>
+            props.history.push(
+              `/dashboard/institute/${
+                JSON.parse(localStorage.getItem("institute_info") || "").id
+              }/settings`
+            )
+          }
         >
           SETTINGS
         </Button>
@@ -73,7 +79,7 @@ export default function RiderCardContent(props: any) {
           onClick={() =>
             props.history.push(
               `/dashboard/institute/${
-                JSON.parse(localStorage.getItem('institute_info') || '').id
+                JSON.parse(localStorage.getItem("institute_info") || "").id
               }/create/event`
             )
           }
