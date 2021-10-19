@@ -668,7 +668,7 @@ export default function BeforePoints(props) {
                             alignItems: "end",
                           }}
                           onClick={() => {
-                            if (!content.scores) {
+                            if (content.scores) {
                               setCurrentRiderInfo({ ...content });
                               localStorage.setItem("ongoing_rider", content.id);
                             }

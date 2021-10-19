@@ -187,7 +187,7 @@ export default function AddScore(props: any) {
       })
       .catch(() => {});
     base
-      .get(`/score/${score_id}`)
+      .get(`/score/${score_id}?trial_id=${trial_id}&rider_id=${rider_id}`)
       .then((r) => {
         // setScoreInfo(r.data);
         const pensTemp: any[] = [];
