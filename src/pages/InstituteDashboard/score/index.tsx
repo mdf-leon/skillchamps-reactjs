@@ -636,6 +636,8 @@ export default function AddScore(props: any) {
         quantity: bons[i] || 0,
       });
     }
+    // console.log(temp)
+    // return ""
     await base
       .put(`/score/${score_id}`, temp)
       .then(() => {

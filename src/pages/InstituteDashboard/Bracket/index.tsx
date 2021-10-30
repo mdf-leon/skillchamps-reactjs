@@ -317,148 +317,78 @@ export default function Brackets(props) {
         {bracketData &&
           Object.keys(bracketData?.tournament[selectBracket]).map((content) =>
             bracketData?.tournament[selectBracket][content].winner ? (
-              <BracketsDiv
-                winner
-                win={bracketData?.tournament[selectBracket][content].winner}
-                key={`position-${content}`}
-              >
-                <div className="riders">
-                  <div
-                    className="bracket"
-                    style={{
-                      borderLeft:
-                        bracketData?.tournament[selectBracket][content].winner
-                          .id ===
-                        bracketData?.tournament[selectBracket][content].rider1
-                          .id
-                          ? "5px solid #2ECC40"
-                          : "5px solid #0000006e",
-                    }}
-                  >
-                    <div className="d-flex">
-                      <Typography
-                        component={"span"}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="h6"
-                        color="textSecondary"
-                      >
-                        {
+              <div>
+                {bracketData?.tournament[selectBracket][content].type ==
+                  "third" ? (
+                    <Divider>
+                      <div className="titleDiv">
+                        <i>&#10038;</i>
+                        <h2>Third place: </h2>
+                        <i>&#10038;</i>
+                      </div>
+                      <div className="divider" />
+                    </Divider>
+                  ) : null}
+                <BracketsDiv
+                  winner
+                  win={bracketData?.tournament[selectBracket][content].winner}
+                  key={`position-${content}`}
+                >
+                  
+                  <div className="riders">
+                    <div
+                      className="bracket"
+                      style={{
+                        borderLeft:
+                          bracketData?.tournament[selectBracket][content].winner
+                            .id ===
                           bracketData?.tournament[selectBracket][content].rider1
                             .id
-                        }
-                        .&nbsp;
-                      </Typography>
-                      <Typography
-                        component={"span"}
-                        style={{
-                          margin: 0,
-                        }}
-                        gutterBottom
-                        variant="h6"
-                      >
-                        {
-                          bracketData?.tournament[selectBracket][content].rider1
-                            .name
-                        }
-                      </Typography>
-                    </div>
-                    <div className="d-flex" style={{ alignItems: "center" }}>
-                      <Typography
-                        component={"span"}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="body2"
-                        color="textSecondary"
-                      >
-                        {
-                          bracketData?.tournament[selectBracket][content].rider2
-                            .category
-                        }
-                      </Typography>
-                      <Typography
-                        component={"span"}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="body2"
-                        color="textSecondary"
-                      >
-                        &nbsp;-&nbsp;
-                      </Typography>
-                      <Typography
-                        component={"span"}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="body2"
-                        color="textSecondary"
-                      >
-                        {
-                          bracketData?.tournament[selectBracket][content].rider2
-                            .category2
-                        }
-                      </Typography>
-                    </div>
-                  </div>
-                  <div
-                    className="bracket"
-                    style={{
-                      borderLeft:
-                        bracketData?.tournament[selectBracket][content].winner
-                          .id ===
-                        bracketData?.tournament[selectBracket][content].rider2
-                          .id
-                          ? "5px solid #2ECC40"
-                          : "5px solid #0000006e",
-                    }}
-                  >
-                    <div className="d-flex">
-                      <Typography
-                        component={"span"}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="h6"
-                        color="textSecondary"
-                      >
-                        {
-                          bracketData?.tournament[selectBracket][content].rider2
-                            .id
-                        }
-                        .&nbsp;
-                      </Typography>
-                      <Typography
-                        component={"span"}
-                        style={{
-                          margin: 0,
-                        }}
-                        gutterBottom
-                        variant="h6"
-                      >
-                        {
-                          bracketData?.tournament[selectBracket][content].rider2
-                            .name
-                        }
-                      </Typography>
-                    </div>
-                    <div className="d-flex" style={{ alignItems: "center" }}>
-                      <Typography
-                        component={"span"}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="body2"
-                        color="textSecondary"
-                      >
-                        {
-                          bracketData?.tournament[selectBracket][content].rider2
-                            .category
-                        }
-                      </Typography>
-                      <Typography
-                        component={"span"}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="body2"
-                        color="textSecondary"
-                      >
+                            ? "5px solid #2ECC40"
+                            : "5px solid #0000006e",
+                      }}
+                    >
+                      <div className="d-flex">
+                        <Typography
+                          component={"span"}
+                          style={{ margin: 0 }}
+                          gutterBottom
+                          variant="h6"
+                          color="textSecondary"
+                        >
+                          {
+                            bracketData?.tournament[selectBracket][content]
+                              .rider1.id
+                          }
+                          .&nbsp;
+                        </Typography>
+                        <Typography
+                          component={"span"}
+                          style={{
+                            margin: 0,
+                          }}
+                          gutterBottom
+                          variant="h6"
+                        >
+                          {
+                            bracketData?.tournament[selectBracket][content]
+                              .rider1.name
+                          }
+                        </Typography>
+                      </div>
+                      <div className="d-flex" style={{ alignItems: "center" }}>
+                        <Typography
+                          component={"span"}
+                          style={{ margin: 0 }}
+                          gutterBottom
+                          variant="body2"
+                          color="textSecondary"
+                        >
+                          {
+                            bracketData?.tournament[selectBracket][content]
+                              .rider2.category
+                          }
+                        </Typography>
                         <Typography
                           component={"span"}
                           style={{ margin: 0 }}
@@ -468,75 +398,79 @@ export default function Brackets(props) {
                         >
                           &nbsp;-&nbsp;
                         </Typography>
-                      </Typography>
-                      <Typography
-                        component={"span"}
-                        style={{ margin: 0 }}
-                        gutterBottom
-                        variant="body2"
-                        color="textSecondary"
-                      >
-                        {
-                          bracketData?.tournament[selectBracket][content].rider2
-                            .category2
-                        }
-                      </Typography>
+                        <Typography
+                          component={"span"}
+                          style={{ margin: 0 }}
+                          gutterBottom
+                          variant="body2"
+                          color="textSecondary"
+                        >
+                          {
+                            bracketData?.tournament[selectBracket][content]
+                              .rider2.category2
+                          }
+                        </Typography>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <Connector winner>
-                  <div />
-                  <div />
-                </Connector>
-                <div className="winner">
-                  <div
-                    className="bracket"
-                    style={{
-                      borderLeft:
-                        bracketData?.tournament[selectBracket][content]
-                          .winner !== 0
-                          ? "5px solid #2ECC40"
-                          : "5px solid #0000006e",
-                    }}
-                  >
-                    {bracketData?.tournament[selectBracket][content].winner ===
-                    0 ? (
-                      <Typography component={"span"} gutterBottom variant="h6">
-                        There is no winner yet
-                      </Typography>
-                    ) : (
-                      <div>
-                        <div className="d-flex ">
-                          <Typography
-                            component={"span"}
-                            style={{ margin: 0 }}
-                            gutterBottom
-                            variant="h6"
-                            color="textSecondary"
-                          >
-                            {
-                              bracketData?.tournament[selectBracket][content]
-                                .winner.id
-                            }
-                            .&nbsp;
-                          </Typography>
-                          <Typography
-                            component={"span"}
-                            style={{
-                              margin: 0,
-                            }}
-                            gutterBottom
-                            variant="h6"
-                          >
-                            {
-                              bracketData?.tournament[selectBracket][content]
-                                .winner.name
-                            }
-                          </Typography>
-                        </div>
-                        <div
-                          className="d-flex"
-                          style={{ alignItems: "center" }}
+                    <div
+                      className="bracket"
+                      style={{
+                        borderLeft:
+                          bracketData?.tournament[selectBracket][content].winner
+                            .id ===
+                          bracketData?.tournament[selectBracket][content].rider2
+                            .id
+                            ? "5px solid #2ECC40"
+                            : "5px solid #0000006e",
+                      }}
+                    >
+                      <div className="d-flex">
+                        <Typography
+                          component={"span"}
+                          style={{ margin: 0 }}
+                          gutterBottom
+                          variant="h6"
+                          color="textSecondary"
+                        >
+                          {
+                            bracketData?.tournament[selectBracket][content]
+                              .rider2.id
+                          }
+                          .&nbsp;
+                        </Typography>
+                        <Typography
+                          component={"span"}
+                          style={{
+                            margin: 0,
+                          }}
+                          gutterBottom
+                          variant="h6"
+                        >
+                          {
+                            bracketData?.tournament[selectBracket][content]
+                              .rider2.name
+                          }
+                        </Typography>
+                      </div>
+                      <div className="d-flex" style={{ alignItems: "center" }}>
+                        <Typography
+                          component={"span"}
+                          style={{ margin: 0 }}
+                          gutterBottom
+                          variant="body2"
+                          color="textSecondary"
+                        >
+                          {
+                            bracketData?.tournament[selectBracket][content]
+                              .rider2.category
+                          }
+                        </Typography>
+                        <Typography
+                          component={"span"}
+                          style={{ margin: 0 }}
+                          gutterBottom
+                          variant="body2"
+                          color="textSecondary"
                         >
                           <Typography
                             component={"span"}
@@ -545,17 +479,81 @@ export default function Brackets(props) {
                             variant="body2"
                             color="textSecondary"
                           >
-                            {
-                              bracketData?.tournament[selectBracket][content]
-                                .rider2.category
-                            }
+                            &nbsp;-&nbsp;
                           </Typography>
-                          <Typography
-                            component={"span"}
-                            style={{ margin: 0 }}
-                            gutterBottom
-                            variant="body2"
-                            color="textSecondary"
+                        </Typography>
+                        <Typography
+                          component={"span"}
+                          style={{ margin: 0 }}
+                          gutterBottom
+                          variant="body2"
+                          color="textSecondary"
+                        >
+                          {
+                            bracketData?.tournament[selectBracket][content]
+                              .rider2.category2
+                          }
+                        </Typography>
+                      </div>
+                    </div>
+                  </div>
+                  <Connector winner>
+                    <div />
+                    <div />
+                  </Connector>
+                  <div className="winner">
+                    <div
+                      className="bracket"
+                      style={{
+                        borderLeft:
+                          bracketData?.tournament[selectBracket][content]
+                            .winner !== 0
+                            ? "5px solid #2ECC40"
+                            : "5px solid #0000006e",
+                      }}
+                    >
+                      {bracketData?.tournament[selectBracket][content]
+                        .winner === 0 ? (
+                        <Typography
+                          component={"span"}
+                          gutterBottom
+                          variant="h6"
+                        >
+                          There is no winner yet
+                        </Typography>
+                      ) : (
+                        <div>
+                          <div className="d-flex ">
+                            <Typography
+                              component={"span"}
+                              style={{ margin: 0 }}
+                              gutterBottom
+                              variant="h6"
+                              color="textSecondary"
+                            >
+                              {
+                                bracketData?.tournament[selectBracket][content]
+                                  .winner.id
+                              }
+                              .&nbsp;
+                            </Typography>
+                            <Typography
+                              component={"span"}
+                              style={{
+                                margin: 0,
+                              }}
+                              gutterBottom
+                              variant="h6"
+                            >
+                              {
+                                bracketData?.tournament[selectBracket][content]
+                                  .winner.name
+                              }
+                            </Typography>
+                          </div>
+                          <div
+                            className="d-flex"
+                            style={{ alignItems: "center" }}
                           >
                             <Typography
                               component={"span"}
@@ -564,27 +562,47 @@ export default function Brackets(props) {
                               variant="body2"
                               color="textSecondary"
                             >
-                              &nbsp;-&nbsp;
+                              {
+                                bracketData?.tournament[selectBracket][content]
+                                  .rider2.category
+                              }
                             </Typography>
-                          </Typography>
-                          <Typography
-                            component={"span"}
-                            style={{ margin: 0 }}
-                            gutterBottom
-                            variant="body2"
-                            color="textSecondary"
-                          >
-                            {
-                              bracketData?.tournament[selectBracket][content]
-                                .rider2.category2
-                            }
-                          </Typography>
+                            <Typography
+                              component={"span"}
+                              style={{ margin: 0 }}
+                              gutterBottom
+                              variant="body2"
+                              color="textSecondary"
+                            >
+                              <Typography
+                                component={"span"}
+                                style={{ margin: 0 }}
+                                gutterBottom
+                                variant="body2"
+                                color="textSecondary"
+                              >
+                                &nbsp;-&nbsp;
+                              </Typography>
+                            </Typography>
+                            <Typography
+                              component={"span"}
+                              style={{ margin: 0 }}
+                              gutterBottom
+                              variant="body2"
+                              color="textSecondary"
+                            >
+                              {
+                                bracketData?.tournament[selectBracket][content]
+                                  .rider2.category2
+                              }
+                            </Typography>
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
-                </div>
-              </BracketsDiv>
+                </BracketsDiv>
+              </div>
             ) : null
           )}
       </Container>
