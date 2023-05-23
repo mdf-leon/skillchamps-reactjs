@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // nao pode ter/ no final da url
-const baseUrl = `https://backend.skillchamps.net`; // https://skillchamps.herokuapp.com
+const baseUrl = process.env.REACT_APP_API_URL; // https://skillchamps.herokuapp.com
 
 let base = axios.create({ // getImage
   baseURL: baseUrl,
