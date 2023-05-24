@@ -81,13 +81,13 @@ export default function Login(props) {
                 <GoogleLoginButton
                   onClick={() =>
                     (window.location.href =
-                      "https://backend.skillchamps.net/login/google")
+                      process.env.REACT_APP_API_URL+"/login/google")
                   }
                 ></GoogleLoginButton>
                 <FacebookLoginButton
                   onClick={() =>
                     (window.location.href =
-                      "https://backend.skillchamps.net/login/facebook")
+                      process.env.REACT_APP_API_URL+"/login/facebook")
                   }
                 ></FacebookLoginButton>
               </div>
