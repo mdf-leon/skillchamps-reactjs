@@ -11,14 +11,14 @@ import {
   Box,
 } from '@material-ui/core';
 
-function a11yProps(index: any) {
+function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
     'aria-controls': `full-width-tabpanel-${index}`,
   };
 }
 
-function TabPanel(props: any) {
+function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -39,7 +39,7 @@ function TabPanel(props: any) {
   );
 }
 
-export default function TabNav(props: any) {
+export default function TabNav(props) {
   const {
     // children,
     // value,
@@ -52,8 +52,8 @@ export default function TabNav(props: any) {
 
   const theme = useTheme();
 
-  const [in_tabIndex, setin_tabIndex] = React.useState<number>(0);
-  const in_handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const [in_tabIndex, setin_tabIndex] = React.useState(0);
+  const in_handleChange = (event, newValue) => {
     event.preventDefault();
     setin_tabIndex(newValue);
   };

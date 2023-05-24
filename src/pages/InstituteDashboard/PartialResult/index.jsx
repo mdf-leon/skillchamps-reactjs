@@ -40,7 +40,7 @@ import { base } from "../../../config/api";
 //   })
 // )(TableSortLabel);
 
-const StyledTableCell = withStyles((theme: Theme) =>
+const StyledTableCell = withStyles((theme) =>
   createStyles({
     head: {},
     body: {
@@ -49,7 +49,7 @@ const StyledTableCell = withStyles((theme: Theme) =>
   })
 )(TableCell);
 
-const StyledTableRow = withStyles((theme: Theme) =>
+const StyledTableRow = withStyles((theme) =>
   createStyles({
     root: {
       "&:nth-of-type(odd)": {
@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-type Order = "asc" | "desc";
+// type Order = "asc" | "desc";
 
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
@@ -119,15 +119,15 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-export default function CustomizedTables(props: any) {
+export default function CustomizedTables(props) {
   const classes = useStyles();
-  const [category, setCategory] = useState<any>("");
-  const [data, setData] = useState<any>({});
-  const [trialData, settrialData] = useState<any>({});
-  const [penaltyConfs, setPenaltyConfs] = useState<any>([]);
-  const [bonusesConfs, setBonusesConfs] = useState<any>([]);
+  const [category, setCategory] = useState("");
+  const [data, setData] = useState({});
+  const [trialData, settrialData] = useState({});
+  const [penaltyConfs, setPenaltyConfs] = useState([]);
+  const [bonusesConfs, setBonusesConfs] = useState([]);
 
-  const [order, setOrder] = React.useState<Order>("asc");
+  const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("position");
 
   // let parameters = qs.parse(props.location.search);
@@ -135,7 +135,7 @@ export default function CustomizedTables(props: any) {
   const { trial_id, event_id } = useParams();
 
   useEffect(() => {
-    let params: any = {
+    let params = {
       event_id,
       trial_id,
       category,

@@ -3,11 +3,7 @@ import VisitorAppBar from "../../SharedLocalComponents/VisitorAppBar";
 // import { Redirect } from 'react-router-dom'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import {
-  CssBaseline,
-  makeStyles,
-  Container,
-} from "@material-ui/core";
+import { CssBaseline, makeStyles, Container } from "@material-ui/core";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Center } from "./styles";
 // import { Typography } from "@material-ui/core";
@@ -16,7 +12,10 @@ import {
   // LandPageButton,
   // DivButtons,
 } from "./stylees";
-import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
+import {
+  FacebookLoginButton,
+  GoogleLoginButton,
+} from "react-social-login-buttons";
 import Message from "components/Message";
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login(props: any) {
+export default function Login(props) {
   const classes = useStyles();
-  const [messageParams, setMessageParams] = useState<any>({
+  const [messageParams, setMessageParams] = useState({
     message: "",
     severity: "",
   });
@@ -79,8 +78,18 @@ export default function Login(props: any) {
                 </Typography>
               </div>
               <div style={{ textAlign: "center", margin: "5px 0 0 0" }}>
-                <GoogleLoginButton onClick={()=>window.location.href = 'https://backend.skillchamps.net/login/google'}></GoogleLoginButton>
-                <FacebookLoginButton onClick={()=>window.location.href = 'https://backend.skillchamps.net/login/facebook'}></FacebookLoginButton>
+                <GoogleLoginButton
+                  onClick={() =>
+                    (window.location.href =
+                      "https://backend.skillchamps.net/login/google")
+                  }
+                ></GoogleLoginButton>
+                <FacebookLoginButton
+                  onClick={() =>
+                    (window.location.href =
+                      "https://backend.skillchamps.net/login/facebook")
+                  }
+                ></FacebookLoginButton>
               </div>
             </Center>
           </div>

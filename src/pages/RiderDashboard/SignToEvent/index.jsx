@@ -27,7 +27,7 @@ import { MainDiv, CardsDiv } from './styles';
 
 import { base, baseUrl } from 'config/api';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme ) =>
   createStyles({
     mainDiv: {
       margin: 0,
@@ -58,13 +58,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function FindEvents(props: any) {
+export default function FindEvents(props ) {
   const classes = useStyles();
 
-  const [inputValue, setinputValue] = React.useState<any>();
-  const [selectInputType, setselectInputType] = React.useState<any>('');
+  const [inputValue, setinputValue] = React.useState ();
+  const [selectInputType, setselectInputType] = React.useState ('');
 
-  const [events, setevents] = React.useState<any[]>([]);
+  const [events, setevents] = React.useState ([]);
 
   const handleSearch = (type) => (e) => {
     const val = type === 'date' ? e : e.target.value;

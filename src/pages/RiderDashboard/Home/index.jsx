@@ -10,7 +10,7 @@ import {
   Hidden,
 } from "@material-ui/core";
 
-export default function SharedDashboardHome(props: any) {
+export default function SharedDashboardHome(props) {
   return (
     <div style={{ maxHeight: "100%", minHeight: "100%", overflowX: "hidden" }}>
       <AppBar

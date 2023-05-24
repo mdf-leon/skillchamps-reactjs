@@ -1,7 +1,7 @@
 import React from "react";
 import Message from "components/Message";
 
-import TabNav from "components/TabNav";
+import TabNav from "components/TabNav/index";
 
 import {
   makeStyles,

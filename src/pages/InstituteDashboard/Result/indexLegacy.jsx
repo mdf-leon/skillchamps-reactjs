@@ -36,7 +36,7 @@ import { TableCell, TitleDiv, TheConeMasterDiv } from './styles';
 //   })
 // )(TableSortLabel);
 
-const StyledTableCell = withStyles((theme: Theme) =>
+const StyledTableCell = withStyles((theme) =>
   createStyles({
     head: {},
     body: {
@@ -45,7 +45,7 @@ const StyledTableCell = withStyles((theme: Theme) =>
   })
 )(TableCell);
 
-const StyledTableRow = withStyles((theme: Theme) =>
+const StyledTableRow = withStyles((theme) =>
   createStyles({
     root: {
       '&:nth-of-type(odd)': {
@@ -95,9 +95,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FirstTable(props: any) {
+export default function FirstTable(props) {
   const classes = useStyles();
-  const [data, setData] = useState<any>({});
+  const [data, setData] = useState({});
 
   let parameters = qs.parse(props.location.search);
 
@@ -114,7 +114,7 @@ export default function FirstTable(props: any) {
       };
     }
 
-    let tempParametersNameArray: any[] = [];
+    let tempParametersNameArray = [];
     for (const key in tempParametersNameObject) {
       tempParametersNameArray.push(tempParametersNameObject[key]);
     }

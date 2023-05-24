@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TabNav from 'components/TabNav';
+import TabNav from 'components/TabNav/index';
 
 import {
   makeStyles,
@@ -20,7 +20,7 @@ import SubscribedEvents from '../LocalComponents/SubscribedEvents';
 import RiderContent from '../LocalComponents/RiderContent';
 import HistoryContent from '../LocalComponents/HistoryContent';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme ) =>
   createStyles({
     mainDiv: {
       overflow: 'hidden',
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-export default function MobileHome(props: any) {
+export default function MobileHome(props ) {
   
   function testBody(str) {
     return <div>{str}</div>;

@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { CheckCircle, VisibilityOff, Cancel } from '@material-ui/icons';
-import { base } from 'config/api';
+import { base, baseUrl } from './../../../../../../../src/config/api';
 import ConeSVG from 'assets/svg/traffic-cone-svgrepo-com 1.svg';
 
 const useStyles = makeStyles((theme: Theme) =>

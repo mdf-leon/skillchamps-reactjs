@@ -10,7 +10,7 @@ import {
   // BurguerIcon,
 } from "./styles";
 
-export default function VisitorAppBar(props: any) {
+export default function VisitorAppBar(props ) {
   const { fixed, buttonName, buttonHref } = props;
   const [width] = useWindowSize();
   const [isCollapsed, setIsCollapsed] = React.useState(false);

@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp(props: any) {
+export default function SignUp(props) {
   const classes = useStyles();
 
   return (

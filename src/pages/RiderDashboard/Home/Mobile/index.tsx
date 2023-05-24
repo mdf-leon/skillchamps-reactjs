@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TabNav from 'components/TabNav';
+import TabNav from 'components/TabNav/index';
 
 import {
   makeStyles,

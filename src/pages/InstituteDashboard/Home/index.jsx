@@ -10,7 +10,7 @@ import {
   Hidden,
 } from "@material-ui/core";
 
-export default function InstituteHome(props: any) {
+export default function InstituteHome(props) {
 
   return (
     <div style={{ maxHeight: "100%", minHeight: "100%", overflowX: "hidden" }}>

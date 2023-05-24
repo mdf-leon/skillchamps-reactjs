@@ -44,20 +44,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp(props: any) {
+export default function SignUp(props ) {
   const classes = useStyles();
-  const [registerInfo, setRegisterInfo] = useState<any>({
+  const [registerInfo, setRegisterInfo] = useState({
     email: "",
     password: "",
     r_password: "",
   });
-  const [riderInfo, setriderInfo] = useState<any>({
+
+  const [instituteInfo, setinstituteInfo] = useState({
     name: "",
-    category: "",
-    date_of_birth: "",
-    motorcycle: "",
-    motorcycle_plate: "",
-    license_ido: "",
     fed_tax_ido: "",
     subd_tax_ido: "",
     city_tax_ido: "",
@@ -78,14 +74,15 @@ export default function SignUp(props: any) {
             console.log(r);
             localStorage.setItem("token", r.data.token);
             base
-              .post("/makeRider", riderInfo, {
+              .post("/makeInstitute", instituteInfo, {
                 headers: {
                   Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
               })
               .then((r) => {
                 console.log(r);
-                window.location.reload();
+                localStorage.clear();
+                window.location.assign("/login");
               })
               .catch((e) => {
                 console.log(e.response);
@@ -98,121 +95,31 @@ export default function SignUp(props: any) {
       .catch((err) => console.log(err.response.message));
   };
 
-  const riderForm = (
+  const instituteForm = (
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <TextField
           onChange={(e) =>
-            setriderInfo({
-              ...riderInfo,
+            setinstituteInfo({
+              ...instituteInfo,
               name: e.target.value,
             })
           }
-          autoComplete="fullname"
-          name="fullname"
+          autoComplete="institute_name"
+          name="institute_name"
           variant="outlined"
           required
           fullWidth
-          id="fullname"
-          label="Full Name"
+          id="institute_name"
+          label="Institute Name"
           autoFocus
         />
       </Grid>
       <Grid item xs={12}>
         <TextField
           onChange={(e) =>
-            setriderInfo({
-              ...riderInfo,
-              category: e.target.value,
-            })
-          }
-          autoComplete="category"
-          name="category"
-          variant="outlined"
-          required
-          fullWidth
-          id="category"
-          label="Category"
-          autoFocus
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          onChange={(e) =>
-            setriderInfo({
-              ...riderInfo,
-              date_of_birth: e.target.value,
-            })
-          }
-          autoComplete="date_of_birth"
-          name="date_of_birth"
-          variant="outlined"
-          required
-          fullWidth
-          id="date_of_birth"
-          label="Date of birth"
-          autoFocus
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          onChange={(e) =>
-            setriderInfo({
-              ...riderInfo,
-              motorcycle: e.target.value,
-            })
-          }
-          autoComplete="motorcycle"
-          name="motorcycle"
-          variant="outlined"
-          required
-          fullWidth
-          id="motorcycle"
-          label="Motorcycle"
-          autoFocus
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          onChange={(e) =>
-            setriderInfo({
-              ...riderInfo,
-              motorcycle_plate: e.target.value,
-            })
-          }
-          autoComplete="motorcycle_plate"
-          name="motorcycle_plate"
-          variant="outlined"
-          required
-          fullWidth
-          id="motorcycle_plate"
-          label="Motorcycle Plate"
-          autoFocus
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          onChange={(e) =>
-            setriderInfo({
-              ...riderInfo,
-              license_ido: e.target.value,
-            })
-          }
-          autoComplete="license_ido"
-          name="license_ido"
-          variant="outlined"
-          required
-          fullWidth
-          id="license_ido"
-          label="License number"
-          autoFocus
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          onChange={(e) =>
-            setriderInfo({
-              ...riderInfo,
+            setinstituteInfo({
+              ...instituteInfo,
               fed_tax_ido: e.target.value,
             })
           }
@@ -229,8 +136,8 @@ export default function SignUp(props: any) {
       <Grid item xs={12}>
         <TextField
           onChange={(e) =>
-            setriderInfo({
-              ...riderInfo,
+            setinstituteInfo({
+              ...instituteInfo,
               subd_tax_ido: e.target.value,
             })
           }
@@ -247,8 +154,8 @@ export default function SignUp(props: any) {
       <Grid item xs={12}>
         <TextField
           onChange={(e) =>
-            setriderInfo({
-              ...riderInfo,
+            setinstituteInfo({
+              ...instituteInfo,
               city_tax_ido: e.target.value,
             })
           }
@@ -268,21 +175,28 @@ export default function SignUp(props: any) {
   return (
     <>
       <VisitorAppBar buttonName="Log in" buttonHref="/login" {...props} />
-      <div style={{ paddingTop: "1px", minHeight: "100%" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          paddingTop: "1px",
+          minHeight: "100%",
+        }}
+      >
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
-              Sign up
+              Sign up as an institute
+            </Typography>
+            <Typography component="h1" variant="body2">
+              Are you a rider? <br></br>We are sorry but the rider registration
+              is not open yet! <br></br>But don't worry, the development ends
+              soon!
             </Typography>
             <form onSubmit={handleSubmit} className={classes.form} noValidate>
-              {riderForm}
-
+              {instituteForm}
               <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <p>conta</p>
-                </Grid>
-
                 <Grid item xs={12}>
                   <TextField
                     onChange={(e) =>

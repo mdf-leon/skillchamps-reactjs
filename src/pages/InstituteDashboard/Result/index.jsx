@@ -22,7 +22,7 @@ import { base } from 'config/api';
 import { TableCell, TitleDiv, TheConeMasterDiv } from './styles';
 import { useParams } from 'react-router-dom';
 
-const StyledTableCell = withStyles((theme: Theme) =>
+const StyledTableCell = withStyles((theme) =>
   createStyles({
     head: {},
     body: {
@@ -31,7 +31,7 @@ const StyledTableCell = withStyles((theme: Theme) =>
   })
 )(TableCell);
 
-const StyledTableRow = withStyles((theme: Theme) =>
+const StyledTableRow = withStyles((theme) =>
   createStyles({
     root: {
       '&:nth-of-type(odd)': {
@@ -81,10 +81,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Result(props: any) {
+export default function Result(props) {
   const classes = useStyles();
   const { event_id } = useParams();
-  const [data, setData] = useState<any>({});
+  const [data, setData] = useState({});
 
   useEffect(() => {
     base
