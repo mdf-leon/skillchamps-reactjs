@@ -7,6 +7,8 @@ import { base, baseUrl } from "config/api";
 export default function LoginRedirect(props: any) {
   let query = new URLSearchParams(useLocation().search);
   React.useEffect(() => {
+    console.log(`login reditrect`, query);
+    
     query.get("token") && localStorage.setItem("token", query.get("token")!);
     base
       .post("/user")
