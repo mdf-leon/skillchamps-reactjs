@@ -47,6 +47,7 @@ const Home = (props: any) => {
   const [width, height] = useWindowSize();
 
   React.useEffect(() => {
+    console.log(process.env.REACT_APP_API_URL)
     if (localStorage.getItem("lastSeenEvent")) {
       props.history.push(`/event/${localStorage.getItem("lastSeenEvent")}`);
     }
